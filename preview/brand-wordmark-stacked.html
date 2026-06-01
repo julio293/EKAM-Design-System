@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>EKAM · Stacked Wordmark</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { height: 100%; }
+  .stage {
+    width: 700px; min-height: 300px;
+    padding: 36px 48px;
+    display: flex; align-items: center; gap: 48px;
+    background: var(--sand);
+  }
+  .mark {
+    flex: 0 0 220px;
+    background: var(--cream);
+    border: 1px solid var(--bone);
+    padding: 28px 24px 24px;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+  }
+  .mark svg {
+    width: 100%; height: auto; display: block;
+    overflow: visible;
+  }
+  .mark__cap {
+    font-family: var(--font-ui); font-size: 9px;
+    letter-spacing: 2.5px; color: var(--moss);
+    text-transform: uppercase; font-weight: 500;
+    margin-top: 8px;
+  }
+
+  .meta { flex: 1; }
+  .meta__eyebrow {
+    font-family: var(--font-ui); font-size: 10px;
+    letter-spacing: 3px; color: var(--bindu);
+    text-transform: uppercase; font-weight: 500;
+    margin-bottom: 8px; display: block;
+  }
+  .meta h4 {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: 26px; color: var(--forest);
+    letter-spacing: 1px; margin-bottom: 8px;
+    line-height: 1.1;
+  }
+  .meta__lede {
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 14px; color: var(--moss);
+    line-height: 1.55; margin-bottom: 18px;
+    max-width: 320px;
+  }
+  .row {
+    display: flex; gap: 16px; padding: 9px 0;
+    font-family: var(--font-ui); font-size: 11px;
+    letter-spacing: 0.3px; color: var(--ink);
+    border-top: 1px solid var(--bone);
+    font-weight: 300; line-height: 1.55;
+  }
+  .row:first-of-type { border-top: 0; }
+  .row b {
+    color: var(--bindu); font-weight: 500;
+    flex: 0 0 90px; letter-spacing: 2px;
+    text-transform: uppercase; font-size: 9.5px;
+  }
+  .row span { flex: 1; }
+</style>
+</head>
+<body>
+  <div class="stage">
+
+    <!-- ─── The mark ──────────────────────────────────────────
+         viewBox is wide enough to clear the descender on M
+         and the full ascender row on एकम्. Letter-spacing is
+         tuned so the optical centre of the two lines aligns.
+    ─────────────────────────────────────────────────────────── -->
+    <div class="mark">
+      <svg viewBox="0 0 280 230" aria-label="EKAM stacked wordmark">
+        <!-- Sanskrit: centered, clay -->
+        <text
+          x="140" y="78"
+          text-anchor="middle"
+          font-family="Tiro Devanagari Hindi, serif"
+          font-size="42"
+          fill="#B4613A"
+          letterSpacing="3"
+        >एकम्</text>
+
+        <!-- short bindu rule between the two lines -->
+        <line x1="124" y1="108" x2="156" y2="108" stroke="#B4613A" stroke-width="1"/>
+
+        <!-- EKAM line: E + bindu + KAM, manually composed and centered.
+             At font-size 52 / letterSpacing 5, the full line measures
+             ≈156px; we offset E to x=62 so the line centres on x=140.   -->
+        <text
+          x="62" y="190"
+          font-family="Cormorant Garamond, serif"
+          font-weight="400"
+          font-size="52"
+          fill="#2B4630"
+          letterSpacing="5"
+        >E</text>
+
+        <!-- The bindu — never below 6px on screen -->
+        <circle cx="108" cy="170" r="4.5" fill="#B4613A"/>
+
+        <text
+          x="118" y="190"
+          font-family="Cormorant Garamond, serif"
+          font-weight="400"
+          font-size="52"
+          fill="#2B4630"
+          letterSpacing="5"
+        >KAM</text>
+      </svg>
+      <span class="mark__cap">On sand · cabin door scale</span>
+    </div>
+
+    <!-- ─── Meta ─────────────────────────────────────────────── -->
+    <div class="meta">
+      <span class="meta__eyebrow">— Stacked configuration</span>
+      <h4>एकम् above EKAM. The Sanskrit is the first breath.</h4>
+      <p class="meta__lede">
+        Used where the lockup must stand vertically — cabin doors, the monolith, narrow digital corners.
+      </p>
+      <div class="row"><b>Use</b><span>Cabin doors · vertical signage · narrow digital · seal of the host</span></div>
+      <div class="row"><b>Sanskrit</b><span>Tiro Devanagari Hindi · clay #B4613A · letter-spacing 3</span></div>
+      <div class="row"><b>Wordmark</b><span>Cormorant Garamond 400 · forest · letter-spacing 5</span></div>
+      <div class="row"><b>Bindu</b><span>Sacred. Centred between E and K. Never below 6 px on screen.</span></div>
+      <div class="row"><b>Don't</b><span>Italic, condensed, recoloured, period after EKAM, animated.</span></div>
+    </div>
+  </div>
+</body>
+</html>

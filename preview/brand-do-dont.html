@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>EKAM · Do / Don't · Wordmark</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { height: 100%; }
+  .stage { width: 700px; min-height: 260px; padding: 0; background: var(--cream); display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--bone); }
+  .col { padding: 28px 24px; }
+  .col.do { background: var(--cream); border-right: 1px solid var(--bone); }
+  .col.dont { background: var(--sand); }
+  .lbl { font-family: var(--font-ui); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; font-weight: 500; margin-bottom: 16px; }
+  .lbl.do { color: var(--forest); }
+  .lbl.dont { color: var(--bindu); }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 9px 0; font-family: var(--font-body); font-size: 12.5px; color: var(--ink); font-weight: 300; line-height: 1.55; border-top: 1px solid var(--bone); }
+  li:first-child { border-top: 0; }
+  li strong { color: var(--forest); font-weight: 500; }
+  li::before { content: ""; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="col do">
+      <div class="lbl do">— Do</div>
+      <ul>
+        <li>Let the bindu <strong>breathe</strong>. Never below 6 px.</li>
+        <li>Use <strong>wide letterspacing</strong>. The calm comes from the space.</li>
+        <li>Deploy the bindu <strong>once</strong> per section as punctuation.</li>
+        <li>Use clay <strong>sparingly</strong> — one accent per composition.</li>
+      </ul>
+    </div>
+    <div class="col dont">
+      <div class="lbl dont">— Don't</div>
+      <ul>
+        <li>Replace the bindu with a flower, mark, or stylised dot.</li>
+        <li>Set the wordmark condensed, italic, or all-lowercase.</li>
+        <li>Scatter bindu dots around the layout for "decoration".</li>
+        <li>Flood layouts with clay. Signature becomes billboard.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

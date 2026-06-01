@@ -1,0 +1,219 @@
+/* ═══════════════════════════════════════════════════════════════
+   EKAM Mobile — The Bindu · interaction object
+   A still ceramic clay disc at rest; life appears only on touch.
+   Brand-true: no ambient animation by default (BOS v2.0 Ch.15/40),
+   no glow. Material + weighted motion carry the presence.
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --b-quick: 200ms;
+  --b-soft: 380ms;
+  --b-arrive: 560ms;
+  --b-ease-arrive: cubic-bezier(0.16, 1, 0.3, 1);
+  --b-ease-quiet: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --b-size: 58px;
+  --clay: #B4613A;
+  --clay-deep: #8E4626;
+}
+
+html, body { background: var(--cream); min-height: 100vh; }
+body { padding: 64px 56px 96px; }
+
+/* ─── Page shell ──────────────────────────────────────────── */
+.bd-page { max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 56px; }
+.bd-head { padding-bottom: 28px; border-bottom: 1px solid var(--bone); }
+.bd-eyebrow { font-family: var(--font-ui); font-size: 11px; letter-spacing: 4px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+.bd-brand { display: flex; align-items: center; gap: 14px; margin-top: 14px; }
+.bd-brand__dev { font-family: var(--font-devanagari); font-size: 18px; color: var(--bindu); letter-spacing: 1.5px; }
+.bd-brand__wm { font-family: var(--font-display); font-weight: 400; font-size: 32px; color: var(--forest); letter-spacing: 6px; display: inline-block; line-height: 1; }
+.bd-brand__wm .dot { display: inline-block; width: 0.12em; height: 0.12em; border-radius: 50%; background: var(--bindu); vertical-align: 0.30em; }
+.bd-title { font-family: var(--font-display); font-weight: 300; font-size: 52px; color: var(--forest); letter-spacing: 0.4px; line-height: 1.05; margin-top: 12px; max-width: 780px; }
+.bd-lede { font-family: var(--font-editorial); font-style: italic; font-size: 18px; color: var(--moss); line-height: 1.55; margin-top: 16px; max-width: 680px; }
+
+/* ─── Stage: controls · phone · notes ─────────────────────── */
+.bd-stage { display: grid; grid-template-columns: 196px 380px 1fr; gap: 48px; align-items: start; }
+.bd-cap { font-family: var(--font-ui); font-size: 9.5px; letter-spacing: 2.5px; color: var(--moss); text-transform: uppercase; font-weight: 500; text-align: center; margin-top: 16px; }
+
+/* Controls rail */
+.bd-controls { display: flex; flex-direction: column; gap: 24px; position: sticky; top: 24px; }
+.bd-controls__group { display: flex; flex-direction: column; gap: 8px; }
+.bd-controls__lbl { font-family: var(--font-ui); font-size: 10px; letter-spacing: 2px; color: var(--moss); text-transform: uppercase; font-weight: 500; padding-bottom: 8px; border-bottom: 1px solid var(--bone); }
+.bd-ctl { text-align: left; background: transparent; border: 1px solid var(--bone); padding: 9px 12px; font-family: var(--font-ui); font-size: 11px; letter-spacing: 0.4px; color: var(--forest); cursor: pointer; transition: border-color 160ms, color 160ms, background 160ms; display: flex; align-items: center; gap: 8px; }
+.bd-ctl:hover { border-color: var(--bindu); }
+.bd-ctl.on { border-color: var(--bindu); color: var(--bindu); background: rgba(180,97,58,0.05); }
+.bd-ctl__dev { font-family: var(--font-devanagari); font-size: 11px; color: var(--bindu); }
+.bd-toggle { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-family: var(--font-ui); font-size: 11px; letter-spacing: 0.3px; color: var(--forest); cursor: pointer; padding: 6px 0; }
+.bd-toggle__sw { width: 34px; height: 18px; border-radius: 999px; border: 1px solid var(--mist); background: var(--sand); position: relative; transition: background 180ms, border-color 180ms; flex-shrink: 0; }
+.bd-toggle__sw::after { content: ''; position: absolute; top: 1px; left: 1px; width: 14px; height: 14px; border-radius: 50%; background: var(--moss); transition: transform 200ms var(--b-ease-quiet), background 180ms; }
+.bd-toggle.on .bd-toggle__sw { background: rgba(180,97,58,0.16); border-color: var(--bindu); }
+.bd-toggle.on .bd-toggle__sw::after { transform: translateX(16px); background: var(--bindu); }
+.bd-toggle__note { font-family: var(--font-editorial); font-style: italic; font-size: 11px; color: var(--moss); line-height: 1.4; margin-top: -2px; }
+
+/* ─── Phone ───────────────────────────────────────────────── */
+.bd-phone-wrap { display: flex; flex-direction: column; align-items: center; position: sticky; top: 24px; }
+.bd-phone { width: 380px; height: 800px; background: #1a1a1a; border-radius: 54px; padding: 12px; position: relative; box-shadow: 0 40px 80px rgba(20,32,26,0.28), 0 12px 28px rgba(20,32,26,0.16), inset 0 0 0 1.5px rgba(255,255,255,0.04); }
+.bd-phone::before { content: ""; position: absolute; left: 50%; top: 22px; transform: translateX(-50%); width: 116px; height: 32px; background: #0a0a0a; border-radius: 999px; z-index: 60; }
+.bd-screen { width: 100%; height: 100%; background: var(--cream); border-radius: 42px; overflow: hidden; position: relative; }
+
+/* ─── Faux app screen behind the bindu ────────────────────── */
+.fx { position: absolute; inset: 0; display: flex; flex-direction: column; transition: filter var(--b-soft) var(--b-ease-quiet); }
+.fx--blur { filter: saturate(0.92) brightness(0.99); }
+.fx__sb { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px 6px; font-family: var(--font-ui); font-size: 13px; font-weight: 500; }
+.fx__sb.on-dark { color: var(--cream); }
+.fx__body { flex: 1; overflow: hidden; padding: 8px 24px; display: flex; flex-direction: column; gap: 18px; }
+.fx__eyebrow { font-family: var(--font-ui); font-size: 10px; letter-spacing: 3px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+.fx__h { font-family: var(--font-display); font-weight: 400; font-size: 30px; color: var(--forest); letter-spacing: 0.3px; line-height: 1.08; margin-top: 4px; }
+.fx__hero { height: 200px; border-radius: 0; position: relative; overflow: hidden; }
+.fx__hero-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(20,32,26,0.5) 100%); }
+.fx__hero-cap { position: absolute; left: 16px; bottom: 14px; z-index: 2; color: var(--cream); }
+.fx__hero-name { font-family: var(--font-display); font-size: 24px; display: block; line-height: 1; }
+.fx__hero-meta { font-family: var(--font-ui); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.85; margin-top: 6px; display: block; }
+.fx__row { display: flex; flex-direction: column; gap: 4px; padding: 14px 0; border-top: 1px solid var(--bone); }
+.fx__row-lbl { font-family: var(--font-ui); font-size: 10px; letter-spacing: 2px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+.fx__row-val { font-family: var(--font-display); font-size: 18px; color: var(--forest); }
+.fx__cta { margin-top: auto; align-self: stretch; text-align: center; padding: 15px; border: 1px solid var(--bindu); border-radius: 999px; color: var(--bindu); font-family: var(--font-ui); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; }
+.fx__tabbar { display: flex; border-top: 1px solid var(--bone); background: var(--cream); padding: 12px 0 26px; }
+.fx__tab { flex: 1; text-align: center; font-family: var(--font-ui); font-size: 10.5px; letter-spacing: 1.5px; color: var(--moss); text-transform: uppercase; font-weight: 500; }
+.fx__tab.on { color: var(--bindu); }
+.fx--dark { background: var(--forest); }
+.fx--dark .fx__h, .fx--dark .fx__row-val { color: var(--cream); }
+.fx--dark .fx__row { border-top-color: rgba(236,228,211,0.16); }
+.fx--dark .fx__tabbar { background: var(--forest); border-top-color: rgba(236,228,211,0.16); }
+
+/* ═══════════════════════════════════════════════════════════
+   THE BINDU — resting object
+   ═══════════════════════════════════════════════════════════ */
+.bindu-obj {
+  position: absolute;
+  width: var(--b-size); height: var(--b-size);
+  border-radius: 50%;
+  border: 0; padding: 0; cursor: pointer;
+  z-index: 40;
+  /* matte ceramic clay — subtle curvature, not a decorative gradient */
+  background:
+    radial-gradient(circle at 38% 32%, #c2734d 0%, var(--clay) 46%, var(--clay-deep) 100%);
+  /* soft physical contact shadow — a floating object, like the phone itself */
+  box-shadow: 0 6px 16px rgba(20,32,26,0.22), 0 2px 5px rgba(20,32,26,0.16), inset 0 1px 1px rgba(255,255,255,0.18), inset 0 -2px 4px rgba(20,32,26,0.20);
+  transition: transform var(--b-quick) var(--b-ease-quiet), box-shadow var(--b-quick) var(--b-ease-quiet);
+}
+/* the impressed centre point — a tiny darker bindu within the clay */
+.bindu-obj::after {
+  content: ''; position: absolute; top: 50%; left: 50%;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--clay-deep);
+  transform: translate(-50%, -50%);
+  opacity: 0.55;
+  transition: opacity var(--b-soft) var(--b-ease-quiet);
+}
+.bindu-obj:hover { transform: scale(1.04); animation: none; }
+.bindu-obj:active, .bindu-obj.is-press { transform: scale(0.94); animation: none; box-shadow: 0 3px 8px rgba(20,32,26,0.24), inset 0 1px 1px rgba(255,255,255,0.14), inset 0 -2px 5px rgba(20,32,26,0.26); }
+
+/* resting positions (corner-aware) */
+.bindu-obj.pos-br { right: 22px; bottom: 96px; }
+.bindu-obj.pos-bl { left: 22px; bottom: 96px; }
+.bindu-obj.pos-tr { right: 22px; top: 70px; }
+/* booking: lift clear of the Reserve CTA */
+.bindu-obj.pos-lift { right: 22px; bottom: 150px; }
+/* media/in-stay minimized: smaller, quieter */
+.bindu-obj.is-min { width: 42px; height: 42px; opacity: 0.78; bottom: 86px; }
+
+/* optional ambient breath — OFF by default; offered as override */
+@media (prefers-reduced-motion: no-preference) {
+  .bindu-obj.breathe { animation: bindu-breath 5.5s var(--b-ease-quiet) infinite; }
+}
+@keyframes bindu-breath {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.035); }
+}
+/* optional voice luminosity — OFF by default */
+.bindu-obj.luminous.is-voice { box-shadow: 0 6px 16px rgba(20,32,26,0.22), 0 0 22px 4px rgba(180,97,58,0.45), inset 0 1px 1px rgba(255,255,255,0.22); }
+
+/* hidden while expanded */
+.bindu-obj.is-hidden { opacity: 0; transform: scale(0.3); pointer-events: none; }
+
+/* ═══════════════════════════════════════════════════════════
+   EXPANSION — search overlay emerging from the bindu
+   ═══════════════════════════════════════════════════════════ */
+.bd-scrim { position: absolute; inset: 0; z-index: 45; background: rgba(20,32,26,0.42); opacity: 1; pointer-events: auto; }
+
+.panel {
+  position: absolute; left: 14px; right: 14px; bottom: 92px; z-index: 50;
+  background: var(--cream);
+  border: 1px solid var(--bone);
+  transform-origin: calc(100% - 30px) calc(100% + 10px);
+  pointer-events: auto;
+  box-shadow: 0 24px 48px rgba(20,32,26,0.22);
+  overflow: hidden;
+  max-height: 560px;
+  opacity: 1; transform: scale(1);
+}
+
+/* search field — editorial, bottom-line, clay bindu as the leading mark */
+.panel__field { display: flex; align-items: center; gap: 12px; padding: 20px 20px 18px; border-bottom: 1px solid var(--bone); }
+.panel__dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; background: radial-gradient(circle at 38% 32%, #c2734d 0%, var(--clay) 46%, var(--clay-deep) 100%); box-shadow: inset 0 1px 1px rgba(255,255,255,0.2), inset 0 -1px 2px rgba(20,32,26,0.22); }
+.panel__input { flex: 1; border: 0; background: transparent; outline: none; font-family: var(--font-display); font-weight: 400; font-size: 22px; color: var(--ink); letter-spacing: 0.2px; }
+.panel__input::placeholder { color: var(--moss); opacity: 0.85; }
+.panel__voice { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--bone); background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: border-color 160ms, background 160ms; }
+.panel__voice:hover { border-color: var(--bindu); }
+.panel__voice svg { width: 18px; height: 18px; stroke: var(--bindu); fill: none; stroke-width: 1.5; }
+
+.panel__scroll { overflow-y: auto; max-height: 420px; }
+.panel__sec { padding: 16px 20px; border-bottom: 1px solid var(--bone); }
+.panel__sec:last-child { border-bottom: 0; }
+.panel__sec-lbl { font-family: var(--font-ui); font-size: 9.5px; letter-spacing: 2px; color: var(--bindu); text-transform: uppercase; font-weight: 500; display: block; margin-bottom: 10px; }
+.panel__item { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; background: transparent; border: 0; padding: 9px 0; cursor: pointer; font-family: var(--font-body); font-size: 14.5px; color: var(--forest); transition: color 140ms; }
+.panel__item:hover { color: var(--bindu); }
+.panel__item-ic { width: 18px; text-align: center; color: var(--bindu); flex-shrink: 0; font-size: 13px; }
+.panel__item-sub { font-family: var(--font-editorial); font-style: italic; font-size: 12px; color: var(--moss); margin-left: auto; }
+.panel__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.panel__chip { font-family: var(--font-ui); font-size: 11px; letter-spacing: 0.4px; color: var(--forest); border: 1px solid var(--bone); padding: 7px 12px; cursor: pointer; background: transparent; transition: border-color 140ms, color 140ms; }
+.panel__chip:hover { border-color: var(--bindu); color: var(--bindu); }
+
+/* ─── Voice listening state ───────────────────────────────── */
+.panel__voicestage { padding: 40px 20px 36px; display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center; }
+.voice-orb { position: relative; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; }
+.voice-orb__core { width: 58px; height: 58px; border-radius: 50%; background: radial-gradient(circle at 38% 32%, #c2734d 0%, var(--clay) 46%, var(--clay-deep) 100%); box-shadow: inset 0 1px 1px rgba(255,255,255,0.2), inset 0 -2px 4px rgba(20,32,26,0.22); transition: box-shadow 600ms var(--b-ease-quiet); }
+.voice-orb.is-lum .voice-orb__core { box-shadow: inset 0 1px 1px rgba(255,255,255,0.22), inset 0 -2px 4px rgba(20,32,26,0.2), 0 0 20px 3px rgba(180,97,58,0.38); }
+/* the listening ring — a single calm material ripple, active-state only */
+@media (prefers-reduced-motion: no-preference) {
+  .voice-orb__ring { position: absolute; inset: 0; border-radius: 50%; border: 1px solid var(--clay); opacity: 0; animation: voice-ring 2.8s var(--b-ease-quiet) infinite; }
+  .voice-orb__ring.r2 { animation-delay: 1.4s; }
+}
+@keyframes voice-ring { 0% { transform: scale(0.9); opacity: 0.5; } 70% { opacity: 0; } 100% { transform: scale(2.1); opacity: 0; } }
+.voice-line { font-family: var(--font-display); font-weight: 400; font-size: 22px; color: var(--forest); letter-spacing: 0.2px; }
+.voice-sub { font-family: var(--font-editorial); font-style: italic; font-size: 13px; color: var(--moss); line-height: 1.5; max-width: 240px; }
+.voice-stop { font-family: var(--font-ui); font-size: 11px; letter-spacing: 1.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; border: 0; background: transparent; border-bottom: 1px solid var(--bindu); cursor: pointer; padding: 3px 0; }
+.voice-dots { display: inline-flex; gap: 5px; }
+.voice-dots span { width: 5px; height: 5px; border-radius: 50%; background: var(--clay); opacity: 0.4; }
+@media (prefers-reduced-motion: no-preference) {
+  .voice-dots span { animation: voice-dot 1.4s var(--b-ease-quiet) infinite; }
+  .voice-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .voice-dots span:nth-child(3) { animation-delay: 0.4s; }
+}
+@keyframes voice-dot { 0%, 100% { opacity: 0.25; } 50% { opacity: 0.9; } }
+
+/* ─── Side notes / spec ───────────────────────────────────── */
+.bd-notes { position: sticky; top: 24px; }
+.bd-notes__step { font-family: var(--font-ui); font-size: 10px; letter-spacing: 2.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+.bd-notes__h { font-family: var(--font-display); font-weight: 400; font-size: 27px; color: var(--forest); letter-spacing: 0.3px; line-height: 1.2; margin: 10px 0 0; max-width: 460px; }
+.bd-notes__sub { font-family: var(--font-editorial); font-style: italic; font-size: 15px; color: var(--moss); line-height: 1.55; margin: 12px 0 0; max-width: 440px; }
+.bd-notes__head { font-family: var(--font-ui); font-size: 10px; letter-spacing: 2.5px; color: var(--moss); text-transform: uppercase; font-weight: 500; padding-bottom: 10px; border-bottom: 1px solid var(--bone); margin-top: 30px; }
+.bd-notes__list { display: flex; flex-direction: column; }
+.bd-notes__list > div { display: grid; grid-template-columns: 116px 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--bone); align-items: baseline; }
+.bd-notes__list .l { font-family: var(--font-ui); font-size: 9.5px; letter-spacing: 1.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; line-height: 1.4; }
+.bd-notes__list .v { font-family: var(--font-body); font-weight: 300; font-size: 13px; color: var(--ink); line-height: 1.55; }
+.bd-notes__list .v em { font-family: var(--font-editorial); font-style: italic; color: var(--moss); }
+.bd-notes__list .v strong { color: var(--forest); font-weight: 500; }
+
+/* tokens block */
+.bd-tokens { margin-top: 30px; }
+.bd-tokens__row { display: grid; grid-template-columns: 1fr auto; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--bone); font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: var(--ink); }
+.bd-tokens__row span:last-child { color: var(--moss); }
+
+@media (max-width: 1100px) {
+  body { padding: 40px 24px 64px; }
+  .bd-stage { grid-template-columns: 1fr; gap: 36px; justify-items: center; }
+  .bd-controls, .bd-phone-wrap, .bd-notes { position: static; }
+  .bd-controls { flex-direction: row; flex-wrap: wrap; max-width: 520px; }
+  .bd-notes { max-width: 520px; }
+}

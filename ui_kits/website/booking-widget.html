@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EKAM — Booking Widget (standalone)</title>
+
+<link rel="stylesheet" href="../../colors_and_type.css" />
+<link rel="stylesheet" href="components/booking-card.css" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Fraunces:ital,wght@0,400;1,400&family=Inter:wght@300;400;500&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+  /* ─────────── Demo chrome only — widget itself lives in components/booking-card.css ─── */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { background: var(--sand); color: var(--ink); margin: 0; }
+  body {
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex; align-items: flex-start; justify-content: center;
+    padding: 48px 20px 64px;
+  }
+  .demo-wrap { width: 100%; max-width: 380px; }
+  .demo-note {
+    margin: 0 0 18px;
+    text-align: center;
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 12px; color: var(--moss); letter-spacing: 0.2px;
+  }
+  .demo-note code {
+    font-family: var(--font-ui); font-style: normal;
+    font-size: 11px; color: var(--bindu);
+    background: var(--cream); padding: 1px 6px;
+    border: 1px solid var(--bone);
+  }
+
+  /* ─────────── Calendar popover — local to this widget ─────────── */
+  .book__cal {
+    position: absolute; z-index: 30;
+    left: -1px; right: -1px; top: calc(100% + 6px);
+    background: var(--cream);
+    border: 1px solid var(--bone);
+    box-shadow: 0 24px 48px rgba(20,32,26,0.18), 0 4px 12px rgba(20,32,26,0.08);
+    padding: 0;
+  }
+  .book__cal-head {
+    display: grid; grid-template-columns: 32px 1fr 32px;
+    align-items: center;
+    padding: 12px 14px 8px;
+    border-bottom: 1px solid var(--bone);
+  }
+  .book__cal-nav {
+    width: 28px; height: 28px;
+    border: 1px solid var(--bone);
+    background: transparent;
+    color: var(--ink);
+    font-family: var(--font-ui); font-size: 14px; line-height: 1;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 180ms var(--ease-quiet);
+  }
+  .book__cal-nav:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+  .book__cal-nav:disabled { color: var(--mist); border-color: var(--mist); cursor: not-allowed; background: transparent; }
+  .book__cal-month {
+    font-family: var(--font-display); font-size: 18px; color: var(--forest);
+    font-weight: 400; letter-spacing: 0.3px; text-align: center;
+  }
+  .book__cal-grid {
+    padding: 8px 12px 12px;
+  }
+  .book__cal-dow {
+    display: grid; grid-template-columns: repeat(7, 1fr);
+    gap: 0;
+    font-family: var(--font-ui); font-size: 9.5px;
+    letter-spacing: 1.5px; color: var(--moss);
+    text-transform: uppercase; font-weight: 500;
+    padding: 4px 0 8px;
+  }
+  .book__cal-dow span { text-align: center; }
+  .book__cal-days {
+    display: grid; grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+  }
+  .book__cal-day {
+    aspect-ratio: 1; min-height: 36px;
+    border: 0; background: transparent;
+    font-family: var(--font-ui); font-size: 13px;
+    color: var(--ink); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0; position: relative;
+    transition: background 140ms var(--ease-quiet);
+  }
+  .book__cal-day:hover:not(:disabled):not(.muted) { background: var(--sand); }
+  .book__cal-day.muted { color: var(--mist); cursor: default; pointer-events: none; }
+  .book__cal-day:disabled { color: var(--mist); cursor: not-allowed; }
+  .book__cal-day.in-range { background: var(--sand); }
+  .book__cal-day.is-arrive,
+  .book__cal-day.is-depart {
+    background: var(--bindu); color: var(--cream); font-weight: 500;
+  }
+  .book__cal-day.is-today::after {
+    content: ''; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
+    width: 3px; height: 3px; border-radius: 50%; background: var(--bindu);
+  }
+  .book__cal-day.is-arrive.is-today::after,
+  .book__cal-day.is-depart.is-today::after { background: var(--cream); }
+  .book__cal-foot {
+    display: grid; grid-template-columns: 1fr auto auto; gap: 12px;
+    align-items: center;
+    padding: 12px 14px;
+    border-top: 1px solid var(--bone);
+    background: var(--cream);
+  }
+  .book__cal-hint {
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 12px; color: var(--moss); line-height: 1.4;
+  }
+  .book__cal-hint b { font-style: normal; font-family: var(--font-ui); font-weight: 500; color: var(--bindu); letter-spacing: 1.5px; font-size: 10px; text-transform: uppercase; }
+  .book__cal-clear,
+  .book__cal-done {
+    border: 0; background: transparent;
+    font-family: var(--font-ui); font-size: 10.5px;
+    letter-spacing: 2px; color: var(--moss);
+    text-transform: uppercase; font-weight: 500;
+    cursor: pointer; padding: 6px 10px;
+  }
+  .book__cal-clear:hover { color: var(--ink); }
+  .book__cal-done {
+    background: var(--ink); color: var(--cream); padding: 8px 14px;
+  }
+  .book__cal-done:hover { background: var(--bindu); }
+
+  /* gp footer styles live in booking-card.css */
+
+  /* Confirmed state — covers card on reserve */
+  .book__confirmed {
+    text-align: center;
+    padding: 16px 6px 4px;
+  }
+  .book__confirmed-seal {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--bindu); color: var(--cream);
+    display: inline-flex; align-items: center; justify-content: center;
+    margin: 8px auto 16px;
+    font-family: var(--font-devanagari); font-size: 18px;
+    letter-spacing: 0;
+  }
+  .book__confirmed-eb {
+    font-family: var(--font-ui); font-size: 10px;
+    letter-spacing: 2.5px; color: var(--bindu);
+    text-transform: uppercase; font-weight: 500;
+    display: block; margin-bottom: 8px;
+  }
+  .book__confirmed-h {
+    font-family: var(--font-display); font-weight: 300;
+    font-size: 28px; color: var(--forest);
+    letter-spacing: 0.5px; line-height: 1.15;
+    margin: 0 0 10px;
+  }
+  .book__confirmed-h em { font-family: var(--font-display); font-style: italic; color: var(--bindu); font-weight: 400; }
+  .book__confirmed-code {
+    font-family: var(--font-ui); font-size: 11px; letter-spacing: 2.5px;
+    color: var(--moss); text-transform: uppercase; font-weight: 500;
+    display: block; margin: 14px 0 2px;
+  }
+  .book__confirmed-code b { color: var(--bindu); font-weight: 500; }
+  .book__confirmed-msg {
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 13.5px; color: var(--moss); line-height: 1.55;
+    max-width: 280px; margin: 14px auto 22px;
+  }
+  .book__confirmed-undo {
+    background: transparent; border: 1px solid var(--bone);
+    color: var(--ink); cursor: pointer;
+    font-family: var(--font-ui); font-size: 10.5px;
+    letter-spacing: 2.5px; text-transform: uppercase; font-weight: 500;
+    padding: 10px 18px;
+  }
+  .book__confirmed-undo:hover { border-color: var(--bindu); color: var(--bindu); }
+</style>
+</head>
+<body>
+
+<div class="demo-wrap">
+  <p class="demo-note">
+    Demo of the <code>.book</code> component · live, interactive · click any field
+  </p>
+  <div id="root"></div>
+</div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel">
+const { useState, useEffect, useRef, useMemo } = React;
+
+// ─── Property model ───────────────────────────────────────────
+const PROPERTY = {
+  name: 'Kalpa', tier: 'KUTIR',
+  nightly: 8400,
+  rating: 4.96, reviews: 187,
+  gst: 0.12, tourism: 0.01,
+  longStayThreshold: 3, longStayDiscount: 0.08,
+  cancelDeadlineDays: 7,
+};
+
+// ─── Helpers ──────────────────────────────────────────────────
+const MS_DAY = 86400000;
+const fmtDate = (d) => d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+const fmtDay  = (d) => d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+const sameDay = (a, b) => a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+const startOfDay = (d) => { const x = new Date(d); x.setHours(0,0,0,0); return x; };
+const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
+const monthLabel = (d) => d.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' });
+const summarizeGuests = ({ adults, kidAges, rooms }) => {
+  const parts = [];
+  parts.push(`${adults} adult${adults === 1 ? '' : 's'}`);
+  if (kidAges.length) parts.push(`${kidAges.length} child${kidAges.length === 1 ? '' : 'ren'}`);
+  parts.push(`${rooms} cabin${rooms === 1 ? '' : 's'}`);
+  return parts.join(' · ');
+};
+
+// ─── Calendar ─────────────────────────────────────────────────
+function Calendar({ arrive, depart, picking, onPick, onClear, onDone, onClose }) {
+  const today = startOfDay(new Date());
+  const [cursor, setCursor] = useState(() => {
+    const d = new Date(arrive || today);
+    d.setDate(1);
+    return d;
+  });
+
+  const month = cursor;
+  const monthStart = new Date(month.getFullYear(), month.getMonth(), 1);
+  const daysInMonth = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
+  const lead = monthStart.getDay(); // 0=Sun
+  const cells = [];
+  for (let i = 0; i < lead; i++) cells.push(null);
+  for (let d = 1; d <= daysInMonth; d++) cells.push(new Date(month.getFullYear(), month.getMonth(), d));
+  while (cells.length % 7 !== 0) cells.push(null);
+
+  const canGoBack = monthStart > today;
+  const goPrev = () => setCursor(new Date(month.getFullYear(), month.getMonth() - 1, 1));
+  const goNext = () => setCursor(new Date(month.getFullYear(), month.getMonth() + 1, 1));
+
+  const hint = picking === 'arrive'
+    ? <><b>— Step 1</b>&nbsp;&nbsp;Pick your arrival date</>
+    : <><b>— Step 2</b>&nbsp;&nbsp;Pick your departure date</>;
+
+  const stop = (e) => e.stopPropagation();
+  return (
+    <div className="book__cal" onClick={stop}>
+      <div className="book__cal-head">
+        <button className="book__cal-nav" onClick={goPrev} disabled={!canGoBack} aria-label="Previous month">‹</button>
+        <span className="book__cal-month">{monthLabel(month)}</span>
+        <button className="book__cal-nav" onClick={goNext} aria-label="Next month">›</button>
+      </div>
+      <div className="book__cal-grid">
+        <div className="book__cal-dow">
+          {['S','M','T','W','T','F','S'].map((d, i) => <span key={i}>{d}</span>)}
+        </div>
+        <div className="book__cal-days">
+          {cells.map((d, i) => {
+            if (!d) return <span key={i} className="book__cal-day muted" />;
+            const past = d < today;
+            const isA = sameDay(d, arrive);
+            const isD = sameDay(d, depart);
+            const inRange = arrive && depart && d > arrive && d < depart;
+            const isToday = sameDay(d, today);
+            const cls = [
+              'book__cal-day',
+              past ? 'muted' : '',
+              inRange ? 'in-range' : '',
+              isA ? 'is-arrive' : '',
+              isD ? 'is-depart' : '',
+              isToday ? 'is-today' : '',
+            ].filter(Boolean).join(' ');
+            return (
+              <button key={i} className={cls} disabled={past} onClick={() => onPick(d)}>
+                {d.getDate()}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+      <div className="book__cal-foot">
+        <span className="book__cal-hint">{hint}</span>
+        <button className="book__cal-clear" onClick={onClear}>Clear</button>
+        <button className="book__cal-done" onClick={onDone}>Done</button>
+      </div>
+    </div>
+  );
+}
+
+// ─── Guest popover ────────────────────────────────────────────
+function GuestPopover({ adults, kidAges, rooms, onChange, onDone, onClear }) {
+  const stop = (e) => e.stopPropagation();
+  const setAdults = (n) => onChange({ adults: Math.max(1, Math.min(8, n)), kidAges, rooms });
+  const setKids = (n) => {
+    n = Math.max(0, Math.min(4, n));
+    let next = kidAges.slice();
+    while (next.length < n) next.push(null);
+    while (next.length > n) next.pop();
+    onChange({ adults, kidAges: next, rooms });
+  };
+  const setAge = (i, v) => {
+    const next = kidAges.slice();
+    next[i] = v === '' ? null : Number(v);
+    onChange({ adults, kidAges: next, rooms });
+  };
+  const setRooms = (n) => onChange({ adults, kidAges, rooms: Math.max(1, Math.min(4, n)) });
+  const anyUnset = kidAges.some(a => a === null);
+
+  return (
+    <div className="gp" onClick={stop}>
+      <div className="gp__row">
+        <div className="gp__row-lbl">
+          <span className="gp__row-name">Adults</span>
+          <span className="gp__row-meta">Ages 13 and over</span>
+        </div>
+        <div className="gp__step">
+          <button onClick={() => setAdults(adults - 1)} disabled={adults <= 1} aria-label="Decrease adults">−</button>
+          <span className="gp__step-val">{adults}</span>
+          <button onClick={() => setAdults(adults + 1)} disabled={adults >= 8} aria-label="Increase adults">+</button>
+        </div>
+      </div>
+
+      <div className="gp__row">
+        <div className="gp__row-lbl">
+          <span className="gp__row-name">Children</span>
+          <span className="gp__row-meta">
+            Ages 0–12 <span className="pill">Under 5 free</span>
+          </span>
+        </div>
+        <div className="gp__step">
+          <button onClick={() => setKids(kidAges.length - 1)} disabled={kidAges.length <= 0} aria-label="Decrease children">−</button>
+          <span className="gp__step-val">{kidAges.length}</span>
+          <button onClick={() => setKids(kidAges.length + 1)} disabled={kidAges.length >= 4} aria-label="Increase children">+</button>
+        </div>
+      </div>
+
+      {kidAges.length > 0 && (
+        <div className="gp__ages">
+          <span className="gp__ages-lbl">— {anyUnset ? 'Set each child\'s age' : 'Children\'s ages'}</span>
+          <div className="gp__ages-grid">
+            {kidAges.map((age, i) => (
+              <label key={i} className={`gp__age-card ${age === null ? 'unset' : ''}`}>
+                <span className="gp__age-card-lbl">Child {i + 1}</span>
+                <select value={age === null ? '' : age} onChange={(e) => setAge(i, e.target.value)}>
+                  <option value="">— Select age</option>
+                  {Array.from({ length: 13 }, (_, n) => (
+                    <option key={n} value={n}>{n === 0 ? 'Under 1' : `${n} year${n === 1 ? '' : 's'}`}</option>
+                  ))}
+                </select>
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="gp__row">
+        <div className="gp__row-lbl">
+          <span className="gp__row-name">Cabins</span>
+          <span className="gp__row-meta">One cabin sleeps 2 adults</span>
+        </div>
+        <div className="gp__step">
+          <button onClick={() => setRooms(rooms - 1)} disabled={rooms <= 1} aria-label="Decrease cabins">−</button>
+          <span className="gp__step-val">{rooms}</span>
+          <button onClick={() => setRooms(rooms + 1)} disabled={rooms >= 4} aria-label="Increase cabins">+</button>
+        </div>
+      </div>
+
+      {(adults + kidAges.filter(a => a !== null && a >= 5).length) > rooms * 2 && (
+        <div className="gp__smart">
+          <span className="dot"></span>
+          <span>That's tight for {rooms} cabin{rooms === 1 ? '' : 's'} — consider adding one more.</span>
+        </div>
+      )}
+
+      <div className="gp__foot">
+        <button className="gp__foot-clear" onClick={onClear}>Clear</button>
+        <button className="gp__foot-done" onClick={onDone} disabled={anyUnset}>
+          {anyUnset ? 'Set ages to continue' : 'Done'}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ─── Booking widget ───────────────────────────────────────────
+function BookingWidget() {
+  const today = startOfDay(new Date());
+  const [arrive, setArrive] = useState(() => addDays(today, 21));
+  const [depart, setDepart] = useState(() => addDays(today, 24));
+  const [adults, setAdults] = useState(2);
+  const [kidAges, setKidAges] = useState([]);
+  const [rooms, setRooms] = useState(1);
+  const [open, setOpen] = useState(null); // 'dates' | 'guests' | 'details' | null
+  const [picking, setPicking] = useState('arrive');
+  const [confirmed, setConfirmed] = useState(false);
+  const [confCode] = useState(() => 'EK-' + Math.random().toString(36).slice(2, 8).toUpperCase());
+
+  const cardRef = useRef(null);
+
+  // Close on outside click
+  useEffect(() => {
+    const onDown = (e) => {
+      if (cardRef.current && !cardRef.current.contains(e.target)) setOpen(null);
+    };
+    const onKey = (e) => { if (e.key === 'Escape') setOpen(null); };
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, []);
+
+  const nights = Math.max(1, Math.round((depart - arrive) / MS_DAY));
+
+  // Price math
+  const breakdown = useMemo(() => {
+    const stayBase = PROPERTY.nightly * nights * rooms;
+    const longStaySave = nights >= PROPERTY.longStayThreshold ? Math.round(stayBase * PROPERTY.longStayDiscount) : 0;
+    const subtotal = stayBase - longStaySave;
+    const cgst = Math.round(subtotal * PROPERTY.gst / 2);
+    const sgst = Math.round(subtotal * PROPERTY.gst / 2);
+    const tourism = Math.round(subtotal * PROPERTY.tourism);
+    const total = subtotal + cgst + sgst + tourism;
+    return { stayBase, longStaySave, subtotal, cgst, sgst, tourism, total };
+  }, [nights, rooms]);
+
+  const cancelBy = useMemo(() => {
+    const d = addDays(arrive, -PROPERTY.cancelDeadlineDays);
+    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+  }, [arrive]);
+
+  // Date handling — calendar picks one day at a time, alternating arrive/depart
+  const onPickDate = (d) => {
+    if (picking === 'arrive') {
+      setArrive(d);
+      if (depart <= d) setDepart(addDays(d, 3));
+      setPicking('depart');
+    } else {
+      if (d <= arrive) {
+        setArrive(d);
+        setDepart(addDays(d, 3));
+        setPicking('depart');
+      } else {
+        setDepart(d);
+        // Auto-close on completing the range
+        setOpen(null);
+        setPicking('arrive');
+      }
+    }
+  };
+
+  const anyUnset = kidAges.some(a => a === null);
+  const urgency = nights >= 5
+    ? `Long stays are common in spring. ${nights} nights chosen — locks in a better rate.`
+    : `Only 2 cabins held for this weekend. Booked four times this week.`;
+
+  const reserve = () => {
+    if (anyUnset) { setOpen('guests'); return; }
+    setConfirmed(true);
+  };
+
+  if (confirmed) {
+    return (
+      <aside className="book book--standalone" ref={cardRef}>
+        <div className="book__confirmed">
+          <div className="book__confirmed-seal" aria-hidden="true">कु</div>
+          <span className="book__confirmed-eb">— Confirmation held</span>
+          <h3 className="book__confirmed-h">
+            Your <em>Kalpa</em> cabin is on a 24-hour hold.
+          </h3>
+          <span className="book__confirmed-code">
+            Reference <b>{confCode}</b>
+          </span>
+          <p className="book__confirmed-msg">
+            {fmtDay(arrive)} → {fmtDay(depart)} · {nights} night{nights === 1 ? '' : 's'} · {summarizeGuests({ adults, kidAges, rooms })}.<br/>
+            We've sent the booking sheet to your email. Payment isn't due yet — the cabin is held for 24 hours.
+          </p>
+          <button className="book__confirmed-undo" onClick={() => setConfirmed(false)}>
+            ← Edit details
+          </button>
+        </div>
+      </aside>
+    );
+  }
+
+  const datesOpen = open === 'dates';
+  const guestsOpen = open === 'guests';
+  const detailsOpen = open === 'details';
+
+  return (
+    <aside className="book book--standalone" ref={cardRef}>
+
+      {/* Top — price + rating */}
+      <div className="book__top">
+        <span className="book__price">₹{PROPERTY.nightly.toLocaleString('en-IN')}</span>
+        <span className="book__per">/ night</span>
+        <span className="book__star"><span className="dot">●</span> {PROPERTY.rating} · {PROPERTY.reviews} stays</span>
+      </div>
+
+      <div className="book__urgency">
+        <span className="pulse"></span>
+        <span>{urgency}</span>
+      </div>
+
+      {/* Dates + Guests */}
+      <div className="book__group">
+        <div className="book__field-row" style={{ position: 'relative' }}>
+          <div
+            className={`book__field ${datesOpen && picking === 'arrive' ? 'open' : ''}`}
+            onClick={() => { setOpen('dates'); setPicking('arrive'); }}
+          >
+            <span className="book__field-lbl">Arrive</span>
+            <span className="book__field-val">{fmtDate(arrive)}</span>
+          </div>
+          <div
+            className={`book__field ${datesOpen && picking === 'depart' ? 'open' : ''}`}
+            onClick={() => { setOpen('dates'); setPicking('depart'); }}
+          >
+            <span className="book__field-lbl">Depart</span>
+            <span className="book__field-val">
+              {fmtDate(depart)} <em>· {nights} night{nights === 1 ? '' : 's'}</em>
+            </span>
+          </div>
+
+          {datesOpen && (
+            <Calendar
+              arrive={arrive}
+              depart={depart}
+              picking={picking}
+              onPick={onPickDate}
+              onClear={() => {
+                setArrive(addDays(today, 14));
+                setDepart(addDays(today, 17));
+                setPicking('arrive');
+              }}
+              onDone={() => setOpen(null)}
+            />
+          )}
+        </div>
+
+        <div
+          className={`book__field ${guestsOpen ? 'open' : ''}`}
+          onClick={() => setOpen(guestsOpen ? null : 'guests')}
+        >
+          <span className="book__field-lbl">Guests &amp; cabins</span>
+          <span className="book__field-val">{summarizeGuests({ adults, kidAges, rooms })}</span>
+          <span className="book__field-chev">▾</span>
+
+          {guestsOpen && (
+            <GuestPopover
+              adults={adults} kidAges={kidAges} rooms={rooms}
+              onChange={({ adults: a, kidAges: k, rooms: r }) => {
+                setAdults(a); setKidAges(k); setRooms(r);
+              }}
+              onDone={() => setOpen(null)}
+              onClear={() => { setAdults(2); setKidAges([]); setRooms(1); }}
+            />
+          )}
+        </div>
+      </div>
+
+      {/* CTA */}
+      <button className="book__cta" onClick={reserve} disabled={anyUnset}>
+        {anyUnset ? 'Set children\'s ages' : `Reserve · ₹${breakdown.total.toLocaleString('en-IN')}`}
+      </button>
+      <p className="book__hint">No payment yet — we hold the cabin for 24 hours.</p>
+
+      <div className="book__trust">
+        <svg viewBox="0 0 24 24"><path d="M12 2L4 6v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V6l-8-4z"></path><path d="M9 12l2 2 4-4"></path></svg>
+        <span><b>Free cancellation</b> until {cancelBy} — seven days before arrival.</span>
+      </div>
+
+      {/* Price breakdown — collapsed by default, expandable */}
+      <div className="book__breakdown">
+        <div className="book__total-row">
+          <div className="book__total-lbl-stack">
+            <span>Total</span>
+            <button
+              type="button"
+              className="book__details-trigger"
+              aria-expanded={detailsOpen}
+              onClick={(e) => { e.stopPropagation(); setOpen(detailsOpen ? null : 'details'); }}
+            >
+              {detailsOpen ? 'Hide price details ↑' : 'View price details →'}
+            </button>
+          </div>
+          <span className="book__total-amt">
+            ₹{breakdown.total.toLocaleString('en-IN')}
+            <small>incl. all taxes</small>
+          </span>
+        </div>
+
+        <div className={`book__details ${detailsOpen ? 'on' : ''}`} role="dialog" aria-label="Price breakdown">
+          <div className="book__details-head">
+            <span className="book__details-title">Price details · {nights} night{nights === 1 ? '' : 's'}</span>
+            <button type="button" className="book__details-close" aria-label="Close" onClick={(e) => { e.stopPropagation(); setOpen(null); }}>×</button>
+          </div>
+
+          <div className="book__details-group">
+            <span className="book__details-group-lbl">— Stay</span>
+            <div className="book__line">
+              <span>Cabin rate <em>₹{PROPERTY.nightly.toLocaleString('en-IN')} × {nights} night{nights === 1 ? '' : 's'}{rooms > 1 ? ` × ${rooms} cabins` : ''}</em></span>
+              <span>₹{breakdown.stayBase.toLocaleString('en-IN')}</span>
+            </div>
+            {breakdown.longStaySave > 0 && (
+              <div className="book__line save">
+                <span>Long-stay pass-back <em>{PROPERTY.longStayThreshold}+ nights, {Math.round(PROPERTY.longStayDiscount * 100)}%</em></span>
+                <span>− ₹{breakdown.longStaySave.toLocaleString('en-IN')}</span>
+              </div>
+            )}
+            <div className="book__line sm">
+              <span>Subtotal</span>
+              <span>₹{breakdown.subtotal.toLocaleString('en-IN')}</span>
+            </div>
+          </div>
+
+          <div className="book__details-group">
+            <span className="book__details-group-lbl">— Taxes &amp; levies</span>
+            <div className="book__line">
+              <span>CGST <em>6%</em></span>
+              <span>₹{breakdown.cgst.toLocaleString('en-IN')}</span>
+            </div>
+            <div className="book__line">
+              <span>SGST <em>6%</em></span>
+              <span>₹{breakdown.sgst.toLocaleString('en-IN')}</span>
+            </div>
+            <div className="book__line">
+              <span>Uttarakhand tourism levy <em>1%</em></span>
+              <span>₹{breakdown.tourism.toLocaleString('en-IN')}</span>
+            </div>
+          </div>
+
+          <div className="book__details-foot">
+            <span>Total</span>
+            <span>₹{breakdown.total.toLocaleString('en-IN')}</span>
+          </div>
+
+          <p className="book__details-legal">
+            Taxes shown are as per current Indian GST rules for stays ≤ ₹7,500 per room per night. Final invoice will mirror this breakdown line-for-line, with our GSTIN.
+          </p>
+        </div>
+      </div>
+
+    </aside>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<BookingWidget />);
+</script>
+
+</body>
+</html>

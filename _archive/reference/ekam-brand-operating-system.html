@@ -1,0 +1,1945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EKAM — Brand Operating System v2.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;700&family=Fraunces:ital,opsz,wght@1,9..144,300;1,9..144,400&family=Raleway:wght@300;400;500;600&family=Inter:wght@300;400;500;600&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --cream:#FAF7F0; --sand:#F4EDE1; --bone:#ECE4D3; --mist:#D8D3C4;
+  --ink:#14201A; --forest:#2B4630; --moss:#7A8A6B;
+  --moss-on-forest:#8A9476; --bindu:#B4613A;
+  --space-xs:4px; --space-sm:8px; --space-md:16px; --space-lg:24px;
+  --space-xl:40px; --space-2xl:64px; --space-3xl:96px; --space-4xl:128px;
+  --space-5xl:192px; --r:0px;
+}
+*{box-sizing:border-box; margin:0; padding:0; border-radius:var(--r);}
+html,body{ background:var(--cream); color:var(--ink); font-family:'Raleway', sans-serif; font-weight:300; line-height:1.75; -webkit-font-smoothing:antialiased; }
+.eyebrow{ font-family:'Inter', sans-serif; font-size:11px; font-weight:500; letter-spacing:4px; text-transform:uppercase; color:var(--moss); }
+.eyebrow--onforest{ color:var(--moss-on-forest); }
+.eyebrow--clay{ color:var(--bindu); }
+.devanagari{ font-family:'Tiro Devanagari Hindi', serif; color:var(--bindu); letter-spacing:2px; }
+.body-copy{ font-family:'Raleway', sans-serif; font-weight:300; font-size:15px; line-height:1.85; color:var(--ink); max-width:580px; }
+.body-copy p + p{ margin-top:var(--space-lg); }
+.body-copy--onforest{ color:var(--sand); }
+.lede{ font-family:'Fraunces', serif; font-style:italic; font-weight:300; font-size:22px; line-height:1.6; color:var(--ink); max-width:640px; }
+.lede--onforest{ color:var(--sand); }
+.hairline{ height:1px; background:var(--mist); width:100%; }
+.hairline--bindu{ background:var(--bindu); }
+.hairline--short{ width:48px; height:1px; background:var(--bindu); }
+
+h1.cover-title{ font-family:'Cormorant Garamond', serif; font-weight:300; font-size:120px; letter-spacing:8px; line-height:0.95; color:var(--cream); }
+.volume-header{ font-family:'Cormorant Garamond', serif; font-weight:300; font-size:108px; letter-spacing:10px; line-height:1; color:var(--forest); text-align:center; }
+.volume-header--onforest{ color:var(--cream); }
+.volume-numeral{ font-family:'Fraunces', serif; font-style:italic; font-weight:300; font-size:24px; color:var(--bindu); letter-spacing:4px; display:block; margin-bottom:var(--space-xl); }
+.volume-subtitle{ font-family:'Fraunces', serif; font-style:italic; font-weight:300; font-size:20px; color:var(--moss); text-align:center; margin-top:var(--space-xl); max-width:560px; margin-left:auto; margin-right:auto; }
+.volume-subtitle--onforest{ color:var(--moss-on-forest); }
+h2.chapter-title{ font-family:'Cormorant Garamond', serif; font-weight:300; font-size:56px; letter-spacing:2px; line-height:1.05; color:var(--forest); margin-bottom:var(--space-xl); }
+h2.chapter-title--onforest{ color:var(--cream); }
+.chapter-num{ font-family:'Inter', sans-serif; font-size:11px; letter-spacing:4px; color:var(--bindu); text-transform:uppercase; font-weight:500; display:block; margin-bottom:var(--space-md); }
+h3.sub-heading{ font-family:'Cormorant Garamond', serif; font-weight:400; font-size:28px; letter-spacing:1px; color:var(--forest); margin-bottom:var(--space-md); }
+
+section{ padding:var(--space-4xl) var(--space-xl); border-bottom:1px solid var(--bone); }
+.section--forest{ background:var(--forest); color:var(--cream); border-bottom:none; }
+.section--sand{ background:var(--sand); }
+.section--ink{ background:var(--ink); color:var(--cream); border-bottom:none; }
+.section--bone{ background:var(--bone); }
+.section__inner{ max-width:1080px; margin:0 auto; }
+.section__inner--narrow{ max-width:760px; margin:0 auto; }
+.volume-cover{ min-height:90vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:var(--space-5xl) var(--space-xl); }
+
+.nav{ position:sticky; top:0; z-index:200; height:64px; background:var(--cream); border-bottom:1px solid var(--bone); display:flex; align-items:center; justify-content:space-between; padding:0 var(--space-xl); }
+.nav__brand svg{ height:24px; width:auto; display:block; }
+.nav__meta{ font-family:'Inter', sans-serif; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--moss); font-weight:500; }
+.nav__links{ display:flex; gap:var(--space-md); }
+.nav__links a{ font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--ink); text-decoration:none; font-weight:500; }
+.nav__links a:hover{ color:var(--bindu); }
+@media (max-width:1200px){ .nav__links{ display:none; } }
+
+.cover{ min-height:96vh; display:flex; flex-direction:column; justify-content:space-between; }
+.cover__top{ display:flex; justify-content:space-between; align-items:flex-start; gap:var(--space-xl); }
+.cover__center{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:var(--space-2xl); }
+.cover__rule{ width:48px; height:1px; background:var(--bindu); }
+.cover__sub{ font-family:'Fraunces', serif; font-style:italic; font-weight:300; font-size:22px; color:var(--sand); max-width:560px; }
+.cover__foot{ display:flex; justify-content:space-between; align-items:flex-end; font-family:'Inter', sans-serif; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--moss-on-forest); }
+
+.toc__volume{ display:grid; grid-template-columns:120px 1fr 1fr; gap:var(--space-2xl); padding:var(--space-2xl) 0; border-bottom:1px solid var(--bone); align-items:start; }
+.toc__volume:last-child{ border-bottom:none; }
+.toc__volume-num{ font-family:'Fraunces', serif; font-style:italic; font-weight:300; font-size:32px; color:var(--bindu); letter-spacing:2px; }
+.toc__volume-title{ font-family:'Cormorant Garamond', serif; font-weight:400; font-size:28px; color:var(--forest); letter-spacing:1px; margin-bottom:var(--space-sm); }
+.toc__volume-sub{ font-family:'Fraunces', serif; font-style:italic; font-weight:300; font-size:15px; color:var(--moss); }
+.toc__chapters{ list-style:none; }
+.toc__chapters li{ padding:var(--space-xs) 0; font-family:'Inter', sans-serif; font-size:12px; color:var(--ink); letter-spacing:1px; font-weight:400; display:flex; gap:var(--space-md); }
+.toc__chapters li span:first-child{ color:var(--moss); font-weight:500; min-width:32px; }
+@media (max-width:880px){ .toc__volume{ grid-template-columns:1fr; gap:var(--space-md); } }
+
+.manifesto{ padding:var(--space-5xl) var(--space-xl); display:flex; flex-direction:column; align-items:center; }
+.manifesto__stanza{ max-width:620px; text-align:center; margin-bottom:var(--space-3xl); font-family:'Fraunces', serif; font-style:italic; font-weight:300; font-size:24px; line-height:1.6; color:var(--ink); }
+.manifesto__rule{ width:32px; height:1px; background:var(--bindu); margin:var(--space-2xl) auto; }
+
+.doctrine__row{ display:grid; grid-template-columns:200px 1fr; gap:var(--space-2xl); padding:var(--space-xl) 0; border-bottom:1px solid var(--bone); align-items:start; }
+.doctrine__row-label{ font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); text-transform:uppercase; font-weight:500; }
+.doctrine__row-body{ font-family:'Raleway', sans-serif; font-weight:300; font-size:14.5px; line-height:1.75; color:var(--ink); }
+.doctrine__row-body strong{ color:var(--forest); font-weight:500; }
+.doctrine{ border-top:1px solid var(--bone); margin-top:var(--space-2xl); }
+.doctrine--onforest{ border-color:rgba(236,228,211,0.18); }
+.doctrine--onforest .doctrine__row{ border-color:rgba(236,228,211,0.18); }
+.doctrine--onforest .doctrine__row-body{ color:var(--sand); }
+.doctrine--onforest .doctrine__row-body strong{ color:var(--cream); }
+@media (max-width:880px){ .doctrine__row{ grid-template-columns:1fr; gap:var(--space-sm); } }
+
+.two-col{ display:grid; grid-template-columns:1fr 1.4fr; gap:var(--space-3xl); align-items:start; margin-top:var(--space-2xl); }
+@media (max-width:880px){ .two-col{ grid-template-columns:1fr; gap:var(--space-2xl); } }
+
+.rule-list{ list-style:none; counter-reset:rules; margin-top:var(--space-md); }
+.rule-list li{ counter-increment:rules; padding:var(--space-lg) 0; border-bottom:1px solid var(--bone); display:grid; grid-template-columns:48px 1fr; gap:var(--space-md); align-items:baseline; }
+.rule-list li:last-child{ border-bottom:none; }
+.rule-list li::before{ content:counter(rules, decimal-leading-zero); font-family:'Inter', sans-serif; font-size:11px; color:var(--bindu); letter-spacing:2px; font-weight:500; }
+.rule-list li strong{ color:var(--forest); font-weight:500; display:block; margin-bottom:var(--space-xs); font-family:'Cormorant Garamond', serif; font-size:20px; letter-spacing:1px; }
+.rule-list li p{ font-family:'Raleway', sans-serif; font-weight:300; font-size:14.5px; line-height:1.75; color:var(--ink); }
+
+.quiet-list{ list-style:none; counter-reset:quiet; margin-top:var(--space-md); }
+.quiet-list li{ counter-increment:quiet; padding:var(--space-sm) 0; padding-left:var(--space-xl); position:relative; font-family:'Raleway', sans-serif; font-weight:300; font-size:14.5px; line-height:1.75; color:var(--ink); max-width:580px; }
+.quiet-list li::before{ content:counter(quiet, lower-roman) "."; position:absolute; left:0; top:6px; font-family:'Fraunces', serif; font-style:italic; font-size:14px; color:var(--bindu); }
+
+.pullquote{ font-family:'Cormorant Garamond', serif; font-weight:300; font-size:42px; line-height:1.2; color:var(--forest); letter-spacing:1px; text-align:center; max-width:760px; margin:var(--space-3xl) auto; padding:var(--space-2xl) var(--space-xl); }
+.pullquote--onforest{ color:var(--cream); }
+.pullquote::before{ content:""; display:block; width:32px; height:1px; background:var(--bindu); margin:0 auto var(--space-xl) auto; }
+.pullquote::after{ content:""; display:block; width:32px; height:1px; background:var(--bindu); margin:var(--space-xl) auto 0 auto; }
+
+.anchor-target{ scroll-margin-top:80px; }
+
+/* PILLARS */
+.pillars{ display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:1px solid var(--bone); margin-top:var(--space-2xl); }
+.pillar{ padding:var(--space-3xl) var(--space-xl); border-right:1px solid var(--bone); background:var(--cream); }
+.pillar:last-child{ border-right:none; }
+.pillar__name{ font-family:'Cormorant Garamond', serif; font-size:32px; letter-spacing:6px; color:var(--forest); font-weight:400; margin-bottom:var(--space-md); text-transform:uppercase; }
+.pillar__dev{ font-family:'Tiro Devanagari Hindi', serif; font-size:24px; color:var(--bindu); margin-bottom:var(--space-lg); }
+.pillar__body{ font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.7; }
+@media (max-width:880px){ .pillars{ grid-template-columns:1fr; } .pillar{ border-right:none; border-bottom:1px solid var(--bone); } }
+
+/* DUAL — what we are / are not */
+.dual{ display:grid; grid-template-columns:1fr 1fr; gap:0; margin-top:var(--space-2xl); border:1px solid var(--bone); }
+.dual__col{ padding:var(--space-2xl); }
+.dual__col:first-child{ border-right:1px solid var(--bone); background:var(--cream); }
+.dual__col:last-child{ background:var(--sand); }
+.dual__col h3{ font-family:'Cormorant Garamond', serif; font-size:24px; color:var(--forest); letter-spacing:1px; font-weight:400; margin-bottom:var(--space-md); }
+.dual__col ul{ list-style:none; }
+.dual__col ul li{ padding:var(--space-sm) 0; font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.65; border-bottom:1px solid var(--bone); }
+.dual__col ul li:last-child{ border-bottom:none; }
+.dual__col ul li strong{ color:var(--forest); font-weight:500; }
+@media (max-width:880px){ .dual{ grid-template-columns:1fr; } .dual__col:first-child{ border-right:none; border-bottom:1px solid var(--bone); } }
+
+/* TAGLINES */
+.taglines{ margin-top:var(--space-2xl); }
+.tagline-row{ display:grid; grid-template-columns:1fr 240px; gap:var(--space-2xl); padding:var(--space-2xl) 0; border-bottom:1px solid var(--bone); align-items:center; }
+.tagline-row:last-child{ border-bottom:none; }
+.tagline__line{ font-family:'Cormorant Garamond', serif; font-weight:300; font-size:42px; color:var(--forest); letter-spacing:1px; line-height:1.15; }
+.tagline__line em{ font-family:'Fraunces', serif; font-style:italic; }
+.tagline__use{ font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); text-transform:uppercase; font-weight:500; text-align:right; }
+@media (max-width:880px){ .tagline-row{ grid-template-columns:1fr; gap:var(--space-md); } .tagline__use{ text-align:left; } }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="wordmark" viewBox="0 0 600 200">
+      <text x="60" y="160" font-family="Cormorant Garamond, serif" font-weight="400" font-size="150" fill="#2B4630" letter-spacing="10">E</text>
+      <circle cx="200" cy="107" r="10" fill="#B4613A"/>
+      <text x="240" y="160" font-family="Cormorant Garamond, serif" font-weight="400" font-size="150" fill="#2B4630" letter-spacing="10">KAM</text>
+    </symbol>
+    <symbol id="wordmark-reverse" viewBox="0 0 600 200">
+      <text x="60" y="160" font-family="Cormorant Garamond, serif" font-weight="400" font-size="150" fill="#FAF7F0" letter-spacing="10">E</text>
+      <circle cx="200" cy="107" r="10" fill="#B4613A"/>
+      <text x="240" y="160" font-family="Cormorant Garamond, serif" font-weight="400" font-size="150" fill="#FAF7F0" letter-spacing="10">KAM</text>
+    </symbol>
+    <symbol id="wordmark-nav" viewBox="0 0 200 48">
+      <text x="10" y="38" font-family="Cormorant Garamond, serif" font-weight="500" font-size="30" fill="#14201A" letter-spacing="3">E</text>
+      <circle cx="42" cy="26" r="2.4" fill="#B4613A"/>
+      <text x="52" y="38" font-family="Cormorant Garamond, serif" font-weight="500" font-size="30" fill="#14201A" letter-spacing="3">KAM</text>
+    </symbol>
+    <symbol id="bindu-solo" viewBox="0 0 100 100"><circle cx="50" cy="50" r="22" fill="#B4613A"/></symbol>
+    <symbol id="icon-kutir" viewBox="0 0 120 100">
+      <path d="M 20 56 L 60 22 L 100 56" fill="none" stroke="#2B4630" stroke-width="2"/>
+      <path d="M 28 56 L 28 86 L 92 86 L 92 56" fill="none" stroke="#2B4630" stroke-width="2"/>
+      <rect x="52" y="62" width="16" height="16" fill="#B4613A"/>
+      <path d="M 76 26 L 76 14 L 84 14 L 84 33" fill="none" stroke="#2B4630" stroke-width="2"/>
+    </symbol>
+    <symbol id="icon-van" viewBox="0 0 120 100">
+      <path d="M 24 84 L 24 64 M 14 64 L 24 36 L 34 64 Z" fill="none" stroke="#2B4630" stroke-width="2"/>
+      <path d="M 60 88 L 60 60 M 46 60 L 60 22 L 74 60 Z" fill="none" stroke="#2B4630" stroke-width="2"/>
+      <path d="M 96 84 L 96 64 M 86 64 L 96 36 L 106 64 Z" fill="none" stroke="#2B4630" stroke-width="2"/>
+    </symbol>
+    <symbol id="icon-shikhar" viewBox="0 0 120 100">
+      <path d="M 30 80 L 60 28 L 90 80" fill="none" stroke="#2B4630" stroke-width="2"/>
+      <path d="M 50 80 L 80 38 L 110 80 Z" fill="#2B4630"/>
+      <line x1="14" y1="80" x2="110" y2="80" stroke="#2B4630" stroke-width="2"/>
+      <path d="M 53 40 L 60 28 L 67 40" fill="none" stroke="#FAF7F0" stroke-width="1.2"/>
+    </symbol>
+    <symbol id="icon-chai" viewBox="0 0 120 100">
+      <path d="M 50 22 Q 46 14 52 6" fill="none" stroke="#2B4630" stroke-width="1.2"/>
+      <path d="M 60 22 Q 58 12 62 4" fill="none" stroke="#2B4630" stroke-width="1.2"/>
+      <path d="M 70 22 Q 74 14 68 6" fill="none" stroke="#2B4630" stroke-width="1.2"/>
+      <path d="M 38 32 L 42 76 L 78 76 L 82 32 Z" fill="none" stroke="#2B4630" stroke-width="2"/>
+      <path d="M 82 42 Q 96 42 96 56 Q 96 68 82 64" fill="none" stroke="#2B4630" stroke-width="2"/>
+      <ellipse cx="60" cy="82" rx="34" ry="4" fill="none" stroke="#2B4630" stroke-width="2"/>
+      <line x1="26" y1="86" x2="94" y2="86" stroke="#2B4630" stroke-width="2"/>
+    </symbol>
+  </defs>
+</svg>
+
+<nav class="nav">
+  <div class="nav__brand"><svg><use href="#wordmark-nav" /></svg></div>
+  <div class="nav__links">
+    <a href="#vol-i">I Philosophy</a>
+    <a href="#vol-ii">II Audience</a>
+    <a href="#vol-iii">III Architecture</a>
+    <a href="#vol-iv">IV Identity</a>
+    <a href="#vol-v">V Place</a>
+    <a href="#vol-vi">VI Cabin</a>
+    <a href="#vol-vii">VII Senses</a>
+    <a href="#vol-viii">VIII Rituals</a>
+    <a href="#vol-ix">IX Distribution</a>
+    <a href="#vol-x">X Operations</a>
+    <a href="#vol-xi">XI Evolution</a>
+  </div>
+  <div class="nav__meta">BOS · v2.0</div>
+</nav>
+
+<section class="section--forest anchor-target" id="cover">
+  <div class="section__inner cover">
+    <div class="cover__top">
+      <div><div class="eyebrow eyebrow--onforest">Brand Operating System</div></div>
+      <div class="eyebrow eyebrow--onforest" style="text-align:right;">v2.0 · 2026 · Founder Review</div>
+    </div>
+    <div class="cover__center">
+      <div class="devanagari" style="font-size:32px;">एकम्</div>
+      <h1 class="cover-title">Ekam</h1>
+      <div class="cover__rule"></div>
+      <div class="cover__sub">Hospitality, disguised as solitude.</div>
+    </div>
+    <div class="cover__foot">
+      <span>The Singular · The most considered</span>
+      <span>Singular · Serene · Wild</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner section__inner--narrow">
+    <div class="eyebrow">Prologue</div>
+    <h2 class="chapter-title" style="font-size:42px; margin-top:var(--space-md); margin-bottom:var(--space-2xl);">How to read this manual.</h2>
+    <div class="body-copy">
+      <p>This is v2.0 of the Ekam Brand Operating System. It supersedes the previous Logo &amp; Application Guidelines and consolidates the founder draft (v3.0) with the directional shifts proposed in v3.1. Where v3.0 and v3.1 disagree, v3.0 holds until founder sign-off on the v3.1 shifts.</p>
+      <p>Eleven volumes. The mark sits inside Volume IV — not at the front. The front is philosophy, audience, and the architecture of the brand itself. The mark serves; it does not lead.</p>
+      <p>Read slowly. The discipline is the product.</p>
+      <p style="margin-top:var(--space-xl); padding-top:var(--space-xl); border-top:1px solid var(--bone);"><strong>On materials.</strong> This document sets the <em>register</em> — local stone, indigenous hardwood, natural mineral wall finish, regional handwoven textile, oxidised iron, unfinished brass, hand-thrown ceramic. The <strong>Sustainability Roadmap &amp; Founder Letter</strong> sets the <em>source</em> — which quarry, which mill, which forest, which weaver, which chain-of-custody, per site, per season. Where the two touch, the Roadmap governs. The BOS does not promise specific materials; it promises a register the Roadmap is responsible for filling.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <div class="eyebrow">Contents</div>
+    <h2 class="chapter-title" style="margin-top:var(--space-md);">Eleven volumes.</h2>
+    <div class="toc" style="margin-top:var(--space-2xl);">
+      <div class="toc__volume"><div class="toc__volume-num">I</div><div><div class="toc__volume-title">Philosophy &amp; Position</div><div class="toc__volume-sub">Manifesto, strategic frame, three pillars, taglines, what we will never become.</div></div><ul class="toc__chapters"><li><span>01</span> Manifesto</li><li><span>02</span> Strategic frame</li><li><span>03</span> Three pillars</li><li><span>04</span> Three foundations</li><li><span>05</span> What we are / are not</li><li><span>06</span> Three taglines</li><li><span>07</span> What we will never become</li></ul></div>
+      <div class="toc__volume"><div class="toc__volume-num">II</div><div><div class="toc__volume-title">Audience</div><div class="toc__volume-sub">Who we host, who we don't.</div></div><ul class="toc__chapters"><li><span>08</span> Who we host</li><li><span>09</span> Three personas</li><li><span>10</span> What unites them</li><li><span>11</span> Who we do not speak to</li></ul></div>
+      <div class="toc__volume"><div class="toc__volume-num">III</div><div><div class="toc__volume-title">Brand Architecture</div><div class="toc__volume-sub">Master + four sub-brands as locked tiers.</div></div><ul class="toc__chapters"><li><span>12</span> The system</li><li><span>13</span> Sub-brand specifications</li><li><span>14</span> Naming conventions</li></ul></div>
+      <div class="toc__volume"><div class="toc__volume-num">IV</div><div><div class="toc__volume-title">Identity</div><div class="toc__volume-sub">Mark, type, palette, sub-brand glyphs.</div></div><ul class="toc__chapters"><li><span>15</span> The wordmark</li><li><span>16</span> Type system</li><li><span>17</span> Palette</li><li><span>18</span> Sub-brand glyphs</li></ul></div>
+      <div class="toc__volume"><div class="toc__volume-num">V</div><div><div class="toc__volume-title">Place &amp; Land</div><div class="toc__volume-sub">Site decides first.</div></div><ul class="toc__chapters"><li><span>19</span> Land doctrine</li><li><span>20</span> Architectural language</li><li><span>21</span> Materials by tier</li><li><span>22</span> Lighting</li><li><span>23</span> Landscape integration</li><li><span>24</span> Seasonal adaptation</li></ul></div>
+      <div class="toc__volume"><div class="toc__volume-num">VI</div><div><div class="toc__volume-title">The Cabin · Offering</div><div class="toc__volume-sub">The product the guest meets.</div></div><ul class="toc__chapters"><li><span>25</span> The door &amp; threshold</li><li><span>26</span> The room</li><li><span>27</span> Sleep · non-negotiable</li><li><span>28</span> Bathroom by tier</li><li><span>29</span> Kitchen by tier</li><li><span>30</span> Touch &amp; texture</li><li><span>31</span> Considered tech</li><li><span>32</span> In-cabin store</li><li><span>33</span> Welcome ritual</li></ul></div>
+      <div class="toc__volume"><div class="toc__volume-num">VII</div><div><div class="toc__volume-title">Wayfinding &amp; Senses</div><div class="toc__volume-sub">Sound, scent, sight, motion.</div></div><ul class="toc__chapters"><li><span>34</span> Signage</li><li><span>35</span> Wayfinding</li><li><span>36</span> Environmental graphics</li><li><span>37</span> Sound</li><li><span>38</span> Scent</li><li><span>39</span> Photography</li><li><span>40</span> Motion</li></ul></div>
+      <div class="toc__volume"><div class="toc__volume-num">VIII</div><div><div class="toc__volume-title">Rituals &amp; Journey</div><div class="toc__volume-sub">The pacing of a stay.</div></div><ul class="toc__chapters"><li><span>41</span> Four rituals</li><li><span>42</span> The journey arc</li><li><span>43</span> Choreography</li><li><span>44</span> Uniforms</li></ul></div>
+      <div class="toc__volume"><div class="toc__volume-num">IX</div><div><div class="toc__volume-title">Distribution</div><div class="toc__volume-sub">The visibility play.</div></div><ul class="toc__chapters"><li><span>45</span> OTA visibility play</li><li><span>46</span> Website</li><li><span>47</span> Direct booking</li><li><span>48</span> Social — active</li><li><span>49</span> Social — defensive</li><li><span>50</span> Email</li></ul></div>
+      <div class="toc__volume"><div class="toc__volume-num">X</div><div><div class="toc__volume-title">Operations</div><div class="toc__volume-sub">Constraints, sustainability, governance.</div></div><ul class="toc__chapters"><li><span>51</span> Operational constraints</li><li><span>52</span> Sustainability</li><li><span>53</span> Governance · approvals</li><li><span>54</span> Pre-launch audit</li><li><span>55</span> Partners</li><li><span>56</span> Vendor passport</li></ul></div>
+      <div class="toc__volume"><div class="toc__volume-num">XI</div><div><div class="toc__volume-title">Evolution</div><div class="toc__volume-sub">What changes, what never does.</div></div><ul class="toc__chapters"><li><span>57</span> May change</li><li><span>58</span> Never changes</li><li><span>59</span> Revision log</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- VOLUME I -->
+<section class="section--forest anchor-target" id="vol-i">
+  <div class="section__inner volume-cover">
+    <span class="volume-numeral">Volume I</span>
+    <div class="volume-header volume-header--onforest">Philosophy &amp; Position</div>
+    <div class="volume-subtitle volume-subtitle--onforest">The position the brand operates from. The decisions that earn the right to silence everything else.</div>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner section__inner--narrow">
+    <span class="chapter-num">Chapter 01 — Manifesto</span>
+    <h2 class="chapter-title">A fixed text.</h2>
+    <div class="manifesto">
+      <p class="manifesto__stanza">Ekam is the chance to stop scrolling past beautiful places and finally sit inside one.</p>
+      <div class="manifesto__rule"></div>
+      <p class="manifesto__stanza">Real landscapes. Real light. Real silence. Without the gloss of luxury or the burden of performance.</p>
+      <div class="manifesto__rule"></div>
+      <p class="manifesto__stanza">A stay is not a service to be delivered. It is a setting to be quietly maintained, while the guest does the work of being there.</p>
+      <div class="manifesto__rule"></div>
+      <p class="manifesto__stanza">We are a hospitality brand. We borrow vocabulary from luxury, wellness, adventure — but the centre of gravity is hospitality, in its oldest sense: shelter, warmth, food, a door that closes, a host who knows when to leave.</p>
+      <div class="manifesto__rule"></div>
+      <p class="manifesto__stanza">The job is not to be the most expensive option in the forest. It is to be the most considered one.</p>
+      <div class="manifesto__rule"></div>
+      <p class="manifesto__stanza">No two stays are the same. No two cabins are alike. Because no two pieces of land are alike. We do not standardise the room. We standardise the discipline.</p>
+      <div style="font-family:'Tiro Devanagari Hindi', serif; font-size:32px; color:var(--bindu); text-align:center; margin-top:var(--space-2xl);">एकम्</div>
+      <div style="font-family:'Cormorant Garamond', serif; font-weight:400; font-size:24px; letter-spacing:6px; color:var(--forest); margin-top:var(--space-md);">The Singular.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 02 — The strategic frame</span>
+    <h2 class="chapter-title">Rich crave nature. Our advantage is the permissions.</h2>
+    <p class="lede" style="margin-bottom:var(--space-2xl);">India's wealth is climbing faster than its access to wilderness.</p>
+    <div class="body-copy">
+      <p>Money buys a better hotel. It does not buy a permit to build inside a buffer zone, on a forest department lease, on a tribal grant, on a single-track road that took five signatures and twenty years of relationships to earn.</p>
+      <p>That is our moat. Ekam exists where most hospitality cannot legally go. We do not need to compete on thread count or chandeliers. We compete on the door — and what the door opens into.</p>
+      <p>The job, then, is not to be the most expensive option in the forest. It is to be <strong>the most considered one</strong> — designed, hosted, and run with such care that the privilege of the location feels deserved by the guest, not flexed at them.</p>
+    </div>
+    <div class="pullquote">The permission moat is the brand. Everything else is craft.</div>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 03 — The three pillars</span>
+    <h2 class="chapter-title">Singular. Serene. Wild.</h2>
+    <div class="body-copy" style="margin-bottom:var(--space-xl);">
+      <p>Every design and operational decision should carry at least one of these. If it carries none, cut it.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar__dev">एकम्</div>
+        <div class="pillar__name">Singular</div>
+        <div class="pillar__body">No two stays are the same. Every cabin, tent, or pod is placed with intent and designed around the land it sits on. Ekam is Sanskrit for the one — we build it into every detail.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar__dev">शान्ति</div>
+        <div class="pillar__name">Serene</div>
+        <div class="pillar__body">Quiet by design. Guests come for the long exhale, the cup of tea at 6am, the walk that leads nowhere and is the whole point. Our voice mirrors that calm.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar__dev">वन्य</div>
+        <div class="pillar__name">Wild</div>
+        <div class="pillar__body">Every Ekam is off-grid, off-map, and on its own. We choose the hardest-to-reach places on purpose, because the reward of arrival is the entire experience.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 04 — Three foundations</span>
+    <h2 class="chapter-title">Three questions every decision must pass.</h2>
+    <div class="body-copy" style="margin-bottom:var(--space-xl);">
+      <p>Before any decision — architectural, editorial, operational, commercial — three questions are asked. The decision must pass all three.</p>
+    </div>
+    <ol class="rule-list">
+      <li><div><strong>Is it land-led?</strong><p>Does the land decide first, or are we forcing a design onto the site? If the answer requires us to reshape the land, the design is wrong.</p></div></li>
+      <li><div><strong>Is it operationally honest?</strong><p>Are we scrubbing the word luxury from guest-facing surfaces? Are we making staff work invisibly, or asking the guest to perform the work of being in a luxury hotel? Honest service does not announce itself.</p></div></li>
+      <li><div><strong>Is it silent?</strong><p>Are we removing what gets in the way? Every brand decision should subtract. Restraint is the discipline.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 05 — What we are / What we are not</span>
+    <h2 class="chapter-title">A short clarification.</h2>
+    <div class="dual">
+      <div class="dual__col">
+        <h3>What we are</h3>
+        <ul>
+          <li><strong>A hospitality brand</strong> in the oldest sense — shelter, warmth, food, a door that closes.</li>
+          <li><strong>A network of singular cabins</strong> on land that other hospitality cannot legally access.</li>
+          <li><strong>A host</strong> who knows when to leave.</li>
+          <li><strong>The most considered</strong> option in the forest, not the most expensive.</li>
+          <li><strong>A setting</strong> to be quietly maintained while the guest does the work of being there.</li>
+        </ul>
+      </div>
+      <div class="dual__col">
+        <h3>What we are not</h3>
+        <ul>
+          <li>A luxury brand. We borrow vocabulary from it; we do not centre on it.</li>
+          <li>A wellness brand. No retreats, no fasts, no transformation packages.</li>
+          <li>An adventure brand. No guided trekking, no off-road experiences.</li>
+          <li>A content brand. We post once a week, maximum.</li>
+          <li>A franchise. Each cabin is the first cabin again.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 06 — The three taglines</span>
+    <h2 class="chapter-title">The brand's verbal logos.</h2>
+    <div class="body-copy" style="margin-bottom:var(--space-xl);">
+      <p>Three lines. Each belongs to a context. Never shortened, paraphrased, or translated without design approval.</p>
+    </div>
+    <div class="taglines">
+      <div class="tagline-row">
+        <div class="tagline__line">Hospitality, <em>disguised</em> as solitude.</div>
+        <div class="tagline__use">Cover · Hero · Master expression</div>
+      </div>
+      <div class="tagline-row">
+        <div class="tagline__line">No two alike.</div>
+        <div class="tagline__use">Signature · Terminus · Single-stay framing</div>
+      </div>
+      <div class="tagline-row">
+        <div class="tagline__line">The most <em>considered.</em></div>
+        <div class="tagline__use">Competitive frame · Editorial · Against luxury</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section--ink">
+  <div class="section__inner">
+    <span class="chapter-num" style="color:var(--bindu);">Chapter 07 — What we will never become</span>
+    <h2 class="chapter-title chapter-title--onforest">A quarterly check.</h2>
+    <p class="lede lede--onforest" style="margin-bottom:var(--space-2xl);">Read this list every quarter. If we have started becoming any of these, the brand is in trouble.</p>
+    <ol class="quiet-list">
+      <li style="color:var(--sand);">A loud-luxury brand whispering expensively at $2000+ a night.</li>
+      <li style="color:var(--sand);">A wellness-content brand selling silent retreats, fasting protocols, or transformation packages.</li>
+      <li style="color:var(--sand);">A franchise. Even one franchise dilutes the model irreversibly.</li>
+      <li style="color:var(--sand);">A brand that posts daily on Instagram. Once a week is the maximum.</li>
+      <li style="color:var(--sand);">A brand that runs influencer campaigns. We do not pay for content.</li>
+      <li style="color:var(--sand);">A brand that lists on Booking-style aggregators with discounted rates.</li>
+      <li style="color:var(--sand);">A brand that offers experiences — guided trekking, cooking classes, photography workshops. The cabin is the experience.</li>
+      <li style="color:var(--sand);">A brand that has a signature scent.</li>
+      <li style="color:var(--sand);">A brand that has a customer-loyalty programme.</li>
+      <li style="color:var(--sand);">A brand whose owner is in the photographs.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- VOLUME II — AUDIENCE -->
+<section class="section--forest anchor-target" id="vol-ii">
+  <div class="section__inner volume-cover">
+    <span class="volume-numeral">Volume II</span>
+    <div class="volume-header volume-header--onforest">Audience</div>
+    <div class="volume-subtitle volume-subtitle--onforest">Who we host. Who we don't. The three cohorts of one shared psychological position.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 08 — Who we host</span>
+    <h2 class="chapter-title">The emotional driver.</h2>
+    <div class="body-copy" style="margin-bottom:var(--space-2xl);">
+      <p>Our guests are 22-to-45-year-old Indians and inbound travellers — curious, well-read, quietly exhausted by their city lives. They come from design, technology, media, finance, wellness, and independent practice. They buy less and feel more.</p>
+      <p>Beneath the demographic spread, our audience shares one psychological position: <strong>they want a place that meets them as they are, not as their socials present them.</strong> The Ekam stay is a permission slip — to be quiet, to be unobserved, to be a little less interesting in public for forty-eight hours.</p>
+    </div>
+    <h3 class="sub-heading">The jobs they hire Ekam for.</h3>
+    <ol class="quiet-list">
+      <li>Disconnect without unplugging the self.</li>
+      <li>Be in nature without roughing it.</li>
+      <li>Experience a place beyond the photos they have saved.</li>
+      <li>Feel transformed by Monday morning — but not in a way that requires telling anyone.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 09 — Three personas</span>
+    <h2 class="chapter-title">Three cohorts. One position.</h2>
+    <div class="body-copy" style="margin-bottom:var(--space-2xl);">
+      <p>The three personas map to the three tiers. Each books a different sub-brand. Each is met where they are.</p>
+    </div>
+
+    <!-- PERSONA 01 -->
+    <div style="background:var(--cream); border:1px solid var(--bone); padding:var(--space-3xl); margin-bottom:var(--space-md);">
+      <div style="display:grid; grid-template-columns:240px 1fr; gap:var(--space-2xl);" class="persona-grid">
+        <div>
+          <div class="eyebrow" style="margin-bottom:var(--space-sm);">Persona 01</div>
+          <div style="font-family:'Cormorant Garamond', serif; font-size:36px; color:var(--forest); letter-spacing:1px; line-height:1.1; margin-bottom:var(--space-md);">The Weekend Seeker</div>
+          <div style="font-family:'Fraunces', serif; font-style:italic; font-size:16px; color:var(--moss);">27–34 · Books Kutir most often</div>
+        </div>
+        <div>
+          <div class="doctrine" style="margin-top:0; border-top:none;">
+            <div class="doctrine__row"><div class="doctrine__row-label">Who</div><div class="doctrine__row-body">Senior IC at a tech firm, early-stage founder, creative director, consultant. First-generation professional earning well, but quietly burnt.</div></div>
+            <div class="doctrine__row"><div class="doctrine__row-label">Income</div><div class="doctrine__row-body"><strong>₹25–60L personal.</strong> Comfortable spending ₹9–14K per night.</div></div>
+            <div class="doctrine__row"><div class="doctrine__row-label">Trigger</div><div class="doctrine__row-body">A brutal sprint at work. An argument. A birthday that crept up. A 3-day weekend they didn't plan.</div></div>
+            <div class="doctrine__row"><div class="doctrine__row-label">Found at</div><div class="doctrine__row-body">Instagram saves (not stories). Substack. Condé Nast Traveller India. Quiet travel Reddit.</div></div>
+            <div class="doctrine__row"><div class="doctrine__row-label">Dread</div><div class="doctrine__row-body">Resorts with piped music. Check-in queues. Pre-set activity schedules. A stranger's voice at 7am.</div></div>
+            <div class="doctrine__row"><div class="doctrine__row-label">Decides</div><div class="doctrine__row-body">Scrolls in bed, books in 15 minutes if photography and copy feel right. Pays full upfront.</div></div>
+            <div class="doctrine__row"><div class="doctrine__row-label">Success</div><div class="doctrine__row-body">Goes back to Monday feeling, in their own words, "like myself again."</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PERSONA 02 -->
+    <div style="background:var(--cream); border:1px solid var(--bone); padding:var(--space-3xl); margin-bottom:var(--space-md);">
+      <div style="display:grid; grid-template-columns:240px 1fr; gap:var(--space-2xl);" class="persona-grid">
+        <div>
+          <div class="eyebrow" style="margin-bottom:var(--space-sm);">Persona 02</div>
+          <div style="font-family:'Cormorant Garamond', serif; font-size:36px; color:var(--forest); letter-spacing:1px; line-height:1.1; margin-bottom:var(--space-md);">The Conscious Traveller</div>
+          <div style="font-family:'Fraunces', serif; font-style:italic; font-size:16px; color:var(--moss);">32–42 · Books Shikhar</div>
+        </div>
+        <div>
+          <div class="doctrine" style="margin-top:0; border-top:none;">
+            <div class="doctrine__row"><div class="doctrine__row-label">Who</div><div class="doctrine__row-body">Senior professional, author, partner in a boutique firm, therapist, architect, independent consultant.</div></div>
+            <div class="doctrine__row"><div class="doctrine__row-label">Income</div><div class="doctrine__row-body"><strong>₹45L–1.5Cr+.</strong> Willing to spend ₹18–25K per night when design and solitude are guaranteed.</div></div>
+            <div class="doctrine__row"><div class="doctrine__row-label">Trigger</div><div class="doctrine__row-body">A quarterly ritual. A creative block. Finishing a project. Processing a life event.</div></div>
+            <div class="doctrine__row"><div class="doctrine__row-label">Found at</div><div class="doctrine__row-body">Monocle, paper magazines, Paper Planes, Whetstone, Tablet Hotels, word of mouth.</div></div>
+            <div class="doctrine__row"><div class="doctrine__row-label">Dread</div><div class="doctrine__row-body">Other guests' children. Mass-market wellness language. Anything Instagrammable. Being sold to.</div></div>
+            <div class="doctrine__row"><div class="doctrine__row-label">Decides</div><div class="doctrine__row-body">Researches quietly for days. Reads every line of the site. Will email a real human before booking.</div></div>
+            <div class="doctrine__row"><div class="doctrine__row-label">Success</div><div class="doctrine__row-body">Leaves having written, walked, or simply sat through one full sunrise — and tells no one for weeks.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PERSONA 03 -->
+    <div style="background:var(--cream); border:1px solid var(--bone); padding:var(--space-3xl);">
+      <div style="display:grid; grid-template-columns:240px 1fr; gap:var(--space-2xl);" class="persona-grid">
+        <div>
+          <div class="eyebrow" style="margin-bottom:var(--space-sm);">Persona 03</div>
+          <div style="font-family:'Cormorant Garamond', serif; font-size:36px; color:var(--forest); letter-spacing:1px; line-height:1.1; margin-bottom:var(--space-md);">The Adventure Romantic</div>
+          <div style="font-family:'Fraunces', serif; font-style:italic; font-size:16px; color:var(--moss);">22–29 · Books Van or Kutir</div>
+        </div>
+        <div>
+          <div class="doctrine" style="margin-top:0; border-top:none;">
+            <div class="doctrine__row"><div class="doctrine__row-label">Who</div><div class="doctrine__row-body">Analyst, product manager, designer, junior associate, independent content creator. Culturally online.</div></div>
+            <div class="doctrine__row"><div class="doctrine__row-label">Income</div><div class="doctrine__row-body"><strong>₹15–35L combined.</strong> Aspirational ₹9–14K per night. Saves for the right trip.</div></div>
+            <div class="doctrine__row"><div class="doctrine__row-label">Trigger</div><div class="doctrine__row-body">Anniversary, birthday, promotion. Celebrating an external milestone, internally seeking quiet.</div></div>
+            <div class="doctrine__row"><div class="doctrine__row-label">Found at</div><div class="doctrine__row-body">Instagram reels and stories, Pinterest, calm YouTube travel, Spotify travel podcasts.</div></div>
+            <div class="doctrine__row"><div class="doctrine__row-label">Dread</div><div class="doctrine__row-body">Being overcharged for mediocre service. Unclear directions. Cabins that look different in photos than in person.</div></div>
+            <div class="doctrine__row"><div class="doctrine__row-label">Decides</div><div class="doctrine__row-body">Couples decide jointly. Reads reviews closely. Values clarity on what is and isn't included.</div></div>
+            <div class="doctrine__row"><div class="doctrine__row-label">Success</div><div class="doctrine__row-body">Returns with three phone photos they will print, one shared secret, and a plan to come back for Shikhar at 30.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner section__inner--narrow">
+    <span class="chapter-num">Chapter 10 — What unites them</span>
+    <h2 class="chapter-title">A short statement.</h2>
+    <div class="body-copy">
+      <p>They buy less. They stay longer. They want their hospitality soft and their adventure honest. They value clarity over cleverness, quiet over spectacle, and a good bed over any amenity on a brochure.</p>
+      <p>They are not booking a glamping weekend. They are booking <strong>a better version of themselves for forty-eight to seventy-two hours.</strong></p>
+    </div>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 11 — Who we do not speak to</span>
+    <h2 class="chapter-title">A short list. Strictly enforced.</h2>
+    <ol class="quiet-list">
+      <li>Bachelor and bachelorette parties. Hen and stag groups.</li>
+      <li>Wedding-photography parties. Pre-wedding shoots.</li>
+      <li>Corporate offsites larger than eight people.</li>
+      <li>Influencer campaigns. Content-creation residencies.</li>
+      <li>Anyone who asks for a discount in their first email.</li>
+    </ol>
+    <p class="lede" style="margin-top:var(--space-2xl);">This is not snobbery. It is matching. The product is built for solitude, and these audiences disrupt the experience for everyone else.</p>
+  </div>
+</section>
+
+<!-- VOLUME III — BRAND ARCHITECTURE -->
+<section class="section--forest anchor-target" id="vol-iii">
+  <div class="section__inner volume-cover">
+    <span class="volume-numeral">Volume III</span>
+    <div class="volume-header volume-header--onforest">Brand Architecture</div>
+    <div class="volume-subtitle volume-subtitle--onforest">One master. Four sub-brands as locked tiers. The names are operational; the tier work is real.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 12 — The system</span>
+    <h2 class="chapter-title">Master + four sub-brands.</h2>
+    <div class="body-copy" style="margin-bottom:var(--space-2xl);">
+      <p>Ekam is the master brand. Beneath it sit four sub-brands, defined by tier. The tier is operational nomenclature — it organises pricing, materials, kitchen, and bathroom specifications. The tier name is never flexed in marketing copy. We never call Shikhar "luxury" on the website. We let the cabin do that work, and let curated platforms (Tablet, Mr. &amp; Mrs. Smith) do the comparative framing.</p>
+    </div>
+
+    <div style="border:1px solid var(--bone); margin-top:var(--space-xl);">
+      <div style="display:grid; grid-template-columns:180px 160px 1fr 160px; padding:var(--space-md) var(--space-lg); background:var(--sand); border-bottom:1px solid var(--bone); font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2.5px; color:var(--moss); text-transform:uppercase; font-weight:500;">
+        <div>Sub-brand</div><div>Tier</div><div>What it is</div><div style="text-align:right;">Rate band</div>
+      </div>
+      <div style="display:grid; grid-template-columns:180px 160px 1fr 160px; padding:var(--space-lg); border-bottom:1px solid var(--bone); background:var(--cream); align-items:center;">
+        <div><div style="font-family:'Tiro Devanagari Hindi', serif; font-size:18px; color:var(--bindu);">कुटीर</div><div style="font-family:'Cormorant Garamond', serif; font-size:22px; color:var(--forest); letter-spacing:3px;">Kutir</div></div>
+        <div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); text-transform:uppercase; font-weight:500;">Standard</div>
+        <div style="font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.65;">Hut. Stone floor. Wood stove. The most Ekam thing we make, at the most accessible price.</div>
+        <div style="font-family:'Inter', sans-serif; font-size:14px; letter-spacing:1px; color:var(--forest); text-align:right; font-weight:500;">₹6–9K / night</div>
+      </div>
+      <div style="display:grid; grid-template-columns:180px 160px 1fr 160px; padding:var(--space-lg); border-bottom:1px solid var(--bone); background:var(--cream); align-items:center;">
+        <div><div style="font-family:'Tiro Devanagari Hindi', serif; font-size:18px; color:var(--bindu);">वन</div><div style="font-family:'Cormorant Garamond', serif; font-size:22px; color:var(--forest); letter-spacing:3px;">Van</div></div>
+        <div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); text-transform:uppercase; font-weight:500;">Premium</div>
+        <div style="font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.65;">Elevated platforms, woven tents, deep forest. The premium tier earns its price through proximity, not finish.</div>
+        <div style="font-family:'Inter', sans-serif; font-size:14px; letter-spacing:1px; color:var(--forest); text-align:right; font-weight:500;">₹10–15K / night</div>
+      </div>
+      <div style="display:grid; grid-template-columns:180px 160px 1fr 160px; padding:var(--space-lg); border-bottom:1px solid var(--bone); background:var(--cream); align-items:center;">
+        <div><div style="font-family:'Tiro Devanagari Hindi', serif; font-size:18px; color:var(--bindu);">शिखर</div><div style="font-family:'Cormorant Garamond', serif; font-size:22px; color:var(--forest); letter-spacing:3px;">Shikhar</div></div>
+        <div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); text-transform:uppercase; font-weight:500;">Luxury</div>
+        <div style="font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.65;">Ridgeline cabins. Solid materials throughout. Earns its price through difficulty, not gloss.</div>
+        <div style="font-family:'Inter', sans-serif; font-size:14px; letter-spacing:1px; color:var(--forest); text-align:right; font-weight:500;">₹16–25K / night</div>
+      </div>
+      <div style="display:grid; grid-template-columns:180px 160px 1fr 160px; padding:var(--space-lg); background:var(--cream); align-items:center;">
+        <div><div style="font-family:'Tiro Devanagari Hindi', serif; font-size:18px; color:var(--bindu);">चाय</div><div style="font-family:'Cormorant Garamond', serif; font-size:22px; color:var(--forest); letter-spacing:3px;">Chai</div></div>
+        <div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); text-transform:uppercase; font-weight:500;">Hospitality ext.</div>
+        <div style="font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.65;">Standalone cafés on the routes + in-house café at every Ekam property. The first Ekam most guests meet.</div>
+        <div style="font-family:'Inter', sans-serif; font-size:14px; letter-spacing:1px; color:var(--forest); text-align:right; font-weight:500;">Per stop</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 13 — Sub-brand specifications</span>
+    <h2 class="chapter-title">Each tier, by example.</h2>
+    <div class="doctrine">
+      <div class="doctrine__row">
+        <div class="doctrine__row-label">Kutir · Standard</div>
+        <div class="doctrine__row-body"><strong>Chitkul, Sangla, Pachmarhi.</strong> Hut, stone floor, wood stove. The most Ekam thing we make at the most accessible price. The brand reads through proportion, light, restraint — not the bill of materials.</div>
+      </div>
+      <div class="doctrine__row">
+        <div class="doctrine__row-label">Van · Premium</div>
+        <div class="doctrine__row-body"><strong>Baspa Valley canopy, Pachmarhi forest interior.</strong> Elevated platforms, woven tents. The premium tier earns its price through proximity, not finish.</div>
+      </div>
+      <div class="doctrine__row">
+        <div class="doctrine__row-label">Shikhar · Luxury</div>
+        <div class="doctrine__row-body"><strong>Kalpa, Nako (3200m+), Spiti circuit.</strong> Ridgeline cabins. Solid materials throughout. Earns its price through difficulty, not gloss.</div>
+      </div>
+      <div class="doctrine__row">
+        <div class="doctrine__row-label">Chai · Hospitality</div>
+        <div class="doctrine__row-body"><strong>Nako, en route to Chitkul, in-house at every Ekam.</strong> Stone hearth, kettle that doesn't stop. Same menu, same ritual, same cup. The first Ekam most guests meet.</div>
+      </div>
+    </div>
+    <div class="pullquote">Tier is named operationally, not flexed in marketing copy.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 14 — Naming conventions</span>
+    <h2 class="chapter-title">Always Ekam first.</h2>
+    <ol class="rule-list">
+      <li><div><strong>Three words, separated by the Bindu.</strong><p>Always Ekam first, tier second, location third. Examples: <em>Ekam Kutir Chitkul, Ekam Shikhar Kalpa, Ekam Chai Nako.</em></p></div></li>
+      <li><div><strong>Spoken aloud as Ekam · Kutir · Chitkul.</strong><p>The Bindu is the rhythmic pause.</p></div></li>
+      <li><div><strong>Never skip a level.</strong><p>Even internal ops documents follow the full lockup.</p></div></li>
+      <li><div><strong>Location names in Inter 500, letter-spaced.</strong><p>Never in the serif wordmark face on supplementary copy.</p></div></li>
+      <li><div><strong>Never substitute a hyphen, slash, or pipe for the Bindu.</strong><p>Only the clay dot bridges the words.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- VOLUME IV — IDENTITY -->
+<section class="section--forest anchor-target" id="vol-iv">
+  <div class="section__inner volume-cover">
+    <span class="volume-numeral">Volume IV</span>
+    <div class="volume-header volume-header--onforest">Identity</div>
+    <div class="volume-subtitle volume-subtitle--onforest">The mark, the type, the palette. The smallest weight in the system. The detailed logo specification is a separate companion document.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 15 — The wordmark</span>
+    <h2 class="chapter-title">E · KAM.</h2>
+    <div class="two-col">
+      <div>
+        <div style="background:var(--sand); border:1px solid var(--bone); padding:var(--space-3xl); display:flex; align-items:center; justify-content:center; min-height:280px;">
+          <svg width="220" height="76"><use href="#wordmark" /></svg>
+        </div>
+        <p class="lede" style="margin-top:var(--space-md); font-size:15px; color:var(--moss);">Bindu Clay dot between E and K, on cap-midline.</p>
+      </div>
+      <div class="body-copy">
+        <p>Set in Cormorant Garamond 400, all caps, with a clay-orange Bindu between E and K — vertically aligned with the cap-height midline. The Bindu is not decoration. It is the centre of gravity of the mark.</p>
+        <p>Five master files: wordmark cream, wordmark reverse, E-monogram, bilingual stack, Bindu solo. Internal teams may not regenerate from system fonts. Production files request from the Brand Hub.</p>
+        <p>Detailed clearspace, scale, misuse, and the social asset suite live in the companion Logo Specification.</p>
+      </div>
+    </div>
+    <div class="doctrine">
+      <div class="doctrine__row"><div class="doctrine__row-label">Clearspace</div><div class="doctrine__row-body">Reserve clearspace equal to the height of the letter E on every side. Nothing enters the moat.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Bindu</div><div class="doctrine__row-body"><strong>Always #B4613A.</strong> Diameter 13% of cap-height. Sits between E and K on the cap-midline. Never animates.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Minimum scale</div><div class="doctrine__row-body">24 px wordmark height on screen. 8 mm in print. Embroidered or engraved: 18 mm minimum.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Letterspacing</div><div class="doctrine__row-body">8% on screen at hero size. 1.5 mm at 30 mm height in print. Never closer than 4 px.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">In running text</div><div class="doctrine__row-body">Set as <strong>Ekam</strong>. Capital E, lowercase remainder. The Bindu does not appear in prose.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 16 — Type system</span>
+    <h2 class="chapter-title">Four faces.</h2>
+    <div class="doctrine">
+      <div class="doctrine__row"><div class="doctrine__row-label">Display</div><div class="doctrine__row-body"><strong>Cormorant Garamond.</strong> Light 300 / Regular 400. Wordmark, headlines, chapter openers, signage. Letter-spacing ≥4 px on headlines, ≥8 px on wordmarks.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Storytelling</div><div class="doctrine__row-body"><strong>Fraunces.</strong> Italic default. Storytelling, taglines, pull-quotes, email intros. Upright reserved for longer body. Line-height 1.55.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">UI &amp; metadata</div><div class="doctrine__row-body"><strong>Inter.</strong> 300, 400, 500. UI, booking flow, way-finding, captions. Letterspacing 2–3 px on eyebrows. 0.5 px on body.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Devanagari</div><div class="doctrine__row-body"><strong>Tiro Devanagari Hindi.</strong> Regular and italic. Welcome cards, cabin doors, wax seals, section dividers. Never substitutes for English UI.</div></div>
+    </div>
+    <h3 class="sub-heading" style="margin-top:var(--space-3xl);">Hierarchy.</h3>
+    <ol class="quiet-list">
+      <li>Hero / cover: Cormorant 78–96 px, 14 px letterspacing.</li>
+      <li>H2 section opener: Cormorant 38–44 px, 1 px letterspacing.</li>
+      <li>H3: Cormorant 22 px, 1 px letterspacing.</li>
+      <li>H4 / eyebrow: Inter 11 px uppercase, 4 px letterspacing, clay colour.</li>
+      <li>Body: Fraunces or Raleway 15–17 px, line-height 1.55–1.85.</li>
+      <li>Pull-quote: Fraunces 21 px italic, 1.5 line-height.</li>
+      <li>Caption / spec: Inter 12–13 px, 1 px letterspacing, moss colour.</li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 17 — Palette</span>
+    <h2 class="chapter-title">The rule of saffron.</h2>
+    <div class="body-copy">
+      <p><strong>60% Cream / Sand · 30% Forest · 8% Ink · 2% Bindu Clay.</strong> Clay behaves like saffron in food — small quantity, unmissable presence. Never as wallpaper, never inside a heading colour, never as a button background.</p>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:0; border:1px solid var(--bone); margin-top:var(--space-2xl);">
+      <div style="display:flex; flex-direction:column; border-right:1px solid var(--bone); min-height:240px;"><div style="flex:1; background:#FAF7F0; border-bottom:1px solid var(--bone);"></div><div style="padding:var(--space-md);"><div style="font-family:'Cormorant Garamond', serif; font-size:18px; color:var(--forest);">Cream</div><div style="font-family:'Inter', sans-serif; font-size:10px; color:var(--moss); letter-spacing:2px; margin-top:2px;">#FAF7F0 · 60%</div></div></div>
+      <div style="display:flex; flex-direction:column; border-right:1px solid var(--bone); min-height:240px;"><div style="flex:1; background:#2B4630;"></div><div style="padding:var(--space-md); background:var(--cream);"><div style="font-family:'Cormorant Garamond', serif; font-size:18px; color:var(--forest);">Deep Forest</div><div style="font-family:'Inter', sans-serif; font-size:10px; color:var(--moss); letter-spacing:2px; margin-top:2px;">#2B4630 · 30%</div></div></div>
+      <div style="display:flex; flex-direction:column; border-right:1px solid var(--bone); min-height:240px;"><div style="flex:1; background:#14201A;"></div><div style="padding:var(--space-md); background:var(--cream);"><div style="font-family:'Cormorant Garamond', serif; font-size:18px; color:var(--forest);">Forest Ink</div><div style="font-family:'Inter', sans-serif; font-size:10px; color:var(--moss); letter-spacing:2px; margin-top:2px;">#14201A · 8%</div></div></div>
+      <div style="display:flex; flex-direction:column; min-height:240px;"><div style="flex:1; background:#B4613A;"></div><div style="padding:var(--space-md); background:var(--cream);"><div style="font-family:'Cormorant Garamond', serif; font-size:18px; color:var(--forest);">Bindu Clay</div><div style="font-family:'Inter', sans-serif; font-size:10px; color:var(--moss); letter-spacing:2px; margin-top:2px;">#B4613A · 2%</div></div></div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:0; border:1px solid var(--bone); border-top:none;">
+      <div style="display:flex; flex-direction:column; border-right:1px solid var(--bone);"><div style="height:80px; background:#F4EDE1;"></div><div style="padding:var(--space-md); background:var(--cream); border-top:1px solid var(--bone);"><div style="font-family:'Cormorant Garamond', serif; font-size:15px; color:var(--forest);">Sand</div><div style="font-family:'Inter', sans-serif; font-size:10px; color:var(--moss); letter-spacing:2px;">#F4EDE1</div></div></div>
+      <div style="display:flex; flex-direction:column; border-right:1px solid var(--bone);"><div style="height:80px; background:#ECE4D3;"></div><div style="padding:var(--space-md); background:var(--cream); border-top:1px solid var(--bone);"><div style="font-family:'Cormorant Garamond', serif; font-size:15px; color:var(--forest);">Bone</div><div style="font-family:'Inter', sans-serif; font-size:10px; color:var(--moss); letter-spacing:2px;">#ECE4D3</div></div></div>
+      <div style="display:flex; flex-direction:column; border-right:1px solid var(--bone);"><div style="height:80px; background:#D8D3C4;"></div><div style="padding:var(--space-md); background:var(--cream); border-top:1px solid var(--bone);"><div style="font-family:'Cormorant Garamond', serif; font-size:15px; color:var(--forest);">Mist</div><div style="font-family:'Inter', sans-serif; font-size:10px; color:var(--moss); letter-spacing:2px;">#D8D3C4</div></div></div>
+      <div style="display:flex; flex-direction:column;"><div style="height:80px; background:#7A8A6B;"></div><div style="padding:var(--space-md); background:var(--cream); border-top:1px solid var(--bone);"><div style="font-family:'Cormorant Garamond', serif; font-size:15px; color:var(--forest);">Moss</div><div style="font-family:'Inter', sans-serif; font-size:10px; color:var(--moss); letter-spacing:2px;">#7A8A6B</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 18 — Sub-brand glyphs</span>
+    <h2 class="chapter-title">Four marks.</h2>
+    <div class="body-copy" style="margin-bottom:var(--space-2xl);">
+      <p>Each tier carries its own glyph, paired with the master wordmark and the tier name in Cormorant Garamond, all caps, letter-spaced.</p>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:0; border:1px solid var(--bone);">
+      <div style="padding:var(--space-2xl); border-right:1px solid var(--bone); background:var(--cream); display:flex; flex-direction:column; align-items:center; gap:var(--space-md); text-align:center;">
+        <svg width="80" height="68"><use href="#icon-kutir" /></svg>
+        <div style="font-family:'Tiro Devanagari Hindi', serif; font-size:20px; color:var(--bindu);">कुटीर</div>
+        <div style="font-family:'Cormorant Garamond', serif; font-size:24px; color:var(--forest); letter-spacing:4px;">KUTIR</div>
+        <div style="font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2px; color:var(--moss); text-transform:uppercase;">Triangular hut · chimney</div>
+      </div>
+      <div style="padding:var(--space-2xl); border-right:1px solid var(--bone); background:var(--cream); display:flex; flex-direction:column; align-items:center; gap:var(--space-md); text-align:center;">
+        <svg width="80" height="68"><use href="#icon-van" /></svg>
+        <div style="font-family:'Tiro Devanagari Hindi', serif; font-size:20px; color:var(--bindu);">वन</div>
+        <div style="font-family:'Cormorant Garamond', serif; font-size:24px; color:var(--forest); letter-spacing:4px;">VAN</div>
+        <div style="font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2px; color:var(--moss); text-transform:uppercase;">Three conifers</div>
+      </div>
+      <div style="padding:var(--space-2xl); border-right:1px solid var(--bone); background:var(--cream); display:flex; flex-direction:column; align-items:center; gap:var(--space-md); text-align:center;">
+        <svg width="80" height="68"><use href="#icon-shikhar" /></svg>
+        <div style="font-family:'Tiro Devanagari Hindi', serif; font-size:20px; color:var(--bindu);">शिखर</div>
+        <div style="font-family:'Cormorant Garamond', serif; font-size:24px; color:var(--forest); letter-spacing:4px;">SHIKHAR</div>
+        <div style="font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2px; color:var(--moss); text-transform:uppercase;">Three peaks, snow caps</div>
+      </div>
+      <div style="padding:var(--space-2xl); background:var(--cream); display:flex; flex-direction:column; align-items:center; gap:var(--space-md); text-align:center;">
+        <svg width="80" height="68"><use href="#icon-chai" /></svg>
+        <div style="font-family:'Tiro Devanagari Hindi', serif; font-size:20px; color:var(--bindu);">चाय</div>
+        <div style="font-family:'Cormorant Garamond', serif; font-size:24px; color:var(--forest); letter-spacing:4px;">CHAI</div>
+        <div style="font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2px; color:var(--moss); text-transform:uppercase;">Kettle · two ribbons of steam</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOLUME IV · LOGO SPECIFICATION (expanded chapters) -->
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 18a — Wordmark anatomy</span>
+    <h2 class="chapter-title">Construction, measured.</h2>
+    <div style="background:var(--sand); border:1px solid var(--bone); padding:var(--space-3xl) var(--space-xl); margin-top:var(--space-2xl);">
+      <svg viewBox="0 0 880 400" width="100%" style="max-width:880px; display:block; margin:0 auto;">
+        <text x="120" y="270" font-family="Cormorant Garamond, serif" font-weight="400" font-size="200" fill="#2B4630" letter-spacing="14">E</text>
+        <circle cx="320" cy="186" r="14" fill="#B4613A"/>
+        <text x="370" y="270" font-family="Cormorant Garamond, serif" font-weight="400" font-size="200" fill="#2B4630" letter-spacing="14">KAM</text>
+        <line x1="80" y1="118" x2="80" y2="270" stroke="#B4613A" stroke-width="1.2"/>
+        <line x1="75" y1="118" x2="85" y2="118" stroke="#B4613A" stroke-width="1.2"/>
+        <line x1="75" y1="270" x2="85" y2="270" stroke="#B4613A" stroke-width="1.2"/>
+        <text x="64" y="200" font-family="Inter, sans-serif" font-size="11" fill="#B4613A" letter-spacing="2.5" font-weight="500" transform="rotate(-90, 64, 200)">CAP-HEIGHT (1E)</text>
+        <line x1="130" y1="194" x2="650" y2="194" stroke="#7A8A6B" stroke-width="0.5" stroke-dasharray="3 4" opacity="0.6"/>
+        <text x="660" y="198" font-family="Inter, sans-serif" font-size="10" fill="#7A8A6B" letter-spacing="2">CAP-MIDLINE</text>
+        <line x1="334" y1="186" x2="430" y2="60" stroke="#7A8A6B" stroke-width="0.5" stroke-dasharray="2 3"/>
+        <text x="438" y="56" font-family="Inter, sans-serif" font-size="11" fill="#B4613A" letter-spacing="2" font-weight="500">BINDU</text>
+        <text x="438" y="70" font-family="Inter, sans-serif" font-size="10" fill="#7A8A6B" letter-spacing="2">DIAMETER · 13% CAP-HEIGHT</text>
+        <text x="438" y="84" font-family="Inter, sans-serif" font-size="10" fill="#7A8A6B" letter-spacing="2">CENTRE · OPTICAL BETWEEN E &amp; K</text>
+        <text x="438" y="98" font-family="Inter, sans-serif" font-size="10" fill="#7A8A6B" letter-spacing="2">VERTICAL · ON CAP-MIDLINE</text>
+        <text x="438" y="112" font-family="Inter, sans-serif" font-size="10" fill="#7A8A6B" letter-spacing="2">FILL · #B4613A · ALWAYS</text>
+        <line x1="130" y1="275" x2="650" y2="275" stroke="#7A8A6B" stroke-width="0.6" stroke-dasharray="3 4"/>
+        <text x="660" y="279" font-family="Inter, sans-serif" font-size="10" fill="#7A8A6B" letter-spacing="2">BASELINE</text>
+        <line x1="130" y1="320" x2="650" y2="320" stroke="#7A8A6B" stroke-width="0.6" stroke-dasharray="2 3"/>
+        <line x1="130" y1="315" x2="130" y2="325" stroke="#7A8A6B" stroke-width="0.6"/>
+        <line x1="650" y1="315" x2="650" y2="325" stroke="#7A8A6B" stroke-width="0.6"/>
+        <text x="390" y="345" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#7A8A6B" letter-spacing="2.5" font-weight="500">LETTERSPACING · 8% SCREEN · 1.5 MM PRINT</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 18b — Clearspace</span>
+    <h2 class="chapter-title">The E-height rule.</h2>
+    <p class="lede" style="margin-bottom:var(--space-2xl);">Reserve clearspace equal to the height of the letter E on every side of the wordmark. Nothing enters the moat.</p>
+    <div style="border:1px solid var(--bone); background:var(--cream); padding:var(--space-2xl); margin-top:var(--space-xl);">
+      <svg viewBox="0 0 880 480" width="100%" style="max-width:880px; display:block; margin:0 auto;">
+        <rect x="60" y="60" width="760" height="360" fill="none" stroke="#B4613A" stroke-width="1.2" stroke-dasharray="6 8"/>
+        <text x="180" y="300" font-family="Cormorant Garamond, serif" font-weight="400" font-size="120" fill="#2B4630" letter-spacing="10">E</text>
+        <circle cx="293" cy="248" r="8" fill="#B4613A"/>
+        <text x="324" y="300" font-family="Cormorant Garamond, serif" font-weight="400" font-size="120" fill="#2B4630" letter-spacing="10">KAM</text>
+        <line x1="100" y1="180" x2="100" y2="300" stroke="#B4613A" stroke-width="1.4"/>
+        <line x1="95" y1="180" x2="105" y2="180" stroke="#B4613A" stroke-width="1.4"/>
+        <line x1="95" y1="300" x2="105" y2="300" stroke="#B4613A" stroke-width="1.4"/>
+        <text x="80" y="244" font-family="Inter, sans-serif" font-size="11" fill="#B4613A" letter-spacing="3" transform="rotate(-90, 80, 244)" font-weight="500">1 × E HEIGHT</text>
+        <line x1="440" y1="60" x2="440" y2="180" stroke="#B4613A" stroke-width="1.4"/>
+        <line x1="435" y1="60" x2="445" y2="60" stroke="#B4613A" stroke-width="1.4"/>
+        <line x1="435" y1="180" x2="445" y2="180" stroke="#B4613A" stroke-width="1.4"/>
+        <text x="456" y="125" font-family="Inter, sans-serif" font-size="11" fill="#B4613A" letter-spacing="3" font-weight="500">1 × E HEIGHT</text>
+        <line x1="780" y1="180" x2="780" y2="300" stroke="#B4613A" stroke-width="1.4"/>
+        <line x1="775" y1="180" x2="785" y2="180" stroke="#B4613A" stroke-width="1.4"/>
+        <line x1="775" y1="300" x2="785" y2="300" stroke="#B4613A" stroke-width="1.4"/>
+        <text x="800" y="244" font-family="Inter, sans-serif" font-size="11" fill="#B4613A" letter-spacing="3" transform="rotate(-90, 800, 244)" font-weight="500">1 × E HEIGHT</text>
+        <line x1="440" y1="300" x2="440" y2="420" stroke="#B4613A" stroke-width="1.4"/>
+        <line x1="435" y1="300" x2="445" y2="300" stroke="#B4613A" stroke-width="1.4"/>
+        <line x1="435" y1="420" x2="445" y2="420" stroke="#B4613A" stroke-width="1.4"/>
+        <text x="456" y="365" font-family="Inter, sans-serif" font-size="11" fill="#B4613A" letter-spacing="3" font-weight="500">1 × E HEIGHT</text>
+        <text x="60" y="50" font-family="Inter, sans-serif" font-size="10" fill="#B4613A" letter-spacing="3" font-weight="500">CLEARSPACE BOUNDARY · 1E ON ALL FOUR SIDES</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 18c — Required artifacts</span>
+    <h2 class="chapter-title">Seven master files.</h2>
+    <p class="lede" style="margin-bottom:var(--space-2xl);">Every application begins from one of these. Internal teams may not regenerate from system fonts.</p>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:0; border:1px solid var(--bone); margin-top:var(--space-2xl);">
+      <div style="padding:var(--space-2xl) var(--space-md); border-right:1px solid var(--bone); background:var(--cream); display:flex; flex-direction:column; align-items:center; justify-content:space-between; min-height:300px;">
+        <div style="flex:1; display:flex; align-items:center; justify-content:center;"><svg width="160" height="56"><use href="#wordmark" /></svg></div>
+        <div style="text-align:center; margin-top:var(--space-md);"><div style="font-family:'Cormorant Garamond', serif; font-size:16px; color:var(--forest); letter-spacing:1px;">Wordmark</div><div style="font-family:'Inter', sans-serif; font-size:9px; color:var(--bindu); letter-spacing:2px; margin-top:6px;">EKAM_Wordmark_Cream.svg</div></div>
+      </div>
+      <div style="padding:var(--space-2xl) var(--space-md); border-right:1px solid var(--bone); background:var(--forest); display:flex; flex-direction:column; align-items:center; justify-content:space-between; min-height:300px;">
+        <div style="flex:1; display:flex; align-items:center; justify-content:center;"><svg width="160" height="56"><use href="#wordmark-reverse" /></svg></div>
+        <div style="text-align:center; margin-top:var(--space-md);"><div style="font-family:'Cormorant Garamond', serif; font-size:16px; color:var(--cream); letter-spacing:1px;">Reverse</div><div style="font-family:'Inter', sans-serif; font-size:9px; color:var(--bindu); letter-spacing:2px; margin-top:6px;">EKAM_Wordmark_Forest.svg</div></div>
+      </div>
+      <div style="padding:var(--space-2xl) var(--space-md); border-right:1px solid var(--bone); background:var(--cream); display:flex; flex-direction:column; align-items:center; justify-content:space-between; min-height:300px;">
+        <div style="flex:1; display:flex; align-items:center; justify-content:center;"><svg viewBox="0 0 280 200" width="100" height="72"><text x="50" y="160" font-family="Cormorant Garamond, serif" font-weight="400" font-size="150" fill="#2B4630" letter-spacing="10">E</text><circle cx="190" cy="107" r="10" fill="#B4613A"/></svg></div>
+        <div style="text-align:center; margin-top:var(--space-md);"><div style="font-family:'Cormorant Garamond', serif; font-size:16px; color:var(--forest); letter-spacing:1px;">E-monogram</div><div style="font-family:'Inter', sans-serif; font-size:9px; color:var(--bindu); letter-spacing:2px; margin-top:6px;">EKAM_Monogram_Cream.svg</div></div>
+      </div>
+      <div style="padding:var(--space-2xl) var(--space-md); background:var(--forest); display:flex; flex-direction:column; align-items:center; justify-content:space-between; min-height:300px;">
+        <div style="flex:1; display:flex; align-items:center; justify-content:center;"><svg viewBox="0 0 280 200" width="100" height="72"><text x="50" y="160" font-family="Cormorant Garamond, serif" font-weight="400" font-size="150" fill="#FAF7F0" letter-spacing="10">E</text><circle cx="190" cy="107" r="10" fill="#B4613A"/></svg></div>
+        <div style="text-align:center; margin-top:var(--space-md);"><div style="font-family:'Cormorant Garamond', serif; font-size:16px; color:var(--cream); letter-spacing:1px;">Monogram reverse</div><div style="font-family:'Inter', sans-serif; font-size:9px; color:var(--bindu); letter-spacing:2px; margin-top:6px;">EKAM_Monogram_Forest.svg</div></div>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:1px solid var(--bone); border-top:none;">
+      <div style="padding:var(--space-2xl) var(--space-md); border-right:1px solid var(--bone); background:var(--cream); display:flex; flex-direction:column; align-items:center; justify-content:space-between; min-height:240px;">
+        <div style="flex:1; display:flex; align-items:center; justify-content:center;"><svg width="48" height="48"><use href="#bindu-solo" /></svg></div>
+        <div style="text-align:center; margin-top:var(--space-md);"><div style="font-family:'Cormorant Garamond', serif; font-size:16px; color:var(--forest); letter-spacing:1px;">Bindu solo</div><div style="font-family:'Inter', sans-serif; font-size:9px; color:var(--bindu); letter-spacing:2px; margin-top:6px;">EKAM_Bindu.svg</div></div>
+      </div>
+      <div style="padding:var(--space-2xl) var(--space-md); border-right:1px solid var(--bone); background:var(--cream); display:flex; flex-direction:column; align-items:center; justify-content:space-between; min-height:240px;">
+        <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+          <svg viewBox="0 0 540 360" width="120" height="80">
+            <text x="270" y="80" text-anchor="middle" font-family="Tiro Devanagari Hindi, serif" font-size="60" fill="#2B4630" letter-spacing="2">एकम्</text>
+            <text x="60" y="200" font-family="Cormorant Garamond, serif" font-weight="400" font-size="120" fill="#2B4630" letter-spacing="10">E</text>
+            <circle cx="172" cy="158" r="8" fill="#B4613A"/>
+            <text x="208" y="200" font-family="Cormorant Garamond, serif" font-weight="400" font-size="120" fill="#2B4630" letter-spacing="10">KAM</text>
+            <line x1="200" y1="225" x2="340" y2="225" stroke="#B4613A" stroke-width="1.2"/>
+            <text x="270" y="270" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#7A8A6B" letter-spacing="5">NO TWO ALIKE</text>
+          </svg>
+        </div>
+        <div style="text-align:center; margin-top:var(--space-md);"><div style="font-family:'Cormorant Garamond', serif; font-size:16px; color:var(--forest); letter-spacing:1px;">Bilingual stack</div><div style="font-family:'Inter', sans-serif; font-size:9px; color:var(--bindu); letter-spacing:2px; margin-top:6px;">EKAM_Bilingual.svg</div></div>
+      </div>
+      <div style="padding:var(--space-2xl) var(--space-md); background:var(--cream); display:flex; flex-direction:column; align-items:center; justify-content:space-between; min-height:240px;">
+        <div style="flex:1; display:flex; align-items:center; justify-content:center;"><svg width="160" height="40"><use href="#wordmark-nav" /></svg></div>
+        <div style="text-align:center; margin-top:var(--space-md);"><div style="font-family:'Cormorant Garamond', serif; font-size:16px; color:var(--forest); letter-spacing:1px;">Nav compact</div><div style="font-family:'Inter', sans-serif; font-size:9px; color:var(--bindu); letter-spacing:2px; margin-top:6px;">EKAM_Nav.svg</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 18d — Minimum scale</span>
+    <h2 class="chapter-title">Where the mark stops reading.</h2>
+    <div class="doctrine">
+      <div class="doctrine__row"><div class="doctrine__row-label">Master wordmark</div><div class="doctrine__row-body"><strong>24 px screen · 8 mm print.</strong> Below this the Bindu collapses to a smudge.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">E-monogram</div><div class="doctrine__row-body"><strong>32 px screen · 10 mm print.</strong> Profile pictures, app icons at small sizes.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Bilingual stack</div><div class="doctrine__row-body"><strong>48 px overall · 16 mm print.</strong> Devanagari sets the floor, not the English line.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Bindu solo</div><div class="doctrine__row-body"><strong>16 px diameter · 4 mm print.</strong> Favicon, smallest app icon, wax seal, section break.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Embroidered / engraved</div><div class="doctrine__row-body">18 mm minimum for the wordmark. Engraving below this loses the Bindu definition.</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 18e — Lockup construction</span>
+    <h2 class="chapter-title">Three words. Two Bindus.</h2>
+    <div class="body-copy" style="margin-bottom:var(--space-xl);">
+      <p>Every property reads as three words separated by the Bindu: <strong>Ekam · Tier · Location</strong>. Same form, never reordered, never abbreviated.</p>
+    </div>
+    <div style="background:var(--sand); border:1px solid var(--bone); padding:var(--space-3xl) var(--space-xl); margin-top:var(--space-xl); text-align:center;">
+      <svg viewBox="0 0 720 96" width="100%" style="max-width:600px;">
+        <text x="0" y="68" font-family="Cormorant Garamond, serif" font-weight="400" font-size="60" fill="#2B4630" letter-spacing="8">EKAM</text>
+        <circle cx="220" cy="44" r="5" fill="#B4613A"/>
+        <text x="244" y="68" font-family="Cormorant Garamond, serif" font-weight="400" font-size="60" fill="#2B4630" letter-spacing="8">KUTIR</text>
+        <circle cx="470" cy="44" r="5" fill="#B4613A"/>
+        <text x="494" y="68" font-family="Cormorant Garamond, serif" font-weight="400" font-size="60" fill="#2B4630" letter-spacing="8">CHITKUL</text>
+      </svg>
+    </div>
+    <div class="doctrine">
+      <div class="doctrine__row"><div class="doctrine__row-label">Wordmark face</div><div class="doctrine__row-body">Cormorant Garamond 400. ≥6 px letterspacing on screen, 1.5 mm at 30 mm height in print.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Location face</div><div class="doctrine__row-body">Same as wordmark — Cormorant Garamond 400, same cap height as Ekam and the tier.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Separator</div><div class="doctrine__row-body">A single Bindu in Clay #B4613A, optical centre between words. Never two Bindus in one lockup. Never a hyphen, slash, or pipe.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Spoken form</div><div class="doctrine__row-body">"Ekam · Kutir · Chitkul" — the Bindu is the rhythmic pause.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 18f — Social asset suite</span>
+    <h2 class="chapter-title">Thirteen named files.</h2>
+    <p class="lede" style="margin-bottom:var(--space-2xl);">Every public surface across X, LinkedIn, Facebook, WhatsApp, YouTube, and Instagram is covered by a finite, named-file inventory.</p>
+    <div class="doctrine">
+      <div class="doctrine__row"><div class="doctrine__row-label">Profile · 06 files</div><div class="doctrine__row-body">Wordmark cream 1080. Wordmark forest 1080. Monogram E cream 1080. Monogram E forest 1080. Bindu only cream 1080. WhatsApp profile 640.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Covers · 04 files</div><div class="doctrine__row-body">X header 1500 × 500 (wordmark left). LinkedIn cover 1584 × 396 (wordmark centred). Facebook cover 1640 × 624 (wordmark right). YouTube banner 2048 × 1152 (content inside 1235 × 338 mobile-safe zone).</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Feed &amp; story · 02 files</div><div class="doctrine__row-body">Instagram post 1080 × 1080. Instagram story 1080 × 1920.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Profile rotation</div><div class="doctrine__row-body">Instagram — Monogram cream. Pinterest — Monogram cream. X — Monogram cream. Facebook — Wordmark forest. YouTube — Monogram forest. WhatsApp — Bindu only. Never the Bindu-only as a primary profile on a content platform.</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 18g — YouTube hallmark</span>
+    <h2 class="chapter-title">The wordmark as on-screen signature.</h2>
+    <div style="background:#000; padding:var(--space-md); margin-top:var(--space-2xl);">
+      <div style="aspect-ratio:16/9; background-image:linear-gradient(135deg, #2B4630 0%, #14201A 100%); position:relative; overflow:hidden;">
+        <div style="position:absolute; bottom:8%; left:5%; font-family:'Cormorant Garamond', serif; font-size:18px; color:var(--cream); letter-spacing:2px;">Ekam Kutir Chitkul</div>
+        <div style="position:absolute; bottom:5%; left:5%; font-family:'Inter', sans-serif; font-size:10px; color:var(--sand); letter-spacing:3px; text-transform:uppercase; opacity:0.7;">A spring morning on the porch</div>
+        <div style="position:absolute; bottom:8%; right:5%; opacity:0.55;"><svg width="80" height="28"><use href="#wordmark-reverse" /></svg></div>
+      </div>
+    </div>
+    <div class="doctrine" style="margin-top:var(--space-2xl);">
+      <div class="doctrine__row"><div class="doctrine__row-label">Position</div><div class="doctrine__row-body">Bottom-right corner of frame. 4% of frame width padding from both edges.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Size</div><div class="doctrine__row-body"><strong>3% of frame width.</strong> Wordmark height ~24 px on 1080p video.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Opacity</div><div class="doctrine__row-body"><strong>55–60%.</strong> Never opaque, never below 45%.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Colour</div><div class="doctrine__row-body">Reverse wordmark on dark frames. Master on light. Bindu always #B4613A at full saturation.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Persistence</div><div class="doctrine__row-body">Appears for the full duration of content. Not a fade in / out.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Intro &amp; outro</div><div class="doctrine__row-body">Intro 0:00–0:02 — Bindu fade in (0.8 s), wordmark resolve, hold 1 s, cut. End screen 0:20 — Deep Forest, reverse wordmark centred, "No two alike." in Fraunces italic at 60% Sand opacity below.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 18h — Partner lockups</span>
+    <h2 class="chapter-title">Three tiers. One wordmark.</h2>
+    <div class="doctrine">
+      <div class="doctrine__row"><div class="doctrine__row-label">Tier 01 · Editorial</div><div class="doctrine__row-body"><strong>Mention only.</strong> Named in copy. No lockup, no co-located logos.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Tier 02 · Co-branded</div><div class="doctrine__row-body"><strong>Adjacent lockup.</strong> Ekam wordmark + Bindu Clay hairline + partner mark. Partner ≤50% Ekam wordmark height. Ekam leads. Brand Hub approval.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Tier 03 · Hosted</div><div class="doctrine__row-body"><strong>Full co-presence.</strong> Master wordmark always above. Partner at sub-brand weight. Production file from Brand Hub. Founder sign-off.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Lead with landscape</div><div class="doctrine__row-body">The partner's village or estate is named before Ekam is. The partnership is a credit, not a campaign.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Never</div><div class="doctrine__row-body" style="color:var(--bindu);">Set a partner at equal or greater visual weight than Ekam. Lead with the partner mark. Co-brand with sub-brand lockups — pairings always sit on the master wordmark. Place co-branded lockups on photography.</div></div>
+    </div>
+    <div style="background:var(--cream); border:1px solid var(--bone); padding:var(--space-3xl) var(--space-xl); margin-top:var(--space-2xl); display:flex; align-items:center; justify-content:center; gap:var(--space-xl);">
+      <svg width="200" height="68"><use href="#wordmark" /></svg>
+      <div style="height:48px; width:1px; background:var(--bindu);"></div>
+      <div style="font-family:'Cormorant Garamond', serif; font-size:18px; letter-spacing:3px; color:var(--moss); border:1px solid var(--mist); padding:var(--space-sm) var(--space-md);">PARTNER</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 18i — Misuse</span>
+    <h2 class="chapter-title">What we never do.</h2>
+    <div class="body-copy" style="margin-bottom:var(--space-xl);">
+      <p>The list below is illustrative, not exhaustive. When in doubt, request approval from the Brand Hub.</p>
+    </div>
+    <ol class="rule-list">
+      <li><div><strong>Do not float the Bindu above the K.</strong><p>The dot sits on the cap-midline, between E and K. Never above any letter.</p></div></li>
+      <li><div><strong>Do not recolor the Bindu.</strong><p>Always #B4613A. Never another colour. Never with opacity.</p></div></li>
+      <li><div><strong>Do not stretch, condense, or distort.</strong><p>Scale by wordmark height — never by container width.</p></div></li>
+      <li><div><strong>Do not substitute another typeface.</strong><p>Cormorant Garamond Regular only. Sans-serif system fonts violate the master.</p></div></li>
+      <li><div><strong>Do not place on non-canon backgrounds.</strong><p>Cream, Sand, Deep Forest, Forest Ink only. Never on Moss, Mist, or photography.</p></div></li>
+      <li><div><strong>Do not replace the Bindu with a symbol.</strong><p>Heart, leaf, flower, emoji, photograph — the dot is fixed in shape.</p></div></li>
+      <li><div><strong>Do not append marketing taglines under the wordmark.</strong><p>The three approved taglines are the only verbal companions to the wordmark, and they appear in specified contexts only.</p></div></li>
+      <li><div><strong>Do not surface operational tier names in guest-facing lockups.</strong><p>Standard / Premium / Luxury are backend only. Never in lockups, signage, or marketing copy.</p></div></li>
+      <li><div><strong>Do not append descriptors below the wordmark.</strong><p>"living", "retreats", "cabins" — pre-v3 forms are deprecated. The wordmark is complete.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- VOLUME V — PLACE & LAND -->
+<section class="section--forest anchor-target" id="vol-v">
+  <div class="section__inner volume-cover">
+    <span class="volume-numeral">Volume V</span>
+    <div class="volume-header volume-header--onforest">Place &amp; Land</div>
+    <div class="volume-subtitle volume-subtitle--onforest">The site decides first. Every architectural and material decision begins with that fact.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 19 — Land doctrine</span>
+    <h2 class="chapter-title">Site selection.</h2>
+    <p class="lede" style="margin-bottom:var(--space-2xl);">The land is not a backdrop. It is the project. We choose the site first; we design the cabin second.</p>
+    <ol class="rule-list">
+      <li><div><strong>Built area never exceeds 8% of acquired land.</strong><p>For a 5-acre parcel, no more than 0.4 acres are built. The remaining 92% is left, restored, or actively rewilded. Non-negotiable.</p></div></li>
+      <li><div><strong>The cabin disappears at 50 metres.</strong><p>From any approach path at 50 m distance, a single cabin should not visibly read against the landscape. If it reads, the cladding, roof line, or siting is wrong.</p></div></li>
+      <li><div><strong>One tree felled requires three planted.</strong><p>Native species only. Planting within the same monsoon window as felling. Per-tree accounting, not per-canopy. Project lead signs the register before construction.</p></div></li>
+      <li><div><strong>No site requires removal of a perennial water feature.</strong><p>Streams, springs, ponds, seasonal water-paths are not redirected, capped, or built over. The cabin moves. The water does not.</p></div></li>
+      <li><div><strong>The approach is on foot.</strong><p>Vehicular access ends at the perimeter. The final approach is on foot — never a paved road to the door.</p></div></li>
+      <li><div><strong>Sites we do not build on.</strong><p>Floodplains. Migration corridors verified by a local biologist. Land within 200 m of a working village without the village's invitation. Sites whose principal view is another building. Sites whose principal sound is a road.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 20 — Architectural language</span>
+    <h2 class="chapter-title">Single-room, single-window, single-view.</h2>
+    <div class="body-copy" style="margin-bottom:var(--space-2xl);">
+      <p>The architecture is foreground-first: a vessel built to direct attention to one window, one view, one place.</p>
+    </div>
+    <div class="doctrine">
+      <div class="doctrine__row"><div class="doctrine__row-label">Footprint</div><div class="doctrine__row-body">One- or two-room cabins. Never more. A second room only if a partitioned sleeping space is required.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Window</div><div class="doctrine__row-body"><strong>One large window per cabin</strong>, oriented to the primary view. The rest of the cabin is a vessel for that window.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Roof</div><div class="doctrine__row-body">Pitch follows local vernacular — the regional building tradition for the elevation, climate, and material register of the site. Per the Sustainability Roadmap's site-specific spec. Never "modern cabin chic."</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Foundation</div><div class="doctrine__row-body">Foundation and stilts are visible. We do not hide structure behind cladding.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Ceiling height</div><div class="doctrine__row-body"><strong>3.5–4.5 m.</strong> Never lofted, never double-height. The cabin should feel held.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">First sight on entry</div><div class="doctrine__row-body">The first thing the guest sees on entering is the window — never the bed, never the kitchen.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Disappearance test</div><div class="doctrine__row-body">Before sign-off, the head architect walks 50 m from the cabin in three directions. Visible / invisible. Visible fails.</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 21 — Materials by tier</span>
+    <h2 class="chapter-title">The honest compromise.</h2>
+    <p class="lede" style="margin-bottom:var(--space-2xl);">The standard tier admits the compromise rather than faking the spec.</p>
+    <div class="doctrine">
+      <div class="doctrine__row"><div class="doctrine__row-label">Shikhar · Luxury</div><div class="doctrine__row-body"><strong>Local stone flooring. Natural mineral wall finish. Indigenous hardwood joinery. Hand-thrown ceramic. Raw wool. Unfinished brass. Solid wood throughout.</strong> Every material is what it looks like.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Van · Premium</div><div class="doctrine__row-body">Indigenous hardwood throughout, per regional availability and the Sustainability Roadmap. Engineered wood only where solid would warp (wet zones, behind plumbing). Natural mineral wall finish. Local stone where the platform allows. Hand-thrown ceramic. Unfinished brass. The premium tier shows up in the immersion, not the surfaces.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Kutir · Standard</div><div class="doctrine__row-body">Regionally available softwood or budget-permitting indigenous hardwood. High-grade engineered wood for cabinetry. Natural mineral wall finish. <strong>Sealed acrylic wet-zone sheet</strong> — named honestly on the spec sheet, never as "stone-effect". Locally fired ceramic. Brushed brass. The brand reads through proportion, light, restraint — not the bill of materials.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Banned in all tiers</div><div class="doctrine__row-body" style="color:var(--bindu);">Painted MDF. Vinyl. Imported wall tile. Polished marble. Chrome. Plastic laminate. Shiplap. Anything pretending to be a material it isn't.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section--ink">
+  <div class="section__inner">
+    <span class="chapter-num" style="color:var(--bindu);">Chapter 22 — Lighting</span>
+    <h2 class="chapter-title chapter-title--onforest">Day, Evening, Night, Off.</h2>
+    <p class="lede lede--onforest" style="margin-bottom:var(--space-2xl);">Built around four moods and a single capacitive panel per cabin.</p>
+    <div class="doctrine doctrine--onforest">
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">Day</div><div class="doctrine__row-body">No electric lighting on. The window does the work. Unbleached cotton curtains, full-pull only.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">Evening</div><div class="doctrine__row-body"><strong>2400–2700K.</strong> Three sources only: pendant over the eating surface, wall sconce by the bed, lantern on the porch.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">Night</div><div class="doctrine__row-body">A single 1800K bedside source. No overheads after sunset by default. The wood stove is part of the lighting plan.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">Off</div><div class="doctrine__row-body">Everything off. The window does dawn.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">CRI</div><div class="doctrine__row-body">CRI 95 minimum. We buy on quality of light, not lumens.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">Smart panel</div><div class="doctrine__row-body">One capacitive smart panel per cabin: matte oxidised brass face, four etched zones (Day · Evening · Night · Off). Bulbs locked to 1800–2700K. RGB modes disabled at the controller.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">Fittings</div><div class="doctrine__row-body">Unfinished brass or oxidised black iron. No exposed bulb filament unless the bulb is genuinely Edison-vintage and 10 W or less.</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 23 — Landscape integration</span>
+    <h2 class="chapter-title">The garden is the forest.</h2>
+    <div class="body-copy" style="margin-bottom:var(--space-2xl);">
+      <p>There is no "landscape design" in the conventional sense. We do not plant ornamental beds. We do not lay turf. The garden is the forest the cabin sits inside.</p>
+    </div>
+    <ol class="rule-list">
+      <li><div><strong>Native species only.</strong><p>Every plant on the property appears in the regional botanical survey within a 25 km radius. List signed by the commissioned biologist before planting.</p></div></li>
+      <li><div><strong>No lawn.</strong><p>Maintained grass is incompatible with the brand. Natural groundcover — moss, leaf litter, alpine grass. We mow nothing.</p></div></li>
+      <li><div><strong>Paths are felt before they are seen.</strong><p>Surfaces use the local material register. Edges are unmarked — the path is defined by the texture change underfoot.</p></div></li>
+      <li><div><strong>Water features are existing, never built.</strong><p>No constructed ponds or fountains. If a stream runs through the property, the cabin acknowledges it.</p></div></li>
+      <li><div><strong>No outdoor furniture beyond the porch.</strong><p>The land is not a beer garden. No benches scattered across the site. The porch is the outdoor room.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 24 — Seasonal adaptation</span>
+    <h2 class="chapter-title">What changes. What never does.</h2>
+    <p class="lede" style="margin-bottom:var(--space-2xl);">The cabin reads the calendar. The brand does not.</p>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:0; border:1px solid var(--bone); margin-top:var(--space-xl);">
+      <div style="padding:var(--space-2xl) var(--space-lg); border-right:1px solid var(--bone); background:var(--cream);">
+        <div style="font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2.5px; color:var(--bindu); text-transform:uppercase; font-weight:500; margin-bottom:var(--space-sm);">Mar → May</div>
+        <div style="font-family:'Cormorant Garamond', serif; font-size:24px; color:var(--forest); letter-spacing:2px; margin-bottom:var(--space-md);">Spring</div>
+        <div style="font-family:'Raleway', sans-serif; font-size:13px; color:var(--ink); font-weight:300; line-height:1.7;">First light returns. Windows open at midday. The kettle carries the season's botanical. Linens lighten to natural fibre, sand and cream.</div>
+      </div>
+      <div style="padding:var(--space-2xl) var(--space-lg); border-right:1px solid var(--bone); background:var(--cream);">
+        <div style="font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2.5px; color:var(--bindu); text-transform:uppercase; font-weight:500; margin-bottom:var(--space-sm);">Jun → Aug</div>
+        <div style="font-family:'Cormorant Garamond', serif; font-size:24px; color:var(--forest); letter-spacing:2px; margin-bottom:var(--space-md);">Monsoon</div>
+        <div style="font-family:'Raleway', sans-serif; font-size:13px; color:var(--ink); font-weight:300; line-height:1.7;">The rain becomes the soundtrack. Linen replaces cotton. Hot ginger arrival. Dry-store menu per the regional pantry.</div>
+      </div>
+      <div style="padding:var(--space-2xl) var(--space-lg); border-right:1px solid var(--bone); background:var(--cream);">
+        <div style="font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2.5px; color:var(--bindu); text-transform:uppercase; font-weight:500; margin-bottom:var(--space-sm);">Sep → Nov</div>
+        <div style="font-family:'Cormorant Garamond', serif; font-size:24px; color:var(--forest); letter-spacing:2px; margin-bottom:var(--space-md);">Autumn</div>
+        <div style="font-family:'Raleway', sans-serif; font-size:13px; color:var(--ink); font-weight:300; line-height:1.7;">Clearest light of the year. Wool throws return. The kettle carries the season's spice. Harvest menu peaks.</div>
+      </div>
+      <div style="padding:var(--space-2xl) var(--space-lg); background:var(--cream);">
+        <div style="font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2.5px; color:var(--bindu); text-transform:uppercase; font-weight:500; margin-bottom:var(--space-sm);">Dec → Feb</div>
+        <div style="font-family:'Cormorant Garamond', serif; font-size:24px; color:var(--forest); letter-spacing:2px; margin-bottom:var(--space-md);">Winter</div>
+        <div style="font-family:'Raleway', sans-serif; font-size:13px; color:var(--ink); font-weight:300; line-height:1.7;">Cabin closes in. Fire central. Wool over flannel. Buttered chai arrival.</div>
+      </div>
+    </div>
+    <div class="pullquote">The season is not a campaign. It is a fact.</div>
+  </div>
+</section>
+
+<!-- VOLUME VI — THE CABIN / OFFERING -->
+<section class="section--forest anchor-target" id="vol-vi">
+  <div class="section__inner volume-cover">
+    <span class="volume-numeral">Volume VI</span>
+    <div class="volume-header volume-header--onforest">The Cabin · Offering</div>
+    <div class="volume-subtitle volume-subtitle--onforest">The product the guest meets. Sleep is the non-negotiable. Everything else serves it.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 25 — The door &amp; threshold</span>
+    <h2 class="chapter-title">Sound of arrival is the sound of stones.</h2>
+    <ol class="rule-list">
+      <li><div><strong>Gravel for the final 20 metres.</strong><p>The final approach is on gravel. The sound of arrival is the sound of stones underfoot.</p></div></li>
+      <li><div><strong>Cabin number hand-cut in local stone or unfinished brass.</strong><p>≤40 mm tall, beside the door at hand height. Devanagari numerals.</p></div></li>
+      <li><div><strong>Entry through a covered porch.</strong><p>No glass airlock, no foyer.</p></div></li>
+      <li><div><strong>Door swings inward, on visible black-iron hinges.</strong><p>Outward swing fails on Himalayan exterior doors — wind catches, snow seals. Inward swing is the considered choice, not the default.</p></div></li>
+      <li><div><strong>Smart lock, visible.</strong><p>A considered IoT deadbolt in oxidised brass — Yale Assure or August in matte finish. Never plastic, never a touchscreen panel. Pairs with the guest's phone before arrival. A brass spare key in a stone niche on the porch.</p></div></li>
+      <li><div><strong>First thing seen on entering is the window.</strong><p>Never the bed. Never the kitchen.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner section__inner--narrow">
+    <span class="chapter-num">Chapter 26 — The room</span>
+    <h2 class="chapter-title">Furniture philosophy.</h2>
+    <div class="body-copy" style="margin-bottom:var(--space-xl);">
+      <p>80% built-in. 20% movable. The cabin and the furniture are one piece.</p>
+    </div>
+    <ol class="quiet-list">
+      <li><strong style="color:var(--forest);">Built-in (80%):</strong> window seat, bed platform, ledge desk, kitchen counter.</li>
+      <li><strong style="color:var(--forest);">Movable (20%):</strong> one low chair, one stool, one side table. That is the entire movable inventory.</li>
+      <li>Raw, not refined. Saw marks visible. Joints visible. Fasteners not hidden.</li>
+      <li>No upholstered furniture except the window-seat cushion.</li>
+      <li>No coffee table. The floor is the coffee table — a low cotton dhurrie, a wooden tray, done.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="section--ink">
+  <div class="section__inner">
+    <span class="chapter-num" style="color:var(--bindu);">Chapter 27 — Sleep · the non-negotiable</span>
+    <h2 class="chapter-title chapter-title--onforest">A good bed before any amenity on a brochure.</h2>
+    <p class="lede lede--onforest" style="margin-bottom:var(--space-2xl);">Sleep is a brand pillar. Continuous investment in mattress, linen, and sleep environment. The cabin is built around the bed before it is built around anything else.</p>
+
+    <div class="doctrine doctrine--onforest">
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">The platform</div><div class="doctrine__row-body">Mattress on a low platform, <strong>≤30 cm off the floor.</strong> No bed frame with vertical posts. The platform is built into the cabin, not imported.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">The mattress</div><div class="doctrine__row-body">Natural latex over coil, hand-tufted, breathable. Annual research investment. Replaced on hand-finish wear, not on time interval. <em>The mattress is the most expensive guest-touched commission per cabin after the outside-in audio.</em></div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">The linen</div><div class="doctrine__row-body">Natural fibre, stonewashed, drawn from the brand palette. Default rotation: cream and sand. Deep Forest or Ink available on request, standing palette in Shikhar cabins. No synthetic blends, ever. Source per the Sustainability Roadmap.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">The layering</div><div class="doctrine__row-body"><strong>Fitted sheet → flat sheet → light wool blanket → optional heavier throw at the foot.</strong> Region-appropriate handwoven wool and cotton, sourced per the Sustainability Roadmap.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">The pillows</div><div class="doctrine__row-body">Two per person. <strong>One firm, one soft</strong> as the default — the guest picks their side. A third in-between pillow is in the cupboard for anyone who wants it. No decorative pillow stack.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">The book</div><div class="doctrine__row-body">One book on the bedside, hand-picked per cabin and per stay. Annotated pencil left inside. The book is part of the bed.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">The light</div><div class="doctrine__row-body">A single 1800K bedside source within reach from the pillow. No overhead light in the sleeping zone. The window does dawn.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">The room</div><div class="doctrine__row-body">Sleeping zone temperature held at 18–20°C. No HVAC drone — passive ventilation primary, supplemental only when the site demands. The bedroom is the quietest room: outside-in audio cuts at 22:00.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">No turndown</div><div class="doctrine__row-body">No staff turndown service. No chocolate on the pillow. No card with breakfast options. The bed is made before arrival and is not re-made until the guest leaves the room the next morning.</div></div>
+    </div>
+
+    <div class="pullquote pullquote--onforest">
+      The guest leaves rested before they leave moved. Sleep first.
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 28 — Bathroom by tier</span>
+    <h2 class="chapter-title">The honest spec.</h2>
+    <div class="doctrine">
+      <div class="doctrine__row"><div class="doctrine__row-label">Shikhar · Luxury</div><div class="doctrine__row-body">Local stone or fired clay floor. Natural mineral wall finish. No tile, no grout lines. Wet zone in stone with a stone drain.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Van · Premium</div><div class="doctrine__row-body">Local stone floor. Natural mineral finish on dry walls. On shower walls, stone where the platform allows it, sealed acrylic sheet elsewhere — per the Sustainability Roadmap site spec.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Kutir · Standard</div><div class="doctrine__row-body"><strong>Sealed acrylic sheet</strong> on shower walls and behind sinks. Single-piece, matte, in a colour drawn from sand or mist — never glossy white, never fake-stone-print. The standard tier admits the compromise rather than faking the spec.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Mirror</div><div class="doctrine__row-body">One mirror, framed in unfinished wood. Not backlit. Not fog-resistant. Not magnified.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Shower</div><div class="doctrine__row-body">Wooden plank floor with a stone drain. Open. No curtain. No glass enclosure.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Soap &amp; salt</div><div class="doctrine__row-body">One refillable ceramic bottle of locally pressed plant-oil soap. One ceramic jar of bath salt. Hand-labelled. Nothing else. Sourcing per the Sustainability Roadmap.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Privacy glass</div><div class="doctrine__row-body">Smart frosted glass (PDLC film, switchable) on any pane facing a path. One control. Off by default.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 29 — Kitchen by tier</span>
+    <h2 class="chapter-title">Full kitchen in Shikhar only.</h2>
+    <div class="body-copy" style="margin-bottom:var(--space-xl);">
+      <p>Full in-cabin kitchens live in <strong>Shikhar</strong> only. <strong>Kutir</strong> carries a kettle station and a pantry shelf, no stove. <strong>Van</strong> has a covered outdoor cook-platform shared with one or two neighbours. Across all tiers, Ekam Chai serves the warm meals.</p>
+    </div>
+    <div class="doctrine">
+      <div class="doctrine__row"><div class="doctrine__row-label">Stove</div><div class="doctrine__row-body">Two-burner gas stove (Shikhar only). Never induction. Visible flame, visible gas line.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Kettle &amp; cookware</div><div class="doctrine__row-body">One brass kettle. One cast-iron pan. One ceramic pot. No gadgets, no toasters, no electric kettles.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Pantry</div><div class="doctrine__row-body">Salt, sugar, ghee, two teas (one Indian estate, one regional herbal), local honey. Hand-labelled. Source per the Sustainability Roadmap's seasonal pantry register.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Crockery</div><div class="doctrine__row-body">Hand-thrown ceramic in moss or sand. <strong>Two plates, two bowls, two mugs, two glasses.</strong> Not four. Not six. Two.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Cutlery</div><div class="doctrine__row-body">One knife. One wooden spoon. One brass strainer.</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 30 — Touch &amp; texture</span>
+    <h2 class="chapter-title">Every surface natural.</h2>
+    <div class="body-copy" style="margin-bottom:var(--space-xl);">
+      <p>Every surface a guest's hand meets for more than a moment must be natural.</p>
+    </div>
+    <div class="dual">
+      <div class="dual__col">
+        <h3>Allowed</h3>
+        <ul>
+          <li>Wood (untreated or oiled)</li>
+          <li>Stone</li>
+          <li>Ceramic</li>
+          <li>Wool</li>
+          <li>Linen</li>
+          <li>Paper</li>
+          <li>Brass</li>
+          <li>Leather</li>
+          <li>Natural mineral wall finish</li>
+        </ul>
+      </div>
+      <div class="dual__col">
+        <h3>Banned in interior contact zones</h3>
+        <ul>
+          <li>Plastic</li>
+          <li>Vinyl laminate</li>
+          <li>Painted MDF</li>
+          <li>Glossy enamel</li>
+          <li>Rubber strips</li>
+          <li>Polished marble</li>
+          <li>Anything visibly synthetic</li>
+        </ul>
+      </div>
+    </div>
+    <div class="body-copy" style="margin-top:var(--space-2xl);">
+      <p><strong>The deliberate exception:</strong> the smart switch panel — matte oxidised brass face, capacitive touch zones, etched not screen-printed. We treat it as a piece of brass that happens to be smart, not a screen that happens to be in brass.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 31 — Considered tech</span>
+    <h2 class="chapter-title">Visible. Smart. Disappearing.</h2>
+    <p class="lede" style="margin-bottom:var(--space-2xl);">Tech that disappears into materials. Not tech that pretends not to exist.</p>
+    <div class="doctrine">
+      <div class="doctrine__row"><div class="doctrine__row-label">Smart lock</div><div class="doctrine__row-body">Yale Assure or August in matte oxidised brass. Visible. Pairs with the guest's phone before arrival. Brass spare key in a stone niche on the porch.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Smart panel</div><div class="doctrine__row-body">One capacitive panel per cabin: matte oxidised brass face. Four etched zones (Day · Evening · Night · Off). RGB modes disabled at controller.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Smart frosted glass</div><div class="doctrine__row-body">PDLC film on bathroom and path-facing panes. One switch, obvious. Off by default. The mirror itself stays analog.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">App dimming</div><div class="doctrine__row-body">App dimming is preferred over fiddling with three separate switches. The controller stays invisible. The bulb does the work.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Outside-in audio</div><div class="doctrine__row-body">Concealed dual speakers wired to external directional mics. Pipes the soundscape of the land into the cabin in real time. Cuts at 22:00.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Forbidden</div><div class="doctrine__row-body" style="color:var(--bindu);">Plastic-bodied switches. Touchscreen panels. Voice assistants. In-room tablets. Hidden cameras. Smart appliances that beep or click.</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 32 — In-cabin store</span>
+    <h2 class="chapter-title">Reference: Aesop, Le Labo, Frette.</h2>
+    <div class="body-copy" style="margin-bottom:var(--space-xl);">
+      <p>Small, beautifully made, no logos shouting, no T-shirts, no hoodies, no mugs with cartoons of cabins. The opposite reference is the Starbucks tumbler — we do not do that.</p>
+    </div>
+    <ol class="rule-list">
+      <li><div><strong>Robe</strong><p>Flax linen. No printed logo. A small Bindu hand-stitched at the hem in clay-orange thread.</p></div></li>
+      <li><div><strong>Linen sheet set</strong><p>Stonewashed cotton in cream, sand, deep-forest, or ink. Folded in unbleached paper, tied with twine.</p></div></li>
+      <li><div><strong>Wool throw</strong><p>Region-appropriate handwoven wool or hand-spun cotton. Hangtag is a single local-stone slab with the Bindu and the weaver's village hand-cut into it.</p></div></li>
+      <li><div><strong>Hand-thrown ceramic</strong><p>Mug, bowl, kettle. Single-Bindu base, undated, slightly different each batch.</p></div></li>
+      <li><div><strong>Plant-oil soap &amp; bath salt refill</strong><p>The same one used in the cabin. Refillable ceramic bottle. No Ekam name on the label — only the soap-maker's village. Oil and salt source per the Sustainability Roadmap.</p></div></li>
+      <li><div><strong>Match box</strong><p>Cream card, black Bindu, lime-yellow interior. Functional first — strikes deliberately rough.</p></div></li>
+    </ol>
+    <div class="pullquote" style="font-size:32px;">
+      What we never make: mugs with the logo, branded slippers, key-tags, water bottles, tote bags with the tagline, T-shirts, hoodies, anything with a printed Ekam wordmark in primary view.
+    </div>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 33 — Welcome ritual</span>
+    <h2 class="chapter-title">First four minutes.</h2>
+    <ol class="rule-list">
+      <li><div><strong>The card.</strong><p>A handwritten card lies on the bed (not the table). Two sentences. Signed by the host with first name only. Re-written for each guest from a template — never photocopied.</p></div></li>
+      <li><div><strong>The mug.</strong><p>A copper mug of water and a sprig of fresh local botanical — chosen by the host from the site's seasonal calendar. Refilled daily.</p></div></li>
+      <li><div><strong>The room.</strong><p>The cabin smells like it has been aired, not perfumed.</p></div></li>
+      <li><div><strong>The candles.</strong><p>Candles unlit at arrival. Matches placed beside them. The guest lights the cabin themselves.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- VOLUME VII — WAYFINDING & SENSES -->
+<section class="section--forest anchor-target" id="vol-vii">
+  <div class="section__inner volume-cover">
+    <span class="volume-numeral">Volume VII</span>
+    <div class="volume-header volume-header--onforest">Wayfinding &amp; Senses</div>
+    <div class="volume-subtitle volume-subtitle--onforest">Sound, scent, sight, motion. How a guest finds their way through Ekam.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 34 — Signage</span>
+    <h2 class="chapter-title">CNC hardwood. Iron inlay.</h2>
+    <div class="doctrine">
+      <div class="doctrine__row"><div class="doctrine__row-label">Substrate</div><div class="doctrine__row-body"><strong>CNC-routed indigenous hardwood</strong> — species per the site's regional register, governed by the Sustainability Roadmap. 25 mm thick. Hand-oiled finish. Oxidised iron standoffs where free-standing.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Lettering</div><div class="doctrine__row-body">Cormorant Garamond Light 300. CNC-routed and inlaid with oxidised iron. Letter-spacing minimum 10 px. Never painted, never sandblasted.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Devanagari</div><div class="doctrine__row-body">Tiro Devanagari Hindi, same iron inlay. Devanagari sits above the English on stacked plaques, never below.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Night lighting</div><div class="doctrine__row-body">None. Signage is read by daylight or handheld lantern. We do not backlight signage.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Maximum per site</div><div class="doctrine__row-body"><strong>Seven.</strong> Property entry. Parking terminus. Reception. Chai pavilion. Trail head (if present). Each cabin door. Register kept by the property manager and approved by Brand Hub before any new sign.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Tone</div><div class="doctrine__row-body">Informational. Never persuasive. Says <em>Reception</em>, not <em>Welcome Home</em>. Says <em>Chai</em>, not <em>The Tea Pavilion</em>.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 35 — Wayfinding</span>
+    <h2 class="chapter-title">The path is the sign.</h2>
+    <div class="body-copy" style="margin-bottom:var(--space-xl);">
+      <p>Ekam wayfinding does not run on arrows. A guest finds their way by the materials underfoot. When the surface changes, they have made a turn. When the surface darkens, they are nearing arrival. When the surface ends, they have arrived.</p>
+    </div>
+    <ol class="rule-list">
+      <li><div><strong>Material changes carry the wayfinding.</strong><p>Stone → earth signals public to semi-private. Earth → gravel signals cabin approach. Gravel → stone-slab signals arrival.</p></div></li>
+      <li><div><strong>Light marks the route at night.</strong><p>Path lanterns at 1800K, low intensity, 8 m apart on the primary route only. Cabin approach unlit — the guest is given a handheld lantern from reception.</p></div></li>
+      <li><div><strong>No maps in the cabin.</strong><p>No printed property map. A hand-drawn map is offered at reception on request, drawn in Forest Ink on Cream paper.</p></div></li>
+      <li><div><strong>Reception is the only point of orientation.</strong><p>Questions are asked at reception, not at signage. Hospitality replaces information graphics.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner section__inner--narrow">
+    <span class="chapter-num">Chapter 36 — Environmental graphics</span>
+    <h2 class="chapter-title">A short chapter.</h2>
+    <div class="lede" style="margin:var(--space-2xl) 0;">Ekam has no environmental graphics. The land speaks first.</div>
+    <div class="body-copy">
+      <p>No murals, decals, super-graphics, wayfinding installations, brand walls, photo-opportunity markers, or installed signage moments anywhere on Ekam property beyond the seven approved signs catalogued in Chapter 34. When a designer, vendor, or internal team proposes one, the answer is no. The proposal does not require review. It is declined at the brief stage.</p>
+    </div>
+    <div class="pullquote" style="font-size:32px;">The wall is already a graphic. We did not need to add one.</div>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 37 — Sound</span>
+    <h2 class="chapter-title">The window is the stereo.</h2>
+    <p class="lede" style="margin-bottom:var(--space-2xl);">Outside-in audio is the brand's signature. Music is forbidden in the cabin.</p>
+    <div class="doctrine">
+      <div class="doctrine__row"><div class="doctrine__row-label">Outside-in audio</div><div class="doctrine__row-body">Concealed dual-speaker configuration wired to external directional microphones. The microphones face the strongest natural soundscape — water, canopy, wind. Speakers pipe that soundscape into the cabin in real time, unedited.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Indoor level</div><div class="doctrine__row-body">Set so outside-in sound reads at <strong>−6 dB from normal speaking voice</strong> at standing height in the centre of the cabin.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Off-hours</div><div class="doctrine__row-body">System cuts at 22:00, resumes at sunrise. Sleeping hours are silent.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">No piped music</div><div class="doctrine__row-body">No speakers in the bathroom. No music on the porch. No music in the booking flow. No background sound on hover.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Chai pavilion</div><div class="doctrine__row-body">No music during peak quiet hours (6–8am, 4–6pm). At other times, a single album of locally relevant music — no shuffles, no playlists, no Spotify.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Forbidden</div><div class="doctrine__row-body" style="color:var(--bindu);">Bluetooth, AUX, in-cabin speakers for guest music (small unit provided only on explicit request). Notification sounds. Appliance beeps. Smart lock click.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Fridge</div><div class="doctrine__row-body">The only allowed motor in the cabin. Specified for ≤30 dB at 1 m.</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 38 — Scent</span>
+    <h2 class="chapter-title">Allowed, not designed.</h2>
+    <p class="lede" style="margin-bottom:var(--space-2xl);">If a guest opens the door and smells the place, we have done it right. If they smell a brand, we have failed.</p>
+    <div class="doctrine">
+      <div class="doctrine__row"><div class="doctrine__row-label">Doctrine</div><div class="doctrine__row-body">Nothing piped. No diffusers. No HVAC scenting. No signature fragrance, ever. No essential oils on textiles. No scented candles. No aroma-marketing of any kind.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Incense</div><div class="doctrine__row-body">Not present by default. Available on request: a small ceramic bowl with a single stick of locally produced incense from the site's nearest artisan source.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">What carries naturally</div><div class="doctrine__row-body">The cabin's indigenous hardwood — different at every property. The wood stove smoke in cold months. Wool, the natural mineral wall finish, the stone — each has a faint own-scent. Local botanicals brought into the cabin once a day. The kitchen, when used.</div></div>
+    </div>
+    <div class="pullquote">The day we have a signature scent, we have stopped being a place.</div>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 39 — Photography</span>
+    <h2 class="chapter-title">Documentation, not storytelling.</h2>
+    <div class="body-copy" style="margin-bottom:var(--space-xl);">
+      <p>We show what is there. We do not style it. The land is the protagonist, not the cabin, not the guest. If a frame requires a stylist, it is not an Ekam frame.</p>
+    </div>
+    <h3 class="sub-heading">What we shoot.</h3>
+    <ol class="quiet-list">
+      <li>The land at dawn, dusk, and blue hour.</li>
+      <li>A single cabin window glowing at night.</li>
+      <li>Hands — pouring tea, lighting a stove, holding a kettle.</li>
+      <li>Texture: bark of the regional hardwood, the natural mineral wall finish, iron weathered by hand contact.</li>
+      <li>Food in three-tier tiffins. Always with steam if hot.</li>
+      <li>Porches, thresholds, doorways — the in-between spaces.</li>
+      <li>Empty rooms. The cabin without a person in it.</li>
+      <li>Weather as subject — mist, snow on the porch, monsoon at the window.</li>
+    </ol>
+    <h3 class="sub-heading" style="margin-top:var(--space-2xl);">What we never shoot.</h3>
+    <ol class="quiet-list">
+      <li>Guests with visible faces, looking at camera.</li>
+      <li>Champagne, signage, fitness-style wellness imagery.</li>
+      <li>Drone shots that flatten the land into a sales image.</li>
+      <li>Bright, oversaturated colour grading.</li>
+      <li>Posed group shots, lifestyle content with models.</li>
+      <li>The wordmark embedded into the photograph itself.</li>
+      <li>The bathroom, the bed unmade, any operational backstage.</li>
+      <li>Stock or composite imagery in any application, ever.</li>
+    </ol>
+    <div class="doctrine" style="margin-top:var(--space-2xl);">
+      <div class="doctrine__row"><div class="doctrine__row-label">Light</div><div class="doctrine__row-body">Available light only. No studio strobes. No reflectors larger than 60 cm.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Grade</div><div class="doctrine__row-body">Saturation reduced 8–12% from camera default. Black point lifted no more than 5%. Whites pulled toward Cream, never #FFFFFF.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Format</div><div class="doctrine__row-body">35mm full-frame minimum. Medium format preferred for editorial. Phone capture only for behind-the-scenes, never for publication.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Logo on photography</div><div class="doctrine__row-body">Only on the darkest 30% of the frame, bottom-left corner. Reverse wordmark, 60–70% opacity, ≤6% frame width.</div></div>
+    </div>
+    <div class="pullquote" style="font-size:30px;">If a frame looks like a Marriott Bonvoy ad, it is wrong.</div>
+  </div>
+</section>
+
+<section class="section--ink">
+  <div class="section__inner">
+    <span class="chapter-num" style="color:var(--bindu);">Chapter 40 — Motion</span>
+    <h2 class="chapter-title chapter-title--onforest">Slow. Locked-off. One permitted Bindu event.</h2>
+    <div class="body-copy body-copy--onforest" style="margin-bottom:var(--space-2xl);">
+      <p>Motion is rare. When it appears, it follows the breath of the land — slow, deliberate, asymmetric. The Bindu does not animate. Anywhere. Except once at the YouTube intro — and that exception is reviewed annually.</p>
+    </div>
+    <div class="doctrine doctrine--onforest">
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">Where allowed</div><div class="doctrine__row-body">Website hero: a single 30-second locked-off video instead of a still — fog, embers, kettle steam. Looped, no controls visible. One single landscape video on Instagram, ≤4 times a year, never a reel.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">Where forbidden</div><div class="doctrine__row-body">The wordmark never moves. The Bindu never pulses, fades, or transforms (the one exception: 0.8 s fade-in at YouTube intro only). No parallax scrolling. No hover micro-animations beyond a colour shift. No transitions longer than 200 ms.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">Easing</div><div class="doctrine__row-body">Ease-out only. Cubic-bezier(0.2, 0.6, 0.2, 1) is canonical. Linear is forbidden — reads as machine. Bouncy is forbidden — reads as toy.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">Video pacing</div><div class="doctrine__row-body">Average shot length ≥6 seconds. No quick cuts under 2 seconds. Pans ≤2 degrees per second.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">Video hallmark</div><div class="doctrine__row-body">Reverse wordmark in bottom-right corner. 3% frame width. 55–60% opacity. 4% padding. Persistent.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- VOLUME VIII — RITUALS & JOURNEY -->
+<section class="section--forest anchor-target" id="vol-viii">
+  <div class="section__inner volume-cover">
+    <span class="volume-numeral">Volume VIII</span>
+    <div class="volume-header volume-header--onforest">Rituals &amp; Journey</div>
+    <div class="volume-subtitle volume-subtitle--onforest">The pacing of a stay. The guest does not see the choreography. They feel its absence elsewhere.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 41 — Four rituals</span>
+    <h2 class="chapter-title">Four moments. Four scripts.</h2>
+    <div style="border:1px solid var(--bone); margin-top:var(--space-2xl);">
+      <div style="display:grid; grid-template-columns:160px 220px 1fr 100px; gap:var(--space-lg); padding:var(--space-xl) var(--space-lg); border-bottom:1px solid var(--bone); background:var(--cream); align-items:baseline;">
+        <div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); text-transform:uppercase; font-weight:500;">Arrival</div>
+        <div style="font-family:'Cormorant Garamond', serif; font-size:22px; color:var(--forest); letter-spacing:1px;">The kettle ritual</div>
+        <div style="font-family:'Raleway', sans-serif; font-size:13.5px; color:var(--ink); font-weight:300; line-height:1.65;">Within 4 minutes of guest entering the cabin: host pours the seasonal arrival drink from the kettle into a ceramic cup, sets it on the porch table, steps back. Hot ginger in monsoon, mint in spring, cardamom in autumn, buttered chai in winter. The host does not narrate.</div>
+        <div style="font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2px; color:var(--moss); text-transform:uppercase; font-weight:500; text-align:right;">Host</div>
+      </div>
+      <div style="display:grid; grid-template-columns:160px 220px 1fr 100px; gap:var(--space-lg); padding:var(--space-xl) var(--space-lg); border-bottom:1px solid var(--bone); background:var(--cream); align-items:baseline;">
+        <div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); text-transform:uppercase; font-weight:500;">Dawn</div>
+        <div style="font-family:'Cormorant Garamond', serif; font-size:22px; color:var(--forest); letter-spacing:1px;">The unannounced rise</div>
+        <div style="font-family:'Raleway', sans-serif; font-size:13.5px; color:var(--ink); font-weight:300; line-height:1.65;">No wake-up call. No bell. The cabin is silent until the guest moves. A flask of hot water on the porch — left at 5:30 by a staff member who does not knock.</div>
+        <div style="font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2px; color:var(--moss); text-transform:uppercase; font-weight:500; text-align:right;">Steward</div>
+      </div>
+      <div style="display:grid; grid-template-columns:160px 220px 1fr 100px; gap:var(--space-lg); padding:var(--space-xl) var(--space-lg); border-bottom:1px solid var(--bone); background:var(--cream); align-items:baseline;">
+        <div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); text-transform:uppercase; font-weight:500;">Blue hour</div>
+        <div style="font-family:'Cormorant Garamond', serif; font-size:22px; color:var(--forest); letter-spacing:1px;">The fire</div>
+        <div style="font-family:'Raleway', sans-serif; font-size:13.5px; color:var(--ink); font-weight:300; line-height:1.65;">40 minutes before sunset, the wood stove is lit. In summer cabins where there is no stove, a porch lantern is lit. The guest is not invited; the guest is simply present for it.</div>
+        <div style="font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2px; color:var(--moss); text-transform:uppercase; font-weight:500; text-align:right;">Host</div>
+      </div>
+      <div style="display:grid; grid-template-columns:160px 220px 1fr 100px; gap:var(--space-lg); padding:var(--space-xl) var(--space-lg); background:var(--cream); align-items:baseline;">
+        <div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); text-transform:uppercase; font-weight:500;">Departure</div>
+        <div style="font-family:'Cormorant Garamond', serif; font-size:22px; color:var(--forest); letter-spacing:1px;">The wax seal</div>
+        <div style="font-family:'Raleway', sans-serif; font-size:13.5px; color:var(--ink); font-weight:300; line-height:1.65;">Morning of departure, a hand-pressed wax seal is left on the porch — Bindu Clay wax stamped with एकम्. Inside, a single line in Forest Ink: a hand-drawn map of the route home, the seasonal greeting, no signature.</div>
+        <div style="font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2px; color:var(--moss); text-transform:uppercase; font-weight:500; text-align:right;">Property Mgr</div>
+      </div>
+    </div>
+    <div class="body-copy" style="margin-top:var(--space-2xl);">
+      <p>Rituals are never announced in advance. Never billed as "experiences" or "amenities". Never opt-in / opt-out. Never repeat within a single stay.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 42 — The journey arc</span>
+    <h2 class="chapter-title">Twelve moments.</h2>
+    <div class="body-copy" style="margin-bottom:var(--space-xl);">
+      <p>From first read to homecoming card. Every touchpoint is shaped by the same gesture: brief, unhurried, by a person rather than a brand.</p>
+    </div>
+    <div style="margin-top:var(--space-2xl);">
+      <div style="display:grid; grid-template-columns:80px 200px 1fr; gap:var(--space-lg); padding:var(--space-lg) 0; border-bottom:1px solid var(--bone); align-items:baseline;"><div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); font-weight:500;">01</div><div style="font-family:'Cormorant Garamond', serif; font-size:22px; color:var(--forest); letter-spacing:1px;">First read</div><div style="font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.75;">Brand encountered for the first time — website, editorial mention, photograph from a friend. The tone is set here.</div></div>
+      <div style="display:grid; grid-template-columns:80px 200px 1fr; gap:var(--space-lg); padding:var(--space-lg) 0; border-bottom:1px solid var(--bone); align-items:baseline;"><div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); font-weight:500;">02</div><div style="font-family:'Cormorant Garamond', serif; font-size:22px; color:var(--forest); letter-spacing:1px;">Booking</div><div style="font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.75;">Direct or via a small set of partner platforms. Two screens — dates and one human field ("anything we should know"). No urgency timers, no "5 others viewing".</div></div>
+      <div style="display:grid; grid-template-columns:80px 200px 1fr; gap:var(--space-lg); padding:var(--space-lg) 0; border-bottom:1px solid var(--bone); align-items:baseline;"><div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); font-weight:500;">03</div><div style="font-family:'Cormorant Garamond', serif; font-size:22px; color:var(--forest); letter-spacing:1px;">Confirmation</div><div style="font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.75;">Confirmation by a real host within 12 hours. Plain text. From a person, not an alias. Cabin name in full, dates, the seasonal greeting, the route note. No upsell modules.</div></div>
+      <div style="display:grid; grid-template-columns:80px 200px 1fr; gap:var(--space-lg); padding:var(--space-lg) 0; border-bottom:1px solid var(--bone); align-items:baseline;"><div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); font-weight:500;">04</div><div style="font-family:'Cormorant Garamond', serif; font-size:22px; color:var(--forest); letter-spacing:1px;">The week before</div><div style="font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.75;">A printed letterpress card arrives by post. A weather note, a single image, a phone number for any question. Directions PDF 3 days before. Day-before SMS.</div></div>
+      <div style="display:grid; grid-template-columns:80px 200px 1fr; gap:var(--space-lg); padding:var(--space-lg) 0; border-bottom:1px solid var(--bone); align-items:baseline;"><div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); font-weight:500;">05</div><div style="font-family:'Cormorant Garamond', serif; font-size:22px; color:var(--forest); letter-spacing:1px;">The road</div><div style="font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.75;">Chai pavilion on the route — if route conditions permit — is open for the guest. Identified by Chai sub-brand lockup. The kettle is on.</div></div>
+      <div style="display:grid; grid-template-columns:80px 200px 1fr; gap:var(--space-lg); padding:var(--space-lg) 0; border-bottom:1px solid var(--bone); align-items:baseline;"><div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); font-weight:500;">06</div><div style="font-family:'Cormorant Garamond', serif; font-size:22px; color:var(--forest); letter-spacing:1px;">Arrival at parking</div><div style="font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.75;">A staff member meets the vehicle. Bags are taken. The walk to the cabin begins on foot, by daylight when possible, by lantern when not.</div></div>
+      <div style="display:grid; grid-template-columns:80px 200px 1fr; gap:var(--space-lg); padding:var(--space-lg) 0; border-bottom:1px solid var(--bone); align-items:baseline;"><div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); font-weight:500;">07</div><div style="font-family:'Cormorant Garamond', serif; font-size:22px; color:var(--forest); letter-spacing:1px;">The kettle ritual</div><div style="font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.75;">See Chapter 41.</div></div>
+      <div style="display:grid; grid-template-columns:80px 200px 1fr; gap:var(--space-lg); padding:var(--space-lg) 0; border-bottom:1px solid var(--bone); align-items:baseline;"><div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); font-weight:500;">08</div><div style="font-family:'Cormorant Garamond', serif; font-size:22px; color:var(--forest); letter-spacing:1px;">First night</div><div style="font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.75;">The cabin is intentionally under-stimulated. No turndown service. No chocolate on the pillow. The bed is made; the fire is laid; the porch is open. The guest decompresses on their own pace.</div></div>
+      <div style="display:grid; grid-template-columns:80px 200px 1fr; gap:var(--space-lg); padding:var(--space-lg) 0; border-bottom:1px solid var(--bone); align-items:baseline;"><div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); font-weight:500;">09</div><div style="font-family:'Cormorant Garamond', serif; font-size:22px; color:var(--forest); letter-spacing:1px;">The middle</div><div style="font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.75;">A second meal — local, daily-changing, delivered to the cabin in the three-tier tiffin. The staff member who delivers does not enter the cabin unless invited.</div></div>
+      <div style="display:grid; grid-template-columns:80px 200px 1fr; gap:var(--space-lg); padding:var(--space-lg) 0; border-bottom:1px solid var(--bone); align-items:baseline;"><div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); font-weight:500;">10</div><div style="font-family:'Cormorant Garamond', serif; font-size:22px; color:var(--forest); letter-spacing:1px;">The walk</div><div style="font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.75;">A walk is offered, never required. The host walks first; the guest follows. Silence by default. The host speaks if the guest speaks.</div></div>
+      <div style="display:grid; grid-template-columns:80px 200px 1fr; gap:var(--space-lg); padding:var(--space-lg) 0; border-bottom:1px solid var(--bone); align-items:baseline;"><div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); font-weight:500;">11</div><div style="font-family:'Cormorant Garamond', serif; font-size:22px; color:var(--forest); letter-spacing:1px;">Departure</div><div style="font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.75;">The wax seal. Bags walked back to the vehicle. No farewell speech. The handover is short and sincere. No invoice in person — the booking already settled the bill.</div></div>
+      <div style="display:grid; grid-template-columns:80px 200px 1fr; gap:var(--space-lg); padding:var(--space-lg) 0; align-items:baseline;"><div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); font-weight:500;">12</div><div style="font-family:'Cormorant Garamond', serif; font-size:22px; color:var(--forest); letter-spacing:1px;">Homecoming</div><div style="font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.75;">A second letterpress card arrives at home 3–5 days after departure. A photograph from the stay — taken by staff, never the guest's face, never staged. The card closes the arc. One honest survey one week after.</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 43 — Choreography</span>
+    <h2 class="chapter-title">The pacing of a stay.</h2>
+    <div class="doctrine">
+      <div class="doctrine__row"><div class="doctrine__row-label">Night 01</div><div class="doctrine__row-body"><strong>Under-stimulated.</strong> Arrival ritual only. No meal in the cabin unless requested. Fire is laid; the guest lights it.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Night 02</div><div class="doctrine__row-body">First cabin-served meal — tiffin from Chai pavilion. Walk offered. Wood stove restocked.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Night 03+</div><div class="doctrine__row-body">Optional deeper involvement on request — half-day with the kitchen, longer walk with the host, session with a guest local artisan. Never solicited.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Final night</div><div class="doctrine__row-body">A single bound book left on the porch — photographs and writing from the season's stays. The guest reads it; the guest does not take it.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Departure</div><div class="doctrine__row-body">Wax seal. Unhurried handover. The guest leaves without transacting.</div></div>
+    </div>
+    <div class="pullquote">The guest's stay accelerates. Ours does not.</div>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 44 — Uniforms</span>
+    <h2 class="chapter-title">Three roles. Three uniforms.</h2>
+    <p class="lede" style="margin-bottom:var(--space-2xl);">Staff are visible because they are present, not because they are dressed differently.</p>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:var(--space-md); margin-top:var(--space-2xl);">
+      <div style="border:1px solid var(--bone); background:var(--cream); padding:var(--space-xl);">
+        <div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); text-transform:uppercase; font-weight:500; margin-bottom:var(--space-sm);">Role 01</div>
+        <div style="font-family:'Cormorant Garamond', serif; font-size:24px; color:var(--forest); letter-spacing:1px; margin-bottom:var(--space-md);">Host</div>
+        <ul style="list-style:none;">
+          <li style="padding:var(--space-sm) 0; border-bottom:1px solid var(--bone); font-size:13px; color:var(--ink); font-weight:300; line-height:1.65;"><span style="font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2px; color:var(--moss); text-transform:uppercase; display:block; margin-bottom:2px;">Outerwear</span>Forest-tone woven wool overshirt. Hand-finished iron buttons.</li>
+          <li style="padding:var(--space-sm) 0; border-bottom:1px solid var(--bone); font-size:13px; color:var(--ink); font-weight:300; line-height:1.65;"><span style="font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2px; color:var(--moss); text-transform:uppercase; display:block; margin-bottom:2px;">Trousers</span>Forest linen in spring / monsoon. Wool in winter.</li>
+          <li style="padding:var(--space-sm) 0; font-size:13px; color:var(--ink); font-weight:300; line-height:1.65;"><span style="font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2px; color:var(--moss); text-transform:uppercase; display:block; margin-bottom:2px;">Name pin</span>Oxidised iron, first name only.</li>
+        </ul>
+      </div>
+      <div style="border:1px solid var(--bone); background:var(--cream); padding:var(--space-xl);">
+        <div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); text-transform:uppercase; font-weight:500; margin-bottom:var(--space-sm);">Role 02</div>
+        <div style="font-family:'Cormorant Garamond', serif; font-size:24px; color:var(--forest); letter-spacing:1px; margin-bottom:var(--space-md);">Steward</div>
+        <ul style="list-style:none;">
+          <li style="padding:var(--space-sm) 0; border-bottom:1px solid var(--bone); font-size:13px; color:var(--ink); font-weight:300; line-height:1.65;"><span style="font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2px; color:var(--moss); text-transform:uppercase; display:block; margin-bottom:2px;">Apron</span>Natural undyed cotton, ankle-length in the Chai pavilion.</li>
+          <li style="padding:var(--space-sm) 0; border-bottom:1px solid var(--bone); font-size:13px; color:var(--ink); font-weight:300; line-height:1.65;"><span style="font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2px; color:var(--moss); text-transform:uppercase; display:block; margin-bottom:2px;">Shirt</span>Sand-coloured linen, untucked.</li>
+          <li style="padding:var(--space-sm) 0; font-size:13px; color:var(--ink); font-weight:300; line-height:1.65;"><span style="font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2px; color:var(--moss); text-transform:uppercase; display:block; margin-bottom:2px;">Footwear</span>Soft-soled leather. Silent on the porch.</li>
+        </ul>
+      </div>
+      <div style="border:1px solid var(--bone); background:var(--cream); padding:var(--space-xl);">
+        <div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); text-transform:uppercase; font-weight:500; margin-bottom:var(--space-sm);">Role 03</div>
+        <div style="font-family:'Cormorant Garamond', serif; font-size:24px; color:var(--forest); letter-spacing:1px; margin-bottom:var(--space-md);">Property Manager</div>
+        <ul style="list-style:none;">
+          <li style="padding:var(--space-sm) 0; border-bottom:1px solid var(--bone); font-size:13px; color:var(--ink); font-weight:300; line-height:1.65;"><span style="font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2px; color:var(--moss); text-transform:uppercase; display:block; margin-bottom:2px;">Outerwear</span>Forest wool jacket. Structured but soft.</li>
+          <li style="padding:var(--space-sm) 0; border-bottom:1px solid var(--bone); font-size:13px; color:var(--ink); font-weight:300; line-height:1.65;"><span style="font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2px; color:var(--moss); text-transform:uppercase; display:block; margin-bottom:2px;">Shirt</span>Cream cotton, collared.</li>
+          <li style="padding:var(--space-sm) 0; font-size:13px; color:var(--ink); font-weight:300; line-height:1.65;"><span style="font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2px; color:var(--moss); text-transform:uppercase; display:block; margin-bottom:2px;">Detail</span>A small Bindu pin in oxidised iron at the lapel — the only role permitted to wear the Bindu visibly.</li>
+        </ul>
+      </div>
+    </div>
+    <h3 class="sub-heading" style="margin-top:var(--space-3xl);">Standing rules.</h3>
+    <ol class="quiet-list">
+      <li>First name only on the name pin. Never first-and-last.</li>
+      <li>No visible logo on any garment except the property manager's Bindu pin.</li>
+      <li>Replacement on hand-finish wear, not on time interval.</li>
+      <li>No tucked shirts. No polished shoes. No tie. No badge.</li>
+      <li>The uniform is laundered on-property in natural plant-based detergent and air-dried. No commercial laundry chemicals. Detergent sourcing per the Sustainability Roadmap.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- VOLUME IX — DISTRIBUTION -->
+<section class="section--forest anchor-target" id="vol-ix">
+  <div class="section__inner volume-cover">
+    <span class="volume-numeral">Volume IX</span>
+    <div class="volume-header volume-header--onforest">Distribution</div>
+    <div class="volume-subtitle volume-subtitle--onforest">The visibility play. List everywhere. Compete on no platform. The OTA is a billboard, not a sales channel.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 45 — OTA visibility play</span>
+    <h2 class="chapter-title">List everywhere. Sell nowhere.</h2>
+    <p class="lede" style="margin-bottom:var(--space-2xl);">We list on Booking, Agoda, MakeMyTrip, Airbnb, Tablet Hotels, and Mr. &amp; Mrs. Smith. Pricing on OTAs is set 25–40% above category median for the region.</p>
+    <div class="body-copy" style="margin-bottom:var(--space-xl);">
+      <p>Goal is visibility — putting Ekam alongside the Aman, the Postcard, the Six Senses in the discovery feed of someone who has not heard of us. Goal is not acquisition by price.</p>
+      <p>The economic conversion happens on our own surfaces — direct booking, the journal, word of mouth.</p>
+    </div>
+    <div class="doctrine">
+      <div class="doctrine__row"><div class="doctrine__row-label">OTA pricing rule</div><div class="doctrine__row-body">Our rate is the <strong>highest</strong> in our visible cohort, by design. If an OTA rate-parity clause is forced, we delist that OTA.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Direct rate</div><div class="doctrine__row-body">Always the lowest available — never advertised as a discount. Phrased as "booking with us directly includes Ekam Chai service and ₹2K cabin credit."</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Direct incentive</div><div class="doctrine__row-body">Complimentary Ekam Chai service. Late check-out. ₹2K cabin credit. A written welcome from the host. Never advertised on OTAs.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Star ratings</div><div class="doctrine__row-body">Live on the OTAs that use them. Our own site carries journal essays, never star ratings.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Reviews</div><div class="doctrine__row-body">Encouraged on Tablet and Mr. &amp; Mrs. Smith. We respond to none — silence is the brand.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Post-stay</div><div class="doctrine__row-body">One written letter, one honest survey link. No re-marketing emails after.</div></div>
+    </div>
+    <div class="pullquote">The OTA is a billboard. The booking is a conversation.</div>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 46 — Website</span>
+    <h2 class="chapter-title">One image at a time.</h2>
+    <ol class="rule-list">
+      <li><div><strong>One image at a time.</strong><p>No carousels. No auto-play hero videos. No animated backgrounds.</p></div></li>
+      <li><div><strong>Booking flow: two screens.</strong><p>Dates, and one human field ("anything we should know"). Confirmation by a real host within 12 hours.</p></div></li>
+      <li><div><strong>The host's number is shown but not as the primary CTA.</strong><p>At one property the phone works. At fifty it doesn't.</p></div></li>
+      <li><div><strong>No reviews or star ratings on our own site.</strong><p>They live on Tablet and Mr. &amp; Mrs. Smith. Our site carries long-form essays, in the journal section.</p></div></li>
+      <li><div><strong>Page weight under 500 KB.</strong><p>The site loads on the patchy mobile data of Chitkul.</p></div></li>
+      <li><div><strong>One action per screen.</strong><p>No modal stacks. No "for you" content. Two permitted notifications: booking confirmation and the homecoming card.</p></div></li>
+      <li><div><strong>Forbidden patterns.</strong><p>Urgency timers. "Only 1 left" warnings. Newsletter pop-ups. Onboarding tours.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 47 — Direct booking</span>
+    <h2 class="chapter-title">A quiet form. A real host.</h2>
+    <div class="doctrine">
+      <div class="doctrine__row"><div class="doctrine__row-label">Two-screen flow</div><div class="doctrine__row-body">Screen 01: dates + cabin selection. Screen 02: contact + one human field. Submit. Done.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Confirmation</div><div class="doctrine__row-body">Within 12 hours, from a real host, by name, by email. Plain text. System serif. No HTML banner. From a person, not a brand alias.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Payment</div><div class="doctrine__row-body">Full upfront on booking, refundable per the seasonal cancellation window. No deposits. No instalments. No financing.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">No phone tree</div><div class="doctrine__row-body">If a guest calls, a host answers — or it goes to voicemail in the host's voice. There is no IVR, no "press 1 for reservations".</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Cancellation</div><div class="doctrine__row-body">Seasonal — wider window in monsoon, narrower in peak winter. Communicated plainly. No "no-show" charges if the host is reached.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 48 — Social · active</span>
+    <h2 class="chapter-title">One post a week, max.</h2>
+    <div class="body-copy" style="margin-bottom:var(--space-2xl);">
+      <p>Active platforms: <strong>Instagram, Pinterest, Substack, YouTube</strong>. Posting is rare. The audience is found, not chased. If a feed is grown by an algorithm, it isn't us.</p>
+    </div>
+    <div class="doctrine">
+      <div class="doctrine__row"><div class="doctrine__row-label">Cadence</div><div class="doctrine__row-body"><strong>One post a week, max.</strong> Always a single still image. Never a reel.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Caption</div><div class="doctrine__row-body">The date and the location. Nothing else. No hashtags except <strong>#EkamCabins.</strong></div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Forbidden</div><div class="doctrine__row-body" style="color:var(--bindu);">Engagement bait. Polls. "Tag a friend who needs this." Reels. Stories more than once a day. Reposting guests' face photos. Influencer campaigns. Paid content.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Pinterest</div><div class="doctrine__row-body">Three boards: Ekam Kutir, Ekam Van, Ekam Shikhar. Saves-based discovery — drives to journal essays. One pin per week.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Substack</div><div class="doctrine__row-body">EKAM Journal. Long-form essays, monthly cadence. Free only — no paid subscriptions. From the host or a guest writer, never from "EKAM Team".</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">YouTube</div><div class="doctrine__row-body">Quarterly long-form. Slow shots. Hallmark in bottom-right. No reels, no shorts, no trending audio.</div></div>
+    </div>
+    <h3 class="sub-heading" style="margin-top:var(--space-3xl);">Profile asset per platform.</h3>
+    <ol class="quiet-list">
+      <li>Instagram — E-monogram (cream).</li>
+      <li>Pinterest — E-monogram (cream).</li>
+      <li>X — E-monogram (cream).</li>
+      <li>Facebook — full wordmark on forest.</li>
+      <li>YouTube — E-monogram (forest reverse).</li>
+      <li>WhatsApp — Bindu only.</li>
+      <li>Substack — E-monogram (cream).</li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 49 — Social · defensive</span>
+    <h2 class="chapter-title">Registered. Never posted.</h2>
+    <p class="lede" style="margin-bottom:var(--space-2xl);">Some handles exist only to deny impersonation. Defensive registration, full security setup, zero activity.</p>
+    <div class="doctrine">
+      <div class="doctrine__row"><div class="doctrine__row-label">TikTok</div><div class="doctrine__row-body"><strong>@ekamcabins.</strong> Registered. Bio: "Off-map. Off-grid." Profile: Bindu. No videos. No follows. No engagement. Squatting only — posting contradicts doctrine.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Threads</div><div class="doctrine__row-body"><strong>@ekamcabins.</strong> Bio matches Instagram. No posts.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Twitter / X</div><div class="doctrine__row-body"><strong>@ekamcabins.</strong> Bio + profile only. Replies off. Public when content posture is locked; private until then. Impersonation defense.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">LinkedIn</div><div class="doctrine__row-body">Company page. Hiring posts only. No marketing content.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Facebook</div><div class="doctrine__row-body">Business Page. Travel Company classification. Bindu profile. Defensive registration; minimal use.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">WhatsApp Business</div><div class="doctrine__row-body">Linked to main +91 number. Business Profile only. Auto-reply: "We respond to messages within 12 hours. Direct bookings via ekamcabins.com." Never used for bulk messaging.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Security baseline</div><div class="doctrine__row-body">2FA on every account. Recovery email at hello@ekamcabins.com. Password vault offline. Backup codes downloaded. Brand-claim filed where squatted accounts exist.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 50 — Email</span>
+    <h2 class="chapter-title">Five messages per stay. No more.</h2>
+    <div class="doctrine">
+      <div class="doctrine__row"><div class="doctrine__row-label">Confirmation</div><div class="doctrine__row-body">Within 12 hours of booking. Plain text. System serif. From a person.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Directions PDF</div><div class="doctrine__row-body">3 days before arrival. Hand-drawn-feel map. Phone number for the host.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Day-before SMS</div><div class="doctrine__row-body">Weather note. ETA confirmation. Two sentences.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Post-stay letter</div><div class="doctrine__row-body">One week after. Written like a letter. One honest survey link. No re-marketing, no rate-card pushes.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Four-week postcard</div><div class="doctrine__row-body">A printed letterpress card arrives at home. A photograph from the stay (no faces, never staged). The card closes the arc.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Newsletter</div><div class="doctrine__row-body">No. Quarterly host-letter only — single short page, on Substack, free.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- VOLUME X — OPERATIONS -->
+<section class="section--forest anchor-target" id="vol-x">
+  <div class="section__inner volume-cover">
+    <span class="volume-numeral">Volume X</span>
+    <div class="volume-header volume-header--onforest">Operations</div>
+    <div class="volume-subtitle volume-subtitle--onforest">Constraints. Sustainability. Governance. The discipline at the smallest scale.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 51 — Operational constraints</span>
+    <h2 class="chapter-title">Eleven rules. Each earns its place.</h2>
+    <p class="lede" style="margin-bottom:var(--space-2xl);">Constraints, not refusals. Each one earns its place because it makes the experience better.</p>
+    <ol class="rule-list">
+      <li><div><strong>Wi-Fi at the Chai pavilion only.</strong><p>One reliable network at the property's Ekam Chai stop. Not in the cabin. Bandwidth is a privilege our locations earn through difficulty.</p></div></li>
+      <li><div><strong>No television, projector, or smart screen.</strong><p>Including in the bathroom mirror.</p></div></li>
+      <li><div><strong>No room service. No mini-bar. No in-cabin F&amp;B programme.</strong><p>The kitchen (where present) is yours, not ours.</p></div></li>
+      <li><div><strong>No staff inside the cabin once you have checked in.</strong><p>The door closes. Housekeeping happens only on departure or by explicit request.</p></div></li>
+      <li><div><strong>No printed marketing.</strong><p>No flyer, no rate card, no laminated breakfast menu.</p></div></li>
+      <li><div><strong>No QR codes for marketing.</strong><p>Anything worth knowing is told in person. QRs only ever for utility (Wi-Fi credentials, lock pairing).</p></div></li>
+      <li><div><strong>No upsells. No experiences menu.</strong><p>No spa, no wellness package, no add-ons. The cabin is the experience.</p></div></li>
+      <li><div><strong>No music piped through speakers.</strong><p>Silence is the soundtrack.</p></div></li>
+      <li><div><strong>No artificial scent.</strong><p>No diffusers, no signature fragrance, no incense by default.</p></div></li>
+      <li><div><strong>No tourist info packets.</strong><p>No "things to do nearby". The place is the thing.</p></div></li>
+      <li><div><strong>Post-stay: one checkout note and one survey.</strong><p>Written like a letter. No re-marketing, no rate-card pushes.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 52 — Sustainability</span>
+    <h2 class="chapter-title">Operational, not promotional.</h2>
+    <p class="lede" style="margin-bottom:var(--space-2xl);">We do not market sustainability. We measure it, and we improve it. The day we run a sustainability campaign, we have stopped doing the work.</p>
+
+    <h3 class="sub-heading">Carbon.</h3>
+    <ol class="quiet-list">
+      <li>Solar primary across all properties — minimum 80% of electricity load by year three of operation.</li>
+      <li>Wood stoves use locally sourced fallen wood only. Never live-felled timber. A documented chain-of-custody.</li>
+      <li>Cabin construction uses ≥70% local materials by volume — local stone, indigenous hardwood, natural mineral wall finish, hand-thrown ceramic. Species and source governed by the Sustainability Roadmap site spec.</li>
+      <li>Carbon accounting per stay — published annually, never on the homepage.</li>
+    </ol>
+
+    <h3 class="sub-heading" style="margin-top:var(--space-2xl);">Water.</h3>
+    <ol class="quiet-list">
+      <li>Rainwater harvesting on every roof. Greywater recycled to garden / forest re-charge wherever soil allows.</li>
+      <li>Low-flow taps and showers as default. Pressure designed for stillness, not power-shower bombast.</li>
+      <li>Drinking water from local source, filtered on-site. Never bottled. Glass carafe with a small clay disc on the lid.</li>
+    </ol>
+
+    <h3 class="sub-heading" style="margin-top:var(--space-2xl);">Waste.</h3>
+    <ol class="quiet-list">
+      <li>Zero single-use plastic anywhere on property — including back-of-house, including kitchen storage.</li>
+      <li>Composting is the default for organic waste, fed back to the property's garden.</li>
+      <li>Linens and textiles sent to local laundry partners — never industrial detergent, only soap-nut and cold wash.</li>
+    </ol>
+
+    <h3 class="sub-heading" style="margin-top:var(--space-2xl);">Community &amp; land.</h3>
+    <ol class="quiet-list">
+      <li>Every property has a community fund — a fixed percentage of revenue (3% target, 2% floor) returned to the village or panchayat we operate within. Use is determined by the local council, not by us.</li>
+      <li>Hosts and operations staff hired from within 20 km of the property where possible. Paid above the regional median by a documented margin.</li>
+      <li>Local artisans (weavers, soap-makers, potters, masons) are named on the in-cabin store hangtags and in the journal. Never anonymised. Never undercut.</li>
+      <li>Land-use is regenerative or neutral. We do not clear forest. We restore. Every property publishes a habitat report annually.</li>
+      <li>We do not host activities that disturb wildlife or local rhythms — no off-roading, no "adventure sports" packages.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="section--ink">
+  <div class="section__inner">
+    <span class="chapter-num" style="color:var(--bindu);">Chapter 52a — The Sustainability Roadmap handoff</span>
+    <h2 class="chapter-title chapter-title--onforest">BOS sets the register. Roadmap governs the source.</h2>
+    <p class="lede lede--onforest" style="margin-bottom:var(--space-2xl);">This is the most important separation in the document. The BOS does not promise specific materials. The Sustainability Roadmap &amp; Founder Letter is the canonical document on every material sourcing, carbon, water, waste, community, and chain-of-custody decision.</p>
+    <div class="body-copy body-copy--onforest" style="margin-bottom:var(--space-2xl);">
+      <p>The BOS commits to a sensory and material <strong>register</strong> — what a guest sees, feels, smells, hears, and touches. Local stone underfoot. Indigenous hardwood overhead. Natural mineral on the walls. Hand-thrown ceramic at the table. Region-appropriate handwoven textile in the linens. Oxidised iron at the hand. Unfinished brass at the fire.</p>
+      <p>The Sustainability Roadmap commits to <strong>source</strong> — which species of hardwood, which quarry of stone, which artisan kiln, which mill, which weaver's village, which chain-of-custody, which carbon accounting per kg of material, which water budget per fixture, which composting plan per kitchen. The Roadmap is updated annually and per site.</p>
+      <p>Where the two documents touch, the Roadmap governs the specific. The BOS governs the experience.</p>
+    </div>
+    <div class="doctrine doctrine--onforest">
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">Material decisions</div><div class="doctrine__row-body">All specific material specifications — species, supplier, source radius, chain-of-custody — live in the Sustainability Roadmap. The BOS never names a specific timber, stone, or weave.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">Carbon, water, waste</div><div class="doctrine__row-body">All operational targets, accounting methods, and reporting cadences live in the Roadmap. The BOS commits to the principle (60% solar by year three, rainwater harvesting on every roof, zero single-use plastic); the Roadmap commits to the figures and the timelines per property.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">Community fund</div><div class="doctrine__row-body">The BOS commits to the principle (revenue percentage returned to local council). The Roadmap commits to the percentage by site, the council relationship, the use audit cadence.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">Artisan register</div><div class="doctrine__row-body">Named in the Roadmap. Updated annually. Hangtags, journal credits, and in-cabin store labels draw from the Roadmap register — not from a BOS-side list.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">Conflict resolution</div><div class="doctrine__row-body">If the BOS implies a material the Roadmap cannot source sustainably for a given site, <strong style="color:var(--cream);">the Roadmap holds.</strong> The BOS register adapts. We do not break the Roadmap to fulfil a BOS description.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label" style="color:var(--bindu);">Sign-off chain</div><div class="doctrine__row-body">Material register changes in the BOS require Tier 2 (Brand Director) approval. Source changes in the Roadmap require Tier 3 (Founder + Director) approval. The Roadmap sits operationally one layer down but is owned at the highest tier of governance because it is where the brand's hardest commitments are kept.</div></div>
+    </div>
+    <div class="pullquote pullquote--onforest">The brand is a contract with materials. The Roadmap is where that contract is signed.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 53 — Governance · approvals</span>
+    <h2 class="chapter-title">Three tiers of approval.</h2>
+    <div class="body-copy" style="margin-bottom:var(--space-2xl);">
+      <p>Brand integrity is maintained by a clear chain of approval. Anyone may propose; approval lives at three layers.</p>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:1px solid var(--bone); margin-top:var(--space-xl);">
+      <div style="padding:var(--space-2xl); border-right:1px solid var(--bone); background:var(--cream);">
+        <div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); text-transform:uppercase; font-weight:500; margin-bottom:var(--space-sm);">Tier 01</div>
+        <div style="font-family:'Cormorant Garamond', serif; font-size:28px; color:var(--forest); letter-spacing:1px; margin-bottom:var(--space-md);">Host</div>
+        <div style="font-family:'Raleway', sans-serif; font-size:13.5px; color:var(--ink); font-weight:300; line-height:1.7;">Day-to-day operations within the cabin and on the property. Welcome cards, menu rotations within the seasonal frame, minor maintenance.</div>
+      </div>
+      <div style="padding:var(--space-2xl); border-right:1px solid var(--bone); background:var(--cream);">
+        <div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); text-transform:uppercase; font-weight:500; margin-bottom:var(--space-sm);">Tier 02</div>
+        <div style="font-family:'Cormorant Garamond', serif; font-size:28px; color:var(--forest); letter-spacing:1px; margin-bottom:var(--space-md);">Brand Director</div>
+        <div style="font-family:'Raleway', sans-serif; font-size:13.5px; color:var(--ink); font-weight:300; line-height:1.7;">All copy. All campaigns. All partner agreements. Pricing changes within bands. Identity and visual application questions. Vendor selection.</div>
+      </div>
+      <div style="padding:var(--space-2xl); background:var(--cream);">
+        <div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); text-transform:uppercase; font-weight:500; margin-bottom:var(--space-sm);">Tier 03</div>
+        <div style="font-family:'Cormorant Garamond', serif; font-size:28px; color:var(--forest); letter-spacing:1px; margin-bottom:var(--space-md);">Founder + Director</div>
+        <div style="font-family:'Raleway', sans-serif; font-size:13.5px; color:var(--ink); font-weight:300; line-height:1.7;">New properties. New sub-brands or tiers. Removal of any constraint in Chapter 51. Hosted partnership tier. Any change to the wordmark, the Bindu, or this document.</div>
+      </div>
+    </div>
+
+    <h3 class="sub-heading" style="margin-top:var(--space-3xl);">Standing rules.</h3>
+    <ol class="quiet-list">
+      <li>No constraint in this document may be removed without Tier 3 approval and a written rationale added to the revision log.</li>
+      <li>No new sub-brand, tier, or property launches without Tier 3 sign-off, including written preconditions and a documented audit against this entire document.</li>
+      <li>Every property opens with a Section-by-Section audit. Any deviation is documented and approved before launch.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 54 — Pre-launch audit</span>
+    <h2 class="chapter-title">Before opening any new property.</h2>
+    <ol class="rule-list">
+      <li><div><strong>Spatial doctrine compliance.</strong><p>Volume V audit — written sign-off on architecture, materials, lighting, landscape.</p></div></li>
+      <li><div><strong>Sensory systems installed and tested.</strong><p>Outside-in audio commissioned. Smart panel functional. Smart frosted glass on path-facing panes.</p></div></li>
+      <li><div><strong>Constraints confirmed in writing.</strong><p>Every constraint in Chapter 51 confirmed by the host and the Brand Director, in writing.</p></div></li>
+      <li><div><strong>Sustainability live.</strong><p>Solar live. Rainwater harvesting installed. Community fund agreement signed with local council.</p></div></li>
+      <li><div><strong>Tier 3 sign-off.</strong><p>Founder + Brand Director on the property's location-lockup name and tier classification.</p></div></li>
+    </ol>
+    <h3 class="sub-heading" style="margin-top:var(--space-3xl);">Before launching any campaign, copy, or partnership.</h3>
+    <ol class="quiet-list">
+      <li>Voice check — read every sentence aloud. If it has an exclamation mark, rewrite. If it uses "luxury", rewrite.</li>
+      <li>Restricted-applications check — visual identity.</li>
+      <li>Partner rules — partner logo size, attribution language, photography register.</li>
+      <li>Tier 2 (Brand Director) sign-off.</li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 55 — Partners</span>
+    <h2 class="chapter-title">Three tiers. One wordmark.</h2>
+    <div class="doctrine">
+      <div class="doctrine__row"><div class="doctrine__row-label">Tier 01 · Editorial</div><div class="doctrine__row-body"><strong>Mention only.</strong> The partner is named in copy. No lockup, no co-located logos.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Tier 02 · Co-branded</div><div class="doctrine__row-body"><strong>Adjacent lockup.</strong> Ekam wordmark + Bindu Clay hairline + partner mark. Partner sized at ≤50% of Ekam wordmark height. Ekam always leads. Brand Hub approval required.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Tier 03 · Hosted</div><div class="doctrine__row-body"><strong>Full co-presence.</strong> Kitchen residencies, in-cabin collaborations. Master wordmark always above. Partner reads at sub-brand weight at the entry point. Founder sign-off required.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Lead with the landscape</div><div class="doctrine__row-body">The partner's village or estate is named before Ekam is. The partnership is a credit, not a campaign.</div></div>
+      <div class="doctrine__row"><div class="doctrine__row-label">Never</div><div class="doctrine__row-body" style="color:var(--bindu);">Set a partner at equal or greater visual weight than Ekam. Lead with the partner mark. Co-brand with sub-brand lockups — pairings always sit on the master wordmark. Place co-branded lockups on photography.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section--sand">
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 56 — Vendor passport</span>
+    <h2 class="chapter-title">The materials register.</h2>
+    <p class="lede" style="margin-bottom:var(--space-2xl);">Every supplier signs the same passport before any production order ships.</p>
+    <ol class="rule-list">
+      <li><div><strong>Local sourcing radius.</strong><p>Stone, wood, and primary cladding materials sourced within 50 km of the destination site. Documented at the quarry / mill / forest. Site lead countersigns the source.</p></div></li>
+      <li><div><strong>No-plastic clause.</strong><p>Supplier commits in writing that no plastic — visible, hidden, or transitional — is used in delivered product. Plastic packaging from upstream supply must be removed before delivery.</p></div></li>
+      <li><div><strong>Hand-finish tolerance.</strong><p>Where a material is hand-finished, production tolerances follow craft, not industrial standards. Variance welcomed; uniformity is suspicious. We do not return work for being imperfect.</p></div></li>
+      <li><div><strong>Labour conditions.</strong><p>Every supplier provides a labour audit on annual cadence — fair wage, no child labour, no bonded labour, working conditions documented.</p></div></li>
+      <li><div><strong>The materials register.</strong><p>Every approved supplier sits in the Brand Hub's materials register. Reviewed quarterly. Suppliers who shift practices below standard are removed within one quarter.</p></div></li>
+      <li><div><strong>Right of refusal.</strong><p>Ekam reserves the right to refuse a shipment that does not meet specification. The supplier replaces, at the supplier's cost. Built into every PO.</p></div></li>
+    </ol>
+    <div class="pullquote">The brand is a contract with materials, not a contract with marketing.</div>
+  </div>
+</section>
+
+<!-- VOLUME XI — EVOLUTION -->
+<section class="section--forest anchor-target" id="vol-xi">
+  <div class="section__inner volume-cover">
+    <span class="volume-numeral">Volume XI</span>
+    <div class="volume-header volume-header--onforest">Evolution</div>
+    <div class="volume-subtitle volume-subtitle--onforest">What may change. What never does. The framework that survives v3.1, v3.2, eventually v4.0.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 57 — Things that may change</span>
+    <h2 class="chapter-title">Operational. Sensory. Pricing.</h2>
+    <ol class="quiet-list">
+      <li>Operational tactics — booking flows, OTA partnerships, host training, kitchen menus.</li>
+      <li>Pricing bands as rupee values shift — but always preserving the 25–40% above-category OTA premium.</li>
+      <li>New tiers — only via Tier 3 approval, with written preconditions met fully.</li>
+      <li>Sensory specifics — the local herb in the welcome mug, the album that plays at Ekam Chai outside peak quiet hours.</li>
+      <li>Material specifications when local availability changes — but never the tier hierarchy or the "banned in all tiers" list.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="section--ink">
+  <div class="section__inner">
+    <span class="chapter-num" style="color:var(--bindu);">Chapter 58 — Things that never change</span>
+    <h2 class="chapter-title chapter-title--onforest">Locked.</h2>
+    <ol class="quiet-list">
+      <li style="color:var(--sand);">The wordmark. The Bindu. The clay-orange #B4613A. The three taglines.</li>
+      <li style="color:var(--sand);">The strategic frame: rich crave nature, our advantage is the permissions.</li>
+      <li style="color:var(--sand);">The three pillars: Singular, Serene, Wild.</li>
+      <li style="color:var(--sand);">The four sub-brands and their tier roles — Kutir Standard, Van Premium, Shikhar Luxury, Chai Hospitality extension.</li>
+      <li style="color:var(--sand);">The eleven constraints in Chapter 51.</li>
+      <li style="color:var(--sand);">The doctrine that we list on OTAs but compete on none.</li>
+      <li style="color:var(--sand);">The architectural language: single-room, single-window, single-view; ceilings 3.5–4.5 m; door swings inward; smart lock visible, brass, not plastic.</li>
+      <li style="color:var(--sand);">Sleep as a brand pillar.</li>
+      <li style="color:var(--sand);">The three personas and the anti-audience list.</li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="section__inner">
+    <span class="chapter-num">Chapter 59 — Revision log</span>
+    <h2 class="chapter-title">From v1.0 to here.</h2>
+    <div style="border-top:1px solid var(--bone); margin-top:var(--space-2xl);">
+      <div style="display:grid; grid-template-columns:120px 1fr; gap:var(--space-xl); padding:var(--space-lg) 0; border-bottom:1px solid var(--bone); align-items:baseline;"><div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); font-weight:500;">v 1.0</div><div style="font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.65;">Initial brief. Original positioning. Exclusive language. Single-region.</div></div>
+      <div style="display:grid; grid-template-columns:120px 1fr; gap:var(--space-xl); padding:var(--space-lg) 0; border-bottom:1px solid var(--bone); align-items:baseline;"><div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); font-weight:500;">v 2.0</div><div style="font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.65;">"From seeing to being there." Three sub-brands defined. Two regions live.</div></div>
+      <div style="display:grid; grid-template-columns:120px 1fr; gap:var(--space-xl); padding:var(--space-lg) 0; border-bottom:1px solid var(--bone); align-items:baseline;"><div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); font-weight:500;">v 2.1–2.4</div><div style="font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.65;">Application system. Refusals reframed as constraints. Tier framing locked. Chai added. Formal logotype section. OTA strategy clarified as visibility play.</div></div>
+      <div style="display:grid; grid-template-columns:120px 1fr; gap:var(--space-xl); padding:var(--space-lg) 0; border-bottom:1px solid var(--bone); align-items:baseline;"><div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); font-weight:500;">v 3.0</div><div style="font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.65;">Founder draft. Full operating system. Philosophy, sensory systems, sustainability, governance, scalability, evolution framework. Tier framing canon: Kutir Standard, Van Premium, Shikhar Luxury.</div></div>
+      <div style="display:grid; grid-template-columns:120px 1fr; gap:var(--space-xl); padding:var(--space-lg) 0; border-bottom:1px solid var(--bone); align-items:baseline;"><div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); font-weight:500;">v 3.1</div><div style="font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.65;">Proposed directional shifts: sub-brands as geographic typology, not tier; Arrival Relief services; Sleep as pillar; central kitchen; spatial doctrine softened. <strong style="color:var(--bindu);">Founder sign-off pending on six shifts.</strong> v3.0 holds where the two disagree.</div></div>
+      <div style="display:grid; grid-template-columns:120px 1fr; gap:var(--space-xl); padding:var(--space-lg) 0; align-items:baseline;"><div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:3px; color:var(--bindu); font-weight:500;">v 2.0 (BOS)</div><div style="font-family:'Raleway', sans-serif; font-size:14px; color:var(--ink); font-weight:300; line-height:1.65;">This document. v3.0 canon plus the v3.1 Sleep pillar carried forward. Eleven volumes. The mark moved out of the front position. Audience volume added. Distribution volume added. Considered Tech doctrine reconciled.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TERMINUS -->
+<section class="section--forest">
+  <div class="section__inner" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:80vh; gap:var(--space-xl); padding:var(--space-5xl) var(--space-xl);">
+    <div style="width:48px; height:1px; background:var(--bindu);"></div>
+    <div class="eyebrow eyebrow--onforest">The terminus</div>
+    <div class="devanagari" style="font-family:'Tiro Devanagari Hindi', serif; font-size:42px;">एकम्</div>
+    <svg width="240" height="80"><use href="#wordmark-reverse" /></svg>
+    <div style="font-family:'Fraunces', serif; font-style:italic; font-size:28px; color:var(--sand); font-weight:300; max-width:620px; line-height:1.55;">
+      Hospitality, disguised as solitude.<br>
+      The most considered.<br>
+      No two alike.
+    </div>
+    <div style="font-family:'Inter', sans-serif; font-size:11px; letter-spacing:4px; color:var(--moss-on-forest); text-transform:uppercase;">Brand Operating System · v2.0 · 2026 · For Founder Review</div>
+  </div>
+</section>
+
+</body>
+</html>

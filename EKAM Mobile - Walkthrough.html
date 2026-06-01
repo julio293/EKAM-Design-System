@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>EKAM Mobile — Walkthrough</title>
+<link rel="stylesheet" href="colors_and_type.css" />
+<link rel="stylesheet" href="ambient-ridge.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body {
+    background: #0c1410; color: var(--cream);
+    margin: 0; padding: 0; min-height: 100vh; min-height: 100dvh;
+    overflow: hidden; overscroll-behavior: none;
+    font-family: var(--font-body);
+  }
+
+  .stage {
+    position: fixed; inset: 0;
+    display: flex; flex-direction: column;
+  }
+
+  /* ─── Top bar — chapter name + counter ───────────────────────── */
+  .topbar {
+    flex-shrink: 0;
+    padding: 16px 22px;
+    padding-top: max(16px, env(safe-area-inset-top));
+    display: flex; justify-content: space-between; align-items: baseline;
+    background: rgba(12,20,16,0.55);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    z-index: 30;
+  }
+  .topbar__l { display: flex; flex-direction: column; gap: 4px; }
+  .topbar__eb {
+    font-family: var(--font-ui); font-size: 10px;
+    letter-spacing: 2.5px; color: var(--bindu);
+    text-transform: uppercase; font-weight: 500;
+  }
+  .topbar__ch {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 17px; color: var(--cream); line-height: 1;
+  }
+  .topbar__r {
+    font-family: var(--font-ui); font-size: 11px;
+    letter-spacing: 1.5px; color: rgba(250,247,240,0.6);
+    font-variant-numeric: tabular-nums;
+  }
+  .topbar__r b { color: var(--cream); font-weight: 500; }
+
+  /* ─── Frame — the phone-shaped iframe ────────────────────────── */
+  .frame-wrap {
+    flex: 1;
+    display: flex; align-items: center; justify-content: center;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .frame {
+    width: 100%; height: 100%;
+    max-width: 420px;
+    background: #1a1a1a;
+    border-radius: 32px;
+    padding: 8px;
+    position: relative;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.55);
+  }
+  .frame::before {
+    content: ''; position: absolute;
+    top: 16px; left: 50%; transform: translateX(-50%);
+    width: 90px; height: 24px;
+    background: #0a0a0a; border-radius: 999px;
+    z-index: 5;
+  }
+  .frame iframe {
+    width: 100%; height: 100%;
+    border: 0; border-radius: 24px;
+    background: var(--cream);
+    transition: opacity 600ms cubic-bezier(0.22,0.68,0.16,1);
+  }
+  .frame.transitioning iframe { opacity: 0; }
+
+  /* Slot two iframes for cross-fade */
+  .frame__inner { position: relative; width: 100%; height: 100%; }
+  .frame__inner iframe {
+    position: absolute; inset: 0;
+    opacity: 0;
+    transition: opacity 700ms cubic-bezier(0.22,0.68,0.16,1);
+  }
+  .frame__inner iframe.on { opacity: 1; }
+
+  /* ─── Caption — what the screen is showing ─────────────────── */
+  .caption {
+    flex-shrink: 0;
+    padding: 14px 22px;
+    text-align: center;
+    background: rgba(12,20,16,0.55);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(180,97,58,0.18);
+  }
+  .caption__eb {
+    display: block;
+    font-family: var(--font-ui); font-size: 9.5px;
+    letter-spacing: 2.5px; color: var(--bindu);
+    text-transform: uppercase; font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .caption__txt {
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 14px; color: var(--cream);
+    line-height: 1.4; margin: 0;
+    text-wrap: pretty;
+  }
+
+  /* ─── Controls — play/pause + scrub + next/prev ──────────────── */
+  .controls {
+    flex-shrink: 0;
+    padding: 14px 22px 22px;
+    padding-bottom: max(14px, env(safe-area-inset-bottom));
+    background: rgba(12,20,16,0.85);
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .progress {
+    display: flex; gap: 3px; height: 2.5px;
+  }
+  .progress__seg {
+    flex: 1;
+    background: rgba(250,247,240,0.18);
+    overflow: hidden;
+    position: relative;
+  }
+  .progress__seg.played::after,
+  .progress__seg.current::after {
+    content: ''; position: absolute; inset: 0;
+    background: var(--bindu);
+    transform-origin: left;
+  }
+  .progress__seg.played::after {
+    transform: scaleX(1);
+  }
+  .progress__seg.current::after {
+    transform: scaleX(0);
+    animation: progress-fill var(--dur, 6s) linear forwards;
+  }
+  .progress__seg.paused::after {
+    animation-play-state: paused;
+  }
+  @keyframes progress-fill {
+    to { transform: scaleX(1); }
+  }
+
+  .controls__row {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
+  }
+  .ctrl-btn {
+    background: transparent; border: 1px solid rgba(250,247,240,0.25);
+    color: var(--cream); cursor: pointer;
+    width: 44px; height: 44px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 0;
+  }
+  .ctrl-btn svg { width: 18px; height: 18px; }
+  .ctrl-btn.primary {
+    background: var(--bindu); border-color: var(--bindu);
+    width: 52px; height: 52px;
+  }
+  .ctrl-btn:hover { border-color: var(--bindu); }
+  .ctrl-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .ctrl-meta {
+    flex: 1; text-align: center;
+    font-family: var(--font-ui); font-size: 11px;
+    color: rgba(250,247,240,0.65); letter-spacing: 1.5px;
+    text-transform: uppercase; font-weight: 500;
+  }
+  .ctrl-meta b { color: var(--cream); font-weight: 500; }
+
+  /* ─── Title slide — between chapters ─────────────────────────── */
+  .title-slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: linear-gradient(180deg, #0c1410 0%, #1F3525 100%);
+    padding: 32px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 600ms cubic-bezier(0.22,0.68,0.16,1);
+    z-index: 5;
+  }
+  .title-slide.on { opacity: 1; }
+  .title-slide__dev {
+    font-family: var(--font-devanagari); font-size: 20px;
+    color: var(--bindu); letter-spacing: 2px;
+    margin-bottom: 14px;
+  }
+  .title-slide__no {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 38px; color: var(--bindu); font-weight: 400;
+    line-height: 1;
+  }
+  .title-slide__name {
+    font-family: var(--font-display); font-weight: 300;
+    font-size: 32px; color: var(--cream);
+    letter-spacing: 0.3px; line-height: 1;
+    margin: 12px 0 14px;
+    text-align: center;
+  }
+  .title-slide__sub {
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 14px; color: rgba(250,247,240,0.7);
+    line-height: 1.5; max-width: 280px;
+    text-align: center; margin: 0;
+  }
+  .title-slide__rule {
+    width: 28px; height: 1px; background: var(--bindu);
+    margin: 18px 0;
+  }
+
+  /* ─── Welcome slide ─────────────────────────────────────────── */
+  .welcome {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 32px;
+    opacity: 1; pointer-events: auto;
+    transition: opacity 800ms cubic-bezier(0.22,0.68,0.16,1);
+    z-index: 100;
+    background-color: #0c1410;
+    background-image: url('assets/ambient-ridge.svg');
+    background-size: cover; background-position: bottom center;
+  }
+  .welcome.off { opacity: 0; pointer-events: none; }
+  .welcome__dev { font-family: var(--font-devanagari); font-size: 26px; color: var(--bindu); letter-spacing: 2.5px; margin-bottom: 18px; }
+  .welcome__wm { font-family: var(--font-display); font-size: 56px; color: var(--cream); letter-spacing: 8px; margin-bottom: 14px; display: inline-flex; align-items: center; }
+  .welcome__wm .b { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--bindu); margin: 0 6px 10px; }
+  .welcome__rule { width: 36px; height: 1px; background: var(--bindu); margin: 18px 0; }
+  .welcome__tag { font-family: var(--font-editorial); font-style: italic; font-size: 16px; color: var(--cream); line-height: 1.5; max-width: 260px; margin: 0 0 32px; }
+  .welcome__start {
+    background: var(--bindu); color: var(--cream); border: 0;
+    padding: 14px 28px; border-radius: 999px;
+    font-family: var(--font-ui); font-size: 11.5px;
+    letter-spacing: 2.5px; text-transform: uppercase; font-weight: 500;
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .welcome__hint {
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 12px; color: rgba(250,247,240,0.55);
+    margin: 18px 0 0; max-width: 280px;
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <!-- Welcome / start screen -->
+  <div class="welcome" id="welcome">
+    <span class="welcome__dev">एकम्</span>
+    <span class="welcome__wm">E<span class="b"></span>KAM</span>
+    <span style="font-family:var(--font-ui);font-size:10px;letter-spacing:3px;color:rgba(250,247,240,0.55);text-transform:uppercase;font-weight:500;">— Mobile · The full walkthrough</span>
+    <div class="welcome__rule"></div>
+    <p class="welcome__tag">Six chapters · forty screens · the design system in motion.</p>
+    <button class="welcome__start" id="startBtn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      Begin the journey
+    </button>
+    <p class="welcome__hint">Auto-cycles every 6 seconds · tap the screen to pause · scrub with the dots.</p>
+  </div>
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="topbar__l">
+      <span class="topbar__eb" id="ebText">— Chapter I</span>
+      <span class="topbar__ch" id="chText">Onboarding</span>
+    </div>
+    <div class="topbar__r"><b id="idx">1</b> / <span id="total">40</span></div>
+  </div>
+
+  <!-- Phone frame -->
+  <div class="frame-wrap">
+    <div class="frame">
+      <div class="frame__inner">
+        <iframe id="frameA" title="Walkthrough A" loading="eager"></iframe>
+        <iframe id="frameB" title="Walkthrough B" loading="eager"></iframe>
+      </div>
+      <div class="title-slide" id="titleSlide">
+        <span class="title-slide__dev" id="tsDev">कुटीर</span>
+        <span class="title-slide__no" id="tsNo">I.</span>
+        <h2 class="title-slide__name" id="tsName">Onboarding</h2>
+        <span class="title-slide__rule"></span>
+        <p class="title-slide__sub" id="tsSub">The first six minutes — a letter, an intent, a held shortlist.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Caption -->
+  <div class="caption">
+    <span class="caption__eb" id="capEb">— Screen</span>
+    <p class="caption__txt" id="capTxt">Loading…</p>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <div class="progress" id="progress"></div>
+    <div class="controls__row">
+      <button class="ctrl-btn" id="prevBtn" aria-label="Previous">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="ctrl-btn primary" id="playBtn" aria-label="Play / pause">
+        <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>
+      </button>
+      <div class="ctrl-meta"><b id="chPos">CH I</b> · <span id="screenPos">Screen 1</span></div>
+      <button class="ctrl-btn" id="nextBtn" aria-label="Next">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ════════════════════════════════════════════════════════════════
+  // EKAM Walkthrough · auto-playing prototype tour
+  // ════════════════════════════════════════════════════════════════
+
+  // Each step = { kind, file, tabIdx, eyebrow, ch, caption, dur }
+  // tabIdx clicks the Nth .tabs__btn in the iframe so we can deep-link
+  // into chapter sub-screens. titleSlide pauses on a chapter divider.
+
+  const CH = {
+    I:   { dev: 'क्रम',  no: 'I.',   name: 'Onboarding',         sub: 'A letter, an intent, a held shortlist.' },
+    II:  { dev: 'खोज',   no: 'II.',  name: 'Home & Discovery',   sub: 'An editorial feed. A topographic map. Saved Escapes.' },
+    III: { dev: 'कुटीर', no: 'III.', name: 'Property & Booking', sub: 'The cabin, the booking sheet, the lead guest, the companion handoff.' },
+    IV:  { dev: 'मन',    no: 'IV.',  name: 'Saved & Membership', sub: 'The empty state with a map. Three starter cabins to begin.' },
+    V:   { dev: 'मुद्रा', no: 'V.',   name: 'Profile · Mudra · Referral', sub: 'No tier ladder. Wax seals. A postcard introduction.' },
+    VI:  { dev: 'साथ',   no: 'VI.',  name: 'Companion (in-stay)', sub: 'Ambient home, gate code, kitchen, letters in place of notifications.' },
+  };
+
+  const TOUR = [
+    // Title — Chapter I
+    { kind: 'title', ch: 'I', dur: 2800 },
+    { kind: 'screen', file: 'EKAM Mobile - Onboarding.html', ch: 'I', cap: 'Splash — the brand opens with a wax-pressed welcome.' },
+    // Chapter II
+    { kind: 'title', ch: 'II', dur: 2800 },
+    { kind: 'screen', file: 'EKAM Mobile - Home & Discovery.html', tabIdx: 0, ch: 'II', cap: 'Home — editorial collections, not a marketplace grid.' },
+    { kind: 'screen', file: 'EKAM Mobile - Home & Discovery.html', tabIdx: 1, ch: 'II', cap: 'Discover — a topographic map with cabin pins. No prices on the map.' },
+    { kind: 'screen', file: 'EKAM Mobile - Home & Discovery.html', tabIdx: 2, ch: 'II', cap: 'Filters — a sheet, not a screen. Closes on completion.' },
+    { kind: 'screen', file: 'EKAM Mobile - Home & Discovery.html', tabIdx: 3, ch: 'II', cap: 'Saved Escapes — a held shortlist, never a wishlist.' },
+    { kind: 'screen', file: 'EKAM Mobile - Home & Discovery.html', tabIdx: 4, ch: 'II', cap: 'Stay — the label changes when a trip is active.' },
+    { kind: 'screen', file: 'EKAM Mobile - Home & Discovery.html', tabIdx: 5, ch: 'II', cap: 'Profile — a house, not a dashboard.' },
+    // Chapter III
+    { kind: 'title', ch: 'III', dur: 2800 },
+    { kind: 'screen', file: 'EKAM Mobile - Property & Booking.html', tabIdx: 0, ch: 'III', cap: 'Hero — postcard caption, three-number meta, sticky book bar.' },
+    { kind: 'screen', file: 'EKAM Mobile - Property & Booking.html', tabIdx: 1, ch: 'III', cap: 'Six things included — numbered, editorial, no icons.' },
+    { kind: 'screen', file: 'EKAM Mobile - Property & Booking.html', tabIdx: 2, ch: 'III', cap: 'Reviews — two themed quotes, a 4.96 rating, the host strip.' },
+    { kind: 'screen', file: 'EKAM Mobile - Property & Booking.html', tabIdx: 3, ch: 'III', cap: 'Booking sheet — 75% drawer matching the standalone widget.' },
+    { kind: 'screen', file: 'EKAM Mobile - Property & Booking.html', tabIdx: 4, ch: 'III', cap: 'Guests popover — smart capacity, mandatory child ages.' },
+    { kind: 'screen', file: 'EKAM Mobile - Property & Booking.html', tabIdx: 5, ch: 'III', cap: 'Lead guest — for myself, or for someone else (pick from contacts).' },
+    { kind: 'screen', file: 'EKAM Mobile - Property & Booking.html', tabIdx: 6, ch: 'III', cap: 'Confirmed — companion handoff with confirmation code.' },
+    // Chapter IV
+    { kind: 'title', ch: 'IV', dur: 2800 },
+    { kind: 'screen', file: 'EKAM Mobile - Saved & Membership.html', tabIdx: 0, ch: 'IV', cap: 'Saved Escapes — three cabins, each on the cream surface.' },
+    { kind: 'screen', file: 'EKAM Mobile - Saved & Membership.html', tabIdx: 1, ch: 'IV', cap: 'Empty state — ambient map + three starter cabins to begin.' },
+    { kind: 'screen', file: 'EKAM Mobile - Saved & Membership.html', tabIdx: 2, ch: 'IV', cap: 'Profile — upcoming retreat hero, a quietly listed quickrow.' },
+    { kind: 'screen', file: 'EKAM Mobile - Saved & Membership.html', tabIdx: 3, ch: 'IV', cap: 'Journeys — upcoming in full, past as a quoted letter from the host.' },
+    { kind: 'screen', file: 'EKAM Mobile - Saved & Membership.html', tabIdx: 4, ch: 'IV', cap: 'Circle — a dark surface, three tiers, the ring of nights.' },
+    { kind: 'screen', file: 'EKAM Mobile - Saved & Membership.html', tabIdx: 5, ch: 'IV', cap: 'Preferences — six onboarding answers, editable in one screen.' },
+    // Chapter V
+    { kind: 'title', ch: 'V', dur: 2800 },
+    { kind: 'screen', file: 'EKAM Mobile - Profile, Mudra & Referral.html', tabIdx: 0, ch: 'V', cap: 'Saved — the restrained version, no prices on the card.' },
+    { kind: 'screen', file: 'EKAM Mobile - Profile, Mudra & Referral.html', tabIdx: 1, ch: 'V', cap: 'Profile — five entries as sentences. No tiers. No badges.' },
+    { kind: 'screen', file: 'EKAM Mobile - Profile, Mudra & Referral.html', tabIdx: 2, ch: 'V', cap: 'Mudra · map — visited as clay dots, the rest as outlines.' },
+    { kind: 'screen', file: 'EKAM Mobile - Profile, Mudra & Referral.html', tabIdx: 3, ch: 'V', cap: 'Mudra · detail — a wax seal, cabin no., a line you wrote.' },
+    { kind: 'screen', file: 'EKAM Mobile - Profile, Mudra & Referral.html', tabIdx: 4, ch: 'V', cap: 'Journal page — Volume I, three seals so far.' },
+    { kind: 'screen', file: 'EKAM Mobile - Profile, Mudra & Referral.html', tabIdx: 5, ch: 'V', cap: 'Mudra balance — held for you, ₹1,390, applies to 20% of any booking.' },
+    { kind: 'screen', file: 'EKAM Mobile - Profile, Mudra & Referral.html', tabIdx: 6, ch: 'V', cap: 'Referral — postcard preview, share grid, ₹1,000 after their first stay.' },
+    { kind: 'screen', file: 'EKAM Mobile - Profile, Mudra & Referral.html', tabIdx: 7, ch: 'V', cap: 'Invitation received — a poster card, a handwritten line.' },
+    // Chapter VI
+    { kind: 'title', ch: 'VI', dur: 2800 },
+    { kind: 'screen', file: 'EKAM Mobile - Companion.html', tabIdx: 0, ch: 'VI', cap: 'Companion home — ambient ridge, time-aware, host one tap.' },
+    { kind: 'screen', file: 'EKAM Mobile - Companion.html', tabIdx: 1, ch: 'VI', cap: 'Cabin — gate code in 64pt display serif. Wi-Fi behind a reveal.' },
+    { kind: 'screen', file: 'EKAM Mobile - Companion.html', tabIdx: 2, ch: 'VI', cap: 'Today — sky events in moss, booked events in clay.' },
+    { kind: 'screen', file: 'EKAM Mobile - Companion.html', tabIdx: 3, ch: 'VI', cap: 'Kitchen — chai at the top, today\'s tiffin, à la carte. Complimentary first.' },
+    { kind: 'screen', file: 'EKAM Mobile - Companion.html', tabIdx: 4, ch: 'VI', cap: 'Trails — three walks drawn as hand-styled topographic glyphs.' },
+    { kind: 'screen', file: 'EKAM Mobile - Companion.html', tabIdx: 5, ch: 'VI', cap: 'Rituals — three teas, a daily journal prompt, twenty minutes of forest.' },
+    { kind: 'screen', file: 'EKAM Mobile - Companion.html', tabIdx: 6, ch: 'VI', cap: 'Letters — no push notifications. Signed by the cabin or the host.' },
+    { kind: 'screen', file: 'EKAM Mobile - Companion.html', tabIdx: 7, ch: 'VI', cap: 'Reach — host first, then cabin team, gate, clinic. No queues.' },
+    // Closing title
+    { kind: 'title', ch: 'I', dur: 4000, override: { dev: 'एकम्', no: 'End.', name: 'One bed. One stove.', sub: 'The system stays out of the way. The cabin and the land do the work.' } },
+  ];
+
+  const SCREEN_DUR = 6000; // ms per screen
+
+  let current = 0;
+  let timer = null;
+  let isPlaying = false;
+  let usingA = true; // which iframe is the foreground
+  const totalScreens = TOUR.filter(t => t.kind === 'screen').length;
+  document.getElementById('total').textContent = totalScreens;
+
+  // Build progress segments
+  const progressEl = document.getElementById('progress');
+  TOUR.forEach((step, i) => {
+    if (step.kind === 'screen') {
+      const seg = document.createElement('div');
+      seg.className = 'progress__seg';
+      progressEl.appendChild(seg);
+    }
+  });
+
+  function frameA() { return document.getElementById('frameA'); }
+  function frameB() { return document.getElementById('frameB'); }
+  function titleSlide() { return document.getElementById('titleSlide'); }
+
+  // Helper — click the Nth .tabs__btn inside an iframe once it loads
+  function clickTabWhenReady(iframe, tabIdx) {
+    if (tabIdx == null) return;
+    let tries = 0;
+    const attempt = () => {
+      tries++;
+      try {
+        const doc = iframe.contentDocument || iframe.contentWindow?.document;
+        const btns = doc?.querySelectorAll('.tabs__btn');
+        if (btns && btns[tabIdx]) {
+          btns[tabIdx].click();
+          return;
+        }
+      } catch (e) { /* cross-origin or not ready */ }
+      if (tries < 20) setTimeout(attempt, 250);
+    };
+    attempt();
+  }
+
+  function setTopBar(step) {
+    const ch = CH[step.ch];
+    document.getElementById('ebText').textContent = `— Chapter ${ch.no.replace('.','')}`;
+    document.getElementById('chText').textContent = ch.name;
+    const screenIdx = TOUR.slice(0, current + 1).filter(t => t.kind === 'screen').length;
+    document.getElementById('idx').textContent = step.kind === 'screen' ? screenIdx : screenIdx;
+    document.getElementById('chPos').textContent = `CH ${ch.no.replace('.','')}`;
+    document.getElementById('screenPos').textContent = step.kind === 'screen' ? `Screen ${screenIdx}` : 'Chapter title';
+  }
+
+  function setCaption(step) {
+    const ch = CH[step.ch];
+    if (step.kind === 'title') {
+      document.getElementById('capEb').textContent = `— ${ch.no.replace('.','')}`;
+      document.getElementById('capTxt').textContent = ch.sub;
+    } else {
+      document.getElementById('capEb').textContent = `— ${ch.name}`;
+      document.getElementById('capTxt').textContent = step.cap;
+    }
+  }
+
+  function showTitle(step) {
+    const ts = titleSlide();
+    const ch = CH[step.ch];
+    const o = step.override || ch;
+    document.getElementById('tsDev').textContent = o.dev || ch.dev;
+    document.getElementById('tsNo').textContent = o.no || ch.no;
+    document.getElementById('tsName').textContent = o.name || ch.name;
+    document.getElementById('tsSub').textContent = o.sub || ch.sub;
+    ts.classList.add('on');
+  }
+  function hideTitle() { titleSlide().classList.remove('on'); }
+
+  function showScreen(step) {
+    hideTitle();
+    // Cross-fade: load into the background iframe, fade it in
+    const fg = usingA ? frameA() : frameB();
+    const bg = usingA ? frameB() : frameA();
+    bg.src = step.file;
+    bg.onload = () => {
+      clickTabWhenReady(bg, step.tabIdx);
+      bg.classList.add('on');
+      fg.classList.remove('on');
+      usingA = !usingA;
+    };
+    // Safety fallback
+    setTimeout(() => {
+      if (!bg.classList.contains('on')) {
+        bg.classList.add('on'); fg.classList.remove('on'); usingA = !usingA;
+      }
+    }, 1500);
+  }
+
+  function applyProgress() {
+    const segs = progressEl.querySelectorAll('.progress__seg');
+    let screenIdx = -1;
+    TOUR.forEach((s, i) => {
+      if (s.kind !== 'screen') return;
+      screenIdx++;
+      const seg = segs[screenIdx];
+      if (!seg) return;
+      seg.classList.remove('played', 'current', 'paused');
+      if (i < current) seg.classList.add('played');
+      else if (i === current) {
+        seg.classList.add('current');
+        seg.style.setProperty('--dur', (SCREEN_DUR / 1000) + 's');
+        if (!isPlaying) seg.classList.add('paused');
+      }
+    });
+  }
+
+  function applyStep() {
+    const step = TOUR[current];
+    if (!step) return;
+    setTopBar(step);
+    setCaption(step);
+    if (step.kind === 'title') showTitle(step);
+    else showScreen(step);
+    applyProgress();
+  }
+
+  function advance() {
+    current = (current + 1) % TOUR.length;
+    applyStep();
+    schedule();
+  }
+
+  function schedule() {
+    clearTimeout(timer);
+    if (!isPlaying) return;
+    const step = TOUR[current];
+    const dur = step.dur || SCREEN_DUR;
+    timer = setTimeout(advance, dur);
+  }
+
+  function play() {
+    isPlaying = true;
+    document.getElementById('playIcon').outerHTML =
+      '<svg id="playIcon" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
+    progressEl.querySelectorAll('.progress__seg.current').forEach(s => s.classList.remove('paused'));
+    schedule();
+  }
+  function pause() {
+    isPlaying = false;
+    document.getElementById('playIcon').outerHTML =
+      '<svg id="playIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+    progressEl.querySelectorAll('.progress__seg.current').forEach(s => s.classList.add('paused'));
+    clearTimeout(timer);
+  }
+  function toggle() { isPlaying ? pause() : play(); }
+
+  function next() { current = Math.min(current + 1, TOUR.length - 1); applyStep(); if (isPlaying) schedule(); }
+  function prev() { current = Math.max(current - 1, 0); applyStep(); if (isPlaying) schedule(); }
+
+  document.getElementById('playBtn').addEventListener('click', toggle);
+  document.getElementById('nextBtn').addEventListener('click', next);
+  document.getElementById('prevBtn').addEventListener('click', prev);
+
+  // Tap the iframe area to pause/resume
+  document.querySelector('.frame-wrap').addEventListener('click', toggle);
+
+  // Keyboard
+  document.addEventListener('keydown', (e) => {
+    if (e.key === ' ') { e.preventDefault(); toggle(); }
+    else if (e.key === 'ArrowRight') next();
+    else if (e.key === 'ArrowLeft') prev();
+  });
+
+  // Start button
+  document.getElementById('startBtn').addEventListener('click', () => {
+    document.getElementById('welcome').classList.add('off');
+    current = 0;
+    applyStep();
+    setTimeout(() => play(), 600);
+  });
+</script>
+
+</body>
+</html>

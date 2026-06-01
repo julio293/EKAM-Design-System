@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>EKAM · Spacing Scale</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { height: 100%; }
+  .stage {
+    width: 700px; min-height: 280px;
+    padding: 24px 32px;
+    background: var(--cream);
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 70px 60px 1fr 1.4fr;
+    gap: 16px;
+    align-items: center;
+    padding: 6px 0;
+    border-top: 1px solid var(--bone);
+    font-family: var(--font-ui);
+    font-size: 10.5px;
+    letter-spacing: 0.3px;
+  }
+  .row:first-child { border-top: 0; }
+
+  .token {
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 10px;
+  }
+  .px {
+    color: var(--bindu);
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    font-size: 10px;
+    text-align: right;
+  }
+  .bar-wrap {
+    height: 8px;
+    background: var(--sand);
+    position: relative;
+  }
+  .bar {
+    height: 8px;
+    background: var(--bindu);
+    opacity: 0.85;
+  }
+  .use {
+    color: var(--moss);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+  .use b {
+    color: var(--ink);
+    font-weight: 400;
+  }
+
+  /* Bar widths */
+  .b-4   { width: 4px; }
+  .b-8   { width: 8px; }
+  .b-16  { width: 16px; }
+  .b-24  { width: 24px; }
+  .b-40  { width: 40px; }
+  .b-64  { width: 64px; }
+  .b-96  { width: 96px; }
+  .b-128 { width: 128px; }
+  .b-192 { width: 192px; }
+
+  .head {
+    display: grid;
+    grid-template-columns: 70px 60px 1fr 1.4fr;
+    gap: 16px;
+    padding-bottom: 10px;
+    margin-bottom: 6px;
+    font-family: var(--font-ui);
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--moss);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid var(--bone);
+  }
+  .head span:nth-child(2) { text-align: right; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="head">
+      <span>— Token</span>
+      <span>px</span>
+      <span>Size</span>
+      <span>Where it shows up</span>
+    </div>
+
+    <div class="row"><span class="token">xs</span><span class="px">4</span><div class="bar-wrap"><div class="bar b-4"></div></div><div class="use"><b>Inline.</b> Icon ↔ label gap. Bindu offset above CTA.</div></div>
+    <div class="row"><span class="token">sm</span><span class="px">8</span><div class="bar-wrap"><div class="bar b-8"></div></div><div class="use"><b>Stack.</b> Heading ↔ subheading. Field ↔ label.</div></div>
+    <div class="row"><span class="token">md</span><span class="px">16</span><div class="bar-wrap"><div class="bar b-16"></div></div><div class="use"><b>Card padding.</b> Inside small panels, between rows of metadata.</div></div>
+    <div class="row"><span class="token">lg</span><span class="px">24</span><div class="bar-wrap"><div class="bar b-24"></div></div><div class="use"><b>Paragraph break.</b> Card gap. Form field spacing.</div></div>
+    <div class="row"><span class="token">xl</span><span class="px">40</span><div class="bar-wrap"><div class="bar b-40"></div></div><div class="use"><b>Side gutter.</b> Page horizontal padding. Title ↔ body.</div></div>
+    <div class="row"><span class="token">2xl</span><span class="px">64</span><div class="bar-wrap"><div class="bar b-64"></div></div><div class="use"><b>Sub-section.</b> Between blocks inside a section.</div></div>
+    <div class="row"><span class="token">3xl</span><span class="px">96</span><div class="bar-wrap"><div class="bar b-96"></div></div><div class="use"><b>Pull-quote frame.</b> Above/below an emphasised line.</div></div>
+    <div class="row"><span class="token">4xl</span><span class="px">128</span><div class="bar-wrap"><div class="bar b-128"></div></div><div class="use"><b>Section break.</b> Vertical padding inside any section.</div></div>
+    <div class="row"><span class="token">5xl</span><span class="px">192</span><div class="bar-wrap"><div class="bar b-192"></div></div><div class="use"><b>Cover breathing room.</b> Volume opener · hero vertical.</div></div>
+  </div>
+</body>
+</html>

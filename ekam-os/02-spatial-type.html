@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EKAM OS · 02 Spatial type</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="stylesheet" href="_chrome.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=Raleway:wght@300;400;500&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  /* ─── Type-at-distance ramp ─── */
+  .ramp { border: 1px solid var(--bone); border-collapse: collapse; width: 100%; background: var(--cream); }
+  .ramp th, .ramp td { text-align: left; padding: 18px 18px; border-bottom: 1px solid var(--bone); vertical-align: middle; }
+  .ramp tr:last-child td { border-bottom: 0; }
+  .ramp th { background: var(--sand); font-family: var(--font-ui); font-size: 9.5px; letter-spacing: 2px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+  .ramp td.sample { font-family: var(--font-display); font-weight: 400; color: var(--forest); }
+  .ramp td.token { font-family: 'Inter', monospace; font-size: 11.5px; color: var(--bindu); width: 22%; }
+  .ramp td.token small { display: block; color: var(--moss); font-family: var(--font-editorial); font-style: italic; font-size: 12.5px; margin-top: 3px; }
+  .ramp td.spec { font-family: 'Inter', monospace; font-size: 11.5px; color: var(--ink); line-height: 1.7; width: 28%; }
+  .ramp td.spec b { color: var(--bindu); font-weight: 500; }
+  .ramp td.use { font-family: var(--font-editorial); font-style: italic; font-size: 13px; color: var(--moss); line-height: 1.5; width: 22%; }
+
+  /* ─── Surface card (substrate previews) ─── */
+  .surface-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .surface {
+    border: 1px solid var(--bone);
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--cream);
+    display: flex; flex-direction: column;
+  }
+  .surface__stage {
+    height: 200px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .surface__stage.cream { background: #f0e9d6; background-image: repeating-linear-gradient(89deg, transparent 0px, transparent 2px, rgba(180,97,58,0.025) 2px, rgba(180,97,58,0.025) 3px); }
+  .surface__stage.brass { background: linear-gradient(135deg, #b18545 0%, #c9a062 30%, #8b6628 60%, #a78048 100%); }
+  .surface__stage.forest { background: #2B4630; }
+  .surface__stage.stone { background: #786b5e; background-image: radial-gradient(circle at 30% 40%, rgba(0,0,0,0.15) 0%, transparent 30%), radial-gradient(circle at 70% 60%, rgba(255,255,255,0.05) 0%, transparent 30%); }
+  .surface__stage.timber { background: #6a4a2d; background-image: repeating-linear-gradient(90deg, transparent 0px, transparent 14px, rgba(0,0,0,0.08) 14px, rgba(0,0,0,0.08) 15px); }
+  .surface__stage.ceramic { background: #fefbf2; background-image: radial-gradient(ellipse at 30% 30%, rgba(0,0,0,0.06) 0%, transparent 50%); }
+
+  .surface__sample {
+    font-family: 'Cormorant Garamond', serif; font-weight: 400;
+    letter-spacing: 0.08em;
+  }
+  .surface__stage.cream .surface__sample,
+  .surface__stage.ceramic .surface__sample { color: var(--forest); }
+  .surface__stage.brass .surface__sample { color: #3a2210; text-shadow: 0 1px 0 rgba(255,235,180,0.55); }
+  .surface__stage.forest .surface__sample,
+  .surface__stage.timber .surface__sample { color: var(--cream); }
+  .surface__stage.stone .surface__sample { color: var(--cream); text-shadow: 0 -1px 0 rgba(0,0,0,0.25); }
+
+  .surface__sample-wm {
+    display: inline-block; line-height: 1; }
+  .surface__sample-wm .dot {
+    display: inline-block; width: 0.13em; height: 0.13em; border-radius: 50%;
+    background: var(--bindu); vertical-align: 0.30em;
+  }
+  .surface__stage.brass .surface__sample-wm .dot { background: #3a2210; }
+  .surface__stage.stone .surface__sample-wm .dot { background: var(--cream); }
+
+  .surface__meta { padding: 16px 18px 18px; }
+  .surface__name { font-family: var(--font-display); font-weight: 400; font-size: 17px; color: var(--forest); letter-spacing: 0.3px; margin: 0 0 4px; }
+  .surface__substrate { font-family: var(--font-ui); font-size: 9.5px; letter-spacing: 1.8px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+  .surface__spec { font-family: var(--font-body); font-weight: 300; font-size: 12.5px; color: var(--ink); line-height: 1.5; margin: 8px 0 0; }
+
+  /* ─── Bilingual stack diagram ─── */
+  .bilingual {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 24px; margin-top: 18px;
+  }
+  .bilingual__card {
+    padding: 36px 36px 28px;
+    background: var(--sand);
+    border: 1px solid var(--bone);
+    border-radius: 4px;
+    display: flex; flex-direction: column;
+    align-items: center;
+  }
+  .bilingual__card.dark { background: var(--forest); border-color: transparent; }
+  .bilingual__dev { font-family: var(--font-devanagari); font-size: 26px; color: var(--ink); letter-spacing: 1.5px; line-height: 1; margin-bottom: 8px; }
+  .bilingual__card.dark .bilingual__dev { color: var(--cream); }
+  .bilingual__en { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 34px; color: var(--forest); letter-spacing: 0.1em; line-height: 1; display: inline-block; }
+  .bilingual__card.dark .bilingual__en { color: var(--cream); }
+  .bilingual__en .dot { display: inline-block; width: 0.13em; height: 0.13em; border-radius: 50%; background: var(--bindu); vertical-align: 0.30em; }
+  .bilingual__rule { width: 36px; height: 1px; background: var(--bindu); margin: 14px 0; }
+  .bilingual__cap { font-family: var(--font-ui); font-size: 10px; letter-spacing: 2px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+  .bilingual__card.dark .bilingual__cap { color: var(--bindu); }
+  .bilingual__hint { font-family: var(--font-editorial); font-style: italic; font-size: 12px; color: var(--moss); line-height: 1.5; margin: 10px 0 0; text-align: center; max-width: 280px; }
+  .bilingual__card.dark .bilingual__hint { color: rgba(250,247,240,0.65); }
+
+  /* ─── Distance / size matrix ─── */
+  .dist {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--bone);
+  }
+  .dist th, .dist td { padding: 14px 18px; text-align: left; border-bottom: 1px solid var(--bone); font-family: var(--font-body); font-weight: 300; font-size: 13px; color: var(--ink); }
+  .dist tr:last-child td { border-bottom: 0; }
+  .dist th { background: var(--sand); font-family: var(--font-ui); font-size: 9.5px; letter-spacing: 2px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+  .dist td.dist-d { font-family: 'Inter', monospace; font-size: 12px; color: var(--bindu); font-weight: 500; }
+  .dist td.dist-r { font-family: var(--font-editorial); font-style: italic; color: var(--moss); }
+</style>
+</head>
+<body>
+
+<div class="os">
+
+  <!-- ─── Sidebar ─── -->
+  <aside class="os-nav">
+    <div class="os-nav__brand">
+      <span class="os-nav__brand-dev">एकम् · संचालन</span>
+      <span class="os-nav__brand-wm">E<span class="dot"></span>KAM</span>
+      <span class="os-nav__brand-tag">The operating system · v1.0 · draft</span>
+    </div>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Foundation</span>
+      <a class="os-nav__item" href="00-principles.html"><span class="os-nav__item-no">00</span><span>Principles</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="01-tokens.html"><span class="os-nav__item-no">01</span><span>Tokens</span></a>
+      <a class="os-nav__item is-on" href="02-spatial-type.html"><span class="os-nav__item-no">02</span><span>Spatial type</span></a>
+      <a class="os-nav__item" href="03-materials.html"><span class="os-nav__item-no">03</span><span>Materials</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Environmental</span>
+      <a class="os-nav__item" href="04-signage.html"><span class="os-nav__item-no">04</span><span>Signage system</span></a>
+      <a class="os-nav__item" href="05-wayfinding.html"><span class="os-nav__item-no">05</span><span>Wayfinding</span></a>
+      <a class="os-nav__item" href="06-cabin-anatomy.html"><span class="os-nav__item-no">06</span><span>Cabin anatomy</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Hospitality</span>
+      <a class="os-nav__item is-pending" href="#" data-pending="07-guest-journey.html"><span class="os-nav__item-no">07</span><span>Guest journey</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="08-rituals.html"><span class="os-nav__item-no">08</span><span>Rituals on site</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Build</span>
+      <a class="os-nav__item is-pending" href="#" data-pending="09-fabrication.html"><span class="os-nav__item-no">09</span><span>Fabrication</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="10-utility-emergency.html"><span class="os-nav__item-no">10</span><span>Utility &amp; emergency</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="11-staff.html"><span class="os-nav__item-no">11</span><span>Staff systems</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Scale</span>
+      <a class="os-nav__item is-pending" href="#" data-pending="12-tier-variation.html"><span class="os-nav__item-no">12</span><span>Tier variation</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="13-partner-tiers.html"><span class="os-nav__item-no">13</span><span>Partner tiers</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="14-prints.html"><span class="os-nav__item-no">14</span><span>Exports</span></a>
+    </nav>
+    <div class="os-nav__foot"><b>— Reading</b>The physical ramp. Built on top of Tokens.</div>
+  </aside>
+
+  <main class="os-main">
+
+    <!-- ─── Section header ─── -->
+    <header class="os-head">
+      <div>
+        <span class="os-head__eb">— 02 · Spatial type</span>
+        <span class="os-head__dev">अक्षर · the letter at scale</span>
+        <h1 class="os-head__title">Typography <em>sized for buildings.</em></h1>
+        <p class="os-head__lede">The same five typefaces, applied across six physical substrates. Stone, brass, painted plate, paper plaque, vinyl on cream, timber — each with its own legibility minimum, viewing distance, and bilingual stacking rule. Type that survives weather and reads at 15 metres.</p>
+      </div>
+      <div class="os-head__meta">
+        <span>Section <b>02 / 14</b></span>
+        <span>Reading <b>~6 min</b></span>
+        <span>Updated <b>28 May 2026</b></span>
+      </div>
+    </header>
+
+    <!-- ═════════════════════════════════════════════════════════
+         A · THE SPATIAL RAMP
+         ═════════════════════════════════════════════════════════ -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div>
+          <div class="os-sub__no">A<span class="os-sub__no-dev">क्रम · the ramp</span></div>
+        </div>
+        <div>
+          <h2 class="os-sub__title">Six spatial sizes. <em>Read by distance, not by pixels.</em></h2>
+          <p class="os-sub__lede">The digital ramp measures in px; the spatial ramp measures in millimetres. Each row is calibrated to a viewing distance — a 12 mm cap-height reads from 1.5 m, an 80 mm cap-height reads from 15 m. Below the minimum, the letter falls apart.</p>
+        </div>
+      </header>
+
+      <table class="ramp">
+        <thead>
+          <tr><th>Sample</th><th>Token</th><th>Spec</th><th>Where used</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="sample" style="font-size: 80px; line-height: 0.95;">E<span style="color: var(--bindu); margin: 0 14px; display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--bindu); vertical-align: 22px;"></span>KAM</td>
+            <td class="token">spatial/xxl<small>Property gate · approach signage</small></td>
+            <td class="spec">Cap height <b>80–120 mm</b><br/>Read from <b>10–20 m</b><br/>Stroke <b>≥ 2.5 mm</b></td>
+            <td class="use">The first sign at the property entry. Carved on stone or painted on the gate wall.</td>
+          </tr>
+          <tr>
+            <td class="sample" style="font-size: 48px; line-height: 0.95;">E<span style="color: var(--bindu); margin: 0 10px; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--bindu); vertical-align: 14px;"></span>KAM</td>
+            <td class="token">spatial/xl<small>Site map board · public area headers</small></td>
+            <td class="spec">Cap height <b>48–64 mm</b><br/>Read from <b>3–6 m</b><br/>Stroke <b>≥ 1.8 mm</b></td>
+            <td class="use">The reception map board. Common-area headers (kitchen, library, lookout).</td>
+          </tr>
+          <tr>
+            <td class="sample" style="font-size: 32px; line-height: 1; font-style: italic; font-weight: 300;">Cabin <span style="font-style: normal; font-weight: 400; color: var(--bindu);">11</span></td>
+            <td class="token">spatial/lg<small>Cabin plates · plinth markers</small></td>
+            <td class="spec">Cap height <b>28–40 mm</b><br/>Read from <b>1.5–3 m</b><br/>Stroke <b>≥ 1.2 mm</b></td>
+            <td class="use">Cabin number plates. House-rule panel titles. Way-finding arrow markers.</td>
+          </tr>
+          <tr>
+            <td class="sample" style="font-size: 18px; line-height: 1.2; color: var(--ink);">House rules · please observe</td>
+            <td class="token">spatial/md<small>Plate body · instruction copy</small></td>
+            <td class="spec">Cap height <b>14–20 mm</b><br/>Read from <b>0.5–1.5 m</b><br/>Stroke <b>≥ 0.6 mm</b></td>
+            <td class="use">Body text inside signage panels. House rules, hot-water hours, geyser instructions.</td>
+          </tr>
+          <tr>
+            <td class="sample" style="font-family: 'Inter', sans-serif; font-size: 11px; line-height: 1.3; color: var(--bindu); letter-spacing: 2px; text-transform: uppercase; font-weight: 500;">— Quiet hours · 21:00–07:00</td>
+            <td class="token">spatial/sm<small>Eyebrows · sub-labels · captions</small></td>
+            <td class="spec">Cap height <b>8–12 mm</b><br/>Read from <b>0.3–0.8 m</b><br/>Stroke <b>≥ 0.4 mm</b></td>
+            <td class="use">Eyebrows on plates. Small labels on the geyser, the gas regulator, the breaker box.</td>
+          </tr>
+          <tr>
+            <td class="sample" style="font-family: 'Inter', sans-serif; font-size: 8px; line-height: 1.3; color: var(--moss);">batch 04 · made in kumaon · keep dry</td>
+            <td class="token">spatial/xs<small>Edition mark · provenance · footer</small></td>
+            <td class="spec">Cap height <b>4–6 mm</b><br/>Read from <b>0.1–0.3 m</b><br/>Stroke <b>≥ 0.25 mm</b></td>
+            <td class="use">Edition marks on the wax seal. Batch numbers on the journal. Provenance on packaging.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="font-family: var(--font-editorial); font-style: italic; font-size: 13.5px; color: var(--moss); line-height: 1.6; margin: 18px 0 0; max-width: 720px;">
+        <strong style="font-family: var(--font-ui); font-style: normal; font-size: 11px; letter-spacing: 1.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500;">— The 100-rule</strong>&nbsp;&nbsp;A useful approximation: <strong style="font-family: 'Inter', sans-serif; font-style: normal; color: var(--forest);">cap height in mm × 100 = max comfortable reading distance in mm</strong>. A 30 mm cap reads cleanly at ~3 m; a 100 mm cap reads at ~10 m. Below this the letter blurs; the form survives but the word disappears.
+      </p>
+    </section>
+
+    <!-- ═════════════════════════════════════════════════════════
+         B · SUBSTRATES
+         ═════════════════════════════════════════════════════════ -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div>
+          <div class="os-sub__no">B<span class="os-sub__no-dev">द्रव्य · the substrate</span></div>
+        </div>
+        <div>
+          <h2 class="os-sub__title">Six substrates. <em>Type behaves differently on each.</em></h2>
+          <p class="os-sub__lede">The same Cormorant Garamond E·KAM, set six ways. Carving subtracts; etching cuts in; painting sits on top; vinyl is a layer; ceramic is fired in. Each substrate has its own minimum size and its own legibility behaviour.</p>
+        </div>
+      </header>
+
+      <div class="surface-grid">
+
+        <!-- Cream paper plaque -->
+        <div class="surface">
+          <div class="surface__stage cream">
+            <span class="surface__sample" style="font-size: 28px;"><span class="surface__sample-wm">E<span class="dot"></span>KAM</span></span>
+          </div>
+          <div class="surface__meta">
+            <div class="surface__substrate">— Cream paper plaque</div>
+            <div class="surface__name">Vinyl on cream board</div>
+            <div class="surface__spec">240 gsm cream board · screen-printed in forest. Indoor only — common area instructions, kitchen rules, journal pages.</div>
+          </div>
+        </div>
+
+        <!-- Forest painted plate -->
+        <div class="surface">
+          <div class="surface__stage forest">
+            <span class="surface__sample" style="font-size: 28px;"><span class="surface__sample-wm">E<span class="dot"></span>KAM</span></span>
+          </div>
+          <div class="surface__meta">
+            <div class="surface__substrate">— Forest painted plate</div>
+            <div class="surface__name">Powder-coated mild steel</div>
+            <div class="surface__spec">2 mm MS plate · powder-coat forest · vinyl-etched cream lettering. The default outdoor sign — gate, cabin plates, way-finding.</div>
+          </div>
+        </div>
+
+        <!-- Brass etched -->
+        <div class="surface">
+          <div class="surface__stage brass">
+            <span class="surface__sample" style="font-size: 26px;"><span class="surface__sample-wm">E<span class="dot"></span>KAM</span></span>
+          </div>
+          <div class="surface__meta">
+            <div class="surface__substrate">— Brass etched</div>
+            <div class="surface__name">Sandblasted brass plaque</div>
+            <div class="surface__spec">3 mm brass · acid-etched · oiled finish. Cabin door plate, wax seal stamp, retail tag. Develops a forest patina over 6–12 months.</div>
+          </div>
+        </div>
+
+        <!-- Stone carved -->
+        <div class="surface">
+          <div class="surface__stage stone">
+            <span class="surface__sample" style="font-size: 28px;"><span class="surface__sample-wm">E<span class="dot"></span>KAM</span></span>
+          </div>
+          <div class="surface__meta">
+            <div class="surface__substrate">— Stone carved</div>
+            <div class="surface__name">Sandstone gate marker</div>
+            <div class="surface__spec">Local sandstone · V-cut carving · no paint fill. Only the property gate. Survives 100 years; does not need replacing.</div>
+          </div>
+        </div>
+
+        <!-- Timber branded -->
+        <div class="surface">
+          <div class="surface__stage timber">
+            <span class="surface__sample" style="font-size: 26px;"><span class="surface__sample-wm">E<span class="dot"></span>KAM</span></span>
+          </div>
+          <div class="surface__meta">
+            <div class="surface__substrate">— Timber branded</div>
+            <div class="surface__name">Cedar plank · iron brand</div>
+            <div class="surface__spec">Local cedar · branded with a hot iron · no varnish. Trail markers, fire-pit boundary, herb labels in the kitchen garden.</div>
+          </div>
+        </div>
+
+        <!-- Ceramic fired -->
+        <div class="surface">
+          <div class="surface__stage ceramic">
+            <span class="surface__sample" style="font-size: 26px;"><span class="surface__sample-wm">E<span class="dot"></span>KAM</span></span>
+          </div>
+          <div class="surface__meta">
+            <div class="surface__substrate">— Ceramic fired</div>
+            <div class="surface__name">Glazed cream tile · iron-fired</div>
+            <div class="surface__spec">120 × 80 mm tile · iron-oxide print · single high-fire. Bathroom plates, kettle warning, geyser hours. Permanent indoor use.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═════════════════════════════════════════════════════════
+         C · BILINGUAL STACKING
+         ═════════════════════════════════════════════════════════ -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div>
+          <div class="os-sub__no">C<span class="os-sub__no-dev">द्विभाषा · two languages</span></div>
+        </div>
+        <div>
+          <h2 class="os-sub__title">Devanagari above, English below.</h2>
+          <p class="os-sub__lede">Where bilingual is load-bearing — cabin doors, the wax seal, the welcome plate — Devanagari sits on top, English below. Optical sizing is matched so both languages read at the same weight. The bindu separator only appears in the English line.</p>
+        </div>
+      </header>
+
+      <div class="bilingual">
+        <div class="bilingual__card">
+          <div class="bilingual__dev">कुटीर</div>
+          <div class="bilingual__en">KUTIR</div>
+          <div class="bilingual__rule"></div>
+          <div class="bilingual__cap">— Cabin door plate</div>
+          <div class="bilingual__hint">Devanagari at 1.4× the English cap-height. The script's body sits on the same baseline as the English midline.</div>
+        </div>
+        <div class="bilingual__card dark">
+          <div class="bilingual__dev">एकम्</div>
+          <div class="bilingual__en">E<span class="dot"></span>KAM</div>
+          <div class="bilingual__rule"></div>
+          <div class="bilingual__cap">— Master mark · stacked</div>
+          <div class="bilingual__hint">The only context where the bindu appears in the wordmark <em>and</em> Devanagari runs above. Used on packaging and the wax seal.</div>
+        </div>
+      </div>
+
+      <div class="os-prose" style="margin-top: 28px;">
+        <h3>Stacking rules</h3>
+        <p><strong>Devanagari on top.</strong> The reading direction in stacked bilingual lockups is top-to-bottom: Devanagari first, English second. This is the opposite of most Indian institutional signage (which puts English on top) and is a small but deliberate stance.</p>
+        <p><strong>Devanagari is always 1.4× the English cap-height.</strong> Optical sizing — Devanagari letters appear visually smaller than Latin letters at the same point size because of the script's vertical compression. The 1.4× multiplier corrects this. <em>Below this ratio, the script looks subordinate.</em></p>
+        <p><strong>No bindu in the Devanagari line.</strong> The bindu is part of the English wordmark — the separator between E and KAM. The Devanagari एकम् already carries the script's own diacritic (the बिन्दु on the final letter), so adding our brand bindu would be tautological.</p>
+        <p><strong>Centre-aligned, never left-aligned.</strong> The bilingual stack is always centred. Left-aligning Devanagari above left-aligned English creates an optical jaggedness that left-aligned Latin alone does not have.</p>
+      </div>
+    </section>
+
+    <!-- ═════════════════════════════════════════════════════════
+         D · DISTANCE × SIZE MATRIX
+         ═════════════════════════════════════════════════════════ -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div>
+          <div class="os-sub__no">D<span class="os-sub__no-dev">दूरी · the distance</span></div>
+        </div>
+        <div>
+          <h2 class="os-sub__title">A planner's table. <em>Distance in, size out.</em></h2>
+          <p class="os-sub__lede">When specifying a new sign, work backwards from the viewing distance. This table is the planning tool — pick the row, the cap-height comes with it.</p>
+        </div>
+      </header>
+
+      <table class="dist">
+        <thead>
+          <tr><th>Viewing distance</th><th>Min cap height</th><th>Recommended</th><th>Surface example</th><th>Reading register</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="dist-d">15–25 m</td><td class="dist-d">100 mm</td><td class="dist-d">120 mm</td><td class="dist-r">Property gate marker, road-side approach.</td><td>spatial/xxl</td></tr>
+          <tr><td class="dist-d">5–15 m</td><td class="dist-d">48 mm</td><td class="dist-d">64 mm</td><td class="dist-r">Site map board at reception, common-area headers.</td><td>spatial/xl</td></tr>
+          <tr><td class="dist-d">2–5 m</td><td class="dist-d">28 mm</td><td class="dist-d">36 mm</td><td class="dist-r">Cabin number plate, plinth marker, fire-pit panel.</td><td>spatial/lg</td></tr>
+          <tr><td class="dist-d">0.6–2 m</td><td class="dist-d">14 mm</td><td class="dist-d">18 mm</td><td class="dist-r">House-rule body text, instruction copy on plates.</td><td>spatial/md</td></tr>
+          <tr><td class="dist-d">0.3–0.6 m</td><td class="dist-d">8 mm</td><td class="dist-d">11 mm</td><td class="dist-r">Geyser switch label, breaker box panel, tap key.</td><td>spatial/sm</td></tr>
+          <tr><td class="dist-d">≤ 0.3 m</td><td class="dist-d">4 mm</td><td class="dist-d">6 mm</td><td class="dist-r">Wax seal edition mark, journal batch number.</td><td>spatial/xs</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ═════════════════════════════════════════════════════════
+         E · RULES
+         ═════════════════════════════════════════════════════════ -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div>
+          <div class="os-sub__no">E<span class="os-sub__no-dev">नियम · the rules</span></div>
+        </div>
+        <div>
+          <h2 class="os-sub__title">Five rules. <em>Apply before fabrication.</em></h2>
+        </div>
+      </header>
+
+      <div class="os-row-2">
+        <div class="os-card">
+          <span class="os-card__eb">— Rule 01</span>
+          <h4 class="os-card__h">Always Cormorant. <em>Even on stone.</em></h4>
+          <p class="os-card__p">No display-substitute fonts (Trajan, Optima) on stone. The carve is harder; the brand survives the carve. If the carver objects, the carver is wrong.</p>
+        </div>
+        <div class="os-card">
+          <span class="os-card__eb">— Rule 02</span>
+          <h4 class="os-card__h">No drop shadows. <em>The substrate makes the shadow.</em></h4>
+          <p class="os-card__p">Brass casts a shadow because it's etched in. Stone casts a shadow because it's carved out. Painted plates are flat — and that is correct. Faux depth is not added.</p>
+        </div>
+        <div class="os-card">
+          <span class="os-card__eb">— Rule 03</span>
+          <h4 class="os-card__h">Tracking +0.08 to +0.12. <em>Always.</em></h4>
+          <p class="os-card__p">Default Cormorant tracking is too tight for stone, brass, and signage. The 0.08–0.12 letter-spacing range is the rule — the brand's quiet authority comes from the air between letters.</p>
+        </div>
+        <div class="os-card">
+          <span class="os-card__eb">— Rule 04</span>
+          <h4 class="os-card__h">Below 8 mm, switch to Inter.</h4>
+          <p class="os-card__p">Cormorant 400 disintegrates below 8 mm cap-height in physical print. The eyebrow tier (spatial/sm and below) is set in Inter Medium — the system's UI face — for legibility, not for branding.</p>
+        </div>
+        <div class="os-card">
+          <span class="os-card__eb">— Rule 05</span>
+          <h4 class="os-card__h">The bindu scales <em>differently.</em></h4>
+          <p class="os-card__p">In the digital wordmark the bindu is 16% of cap-height. In physical signage above 30 mm cap, the bindu reduces to <strong>10% of cap-height</strong> — otherwise it dominates. Never below 6 mm absolute diameter, ever.</p>
+        </div>
+        <div class="os-card">
+          <span class="os-card__eb">— Anti-rule</span>
+          <h4 class="os-card__h">No engraved fill colour.</h4>
+          <p class="os-card__p">Stone carving and brass etching are <em>never</em> paint-filled. The depth carries the legibility. Filling the carve with white paint reads as municipal signage and breaks the register.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Footer ─── -->
+    <footer class="os-foot">
+      <div class="os-foot__cell">
+        <span class="os-foot__lbl">— Previous · 01</span>
+        <a class="os-foot__link" href="01-tokens.html">Tokens</a>
+      </div>
+      <div class="os-foot__cell next">
+        <span class="os-foot__lbl">— Next · 03</span>
+        <a class="os-foot__link" href="03-materials.html">Materials</a>
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>EKAM · Navigation</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { height: 100%; }
+  .stage { width: 700px; min-height: 240px; padding: 0; background: var(--cream); }
+  .nav { height: 64px; background: var(--cream); border-bottom: 1px solid var(--bone); display: flex; align-items: center; justify-content: space-between; padding: 0 32px; }
+  .brand { display: flex; align-items: center; gap: 0; }
+  .brand svg { height: 32px; width: auto; display: block; }
+  .links { display: flex; gap: 22px; }
+  .links a { font-family: var(--font-ui); font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink); text-decoration: none; font-weight: 500; transition: color 180ms; }
+  .links a:hover, .links a.on { color: var(--bindu); }
+  .meta { font-family: var(--font-ui); font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--moss); font-weight: 500; }
+  /* Dark variant */
+  .nav.dark { background: var(--forest); border-bottom: 1px solid rgba(236,228,211,0.18); }
+  .nav.dark .links a { color: var(--sand); }
+  .nav.dark .links a:hover, .nav.dark .links a.on { color: var(--bindu); }
+  .nav.dark .meta { color: var(--moss-on-forest); }
+  .body { padding: 24px 32px; font-family: var(--font-editorial); font-style: italic; font-size: 13.5px; color: var(--moss); line-height: 1.6; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <nav class="nav">
+      <div class="brand">
+        <svg viewBox="0 0 200 48">
+          <text x="10" y="38" font-family="Cormorant Garamond, serif" font-weight="500" font-size="30" fill="#14201A" letter-spacing="3">E</text>
+          <circle cx="42" cy="26" r="2.4" fill="#B4613A"/>
+          <text x="52" y="38" font-family="Cormorant Garamond, serif" font-weight="500" font-size="30" fill="#14201A" letter-spacing="3">KAM</text>
+        </svg>
+      </div>
+      <div class="links">
+        <a href="#" class="on">Stays</a>
+        <a href="#">Kutir</a>
+        <a href="#">Van</a>
+        <a href="#">Shikhar</a>
+        <a href="#">Journal</a>
+      </div>
+      <div class="meta">Find a stay</div>
+    </nav>
+    <nav class="nav dark">
+      <div class="brand">
+        <svg viewBox="0 0 200 48">
+          <text x="10" y="38" font-family="Cormorant Garamond, serif" font-weight="500" font-size="30" fill="#FAF7F0" letter-spacing="3">E</text>
+          <circle cx="42" cy="26" r="2.4" fill="#B4613A"/>
+          <text x="52" y="38" font-family="Cormorant Garamond, serif" font-weight="500" font-size="30" fill="#FAF7F0" letter-spacing="3">KAM</text>
+        </svg>
+      </div>
+      <div class="links">
+        <a href="#" class="on">The Touchpoints</a>
+        <a href="#">Sustainability</a>
+        <a href="#">About</a>
+      </div>
+      <div class="meta">v2.0 · 2026</div>
+    </nav>
+    <p class="body">64 px tall · 1 px Bone hairline · Inter 500 / 10 px · ls 2.5 · Hover shifts to bindu, never opacity. No background blur.</p>
+  </div>
+</body>
+</html>

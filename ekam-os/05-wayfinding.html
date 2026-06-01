@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EKAM OS · 05 Wayfinding</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="stylesheet" href="_chrome.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=Raleway:wght@300;400;500&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  /* Arrow vocabulary row */
+  .arrows { display: grid; grid-template-columns: repeat(6, 1fr); gap: 18px; }
+  .arrow-cell { background: var(--forest); padding: 22px 14px 16px; border-radius: 4px; display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--cream); }
+  .arrow-cell svg { width: 36px; height: 36px; stroke: var(--cream); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .arrow-cell .name { font-family: var(--font-ui); font-size: 10px; letter-spacing: 1.8px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+  .arrow-cell .desc { font-family: var(--font-editorial); font-style: italic; font-size: 11px; color: rgba(250,247,240,0.7); text-align: center; line-height: 1.4; }
+
+  /* Trail-marker post (cedar) */
+  .post-stage { display: grid; grid-template-columns: 280px 1fr; gap: 36px; align-items: start; margin-top: 18px; }
+  .post-svg { background: var(--sand); padding: 24px; border: 1px solid var(--bone); border-radius: 4px; aspect-ratio: 1 / 1.4; }
+  .post-svg svg { width: 100%; height: 100%; display: block; }
+
+  .spec-table { width: 100%; border-collapse: collapse; }
+  .spec-table tr { border-bottom: 1px solid var(--bone); }
+  .spec-table tr:last-child { border-bottom: 0; }
+  .spec-table td { padding: 10px 0; font-family: var(--font-body); font-weight: 300; font-size: 13px; color: var(--ink); line-height: 1.55; vertical-align: top; }
+  .spec-table td.lbl { font-family: var(--font-ui); font-size: 10px; letter-spacing: 2px; color: var(--bindu); text-transform: uppercase; font-weight: 500; width: 130px; padding-top: 12px; }
+  .spec-table td.val b { font-family: 'Inter', sans-serif; color: var(--forest); font-weight: 500; font-size: 12px; }
+  .spec-table td.val em { font-family: var(--font-editorial); font-style: italic; color: var(--moss); }
+
+  /* Trail-system grid */
+  .trails { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .trail-card { padding: 24px 22px; background: var(--cream); border: 1px solid var(--bone); border-radius: 6px; }
+  .trail-card__dev { font-family: var(--font-devanagari); font-size: 14px; color: var(--bindu); letter-spacing: 1px; }
+  .trail-card__name { font-family: var(--font-display); font-weight: 400; font-size: 21px; color: var(--forest); letter-spacing: 0.3px; margin: 4px 0 10px; }
+  .trail-card__dist { font-family: var(--font-ui); font-size: 10px; letter-spacing: 2.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; padding-bottom: 12px; border-bottom: 1px solid var(--bone); margin-bottom: 12px; }
+  .trail-card__desc { font-family: var(--font-editorial); font-style: italic; font-size: 13px; color: var(--moss); line-height: 1.55; }
+  .trail-card__marker-count { font-family: var(--font-ui); font-size: 9.5px; letter-spacing: 1.5px; color: var(--moss); text-transform: uppercase; font-weight: 500; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--bone); }
+</style>
+</head>
+<body>
+
+<div class="os">
+
+  <aside class="os-nav">
+    <div class="os-nav__brand">
+      <span class="os-nav__brand-dev">एकम् · संचालन</span>
+      <span class="os-nav__brand-wm">E<span class="dot"></span>KAM</span>
+      <span class="os-nav__brand-tag">The operating system · v1.0 · draft</span>
+    </div>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Foundation</span>
+      <a class="os-nav__item" href="00-principles.html"><span class="os-nav__item-no">00</span><span>Principles</span></a>
+      <a class="os-nav__item is-pending" href="#"><span class="os-nav__item-no">01</span><span>Tokens</span></a>
+      <a class="os-nav__item" href="02-spatial-type.html"><span class="os-nav__item-no">02</span><span>Spatial type</span></a>
+      <a class="os-nav__item" href="03-materials.html"><span class="os-nav__item-no">03</span><span>Materials</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Environmental</span>
+      <a class="os-nav__item" href="04-signage.html"><span class="os-nav__item-no">04</span><span>Signage system</span></a>
+      <a class="os-nav__item is-on" href="05-wayfinding.html"><span class="os-nav__item-no">05</span><span>Wayfinding</span></a>
+      <a class="os-nav__item" href="06-cabin-anatomy.html"><span class="os-nav__item-no">06</span><span>Cabin anatomy</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Hospitality</span>
+      <a class="os-nav__item is-pending" href="#"><span class="os-nav__item-no">07</span><span>Guest journey</span></a>
+      <a class="os-nav__item is-pending" href="#"><span class="os-nav__item-no">08</span><span>Rituals on site</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Build</span>
+      <a class="os-nav__item is-pending" href="#"><span class="os-nav__item-no">09</span><span>Fabrication</span></a>
+      <a class="os-nav__item is-pending" href="#"><span class="os-nav__item-no">10</span><span>Utility &amp; emergency</span></a>
+      <a class="os-nav__item is-pending" href="#"><span class="os-nav__item-no">11</span><span>Staff systems</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Scale</span>
+      <a class="os-nav__item is-pending" href="#"><span class="os-nav__item-no">12</span><span>Tier variation</span></a>
+      <a class="os-nav__item is-pending" href="#"><span class="os-nav__item-no">13</span><span>Partner tiers</span></a>
+      <a class="os-nav__item is-pending" href="#"><span class="os-nav__item-no">14</span><span>Exports</span></a>
+    </nav>
+    <div class="os-nav__foot"><b>— Reading</b>The path. Trail markers, arrows, no light after dusk.</div>
+  </aside>
+
+  <main class="os-main">
+
+    <header class="os-head">
+      <div>
+        <span class="os-head__eb">— 05 · Wayfinding</span>
+        <span class="os-head__dev">पथ · the path</span>
+        <h1 class="os-head__title">Read by daylight. <em>Walked by moonlight.</em></h1>
+        <p class="os-head__lede">Three trail systems · six arrow glyphs · cedar trail-marker posts · distance and grade markings · the no-artificial-light-after-dusk rule formalised. Wayfinding moves the guest without instructing them. The guest reads the post once, then walks.</p>
+      </div>
+      <div class="os-head__meta">
+        <span>Section <b>05 / 14</b></span>
+        <span>Reading <b>~7 min</b></span>
+        <span>Updated <b>28 May 2026</b></span>
+      </div>
+    </header>
+
+    <!-- ───────── A · TRAIL SYSTEMS ───────── -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div><div class="os-sub__no">A<span class="os-sub__no-dev">मार्ग · the routes</span></div></div>
+        <div>
+          <h2 class="os-sub__title">Three trails. <em>One short. One quiet. One full.</em></h2>
+          <p class="os-sub__lede">Every EKAM property offers exactly three trails. Not more — choice paralysis defeats restraint. The trails are calibrated so any guest can complete the short before lunch and the full before dusk.</p>
+        </div>
+      </header>
+
+      <div class="trails">
+        <div class="trail-card">
+          <div class="trail-card__dev">कोमल · the gentle</div>
+          <h3 class="trail-card__name">The short walk</h3>
+          <span class="trail-card__dist">1.2 km · ~25 min · gentle</span>
+          <p class="trail-card__desc">Loop around the cabin cluster and the kitchen garden. Flat. Suitable in slippers if needed. This is the walk a guest takes before breakfast.</p>
+          <span class="trail-card__marker-count">4 markers</span>
+        </div>
+        <div class="trail-card">
+          <div class="trail-card__dev">शांत · the quiet</div>
+          <h3 class="trail-card__name">The forest path</h3>
+          <span class="trail-card__dist">3.2 km · ~75 min · moderate</span>
+          <p class="trail-card__desc">Into the forest above the property to a single bench at a clearing. One small ascent. Returns the same way. The walk a guest takes after lunch.</p>
+          <span class="trail-card__marker-count">8 markers · 1 bench</span>
+        </div>
+        <div class="trail-card">
+          <div class="trail-card__dev">पूर्ण · the full</div>
+          <h3 class="trail-card__name">The ridge walk</h3>
+          <span class="trail-card__dist">7.4 km · ~3 hr · steep</span>
+          <p class="trail-card__desc">Up to the ridgeline. View opens halfway. Returns via the lower path past the stream. The walk a guest takes once. Carry water and tell Aarav.</p>
+          <span class="trail-card__marker-count">14 markers · 1 lookout post</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── B · ARROW VOCABULARY ───────── -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div><div class="os-sub__no">B<span class="os-sub__no-dev">दिशा · direction</span></div></div>
+        <div>
+          <h2 class="os-sub__title">Six arrow glyphs. <em>No others.</em></h2>
+          <p class="os-sub__lede">All wayfinding uses one of six. The vocabulary is closed — turn left, turn right, continue, climb, descend, return. Compound directions (sharp left, hairpin) collapse to the closest of the six.</p>
+        </div>
+      </header>
+
+      <div class="arrows">
+        <div class="arrow-cell">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          <span class="name">Continue</span>
+          <span class="desc">Forward along the path</span>
+        </div>
+        <div class="arrow-cell">
+          <svg viewBox="0 0 24 24"><path d="M19 12H5M11 5l-7 7 7 7"/></svg>
+          <span class="name">Return</span>
+          <span class="desc">Back to where you came</span>
+        </div>
+        <div class="arrow-cell">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M5 12l7-7M5 12l7 7"/></svg>
+          <span class="name">Turn left</span>
+          <span class="desc">Branch left at the path</span>
+        </div>
+        <div class="arrow-cell">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M19 12l-7-7M19 12l-7 7"/></svg>
+          <span class="name">Turn right</span>
+          <span class="desc">Branch right at the path</span>
+        </div>
+        <div class="arrow-cell">
+          <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+          <span class="name">Climb</span>
+          <span class="desc">Ascend · gradient ahead</span>
+        </div>
+        <div class="arrow-cell">
+          <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          <span class="name">Descend</span>
+          <span class="desc">Down · careful in wet</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── C · TRAIL MARKER POST ───────── -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div><div class="os-sub__no">C<span class="os-sub__no-dev">स्तम्भ · the post</span></div></div>
+        <div>
+          <h2 class="os-sub__title">The trail-marker post. <em>Cedar, branded, eye-level.</em></h2>
+          <p class="os-sub__lede">A single cedar post per marker. Hot-iron-branded with the arrow + cabin/landmark name + distance remaining. No painted lettering — the brand is burnt in. Posts weather to silver-grey over a season.</p>
+        </div>
+      </header>
+
+      <div class="post-stage">
+        <div class="post-svg">
+          <svg viewBox="0 0 200 280" aria-label="Trail-marker post">
+            <!-- ground -->
+            <rect x="0" y="255" width="200" height="25" fill="#8a8478" opacity="0.4"/>
+            <line x1="0" y1="255" x2="200" y2="255" stroke="#6a6058" stroke-width="0.5" stroke-dasharray="3 2"/>
+            <!-- cedar post (silver-grey weathered) -->
+            <rect x="80" y="50" width="40" height="220" fill="#7a7570"/>
+            <!-- wood grain -->
+            <line x1="84" y1="50" x2="84" y2="270" stroke="#5a554f" stroke-width="0.4"/>
+            <line x1="92" y1="50" x2="92" y2="270" stroke="#5a554f" stroke-width="0.3"/>
+            <line x1="105" y1="50" x2="105" y2="270" stroke="#5a554f" stroke-width="0.4"/>
+            <line x1="115" y1="50" x2="115" y2="270" stroke="#5a554f" stroke-width="0.3"/>
+            <!-- top chamfer -->
+            <polygon points="80 50 100 38 120 50" fill="#8a8580"/>
+            <!-- branded arrow (continue) -->
+            <g stroke="#2a1a0e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M 88 78 L 112 78 M 105 72 L 115 78 L 105 84"/>
+            </g>
+            <!-- branded name -->
+            <text x="100" y="110" text-anchor="middle" font-family="Cormorant Garamond" font-weight="400" font-size="10" fill="#2a1a0e">Lookout</text>
+            <!-- distance -->
+            <text x="100" y="130" text-anchor="middle" font-family="Inter" font-weight="500" font-size="8" letter-spacing="1" fill="#3a2a1e">800 m</text>
+            <!-- rule -->
+            <line x1="92" y1="140" x2="108" y2="140" stroke="#3a2a1e" stroke-width="0.6"/>
+            <!-- branded number -->
+            <text x="100" y="160" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="9" fill="#3a2a1e">No. 5</text>
+            <!-- branded E·KAM at bottom -->
+            <text x="92" y="240" text-anchor="end" font-family="Cormorant Garamond" font-weight="400" font-size="6" letter-spacing="0.6" fill="#3a2a1e">E</text>
+            <circle cx="100" cy="237.5" r="0.7" fill="#3a2a1e"/>
+            <text x="108" y="240" text-anchor="start" font-family="Cormorant Garamond" font-weight="400" font-size="6" letter-spacing="0.6" fill="#3a2a1e">KAM</text>
+            <!-- dimensions -->
+            <line x1="40" y1="50" x2="40" y2="255" stroke="#B4613A" stroke-width="0.5"/>
+            <line x1="37" y1="50" x2="43" y2="50" stroke="#B4613A" stroke-width="0.5"/>
+            <line x1="37" y1="255" x2="43" y2="255" stroke="#B4613A" stroke-width="0.5"/>
+            <text x="33" y="152" text-anchor="middle" transform="rotate(-90 33 152)" font-family="Inter" font-size="6.5" fill="#B4613A">1500 mm</text>
+            <line x1="80" y1="280" x2="120" y2="280" stroke="#B4613A" stroke-width="0.5"/>
+            <text x="100" y="278" text-anchor="middle" font-family="Inter" font-size="6.5" fill="#B4613A">100 × 100 mm</text>
+            <text x="3" y="262" font-family="Inter" font-size="6" fill="#5a5046">ground</text>
+          </svg>
+        </div>
+        <table class="spec-table">
+          <tr><td class="lbl">Material</td><td class="val">Local deodar cedar · 100 × 100 mm square post · top-chamfered 45° · tung-oiled charcoal-tint</td></tr>
+          <tr><td class="lbl">Height</td><td class="val"><b>1500 mm above ground</b> · 400 mm buried in concrete · 1900 mm overall</td></tr>
+          <tr><td class="lbl">Marking</td><td class="val">Hot iron brand · 8 mm depth · no paint · no varnish</td></tr>
+          <tr><td class="lbl">Arrow</td><td class="val">From the 6-glyph vocabulary · 24 × 24 mm panel · top of post · 1450 mm above ground</td></tr>
+          <tr><td class="lbl">Destination</td><td class="val">Cormorant 400 · 10 mm cap · place name OR cabin number</td></tr>
+          <tr><td class="lbl">Distance</td><td class="val">Inter Medium 8 mm · "m" for under 1000 m · "km" with one decimal otherwise</td></tr>
+          <tr><td class="lbl">Marker number</td><td class="val">Italic Cormorant · "No. 5" · for staff reference to a master trail list</td></tr>
+          <tr><td class="lbl">EKAM mark</td><td class="val">Smallest brand · 6 mm cap · bottom 80 mm of post · invariant across all posts</td></tr>
+          <tr><td class="lbl">Cycle</td><td class="val">Re-oil every 3 yr · replace if post rot reaches inner core · plan for ~5% replacement/year</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- ───────── D · NO LIGHT AFTER DUSK ───────── -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div><div class="os-sub__no">D<span class="os-sub__no-dev">अंधेरा · the dark</span></div></div>
+        <div>
+          <h2 class="os-sub__title">No artificial light <em>after dusk on paths.</em></h2>
+          <p class="os-sub__lede">A formal rule. After 19:00, the only light on the property is the cabin window. Paths read by moonlight. If a guest needs to walk a trail in the dark, they carry a lantern from reception. The rule is what makes the night sky.</p>
+        </div>
+      </header>
+
+      <div class="os-prose">
+        <h3>The exception list</h3>
+        <p>Exactly three exceptions exist. Any other request requires founder sign-off and a `_meta/decisions.md` entry.</p>
+        <p><strong>1 · Cabin doorstep lantern.</strong> A single oil lantern at each cabin step. Lit by the host at dusk; extinguished at 22:00. 5 W equivalent · warm clay glow. Burns ~3 hours of kerosene.</p>
+        <p><strong>2 · Reception path lantern.</strong> One lantern at the gate. Lit 19:00–22:00. Hand-lit, not switch-lit.</p>
+        <p><strong>3 · Emergency · medical or evacuation.</strong> Headlamps in a steel box at reception. Used only by staff during an incident. Otherwise sealed.</p>
+        <h3>What we don't do</h3>
+        <p>No solar-LED path stakes. No motion sensors. No bollard lighting. No spotlights on signage. No "downlights for safety" on stairs. The brand is darker than industry-standard hospitality on purpose — the dark is a service, not a constraint.</p>
+      </div>
+    </section>
+
+    <!-- ───────── E · DISTANCE & GRADE MARKINGS ───────── -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div><div class="os-sub__no">E<span class="os-sub__no-dev">मात्रा · the measure</span></div></div>
+        <div>
+          <h2 class="os-sub__title">Distance and grade. <em>The numbers that matter.</em></h2>
+        </div>
+      </header>
+
+      <table class="spec-table">
+        <tr><td class="lbl">Distance unit</td><td class="val"><b>metres under 1 km · kilometres above</b> · one decimal place · never imperial</td></tr>
+        <tr><td class="lbl">Grade marker</td><td class="val">"gentle" / "moderate" / "steep" · no degrees, no percent · words, not numbers</td></tr>
+        <tr><td class="lbl">Time estimate</td><td class="val">On site map only · not on trail markers · always conservative (slow-walker pace)</td></tr>
+        <tr><td class="lbl">Cabin distance</td><td class="val">Marker shows "Cabin 11 · 80 m" — distance, then cabin number is implicit</td></tr>
+        <tr><td class="lbl">Direction</td><td class="val">Arrow glyph only · the 6-vocabulary · no compass bearings · no "northwest"</td></tr>
+      </table>
+    </section>
+
+    <!-- ───────── F · LOOKOUT POST ───────── -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div><div class="os-sub__no">F<span class="os-sub__no-dev">दर्शन · the view</span></div></div>
+        <div>
+          <h2 class="os-sub__title">The lookout post. <em>One per trail.</em></h2>
+          <p class="os-sub__lede">At the high point of the ridge walk, a single cedar bench and a simple brass plate naming what is visible. Mountains, valleys, the river, a village. Named, not numbered.</p>
+        </div>
+      </header>
+
+      <table class="spec-table">
+        <tr><td class="lbl">Bench</td><td class="val">Local cedar · 1800 × 400 × 450 mm · tung-oiled charcoal · single plank, no back</td></tr>
+        <tr><td class="lbl">View plate</td><td class="val">Brass · <b>200 × 80 mm</b> · etched · mounted on pearwood block beside bench</td></tr>
+        <tr><td class="lbl">Lettering</td><td class="val">Cormorant 400 · names of peaks visible · italic Cormorant for distance ("Kinnaur Kailash · 24 km")</td></tr>
+        <tr><td class="lbl">Bindu</td><td class="val">3 mm clay separator between English and Devanagari names of the same peak</td></tr>
+        <tr><td class="lbl">Refusals</td><td class="val">No "scenic point" plaque · no QR code · no telephoto binocular stand · no fee box</td></tr>
+      </table>
+    </section>
+
+    <footer class="os-foot">
+      <div class="os-foot__cell">
+        <span class="os-foot__lbl">— Previous · 04</span>
+        <a class="os-foot__link" href="04-signage.html">Signage system</a>
+      </div>
+      <div class="os-foot__cell next">
+        <span class="os-foot__lbl">— Next · 06</span>
+        <a class="os-foot__link" href="06-cabin-anatomy.html">Cabin anatomy</a>
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+</body>
+</html>

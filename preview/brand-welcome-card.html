@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>EKAM · Welcome Card</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { height: 100%; }
+  .stage { width: 700px; min-height: 380px; padding: 28px 48px; background: var(--sand); display: flex; gap: 36px; align-items: center; }
+  .card { flex: 0 0 240px; }
+  .card svg { width: 100%; height: auto; display: block; }
+  .meta { flex: 1; }
+  h4 { font-family: var(--font-display); font-size: 24px; color: var(--forest); letter-spacing: 1px; font-weight: 400; margin-bottom: 8px; }
+  .lede { font-family: var(--font-editorial); font-style: italic; font-size: 14.5px; color: var(--moss); line-height: 1.6; margin-bottom: 14px; }
+  .row { display: flex; gap: 14px; padding: 7px 0; font-family: var(--font-ui); font-size: 10.5px; letter-spacing: 1.2px; color: var(--ink); font-weight: 300; border-top: 1px solid var(--bone); line-height: 1.5; }
+  .row:first-of-type { border-top: 0; }
+  .row b { color: var(--bindu); font-weight: 500; flex: 0 0 70px; letter-spacing: 2px; text-transform: uppercase; font-size: 9.5px; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="card">
+      <svg viewBox="0 0 520 700" style="filter: drop-shadow(0 16px 32px rgba(20,32,26,0.18)) drop-shadow(0 4px 8px rgba(20,32,26,0.08));">
+        <g transform="rotate(-3 260 350)">
+          <rect x="40" y="40" width="440" height="620" fill="#FAF7F0"/>
+          <line x1="40" y1="40" x2="480" y2="40" stroke="#ECE4D3" stroke-width="2"/>
+          <text x="260" y="120" text-anchor="middle" font-family="Tiro Devanagari Hindi, serif" font-size="32" fill="#B4613A" letter-spacing="2">एकम्</text>
+          <text x="160" y="200" font-family="Cormorant Garamond, serif" font-weight="400" font-size="56" fill="#2B4630" letter-spacing="8">E</text>
+          <circle cx="220" cy="180" r="4" fill="#B4613A"/>
+          <text x="232" y="200" font-family="Cormorant Garamond, serif" font-weight="400" font-size="56" fill="#2B4630" letter-spacing="8">KAM</text>
+          <line x1="200" y1="240" x2="320" y2="240" stroke="#B4613A" stroke-width="1.2"/>
+          <text x="80" y="340" font-family="Caveat, cursive" font-size="26" fill="#14201A">The cabin is yours for these days.</text>
+          <text x="80" y="380" font-family="Caveat, cursive" font-size="26" fill="#14201A">The fire is laid.</text>
+          <text x="80" y="420" font-family="Caveat, cursive" font-size="26" fill="#14201A">The kettle is on.</text>
+          <text x="80" y="500" font-family="Caveat, cursive" font-size="22" fill="#7A8A6B" font-style="italic">Walk slowly. The land has waited.</text>
+          <text x="80" y="600" font-family="Caveat, cursive" font-size="28" fill="#14201A" font-weight="500" font-style="italic">— Aarav</text>
+          <text x="260" y="640" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#7A8A6B" letter-spacing="4">EKAM KUTIR CHITKUL</text>
+        </g>
+      </svg>
+    </div>
+    <div class="meta">
+      <h4>The Welcome Card</h4>
+      <p class="lede">On the bed, never the table. Two sentences. Re-written for each guest, by the host's hand.</p>
+      <div class="row"><b>Paper</b><span>Cream Mohawk Superfine 300 gsm · 100% post-consumer</span></div>
+      <div class="row"><b>Voice</b><span>Caveat · ink · ~26 px hand-written</span></div>
+      <div class="row"><b>Signature</b><span>First name only · no role · no "team"</span></div>
+      <div class="row"><b>Devanagari</b><span>एकम् as the masthead, clay-orange</span></div>
+    </div>
+  </div>
+</body>
+</html>

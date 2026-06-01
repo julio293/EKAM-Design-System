@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EKAM OS · 04 Signage system</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="stylesheet" href="_chrome.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=Raleway:wght@300;400;500&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  /* ─── Typology row ─── */
+  .typology { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .typo-card { border: 1px solid var(--bone); background: var(--cream); padding: 22px; display: flex; flex-direction: column; gap: 10px; }
+  .typo-card__no { font-family: var(--font-display); font-style: italic; font-size: 22px; color: var(--bindu); }
+  .typo-card__name { font-family: var(--font-display); font-weight: 400; font-size: 19px; color: var(--forest); letter-spacing: 0.3px; margin: 0; }
+  .typo-card__what { font-family: var(--font-editorial); font-style: italic; font-size: 13px; color: var(--moss); line-height: 1.55; margin: 0; }
+  .typo-card__count { font-family: var(--font-ui); font-size: 10px; letter-spacing: 2px; color: var(--bindu); text-transform: uppercase; font-weight: 500; padding-top: 12px; border-top: 1px solid var(--bone); margin-top: auto; }
+
+  /* ─── Plinth drawing ─── */
+  .drawing { display: grid; grid-template-columns: 320px 1fr; gap: 36px; align-items: start; margin-top: 18px; }
+  .drawing__svg { background: var(--sand); padding: 24px; border: 1px solid var(--bone); border-radius: 4px; aspect-ratio: 4 / 5; }
+  .drawing__svg svg { width: 100%; height: 100%; display: block; }
+  .drawing__svg svg .plate { fill: var(--forest); stroke: var(--ink); stroke-width: 0.5; }
+  .drawing__svg svg .plinth { fill: #c9c2ac; stroke: var(--moss); stroke-width: 0.5; }
+  .drawing__svg svg .label { font-family: 'Inter', sans-serif; font-size: 7px; fill: var(--ink); }
+  .drawing__svg svg .dim { stroke: var(--bindu); stroke-width: 0.5; fill: none; }
+  .drawing__svg svg .dim-text { font-family: 'Inter', sans-serif; font-size: 6.5px; fill: var(--bindu); }
+  .drawing__svg svg .vinyl { fill: var(--cream); }
+  .drawing__svg svg .vinyl-bindu { fill: var(--bindu); }
+
+  .spec-table { width: 100%; border-collapse: collapse; }
+  .spec-table tr { border-bottom: 1px solid var(--bone); }
+  .spec-table tr:last-child { border-bottom: 0; }
+  .spec-table td { padding: 10px 0; font-family: var(--font-body); font-weight: 300; font-size: 13px; color: var(--ink); line-height: 1.55; vertical-align: top; }
+  .spec-table td.lbl { font-family: var(--font-ui); font-size: 10px; letter-spacing: 2px; color: var(--bindu); text-transform: uppercase; font-weight: 500; width: 130px; padding-top: 12px; }
+  .spec-table td.val b { font-family: 'Inter', sans-serif; color: var(--forest); font-weight: 500; font-size: 12px; }
+  .spec-table td.val em { font-family: var(--font-editorial); font-style: italic; color: var(--moss); }
+
+  /* ─── House-rule grid (promoted from brand-icons) ─── */
+  .rule-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .rule-panel {
+    aspect-ratio: 3 / 4;
+    background: var(--forest);
+    padding: 18px 16px 14px;
+    border-radius: 4px;
+    display: flex; flex-direction: column;
+    align-items: center; text-align: center;
+    color: var(--cream);
+  }
+  .rule-panel__svg { width: 52px; height: 52px; margin: 12px 0; }
+  .rule-panel__svg path, .rule-panel__svg circle, .rule-panel__svg line, .rule-panel__svg rect, .rule-panel__svg polyline, .rule-panel__svg polygon, .rule-panel__svg ellipse { fill: none; stroke: var(--cream); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .rule-panel__svg .fill { fill: var(--cream); }
+  .rule-panel__svg .clay { stroke: var(--bindu); }
+  .rule-panel__svg .clay-fill { fill: var(--bindu); stroke: var(--bindu); }
+  .rule-panel__title { font-family: var(--font-display); font-weight: 400; font-size: 14px; letter-spacing: 0.3px; margin: 8px 0 4px; }
+  .rule-panel__sub { font-family: var(--font-editorial); font-style: italic; font-size: 11px; color: rgba(250,247,240,0.7); line-height: 1.4; }
+  .rule-panel__spec { font-family: var(--font-ui); font-size: 8.5px; letter-spacing: 1.5px; color: rgba(180,97,58,0.85); text-transform: uppercase; font-weight: 500; margin-top: auto; padding-top: 10px; border-top: 1px solid rgba(180,97,58,0.32); width: 100%; }
+
+  /* ─── Site map board preview ─── */
+  .map-stage {
+    aspect-ratio: 16 / 9;
+    background: var(--forest);
+    border-radius: 4px;
+    padding: 32px 36px;
+    display: grid; grid-template-rows: auto 1fr auto;
+    color: var(--cream);
+    position: relative;
+  }
+  .map-stage__head { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 14px; border-bottom: 1px solid rgba(180,97,58,0.32); }
+  .map-stage__title { font-family: var(--font-display); font-weight: 300; font-size: 24px; letter-spacing: 0.4px; }
+  .map-stage__sub { font-family: var(--font-ui); font-size: 10px; letter-spacing: 2px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+  .map-stage__body {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    padding: 18px 0;
+  }
+  .map-stage__body svg { width: 100%; height: 100%; max-height: 240px; display: block; }
+  .map-stage__legend {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px 16px;
+    font-family: var(--font-ui); font-size: 9px; letter-spacing: 1.3px;
+    color: rgba(250,247,240,0.78); text-transform: uppercase; font-weight: 500;
+  }
+  .map-stage__legend .dot { display: inline-block; width: 6px; height: 6px; background: var(--bindu); border-radius: 50%; margin-right: 7px; vertical-align: middle; }
+</style>
+</head>
+<body>
+
+<div class="os">
+
+  <aside class="os-nav">
+    <div class="os-nav__brand">
+      <span class="os-nav__brand-dev">एकम् · संचालन</span>
+      <span class="os-nav__brand-wm">E<span class="dot"></span>KAM</span>
+      <span class="os-nav__brand-tag">The operating system · v1.0 · draft</span>
+    </div>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Foundation</span>
+      <a class="os-nav__item" href="00-principles.html"><span class="os-nav__item-no">00</span><span>Principles</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="01-tokens.html"><span class="os-nav__item-no">01</span><span>Tokens</span></a>
+      <a class="os-nav__item" href="02-spatial-type.html"><span class="os-nav__item-no">02</span><span>Spatial type</span></a>
+      <a class="os-nav__item" href="03-materials.html"><span class="os-nav__item-no">03</span><span>Materials</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Environmental</span>
+      <a class="os-nav__item is-on" href="04-signage.html"><span class="os-nav__item-no">04</span><span>Signage system</span></a>
+      <a class="os-nav__item" href="05-wayfinding.html"><span class="os-nav__item-no">05</span><span>Wayfinding</span></a>
+      <a class="os-nav__item" href="06-cabin-anatomy.html"><span class="os-nav__item-no">06</span><span>Cabin anatomy</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Hospitality</span>
+      <a class="os-nav__item is-pending" href="#" data-pending="07-guest-journey.html"><span class="os-nav__item-no">07</span><span>Guest journey</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="08-rituals.html"><span class="os-nav__item-no">08</span><span>Rituals on site</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Build</span>
+      <a class="os-nav__item is-pending" href="#" data-pending="09-fabrication.html"><span class="os-nav__item-no">09</span><span>Fabrication</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="10-utility-emergency.html"><span class="os-nav__item-no">10</span><span>Utility &amp; emergency</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="11-staff.html"><span class="os-nav__item-no">11</span><span>Staff systems</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Scale</span>
+      <a class="os-nav__item is-pending" href="#" data-pending="12-tier-variation.html"><span class="os-nav__item-no">12</span><span>Tier variation</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="13-partner-tiers.html"><span class="os-nav__item-no">13</span><span>Partner tiers</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="14-prints.html"><span class="os-nav__item-no">14</span><span>Exports</span></a>
+    </nav>
+    <div class="os-nav__foot"><b>— Reading</b>The signage system. Vendor-ready specs for every panel on site.</div>
+  </aside>
+
+  <main class="os-main">
+
+    <header class="os-head">
+      <div>
+        <span class="os-head__eb">— 04 · Signage system</span>
+        <span class="os-head__dev">पट · the signs</span>
+        <h1 class="os-head__title">Every sign on site, <em>drawn once.</em></h1>
+        <p class="os-head__lede">Six categories. Forty-three panels. One material palette (`03-materials`). One typography ramp (`02-spatial-type`). Every plate, plinth and post in this document is vendor-quotable — dimension, mounting, finish, lifespan are specified. Nothing is decorative.</p>
+      </div>
+      <div class="os-head__meta">
+        <span>Section <b>04 / 14</b></span>
+        <span>Reading <b>~12 min</b></span>
+        <span>Updated <b>28 May 2026</b></span>
+      </div>
+    </header>
+
+    <!-- ═════════════════════════════════════════════════════════
+         A · TYPOLOGY
+         ═════════════════════════════════════════════════════════ -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div><div class="os-sub__no">A<span class="os-sub__no-dev">वर्ग · the typology</span></div></div>
+        <div>
+          <h2 class="os-sub__title">Six signage categories. <em>One vocabulary across.</em></h2>
+          <p class="os-sub__lede">Every sign on an EKAM property maps to one of these six. If a sign cannot be placed in a category, it is not built.</p>
+        </div>
+      </header>
+
+      <div class="typology">
+        <div class="typo-card">
+          <span class="typo-card__no">A</span>
+          <h3 class="typo-card__name">Entry · the property mark</h3>
+          <p class="typo-card__what">The gate. The first object a guest sees. Stone-carved, no paint fill, permanent.</p>
+          <span class="typo-card__count">1 per property</span>
+        </div>
+        <div class="typo-card">
+          <span class="typo-card__no">B</span>
+          <h3 class="typo-card__name">Cabin plate · the address</h3>
+          <p class="typo-card__what">Numbered plinth at each cabin's path entry. Forest plate, concrete plinth, eye level.</p>
+          <span class="typo-card__count">1 per cabin</span>
+        </div>
+        <div class="typo-card">
+          <span class="typo-card__no">C</span>
+          <h3 class="typo-card__name">House-rule panels · the doctrine</h3>
+          <p class="typo-card__what">Twelve quiet rules. Each on its own plate. Outdoor-mounted near the moment they apply.</p>
+          <span class="typo-card__count">~12 per property</span>
+        </div>
+        <div class="typo-card">
+          <span class="typo-card__no">D</span>
+          <h3 class="typo-card__name">Wayfinding · the path</h3>
+          <p class="typo-card__what">Trail and intra-property arrows. Posts and plates. Covered in detail in `05-wayfinding`.</p>
+          <span class="typo-card__count">~20 per property</span>
+        </div>
+        <div class="typo-card">
+          <span class="typo-card__no">E</span>
+          <h3 class="typo-card__name">Utility · the back-of-house</h3>
+          <p class="typo-card__what">Geyser, gas regulator, breaker box, water shut-off. Small. Functional. Indoor-grade.</p>
+          <span class="typo-card__count">~8 per cabin</span>
+        </div>
+        <div class="typo-card">
+          <span class="typo-card__no">F</span>
+          <h3 class="typo-card__name">Site map · the orientation</h3>
+          <p class="typo-card__what">One large board at reception. Plan-view of the property, cabin numbers, paths, legend.</p>
+          <span class="typo-card__count">1 per property</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═════════════════════════════════════════════════════════
+         B · PROPERTY GATE MARKER
+         ═════════════════════════════════════════════════════════ -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div><div class="os-sub__no">B<span class="os-sub__no-dev">द्वार · the gate</span></div></div>
+        <div>
+          <h2 class="os-sub__title">The gate marker. <em>Stone, carved, permanent.</em></h2>
+          <p class="os-sub__lede">A single sandstone slab set into the entry path. V-cut letters at 100 mm cap height. No paint fill — the carve carries the legibility. The only sign on the property meant to outlive the property.</p>
+        </div>
+      </header>
+
+      <div class="drawing">
+        <div class="drawing__svg">
+          <svg viewBox="0 0 200 250" aria-label="Gate marker drawing">
+            <!-- ground base -->
+            <rect x="10" y="220" width="180" height="20" fill="#8a8478" opacity="0.5"/>
+            <!-- stone slab -->
+            <rect class="plinth" x="40" y="60" width="120" height="170" fill="#786b5e"/>
+            <!-- bevel highlight -->
+            <line x1="40" y1="60" x2="160" y2="60" stroke="#a39888" stroke-width="0.6"/>
+            <line x1="40" y1="60" x2="40" y2="230" stroke="#a39888" stroke-width="0.6"/>
+            <!-- carved E·KAM -->
+            <text x="100" y="130" text-anchor="middle" font-family="Cormorant Garamond" font-weight="400" font-size="26" letter-spacing="2" fill="#5a5046">E</text>
+            <circle cx="113" cy="125" r="2" fill="#5a5046"/>
+            <text x="100" y="130" text-anchor="middle" font-family="Cormorant Garamond" font-weight="400" font-size="26" letter-spacing="2" fill="#5a5046">    KAM</text>
+            <!-- subtitle in Devanagari, carved -->
+            <text x="100" y="160" text-anchor="middle" font-family="Tiro Devanagari Hindi" font-size="10" fill="#5a5046">एकम्</text>
+            <!-- dimension lines -->
+            <line class="dim" x1="20" y1="60" x2="20" y2="230"/>
+            <line class="dim" x1="17" y1="60" x2="23" y2="60"/>
+            <line class="dim" x1="17" y1="230" x2="23" y2="230"/>
+            <text class="dim-text" x="13" y="148" text-anchor="middle" transform="rotate(-90 13 148)">1700 mm</text>
+            <line class="dim" x1="40" y1="250" x2="160" y2="250"/>
+            <line class="dim" x1="40" y1="247" x2="40" y2="253"/>
+            <line class="dim" x1="160" y1="247" x2="160" y2="253"/>
+            <text class="dim-text" x="100" y="258" text-anchor="middle">900 mm</text>
+            <!-- ground line -->
+            <line x1="0" y1="240" x2="200" y2="240" stroke="#6a6058" stroke-width="0.5" stroke-dasharray="3 2"/>
+            <text class="label" x="3" y="248">ground</text>
+          </svg>
+        </div>
+        <table class="spec-table">
+          <tr><td class="lbl">Material</td><td class="val">Local sandstone · V-cut carving · <em>no paint fill</em></td></tr>
+          <tr><td class="lbl">Dimensions</td><td class="val"><b>900 × 1700 × 120 mm</b> · slab proportions are approximate; quarry-determined</td></tr>
+          <tr><td class="lbl">Cap height</td><td class="val">100 mm · spatial/xxl ramp · reads from 15 m</td></tr>
+          <tr><td class="lbl">Lettering</td><td class="val">Cormorant Garamond 400 · letter-spacing 10 · V-cut depth 8–10 mm</td></tr>
+          <tr><td class="lbl">Devanagari</td><td class="val">एकम् · 30 mm cap · Tiro Devanagari Hindi · carved at 1.4× ratio of English</td></tr>
+          <tr><td class="lbl">Foundation</td><td class="val">Concrete footing 600 × 600 × 400 mm · slab sunk 200 mm into footing</td></tr>
+          <tr><td class="lbl">Orientation</td><td class="val">Faces approaching road · 30° offset from path centreline</td></tr>
+          <tr><td class="lbl">Lifespan</td><td class="val"><b>100+ years</b> · the only sign not on a maintenance cycle</td></tr>
+          <tr><td class="lbl">Refusals</td><td class="val">No paint fill · no LED · no granite (looks municipal) · no glass-faced enclosure</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═════════════════════════════════════════════════════════
+         C · CABIN PLATE
+         ═════════════════════════════════════════════════════════ -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div><div class="os-sub__no">C<span class="os-sub__no-dev">कुटी-पट · the cabin plate</span></div></div>
+        <div>
+          <h2 class="os-sub__title">The cabin plate. <em>Forest, brass-screwed, eye-level.</em></h2>
+          <p class="os-sub__lede">Plinth-mounted forest plate at the path entry to each cabin. The number reads at 8 metres, the name at 3 metres, the wordmark at 1 metre. Tapered slightly — wider at base, narrower at top.</p>
+        </div>
+      </header>
+
+      <div class="drawing">
+        <div class="drawing__svg">
+          <svg viewBox="0 0 200 250" aria-label="Cabin plate drawing">
+            <!-- ground -->
+            <rect x="10" y="225" width="180" height="15" fill="#8a8478" opacity="0.4"/>
+            <line x1="0" y1="225" x2="200" y2="225" stroke="#6a6058" stroke-width="0.5" stroke-dasharray="3 2"/>
+            <!-- concrete plinth -->
+            <rect class="plinth" x="55" y="195" width="90" height="30"/>
+            <!-- screws -->
+            <circle cx="65" cy="200" r="1.2" fill="#3a3530"/>
+            <circle cx="135" cy="200" r="1.2" fill="#3a3530"/>
+            <!-- forest plate · slightly tapered (trapezoid) -->
+            <polygon class="plate" points="62 195 138 195 132 50 68 50"/>
+            <!-- mounting screws on plate -->
+            <circle cx="72" cy="58" r="1" fill="#1a1a1a"/>
+            <circle cx="128" cy="58" r="1" fill="#1a1a1a"/>
+            <!-- "Cabin" small label -->
+            <text x="100" y="80" text-anchor="middle" font-family="Cormorant Garamond" font-weight="400" font-size="9" fill="#FAF7F0">Cabin</text>
+            <!-- big numeral -->
+            <text x="100" y="140" text-anchor="middle" font-family="Cormorant Garamond" font-weight="300" font-size="48" fill="#FAF7F0">11</text>
+            <!-- cabin name italic -->
+            <text x="100" y="160" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="11" fill="#FAF7F0">Kalpa.</text>
+            <!-- bindu rule -->
+            <rect x="92" y="167" width="16" height="0.8" fill="#B4613A"/>
+            <!-- mini E·KAM -->
+            <text x="92" y="180" text-anchor="end" font-family="Cormorant Garamond" font-weight="400" font-size="7" letter-spacing="0.6" fill="#FAF7F0">E</text>
+            <circle cx="100" cy="178" r="0.9" fill="#B4613A"/>
+            <text x="108" y="180" text-anchor="start" font-family="Cormorant Garamond" font-weight="400" font-size="7" letter-spacing="0.6" fill="#FAF7F0">KAM</text>
+            <!-- Devanagari tier -->
+            <text x="100" y="105" text-anchor="middle" font-family="Tiro Devanagari Hindi" font-size="8" fill="#B4613A">शिखर</text>
+            <!-- dimension lines -->
+            <line class="dim" x1="25" y1="50" x2="25" y2="225"/>
+            <line class="dim" x1="22" y1="50" x2="28" y2="50"/>
+            <line class="dim" x1="22" y1="225" x2="28" y2="225"/>
+            <text class="dim-text" x="18" y="140" text-anchor="middle" transform="rotate(-90 18 140)">1450 mm</text>
+            <line class="dim" x1="62" y1="240" x2="138" y2="240"/>
+            <line class="dim" x1="62" y1="237" x2="62" y2="243"/>
+            <line class="dim" x1="138" y1="237" x2="138" y2="243"/>
+            <text class="dim-text" x="100" y="248" text-anchor="middle">200 mm (top) · 220 mm (base)</text>
+            <text class="label" x="3" y="232">ground</text>
+          </svg>
+        </div>
+        <table class="spec-table">
+          <tr><td class="lbl">Plate material</td><td class="val">2 mm mild steel · powder-coat <b>RAL 6009 Forest</b> · matte 10% gloss · cream vinyl lettering</td></tr>
+          <tr><td class="lbl">Plate dimensions</td><td class="val">220 × 360 mm base × top 200 × 360 mm · 4.4° taper · 6 mm edge radius</td></tr>
+          <tr><td class="lbl">Plinth</td><td class="val">Concrete · 220 × 90 × 220 mm · M30 grey · sand-rubbed matte · embedded steel anchors</td></tr>
+          <tr><td class="lbl">Mount height</td><td class="val"><b>Plate centre at 1100 mm from ground</b> · plinth top at 280 mm · cabin number at adult eye-level</td></tr>
+          <tr><td class="lbl">Lettering</td><td class="val">Cormorant 300 (numeral, 48mm cap) · 400 (name, 11mm italic) · 400 (wordmark, 7mm)</td></tr>
+          <tr><td class="lbl">Bindu</td><td class="val">5 mm clay dot · centred in mini wordmark · vinyl decal, 200 µm</td></tr>
+          <tr><td class="lbl">Devanagari tier</td><td class="val">8 mm cap · Tiro Devanagari Hindi · clay vinyl · upper third of plate</td></tr>
+          <tr><td class="lbl">Mounting</td><td class="val">Brass countersunk screws · M5 × 40 mm · top + bottom · sealed with bitumen washers</td></tr>
+          <tr><td class="lbl">Lifespan</td><td class="val">7–10 yr plate · 5 yr vinyl refresh · 40+ yr plinth</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═════════════════════════════════════════════════════════
+         D · HOUSE-RULE PANELS (promoted from brand-icons)
+         ═════════════════════════════════════════════════════════ -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div><div class="os-sub__no">D<span class="os-sub__no-dev">नियम-पट · the house rules</span></div></div>
+        <div>
+          <h2 class="os-sub__title">Twelve house-rule panels. <em>Promoted to canonical.</em></h2>
+          <p class="os-sub__lede">Each panel is a 240 × 320 mm forest plate, plinth-mounted at 1300 mm centre, near the moment the rule applies. The 12 designs are drawn; the mount, frame, and placement specs live here.</p>
+        </div>
+      </header>
+
+      <div class="rule-grid">
+
+        <div class="rule-panel">
+          <svg class="rule-panel__svg" viewBox="0 0 64 64">
+            <rect x="8" y="34" width="36" height="6"/>
+            <line x1="20" y1="34" x2="20" y2="40"/>
+            <line x1="32" y1="34" x2="32" y2="40"/>
+            <rect x="44" y="34" width="8" height="6" class="fill"/>
+            <line class="clay" x1="6" y1="58" x2="58" y2="10" stroke-width="2.4"/>
+          </svg>
+          <h4 class="rule-panel__title">No smoking</h4>
+          <p class="rule-panel__sub">Anywhere on site. The forest holds smoke.</p>
+          <span class="rule-panel__spec">240 × 320 mm</span>
+        </div>
+
+        <div class="rule-panel">
+          <svg class="rule-panel__svg" viewBox="0 0 64 64">
+            <circle cx="32" cy="22" r="10"/>
+            <line x1="32" y1="36" x2="32" y2="42"/>
+            <line class="clay" x1="32" y1="22" x2="32" y2="14"/>
+            <path d="M 14 32 q 6 6 6 14"/>
+            <path d="M 50 32 q -6 6 -6 14"/>
+          </svg>
+          <h4 class="rule-panel__title">Listen to the forest</h4>
+          <p class="rule-panel__sub">Quiet hours 21:00–07:00. No music outdoors.</p>
+          <span class="rule-panel__spec">240 × 320 mm</span>
+        </div>
+
+        <div class="rule-panel">
+          <svg class="rule-panel__svg" viewBox="0 0 64 64">
+            <rect x="20" y="10" width="24" height="44" rx="3"/>
+            <line x1="20" y1="16" x2="44" y2="16"/>
+            <line x1="20" y1="48" x2="44" y2="48"/>
+            <circle cx="32" cy="51" r="1.2" class="fill"/>
+            <text x="48" y="20" font-family="Cormorant Garamond" font-style="italic" font-size="14" class="clay-fill">z</text>
+            <text x="52" y="14" font-family="Cormorant Garamond" font-style="italic" font-size="10" class="clay-fill">z</text>
+          </svg>
+          <h4 class="rule-panel__title">Phones, at rest</h4>
+          <p class="rule-panel__sub">Airplane mode encouraged. The stay holds for you.</p>
+          <span class="rule-panel__spec">240 × 320 mm</span>
+        </div>
+
+        <div class="rule-panel">
+          <svg class="rule-panel__svg" viewBox="0 0 64 64">
+            <path d="M 18 28 L 18 46 q 0 6 6 6 L 40 52 q 6 0 6 -6 L 46 28 Z"/>
+            <path d="M 22 28 L 22 22 q 0 -2 2 -2 L 40 20 q 2 0 2 2 L 42 28"/>
+            <line x1="32" y1="20" x2="32" y2="16"/>
+            <path d="M 46 32 q 8 0 8 6 q 0 4 -4 4"/>
+            <path class="clay" d="M 24 14 q -2 -4 1 -7"/>
+            <path class="clay" d="M 30 12 q -2 -4 1 -7"/>
+          </svg>
+          <h4 class="rule-panel__title">Hot water · 6:30 &amp; 9:00</h4>
+          <p class="rule-panel__sub">Wood-fired geyser. Two windows. Ask, otherwise.</p>
+          <span class="rule-panel__spec">240 × 320 mm</span>
+        </div>
+
+        <div class="rule-panel">
+          <svg class="rule-panel__svg" viewBox="0 0 64 64">
+            <path d="M 14 30 q 18 -18 36 0"/>
+            <path d="M 22 36 q 10 -10 20 0"/>
+            <path d="M 30 42 q 2 -2 4 0"/>
+            <circle cx="32" cy="48" r="2" class="clay-fill"/>
+            <line class="clay" x1="48" y1="14" x2="56" y2="22" opacity="0.6"/>
+            <line class="clay" x1="48" y1="22" x2="56" y2="14" opacity="0.6"/>
+          </svg>
+          <h4 class="rule-panel__title">Wi-Fi · reading corner</h4>
+          <p class="rule-panel__sub">Only the corner room. Code at reception.</p>
+          <span class="rule-panel__spec">240 × 320 mm</span>
+        </div>
+
+        <div class="rule-panel">
+          <svg class="rule-panel__svg" viewBox="0 0 64 64">
+            <path d="M 32 12 L 44 32 L 38 32 L 38 28 L 28 28 L 32 12 Z"/>
+            <path d="M 50 42 L 38 56 L 35 51 L 39 49 L 34 41 L 50 42 Z"/>
+            <path d="M 14 42 L 30 41 L 25 49 L 29 51 L 26 56 L 14 42 Z"/>
+          </svg>
+          <h4 class="rule-panel__title">Leave nothing</h4>
+          <p class="rule-panel__sub">Three bins · wet, dry, glass.</p>
+          <span class="rule-panel__spec">240 × 320 mm</span>
+        </div>
+
+        <div class="rule-panel">
+          <svg class="rule-panel__svg" viewBox="0 0 64 64">
+            <path d="M 16 44 q 8 -16 26 -20 q 6 -1 8 4 q 1 6 -6 6 q -4 0 -4 4 q 0 8 -10 10 q -10 2 -14 -4 z" class="fill"/>
+            <line class="clay" x1="48" y1="32" x2="56" y2="28"/>
+          </svg>
+          <h4 class="rule-panel__title">Wildlife about</h4>
+          <p class="rule-panel__sub">Monal at dawn. Look, don't feed.</p>
+          <span class="rule-panel__spec">240 × 320 mm</span>
+        </div>
+
+        <div class="rule-panel">
+          <svg class="rule-panel__svg" viewBox="0 0 64 64">
+            <rect x="26" y="28" width="12" height="6"/>
+            <line x1="14" y1="22" x2="20" y2="22"/>
+            <line x1="44" y1="22" x2="50" y2="22"/>
+            <line x1="14" y1="40" x2="20" y2="40"/>
+            <line x1="44" y1="40" x2="50" y2="40"/>
+            <line x1="20" y1="22" x2="26" y2="28"/>
+            <line x1="44" y1="22" x2="38" y2="28"/>
+            <line x1="20" y1="40" x2="26" y2="34"/>
+            <line x1="44" y1="40" x2="38" y2="34"/>
+            <line class="clay" x1="8" y1="56" x2="56" y2="8" stroke-width="2.4"/>
+          </svg>
+          <h4 class="rule-panel__title">No drones</h4>
+          <p class="rule-panel__sub">Forest sanctuary. Permit only.</p>
+          <span class="rule-panel__spec">240 × 320 mm</span>
+        </div>
+
+        <div class="rule-panel">
+          <svg class="rule-panel__svg" viewBox="0 0 64 64">
+            <ellipse cx="32" cy="40" rx="10" ry="9"/>
+            <circle cx="20" cy="26" r="4"/>
+            <circle cx="28" cy="20" r="4"/>
+            <circle cx="36" cy="20" r="4"/>
+            <circle cx="44" cy="26" r="4"/>
+            <path d="M 46 50 L 50 54 L 58 46" class="clay" stroke-width="2.4"/>
+          </svg>
+          <h4 class="rule-panel__title">Pet-friendly cabin</h4>
+          <p class="rule-panel__sub">Marked cabins only. On leash outside.</p>
+          <span class="rule-panel__spec">240 × 320 mm</span>
+        </div>
+
+        <div class="rule-panel">
+          <svg class="rule-panel__svg" viewBox="0 0 64 64">
+            <ellipse cx="20" cy="22" rx="4" ry="6"/>
+            <circle cx="18" cy="14" r="1.5"/>
+            <circle cx="22" cy="13" r="1.5"/>
+            <ellipse cx="36" cy="36" rx="4" ry="6"/>
+            <circle cx="34" cy="28" r="1.5"/>
+            <circle cx="38" cy="27" r="1.5"/>
+            <ellipse cx="50" cy="50" rx="4" ry="6"/>
+            <circle cx="48" cy="42" r="1.5"/>
+            <circle cx="52" cy="41" r="1.5"/>
+          </svg>
+          <h4 class="rule-panel__title">Trails · open</h4>
+          <p class="rule-panel__sub">Map under your cup. Tell Aarav.</p>
+          <span class="rule-panel__spec">240 × 320 mm</span>
+        </div>
+
+        <div class="rule-panel">
+          <svg class="rule-panel__svg" viewBox="0 0 64 64">
+            <path d="M 14 50 q 8 -14 18 -10 q 12 4 18 10"/>
+            <circle cx="32" cy="22" r="4"/>
+            <path d="M 32 26 L 28 36 L 24 40"/>
+            <path d="M 32 26 L 36 36 L 42 38"/>
+            <path d="M 28 36 L 24 50"/>
+            <path d="M 50 18 q -3 4 0 7 q 3 -3 0 -7 Z" class="clay-fill"/>
+            <path d="M 18 18 q -3 4 0 7 q 3 -3 0 -7 Z" class="clay-fill"/>
+          </svg>
+          <h4 class="rule-panel__title">Slippery when wet</h4>
+          <p class="rule-panel__sub">Deck planks &amp; stream trail. Care.</p>
+          <span class="rule-panel__spec">240 × 320 mm</span>
+        </div>
+
+        <div class="rule-panel">
+          <svg class="rule-panel__svg" viewBox="0 0 64 64">
+            <path d="M 32 12 q 4 8 10 14 q 6 8 4 18 q -2 12 -14 12 q -12 0 -14 -12 q -2 -10 4 -18 q 6 -6 10 -14 z" class="clay-fill"/>
+            <path d="M 32 28 q 2 4 6 8 q 2 4 0 8 q -2 6 -6 6 q -4 0 -6 -6 q -2 -4 0 -8 q 4 -4 6 -8 z" stroke="#FAF7F0" fill="#FAF7F0"/>
+          </svg>
+          <h4 class="rule-panel__title">Fire-pit · with team</h4>
+          <p class="rule-panel__sub">Lit by the cabin team only.</p>
+          <span class="rule-panel__spec">240 × 320 mm</span>
+        </div>
+
+      </div>
+
+      <table class="spec-table" style="margin-top: 32px;">
+        <tr><td class="lbl">Plate stock</td><td class="val">2 mm MS · powder-coat Forest · 240 × 320 mm · 4 mm corner radius</td></tr>
+        <tr><td class="lbl">Iconography</td><td class="val">Lucide-derived strokes at <b>2.4 mm</b> (spatial stroke) · cream vinyl · 200 µm</td></tr>
+        <tr><td class="lbl">Title type</td><td class="val">Cormorant 400 · 14 mm cap · cream</td></tr>
+        <tr><td class="lbl">Sub copy</td><td class="val">Cormorant italic · 11 mm cap · 70% opacity cream</td></tr>
+        <tr><td class="lbl">Mount</td><td class="val">Single forest MS post · 50 × 50 × 1800 mm · concrete-anchored to 400 mm · plate centre at 1300 mm</td></tr>
+        <tr><td class="lbl">Placement</td><td class="val"><em>Near the moment the rule applies.</em> "Fire-pit" next to the fire-pit; "Hot water" inside the bathroom; "Wildlife" at the trail-head, not the gate.</td></tr>
+        <tr><td class="lbl">Refusals</td><td class="val">No red-circle prohibition (clay diagonal does the same job) · no LED · no laminated print inside a frame</td></tr>
+      </table>
+    </section>
+
+    <!-- ═════════════════════════════════════════════════════════
+         E · UTILITY PANELS
+         ═════════════════════════════════════════════════════════ -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div><div class="os-sub__no">E<span class="os-sub__no-dev">यंत्र-पट · the utility</span></div></div>
+        <div>
+          <h2 class="os-sub__title">Back-of-house plates. <em>Small. Functional. Indoor-grade.</em></h2>
+          <p class="os-sub__lede">Geyser switch, gas regulator, breaker box, water shut-off, hot-water cycle, electrical safety. Ceramic tile or brass plaque, never paper. Each carries the cap label, the action, and the time-window if applicable.</p>
+        </div>
+      </header>
+
+      <table class="spec-table">
+        <tr><td class="lbl">Geyser switch</td><td class="val">Ceramic tile <b>120 × 80 mm</b> · iron-oxide print · "HOT WATER · 6:30 & 9:00" + clay clock glyph · mounted 100 mm from switch</td></tr>
+        <tr><td class="lbl">Gas regulator</td><td class="val">Brass plate <b>60 × 40 mm</b> · etched · "ON | OFF · regulator beside" · mounted at regulator</td></tr>
+        <tr><td class="lbl">Breaker box</td><td class="val">Brass plate <b>120 × 80 mm</b> · etched circuit labels in Inter 10 mm · inside the box door</td></tr>
+        <tr><td class="lbl">Water shut-off</td><td class="val">Brass tag <b>40 × 80 mm</b> · hung from the valve · etched + clay-filled "WATER · cabin 11"</td></tr>
+        <tr><td class="lbl">Electrical safety</td><td class="val">Ceramic tile <b>120 × 80 mm</b> · inside the breaker box · in Inter 12 mm</td></tr>
+        <tr><td class="lbl">Refusals</td><td class="val">No printed paper labels · no plastic labelmaker tape · no warning stickers from the manufacturer left visible</td></tr>
+      </table>
+    </section>
+
+    <!-- ═════════════════════════════════════════════════════════
+         F · SITE MAP BOARD
+         ═════════════════════════════════════════════════════════ -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div><div class="os-sub__no">F<span class="os-sub__no-dev">मानचित्र · the site map</span></div></div>
+        <div>
+          <h2 class="os-sub__title">The site map board. <em>Plan-view. Cream legend. Forest plate.</em></h2>
+          <p class="os-sub__lede">One per property, at the reception entry. A drawn (not satellite-rendered) plan of the property — cabins numbered, paths marked, communal areas tagged, legend bottom-left.</p>
+        </div>
+      </header>
+
+      <div class="map-stage">
+        <div class="map-stage__head">
+          <span class="map-stage__title">EKAM · Shikhar · Kalpa</span>
+          <span class="map-stage__sub">— Site map · spring 2026</span>
+        </div>
+        <div class="map-stage__body">
+          <svg viewBox="0 0 720 200" aria-label="Site map preview">
+            <!-- ridge lines -->
+            <path d="M 20 140 Q 120 80, 240 100 T 480 90 T 700 110" fill="none" stroke="rgba(180,97,58,0.4)" stroke-width="0.8" stroke-dasharray="3 3"/>
+            <path d="M 30 170 Q 150 130, 280 150 T 520 140 T 700 160" fill="none" stroke="rgba(180,97,58,0.2)" stroke-width="0.8" stroke-dasharray="3 3"/>
+            <!-- path -->
+            <path d="M 60 180 Q 200 160, 360 170 T 660 130" fill="none" stroke="rgba(250,247,240,0.5)" stroke-width="2"/>
+            <!-- cabins -->
+            <g font-family="Inter" font-size="9" fill="#FAF7F0" font-weight="500">
+              <rect x="70" y="170" width="10" height="10" fill="#FAF7F0"/><text x="75" y="195" text-anchor="middle">01</text>
+              <rect x="130" y="165" width="10" height="10" fill="#FAF7F0"/><text x="135" y="190" text-anchor="middle">02</text>
+              <rect x="200" y="160" width="10" height="10" fill="#FAF7F0"/><text x="205" y="185" text-anchor="middle">03</text>
+              <rect x="280" y="170" width="10" height="10" fill="#FAF7F0"/><text x="285" y="195" text-anchor="middle">04</text>
+              <rect x="350" y="165" width="10" height="10" fill="#FAF7F0"/><text x="355" y="190" text-anchor="middle">05</text>
+              <rect x="420" y="160" width="10" height="10" fill="#FAF7F0"/><text x="425" y="185" text-anchor="middle">06</text>
+              <rect x="490" y="150" width="10" height="10" fill="#FAF7F0"/><text x="495" y="175" text-anchor="middle">07</text>
+              <rect x="560" y="145" width="10" height="10" fill="#FAF7F0"/><text x="565" y="170" text-anchor="middle">08</text>
+              <rect x="630" y="135" width="10" height="10" fill="#FAF7F0"/><text x="635" y="160" text-anchor="middle">09</text>
+            </g>
+            <!-- reception marker (clay) -->
+            <circle cx="40" cy="175" r="4" fill="#B4613A"/>
+            <text x="40" y="200" text-anchor="middle" font-family="Inter" font-size="9" fill="#B4613A" font-weight="500">R</text>
+            <!-- fire-pit marker -->
+            <circle cx="380" cy="100" r="3" fill="#B4613A" opacity="0.7"/>
+            <text x="380" y="92" text-anchor="middle" font-family="Inter" font-size="8" fill="rgba(180,97,58,0.85)" font-weight="500">▲</text>
+            <!-- compass -->
+            <g transform="translate(680 30)">
+              <circle r="14" fill="none" stroke="rgba(250,247,240,0.4)" stroke-width="0.5"/>
+              <path d="M 0 -10 L 3 0 L 0 10 L -3 0 Z" fill="#B4613A"/>
+              <text y="-18" text-anchor="middle" font-family="Inter" font-size="8" fill="#FAF7F0">N</text>
+            </g>
+          </svg>
+        </div>
+        <div class="map-stage__legend">
+          <span><span class="dot"></span>Cabin 01–09</span>
+          <span><span class="dot"></span>R · Reception</span>
+          <span><span class="dot"></span>▲ Fire-pit · 21:00 lit</span>
+          <span><span class="dot"></span>· Trail (dashed)</span>
+        </div>
+      </div>
+
+      <table class="spec-table" style="margin-top: 24px;">
+        <tr><td class="lbl">Plate</td><td class="val">3 mm MS · powder-coat Forest · <b>1200 × 900 mm</b> (landscape) · 8 mm corner radius</td></tr>
+        <tr><td class="lbl">Drawing</td><td class="val">Hand-traced from survey · screen-printed cream · paths dashed · cabins solid · no satellite imagery</td></tr>
+        <tr><td class="lbl">Title</td><td class="val">"EKAM · &lt;Tier&gt; · &lt;Location&gt;" · Cormorant 400 · 28 mm cap · cream</td></tr>
+        <tr><td class="lbl">Legend</td><td class="val">Bottom-left · Inter Medium 11 mm · cream · clay bindu bullets</td></tr>
+        <tr><td class="lbl">Compass</td><td class="val">Top-right · clay arrow · 24 mm diameter</td></tr>
+        <tr><td class="lbl">Mount</td><td class="val">Two forest MS posts · 50 × 50 × 2400 mm · concrete-anchored to 600 mm · plate centre at 1400 mm</td></tr>
+        <tr><td class="lbl">Cycle</td><td class="val">Re-draft seasonally if property changes · plate stays · vinyl refresh at 5 yr</td></tr>
+      </table>
+    </section>
+
+    <!-- ═════════════════════════════════════════════════════════
+         G · FABRICATION & INSTALL RULES
+         ═════════════════════════════════════════════════════════ -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div><div class="os-sub__no">G<span class="os-sub__no-dev">निर्माण-नियम · build rules</span></div></div>
+        <div>
+          <h2 class="os-sub__title">Build rules. <em>Apply before any vendor quote.</em></h2>
+        </div>
+      </header>
+
+      <div class="os-row-2">
+        <div class="os-card">
+          <span class="os-card__eb">— Rule 01</span>
+          <h4 class="os-card__h">All outdoor plates: forest powder-coat <em>only.</em></h4>
+          <p class="os-card__p">RAL 6009. Matte 10% gloss. No paint variants. No anodised aluminium that "looks like" forest.</p>
+        </div>
+        <div class="os-card">
+          <span class="os-card__eb">— Rule 02</span>
+          <h4 class="os-card__h">All lettering: cream vinyl <em>or</em> cream screen-print.</h4>
+          <p class="os-card__p">No painted-on-paint. No engraving filled with paint. No laser-cut-through (weakens the plate).</p>
+        </div>
+        <div class="os-card">
+          <span class="os-card__eb">— Rule 03</span>
+          <h4 class="os-card__h">All mounts: concrete plinth <em>or</em> forest MS post.</h4>
+          <p class="os-card__p">No tree-mounting. No stake-into-soil (frost-heaves in winter). No screws into cabin cladding.</p>
+        </div>
+        <div class="os-card">
+          <span class="os-card__eb">— Rule 04</span>
+          <h4 class="os-card__h">All heights: cap to spatial-type ramp.</h4>
+          <p class="os-card__p">Gate 100 mm · site map 28 mm title · cabin plate 48 mm numeral · house-rule 14 mm title · utility 11 mm. See `02-spatial-type`.</p>
+        </div>
+        <div class="os-card">
+          <span class="os-card__eb">— Rule 05</span>
+          <h4 class="os-card__h">All bindus: <em>scale to plate, not to ramp.</em></h4>
+          <p class="os-card__p">10% of the largest letter on the plate. Never below 5 mm absolute diameter on any signage surface.</p>
+        </div>
+        <div class="os-card">
+          <span class="os-card__eb">— Anti-rule</span>
+          <h4 class="os-card__h">No backlighting, anywhere.</h4>
+          <p class="os-card__p">The cabin window is the only light on the property after dusk. Signage is read by moonlight, lantern, or the next morning.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="os-foot">
+      <div class="os-foot__cell">
+        <span class="os-foot__lbl">— Previous · 03</span>
+        <a class="os-foot__link" href="03-materials.html">Materials</a>
+      </div>
+      <div class="os-foot__cell next">
+        <span class="os-foot__lbl">— Next · 05</span>
+        <a class="os-foot__link" href="05-wayfinding.html">Wayfinding</a>
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+/* ═══════════════════════════════════════════════════════════════
+   EKAM · Ambient Ridge — shared dark surface
+   The forest gradient + window glow used on Companion home.
+   Drop class="bg-ambient" on any dark surface; or use the
+   pseudo-element variant on a parent for layered content.
+   ═══════════════════════════════════════════════════════════════ */
+
+.bg-ambient {
+  position: relative;
+  background-color: #14201A;
+  background-image: url('assets/ambient-ridge.svg');
+  background-size: cover;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  color: var(--cream);
+}
+
+/* Tall variant — when the ridge should sit lower in a long surface */
+.bg-ambient--tall {
+  background-color: #14201A;
+  background-image:
+    linear-gradient(180deg, #0c1410 0%, #14201A 35%, transparent 60%),
+    url('assets/ambient-ridge.svg');
+  background-size: auto, 100% auto;
+  background-position: top center, bottom center;
+  background-repeat: no-repeat, no-repeat;
+}
+
+/* Hero variant — for short headers, ridge stays full bleed */
+.bg-ambient--hero {
+  background-color: #14201A;
+  background-image: url('assets/ambient-ridge.svg');
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Gentle window glow pulse — only when prefers-reduced-motion is off */
+@media (prefers-reduced-motion: no-preference) {
+  .bg-ambient::after,
+  .bg-ambient--tall::after,
+  .bg-ambient--hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at 76% 81%, rgba(214,135,99,0.18) 0%, transparent 18%);
+    animation: ambient-glow 6s ease-in-out infinite;
+  }
+}
+@keyframes ambient-glow {
+  0%, 100% { opacity: 0.6; }
+  50%      { opacity: 1; }
+}

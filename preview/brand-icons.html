@@ -1,0 +1,1409 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>EKAM · Iconography &amp; Signage</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--cream); -webkit-font-smoothing: antialiased; }
+
+  .stage {
+    width: 1100px;
+    background: var(--cream);
+    padding: 40px 44px 48px;
+    display: flex; flex-direction: column; gap: 56px;
+  }
+
+  /* ─── HEADER ─────────────────────────────────────────────── */
+  .head {
+    display: grid; grid-template-columns: 1.6fr 1fr;
+    gap: 48px; align-items: baseline;
+    padding-bottom: 22px; border-bottom: 1px solid var(--bone);
+  }
+  .head__eb { font-family: var(--font-ui); font-size: 10px; letter-spacing: 3px; color: var(--bindu); text-transform: uppercase; font-weight: 500; display: block; margin-bottom: 8px; }
+  .head__dev { font-family: var(--font-devanagari); font-size: 15px; color: var(--bindu); letter-spacing: 1.5px; }
+  .head__h {
+    font-family: var(--font-display); font-weight: 300;
+    font-size: 40px; color: var(--forest);
+    letter-spacing: 0.4px; line-height: 1.05;
+    margin: 8px 0 0;
+  }
+  .head__h em { font-family: var(--font-editorial); font-style: italic; color: var(--bindu); font-weight: 400; }
+  .head__lede {
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 15px; color: var(--moss); line-height: 1.55;
+    margin: 0; max-width: 380px;
+  }
+  .head__lede b { font-style: normal; font-family: var(--font-ui); font-size: 11px; letter-spacing: 1.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+
+  /* ─── SECTION ────────────────────────────────────────────── */
+  .sec { display: flex; flex-direction: column; gap: 18px; }
+  .sec__head {
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: 32px; align-items: baseline;
+    padding-bottom: 14px; border-bottom: 1px solid var(--bone);
+  }
+  .sec__no { font-family: var(--font-display); font-style: italic; font-size: 28px; color: var(--bindu); font-weight: 400; line-height: 1; }
+  .sec__no-dev { display: block; font-family: var(--font-devanagari); font-size: 13px; color: var(--bindu); letter-spacing: 1px; margin-top: 6px; }
+  .sec__title {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: 24px; color: var(--forest);
+    letter-spacing: 0.3px; line-height: 1.15;
+    margin: 0;
+  }
+  .sec__title em { font-family: var(--font-editorial); font-style: italic; color: var(--bindu); }
+  .sec__sub {
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 13.5px; color: var(--moss); line-height: 1.55;
+    margin: 6px 0 0; max-width: 580px;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     SECTION A · APP ICON SYSTEM
+     ═══════════════════════════════════════════════════════════════ */
+  .app-grid {
+    display: grid; grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+  }
+  .app-cell { display: flex; flex-direction: column; gap: 8px; align-items: center; text-align: center; }
+  .app-cell__icon {
+    width: 100%; aspect-ratio: 1;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(20,32,26,0.12);
+    container-type: inline-size;
+  }
+  .app-cell__icon.ios { border-radius: 28%; }       /* iOS app-icon corner radius */
+  .app-cell__icon.android { border-radius: 50%; }    /* Android adaptive (circular) */
+  .app-cell__icon.square { border-radius: 0; }
+  .app-cell__lbl {
+    font-family: var(--font-ui); font-size: 10px;
+    letter-spacing: 1.8px; color: var(--bindu);
+    text-transform: uppercase; font-weight: 500;
+  }
+  .app-cell__sz {
+    font-family: 'Inter', monospace; font-size: 10px;
+    color: var(--moss); letter-spacing: 0;
+  }
+
+  /* ─── Full EKAM wordmark inside an app-icon ─── */
+  .ai-wm {
+    position: absolute; inset: 12% 14%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-weight: 400;
+    color: var(--cream);
+    letter-spacing: 0;
+    gap: 0;
+  }
+  .ai-wm--dark { color: var(--forest); }
+  .ai-wm--tinted { color: rgba(250,247,240,0.92); }
+  .ai-wm__e, .ai-wm__kam {
+    font-size: 22cqw;
+    line-height: 1;
+    letter-spacing: 0.04em;
+  }
+  .ai-wm__dot {
+    width: 4.2cqw; height: 4.2cqw; border-radius: 50%;
+    background: var(--bindu);
+    margin: 0 3cqw;
+    margin-bottom: 1cqw;
+    flex-shrink: 0;
+  }
+  .ai-wm--tinted .ai-wm__dot { background: rgba(250,247,240,0.85); }
+
+  /* ─── Large monogram (E + bindu only) ─── */
+  .ai-mono {
+    position: absolute; inset: 14% 16%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-weight: 400;
+    color: var(--cream);
+    gap: 0;
+  }
+  .ai-mono--dark { color: var(--forest); }
+  .ai-mono__e {
+    font-size: 52cqw;
+    line-height: 1;
+  }
+  .ai-mono__dot {
+    width: 8cqw; height: 8cqw; border-radius: 50%;
+    background: var(--bindu);
+    margin-left: 6cqw;
+    flex-shrink: 0;
+  }
+
+  .bg-cream  { background: var(--cream); }
+  .bg-forest { background: var(--forest); }
+  .bg-ink    { background: var(--ink); }
+  .text-forest { color: var(--forest); }
+  .text-cream  { color: var(--cream); }
+
+  /* Faux app-grid screenshot — show app icon in iOS home-screen context */
+  .home-screen {
+    background: linear-gradient(180deg, #2a3845 0%, #4a5a44 60%, #6a7565 100%);
+    aspect-ratio: 9 / 16;
+    width: 240px;
+    padding: 30px 20px;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 14px 12px;
+    align-content: start;
+    position: relative;
+    box-shadow: 0 12px 28px rgba(20,32,26,0.2);
+    border-radius: 24px;
+  }
+  .home-screen__app {
+    aspect-ratio: 1;
+    border-radius: 22%;
+    background: rgba(250,247,240,0.12);
+    backdrop-filter: blur(8px);
+    position: relative;
+    container-type: inline-size;
+  }
+  .home-screen__app.ekam {
+    background: var(--forest);
+  }
+  .home-screen__app::after {
+    content: attr(data-name);
+    position: absolute; left: 50%; bottom: -16px; transform: translateX(-50%);
+    font-family: 'Inter', sans-serif; font-size: 9px;
+    color: var(--cream); white-space: nowrap;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     SECTION B · SOCIAL IDENTITY SYSTEM
+     ═══════════════════════════════════════════════════════════════ */
+  .social-row {
+    display: grid; grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+  .social-cell { display: flex; flex-direction: column; gap: 8px; }
+  .social-cell__chip {
+    width: 100%; aspect-ratio: 1;
+    background: var(--cream);
+    border: 1px solid var(--bone);
+    position: relative;
+    overflow: hidden;
+  }
+  .social-cell__chip.circle { border-radius: 50%; }
+  .social-cell__lbl {
+    font-family: var(--font-ui); font-size: 9.5px;
+    letter-spacing: 1.8px; color: var(--bindu);
+    text-transform: uppercase; font-weight: 500;
+  }
+  .social-cell__sz {
+    font-family: 'Inter', monospace; font-size: 10px;
+    color: var(--moss);
+  }
+
+  /* Banner-size mockups (scaled to fit) */
+  .banners { display: flex; flex-direction: column; gap: 20px; }
+  .banner-row {
+    display: grid; grid-template-columns: 140px 1fr auto;
+    gap: 24px; align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--bone);
+  }
+  .banner-row:last-child { border-bottom: 0; }
+  .banner-row__meta {
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .banner-row__platform {
+    font-family: var(--font-display); font-size: 17px; color: var(--forest);
+    font-weight: 400; letter-spacing: 0.3px;
+  }
+  .banner-row__use {
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 12px; color: var(--moss);
+  }
+  .banner-row__art {
+    background: var(--cream);
+    border: 1px solid var(--bone);
+    overflow: hidden;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .banner-row__art.dark { background: var(--forest); }
+  .banner-row__art .mark__letter { font-family: 'Cormorant Garamond', serif; font-weight: 400; letter-spacing: 0.06em; }
+  .banner-row__spec {
+    font-family: 'Inter', monospace; font-size: 11px;
+    color: var(--bindu); letter-spacing: 0;
+    white-space: nowrap;
+  }
+  .banner-row__spec small { display: block; color: var(--moss); font-size: 10px; margin-top: 2px; }
+
+  /* ═══════════════════════════════════════════════════════════════
+     SECTION C · BRAND GLYPHS (TIER MARKS)
+     ═══════════════════════════════════════════════════════════════ */
+  .glyphs {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--bone);
+  }
+  .glyphs__cell {
+    padding: 26px 16px 22px;
+    border-right: 1px solid var(--bone);
+    text-align: center;
+  }
+  .glyphs__cell:last-child { border-right: 0; }
+  .glyphs__svg { width: 84px; height: 70px; display: block; margin: 0 auto 14px; }
+  .glyphs__dev { font-family: var(--font-devanagari); font-size: 15px; color: var(--bindu); letter-spacing: 2px; margin-bottom: 4px; }
+  .glyphs__name { font-family: var(--font-display); font-size: 16px; letter-spacing: 4px; color: var(--forest); font-weight: 400; margin-bottom: 4px; }
+  .glyphs__role { font-family: var(--font-ui); font-size: 9px; letter-spacing: 1.8px; color: var(--moss); text-transform: uppercase; font-weight: 500; }
+
+  /* ═══════════════════════════════════════════════════════════════
+     SECTION D · PROPERTY SIGNAGE
+     ═══════════════════════════════════════════════════════════════ */
+  .signage-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+  .sign {
+    aspect-ratio: 1 / 1.15;
+    padding: 22px 18px 18px;
+    border: 1px solid var(--bone);
+    background: var(--cream);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: space-between;
+    border-radius: 4px;
+    position: relative;
+  }
+  .sign.dark { background: var(--forest); border-color: transparent; }
+  .sign.dark .sign__title { color: var(--cream); }
+  .sign.dark .sign__sub { color: rgba(250,247,240,0.7); }
+  .sign.dark .sign__svg path,
+  .sign.dark .sign__svg circle,
+  .sign.dark .sign__svg line,
+  .sign.dark .sign__svg rect,
+  .sign.dark .sign__svg polyline,
+  .sign.dark .sign__svg polygon { stroke: var(--cream); }
+  .sign.dark .sign__svg .fill { fill: var(--cream); }
+  .sign__svg {
+    width: 64px; height: 64px;
+    display: block;
+  }
+  .sign__svg path,
+  .sign__svg circle,
+  .sign__svg line,
+  .sign__svg rect,
+  .sign__svg polyline,
+  .sign__svg polygon {
+    fill: none; stroke: var(--forest); stroke-width: 1.5;
+    stroke-linecap: round; stroke-linejoin: round;
+  }
+  .sign__svg .fill { fill: var(--forest); stroke: none; }
+  .sign__svg .clay { stroke: var(--bindu); }
+  .sign__svg .clay-fill { fill: var(--bindu); stroke: none; }
+  .sign__svg .mute { stroke: var(--moss); }
+  .sign__title {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: 15px; color: var(--forest);
+    letter-spacing: 0.3px; line-height: 1.1;
+    margin: 12px 0 4px; text-align: center;
+  }
+  .sign__sub {
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 11.5px; color: var(--moss);
+    line-height: 1.35; text-align: center;
+    max-width: 160px;
+  }
+
+  /* Cabin number plates (D2) */
+  .plates { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 6px; }
+  .plate {
+    aspect-ratio: 1.4;
+    background: var(--forest);
+    color: var(--cream);
+    padding: 16px 18px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    border-radius: 4px;
+    position: relative;
+  }
+  .plate__top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+  }
+  .plate__no {
+    font-family: var(--font-display); font-weight: 300;
+    font-size: 36px; color: var(--cream);
+    letter-spacing: 0.4px; line-height: 1;
+  }
+  .plate__no .dot { display: inline-block; width: 4px; height: 4px; background: var(--bindu); border-radius: 50%; margin: 0 4px 8px; vertical-align: middle; }
+  .plate__tier {
+    font-family: var(--font-devanagari); font-size: 12px;
+    color: var(--bindu); letter-spacing: 1px;
+  }
+  .plate__name {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 14px; color: var(--cream);
+    letter-spacing: 0.2px; line-height: 1;
+  }
+  .plate__rule { width: 24px; height: 1px; background: var(--bindu); margin-top: 8px; }
+  .plate__brand {
+    font-family: 'Cormorant Garamond', serif; font-weight: 400;
+    font-size: 11px; letter-spacing: 3px; color: var(--cream);
+    margin-top: 6px;
+  }
+  .plate__brand .dot { display: inline-block; width: 3px; height: 3px; border-radius: 50%; background: var(--bindu); margin: 0 2px 2px; vertical-align: middle; }
+
+  /* Way-finding arrows (D3) */
+  .wayfind { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .wf {
+    background: var(--forest);
+    color: var(--cream);
+    padding: 12px 14px;
+    display: flex; align-items: center; gap: 12px;
+    border-radius: 2px;
+  }
+  .wf__lbl {
+    font-family: var(--font-display); font-size: 15px;
+    letter-spacing: 0.3px; color: var(--cream);
+    font-weight: 400; flex: 1;
+  }
+  .wf__meta {
+    font-family: var(--font-ui); font-size: 9px;
+    letter-spacing: 1.5px; color: rgba(250,247,240,0.6);
+    text-transform: uppercase; font-weight: 500;
+  }
+  .wf__arrow {
+    width: 22px; height: 22px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--bindu);
+  }
+  .wf__arrow svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ═══════════════════════════════════════════════════════════════
+     SECTION E · UI ICONS (LUCIDE)
+     ═══════════════════════════════════════════════════════════════ */
+  .lucide-grid {
+    display: grid; grid-template-columns: repeat(10, 1fr);
+    border: 1px solid var(--bone);
+  }
+  .lucide-cell {
+    padding: 18px 6px 14px;
+    border-right: 1px solid var(--bone);
+    border-bottom: 1px solid var(--bone);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+  }
+  .lucide-cell:nth-child(10n) { border-right: 0; }
+  .lucide-cell svg {
+    width: 22px; height: 22px;
+    stroke: var(--ink); stroke-width: 1.5; fill: none;
+    stroke-linecap: round; stroke-linejoin: round;
+  }
+  .lucide-cell__nm {
+    font-family: var(--font-ui); font-size: 8.5px;
+    letter-spacing: 1.5px; color: var(--moss);
+    text-transform: uppercase; font-weight: 500;
+    text-align: center;
+  }
+  /* clear bottom-row border */
+  .lucide-grid > .lucide-cell:nth-last-child(-n+10) { border-bottom: 0; }
+
+  /* ═══════════════════════════════════════════════════════════════
+     RULES / DISCIPLINE
+     ═══════════════════════════════════════════════════════════════ */
+  .rules {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 32px; padding-top: 20px;
+    border-top: 1px solid var(--bone);
+  }
+  .rules__col h4 {
+    font-family: var(--font-ui); font-size: 10px;
+    letter-spacing: 2.5px; color: var(--bindu);
+    text-transform: uppercase; font-weight: 500;
+    margin: 0 0 12px;
+  }
+  .rules__col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .rules__col li {
+    font-family: var(--font-body); font-weight: 300;
+    font-size: 13px; color: var(--ink); line-height: 1.55;
+    padding-left: 14px; position: relative;
+  }
+  .rules__col li::before {
+    content: ''; position: absolute;
+    left: 0; top: 8px; width: 4px; height: 4px;
+    border-radius: 50%; background: var(--bindu);
+  }
+  .rules__col li b { font-family: var(--font-display); font-style: italic; font-weight: 400; color: var(--forest); font-size: 14px; display: block; margin-bottom: 2px; }
+  .rules__col.no li { color: var(--moss); }
+  .rules__col.no li::before { background: var(--moss); }
+  .rules__col.no li b { color: var(--moss); }
+  .rules__col.no h4 { color: var(--moss); }
+  .notif-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; margin-top: 8px; }
+  .notif { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .notif__chip { width: 100%; aspect-ratio: 1; background: var(--cream); border: 1px solid var(--bone); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .notif__chip.dark { background: var(--forest); border-color: transparent; }
+  .notif__chip.ink  { background: var(--ink);   border-color: transparent; }
+  .notif__lbl { font-family: var(--font-ui); font-size: 9.5px; letter-spacing: 1.8px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+  .notif__sz  { font-family: 'Inter', monospace; font-size: 10px; color: var(--moss); }
+
+  .fav-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 18px; align-items: end; }
+  .fav { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .fav__chip { background: var(--cream); border: 1px solid var(--bone); box-shadow: 0 1px 2px rgba(20,32,26,0.08); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .fav__chip.dark { background: var(--forest); border-color: transparent; }
+  .fav__chip.tab  { aspect-ratio: 9 / 5; width: 100%; padding: 6px 12px; justify-content: flex-start; gap: 8px; background: var(--sand); }
+  .fav__url { font-family: 'Inter', sans-serif; font-size: 11px; color: var(--moss); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .fav__lbl { font-family: var(--font-ui); font-size: 9.5px; letter-spacing: 1.8px; color: var(--bindu); text-transform: uppercase; font-weight: 500; text-align: center; }
+  .fav__sz  { font-family: 'Inter', monospace; font-size: 10px; color: var(--moss); }
+
+  /* User avatars with 2 initials */
+  .avatar-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 18px; align-items: end; }
+  .avatar { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .av {
+    border-radius: 50%;
+    background: var(--sand);
+    color: var(--forest);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Inter', sans-serif; font-weight: 500;
+    letter-spacing: 0.4px;
+    border: 1px solid var(--bone);
+    position: relative;
+    overflow: visible;
+  }
+  .av.dark { background: var(--forest); color: var(--cream); border-color: transparent; }
+  .av.bindu { background: var(--bindu); color: var(--cream); border-color: transparent; }
+  .av.ghost { background: transparent; border: 1px solid var(--bindu); color: var(--bindu); }
+  .av__badge { position: absolute; top: -2px; right: -2px; width: 12px; height: 12px; border-radius: 50%; background: var(--bindu); border: 2px solid var(--cream); }
+  .av__lbl { font-family: var(--font-ui); font-size: 9.5px; letter-spacing: 1.8px; color: var(--bindu); text-transform: uppercase; font-weight: 500; text-align: center; }
+  .av__sz  { font-family: 'Inter', monospace; font-size: 10px; color: var(--moss); }
+
+  .loader-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .loader-card { border: 1px solid var(--bone); background: var(--cream); padding: 26px 24px 22px; display: flex; flex-direction: column; align-items: center; gap: 14px; border-radius: 4px; }
+  .loader-card.dark { background: var(--forest); border-color: transparent; color: var(--cream); }
+  .loader-card__title { font-family: var(--font-display); font-weight: 400; font-size: 16px; color: var(--forest); letter-spacing: 0.3px; margin: 0; }
+  .loader-card.dark .loader-card__title { color: var(--cream); }
+  .loader-card__sub { font-family: var(--font-editorial); font-style: italic; font-size: 12px; color: var(--moss); text-align: center; margin: 0; max-width: 240px; line-height: 1.45; }
+  .loader-card.dark .loader-card__sub { color: rgba(250,247,240,0.7); }
+  .loader-card__stage { width: 100%; min-height: 100px; display: flex; align-items: center; justify-content: center; }
+
+  .bindu-breathe { width: 22px; height: 22px; border-radius: 50%; background: var(--bindu); animation: bindu-breathe 2.4s cubic-bezier(0.22,0.68,0.16,1) infinite; }
+  @keyframes bindu-breathe {
+    0%,100% { transform: scale(0.6); opacity: 0.5; box-shadow: 0 0 0 0 rgba(180,97,58,0.45); }
+    50%     { transform: scale(1);   opacity: 1;   box-shadow: 0 0 0 12px rgba(180,97,58,0); }
+  }
+  .bindu-ring { width: 90px; height: 90px; position: relative; }
+  .bindu-ring__track { position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--bone); }
+  .loader-card.dark .bindu-ring__track { border-color: rgba(250,247,240,0.18); }
+  .bindu-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); position: absolute; inset: 0; }
+  .bindu-ring__arc { fill: none; stroke: var(--bindu); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 264; stroke-dashoffset: 84; }
+  .bindu-ring__dot { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); font-family: var(--font-display); font-weight: 400; font-size: 22px; color: var(--bindu); }
+  .bindu-bar { width: 200px; height: 2px; background: var(--bone); position: relative; }
+  .loader-card.dark .bindu-bar { background: rgba(250,247,240,0.2); }
+  .bindu-bar__fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--bindu); width: 62%; }
+  .bindu-bar__head { position: absolute; top: 50%; left: 62%; transform: translate(-50%,-50%); width: 10px; height: 10px; border-radius: 50%; background: var(--bindu); box-shadow: 0 0 0 2px var(--cream); }
+  .loader-card.dark .bindu-bar__head { box-shadow: 0 0 0 2px var(--forest); }
+  .bindu-sweep { width: 200px; height: 2px; background: var(--bone); position: relative; overflow: hidden; }
+  .bindu-sweep::after { content: ''; position: absolute; top: 0; bottom: 0; width: 40%; background: var(--bindu); animation: bindu-sweep 1.6s cubic-bezier(0.22,0.68,0.16,1) infinite; }
+  @keyframes bindu-sweep { 0% { left: -42%; } 100% { left: 102%; } }
+  .loader-card.dark .bindu-sweep { background: rgba(250,247,240,0.2); }
+  .bindu-pulse-inline { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-editorial); font-style: italic; font-size: 13px; color: var(--moss); }
+  .bindu-pulse-inline::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--bindu); box-shadow: 0 0 0 0 rgba(180,97,58,0.5); animation: bindu-pulse 2.4s ease-in-out infinite; }
+  @keyframes bindu-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(180,97,58,0.55); } 70% { box-shadow: 0 0 0 9px rgba(180,97,58,0); } }
+  .bindu-orbit { width: 56px; height: 56px; position: relative; animation: orbit 2.4s linear infinite; }
+  @keyframes orbit { to { transform: rotate(360deg); } }
+  .bindu-orbit span { position: absolute; left: 50%; top: 0; width: 8px; height: 8px; border-radius: 50%; background: var(--bindu); transform: translateX(-50%); }
+  .bindu-orbit span:nth-child(2) { top: auto; bottom: 0; }
+  .bindu-orbit span:nth-child(3) { top: 50%; left: 100%; transform: translate(-50%,-50%); opacity: 0.5; }
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <!-- ─── Header ───────────────────────────────────────────── -->
+  <header class="head">
+    <div>
+      <span class="head__eb">— Iconography &amp; signage</span>
+      <span class="head__dev">चिह्न · the marks</span>
+      <h2 class="head__h">One mark, <em>many surfaces.</em></h2>
+    </div>
+    <p class="head__lede">
+      <b>App, online, on site —</b> a single visual vocabulary spanning the app icon, the social profiles &amp; banners, the brand glyphs (Kutir / Van / Shikhar / Chai), the property signage, and the UI icons. Drawn from one stroke, one accent, no emoji.
+    </p>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       A · APP ICON
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="sec">
+    <div class="sec__head">
+      <div>
+        <div class="sec__no">A<span class="sec__no-dev">अनुप्रयोग · the app</span></div>
+      </div>
+      <div>
+        <h3 class="sec__title">The app icon. <em>The E and the bindu.</em></h3>
+        <p class="sec__sub">The wordmark cannot survive the home-screen grid. The monogram can. Capital <em>E</em> in Cormorant 400, the bindu dot to its right — forest on the primary, cream on the alt. The icon is the brand from 60 ft away.</p>
+      </div>
+    </div>
+
+    <div class="app-grid">
+      <!-- Primary iOS — Full EKAM wordmark on forest -->
+      <div class="app-cell">
+        <div class="app-cell__icon ios bg-forest">
+          <div class="ai-wm">
+            <span class="ai-wm__e">E</span>
+            <span class="ai-wm__dot"></span>
+            <span class="ai-wm__kam">KAM</span>
+          </div>
+        </div>
+        <span class="app-cell__lbl">Primary · iOS</span>
+        <span class="app-cell__sz">1024 × 1024 · 28% radius</span>
+      </div>
+      <!-- Light iOS alt — Wordmark on cream -->
+      <div class="app-cell">
+        <div class="app-cell__icon ios bg-cream">
+          <div class="ai-wm ai-wm--dark">
+            <span class="ai-wm__e">E</span>
+            <span class="ai-wm__dot"></span>
+            <span class="ai-wm__kam">KAM</span>
+          </div>
+        </div>
+        <span class="app-cell__lbl">Light alt · iOS</span>
+        <span class="app-cell__sz">1024 × 1024 · 28% radius</span>
+      </div>
+      <!-- Monogram fallback — large E + bindu, forest -->
+      <div class="app-cell">
+        <div class="app-cell__icon ios bg-forest">
+          <div class="ai-mono">
+            <span class="ai-mono__e">E</span>
+            <span class="ai-mono__dot"></span>
+          </div>
+        </div>
+        <span class="app-cell__lbl">Monogram · forest</span>
+        <span class="app-cell__sz">Use under 60 px renders</span>
+      </div>
+      <!-- Monogram on cream -->
+      <div class="app-cell">
+        <div class="app-cell__icon ios bg-cream">
+          <div class="ai-mono ai-mono--dark">
+            <span class="ai-mono__e">E</span>
+            <span class="ai-mono__dot"></span>
+          </div>
+        </div>
+        <span class="app-cell__lbl">Monogram · cream</span>
+        <span class="app-cell__sz">Light surface fallback</span>
+      </div>
+      <!-- Android adaptive — wordmark inside safe area -->
+      <div class="app-cell">
+        <div class="app-cell__icon android bg-forest">
+          <div class="ai-wm" style="transform: scale(0.78);">
+            <span class="ai-wm__e">E</span>
+            <span class="ai-wm__dot"></span>
+            <span class="ai-wm__kam">KAM</span>
+          </div>
+        </div>
+        <span class="app-cell__lbl">Android adaptive</span>
+        <span class="app-cell__sz">432 px safe · 108 dp</span>
+      </div>
+      <!-- Favicon — bindu only at small sizes -->
+      <div class="app-cell">
+        <div class="app-cell__icon square bg-cream" style="border-radius: 50%; display:flex; align-items:center; justify-content:center;">
+          <div style="width: 32%; height: 32%; border-radius: 50%; background: var(--bindu);"></div>
+        </div>
+        <span class="app-cell__lbl">Favicon · 32 px</span>
+        <span class="app-cell__sz">Bindu only · the dot survives</span>
+      </div>
+    </div>
+
+    <!-- iOS home-screen context preview -->
+    <div style="display: flex; gap: 36px; align-items: center; margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--bone);">
+      <div class="home-screen">
+        <div class="home-screen__app" data-name="Messages"></div>
+        <div class="home-screen__app" data-name="Mail"></div>
+        <div class="home-screen__app" data-name="Photos"></div>
+        <div class="home-screen__app" data-name="Music"></div>
+        <div class="home-screen__app ekam" data-name="EKAM">
+          <div class="ai-wm">
+            <span class="ai-wm__e">E</span>
+            <span class="ai-wm__dot"></span>
+            <span class="ai-wm__kam">KAM</span>
+          </div>
+        </div>
+        <div class="home-screen__app" data-name="Camera"></div>
+        <div class="home-screen__app" data-name="Settings"></div>
+        <div class="home-screen__app" data-name="Maps"></div>
+      </div>
+      <div style="flex: 1;">
+        <span class="head__eb">— In context</span>
+        <h4 style="font-family: var(--font-display); font-weight: 400; font-size: 19px; color: var(--forest); letter-spacing: 0.3px; margin: 8px 0 8px;">A forest plate in a row of light icons.</h4>
+        <p style="font-family: var(--font-body); font-weight: 300; font-size: 13.5px; color: var(--ink); line-height: 1.6; margin: 0; max-width: 460px;">
+          The forest tile is dark by intent — it absorbs light from the home-screen wallpaper instead of competing with it. The full <em>EKAM</em> wordmark reads at touch size; below 60&nbsp;px renders, the system falls back to the large monogram E+bindu. <b style="font-family: var(--font-ui); font-style: normal; font-size:11px; letter-spacing:1.5px; color:var(--bindu); text-transform:uppercase; font-weight:500;">No glyph, no gradient, no shadow.</b>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       B · SOCIAL IDENTITY SYSTEM
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="sec">
+    <div class="sec__head">
+      <div>
+        <div class="sec__no">B<span class="sec__no-dev">मंच · the platforms</span></div>
+      </div>
+      <div>
+        <h3 class="sec__title">Profiles &amp; banners. <em>Five variants, exact pixels.</em></h3>
+        <p class="sec__sub">Five profile variants and six banner sizes — one mark, sized for every surface. Pick the variant by the platform's affordance: round avatars get the monogram, square get the wordmark, banners get the wide lockup.</p>
+      </div>
+    </div>
+
+    <!-- B1 · Profile avatars · 1080×1080 (square) and 640×640 (whatsapp) -->
+    <h4 style="font-family: var(--font-ui); font-size: 10px; letter-spacing: 2.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; margin: 0;">— Profile avatars · 1080 px square</h4>
+
+    <div class="social-row">
+      <div class="social-cell">
+        <div class="social-cell__chip" style="display:flex; align-items:center; justify-content:center;">
+          <span style="font-family:'Cormorant Garamond',serif; font-weight:400; font-size:28px; letter-spacing:0.06em; color: var(--forest);">E<span style="display:inline-block; width:5px; height:5px; border-radius:50%; background:var(--bindu); margin:0 4px 4px; vertical-align:middle;"></span>KAM</span>
+        </div>
+        <span class="social-cell__lbl">A · Wordmark · cream</span>
+        <span class="social-cell__sz">All profiles · primary</span>
+      </div>
+      <div class="social-cell">
+        <div class="social-cell__chip bg-forest" style="display:flex; align-items:center; justify-content:center;">
+          <span style="font-family:'Cormorant Garamond',serif; font-weight:400; font-size:28px; letter-spacing:0.06em; color: var(--cream);">E<span style="display:inline-block; width:5px; height:5px; border-radius:50%; background:var(--bindu); margin:0 4px 4px; vertical-align:middle;"></span>KAM</span>
+        </div>
+        <span class="social-cell__lbl">B · Wordmark · forest</span>
+        <span class="social-cell__sz">When platform shows on light</span>
+      </div>
+      <div class="social-cell">
+        <div class="social-cell__chip" style="display:flex; align-items:center; justify-content:center;">
+          <span style="font-family:'Cormorant Garamond',serif; font-weight:400; font-size:54px; color:var(--forest);">E</span><span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:var(--bindu); margin-left:14px;"></span>
+        </div>
+        <span class="social-cell__lbl">C · Monogram · cream</span>
+        <span class="social-cell__sz">Round avatars · X · Insta</span>
+      </div>
+      <div class="social-cell">
+        <div class="social-cell__chip bg-forest" style="display:flex; align-items:center; justify-content:center;">
+          <span style="font-family:'Cormorant Garamond',serif; font-weight:400; font-size:54px; color:var(--cream);">E</span><span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:var(--cream); margin-left:14px;"></span>
+        </div>
+        <span class="social-cell__lbl">D · Monogram · forest</span>
+        <span class="social-cell__sz">App icon · favicon · seal</span>
+      </div>
+      <div class="social-cell">
+        <div class="social-cell__chip" style="display:flex; align-items:center; justify-content:center;">
+          <span style="display:inline-block; width:24px; height:24px; border-radius:50%; background:var(--bindu);"></span>
+        </div>
+        <span class="social-cell__lbl">E · Bindu only</span>
+        <span class="social-cell__sz">Favicon &lt;48px · sticker</span>
+      </div>
+      <div class="social-cell">
+        <div class="social-cell__chip circle" style="display:flex; align-items:center; justify-content:center;">
+          <span style="font-family:'Cormorant Garamond',serif; font-weight:400; font-size:36px; color:var(--forest);">E</span><span style="display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--bindu); margin-left:10px;"></span>
+        </div>
+        <span class="social-cell__lbl">WhatsApp · 640</span>
+        <span class="social-cell__sz">Crops to circle natively</span>
+      </div>
+    </div>
+
+    <!-- B2 · Banner sizes -->
+    <h4 style="font-family: var(--font-ui); font-size: 10px; letter-spacing: 2.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; margin: 18px 0 0;">— Cover banners · sized per platform</h4>
+
+    <div class="banners">
+      <div class="banner-row">
+        <div class="banner-row__meta">
+          <span class="banner-row__platform">X (Twitter)</span>
+          <span class="banner-row__use">Header image</span>
+        </div>
+        <div class="banner-row__art" style="aspect-ratio: 3 / 1; height: 92px;">
+          <span class="mark__letter" style="font-size: 38px; color: var(--forest);">E<span style="display:inline-block; width:5px; height:5px; border-radius:50%; background:var(--bindu); margin:0 8px 8px; vertical-align:middle;"></span>KAM</span>
+        </div>
+        <span class="banner-row__spec">1500 × 500<small>3 : 1 · cream</small></span>
+      </div>
+      <div class="banner-row">
+        <div class="banner-row__meta">
+          <span class="banner-row__platform">LinkedIn</span>
+          <span class="banner-row__use">Company cover</span>
+        </div>
+        <div class="banner-row__art" style="aspect-ratio: 4 / 1; height: 92px;">
+          <span class="mark__letter" style="font-size: 34px; color: var(--forest);">E<span style="display:inline-block; width:5px; height:5px; border-radius:50%; background:var(--bindu); margin:0 7px 7px; vertical-align:middle;"></span>KAM</span>
+        </div>
+        <span class="banner-row__spec">1584 × 396<small>4 : 1 · cream</small></span>
+      </div>
+      <div class="banner-row">
+        <div class="banner-row__meta">
+          <span class="banner-row__platform">Facebook</span>
+          <span class="banner-row__use">Page cover</span>
+        </div>
+        <div class="banner-row__art" style="aspect-ratio: 2.63 / 1; height: 92px;">
+          <span class="mark__letter" style="font-size: 36px; color: var(--forest);">E<span style="display:inline-block; width:5px; height:5px; border-radius:50%; background:var(--bindu); margin:0 7px 7px; vertical-align:middle;"></span>KAM</span>
+        </div>
+        <span class="banner-row__spec">1640 × 624<small>2.63 : 1 · cream</small></span>
+      </div>
+      <div class="banner-row">
+        <div class="banner-row__meta">
+          <span class="banner-row__platform">YouTube</span>
+          <span class="banner-row__use">Channel art</span>
+        </div>
+        <div class="banner-row__art dark" style="aspect-ratio: 16 / 9; height: 92px;">
+          <span class="mark__letter" style="font-size: 34px; color: var(--cream);">E<span style="display:inline-block; width:5px; height:5px; border-radius:50%; background:var(--bindu); margin:0 7px 7px; vertical-align:middle;"></span>KAM</span>
+        </div>
+        <span class="banner-row__spec">2048 × 1152<small>16 : 9 · forest</small></span>
+      </div>
+      <div class="banner-row">
+        <div class="banner-row__meta">
+          <span class="banner-row__platform">Instagram post</span>
+          <span class="banner-row__use">Single grid</span>
+        </div>
+        <div class="banner-row__art" style="aspect-ratio: 1; width: 92px;">
+          <span class="mark__letter" style="font-size: 22px; color: var(--forest);">E<span style="display:inline-block; width:4px; height:4px; border-radius:50%; background:var(--bindu); margin:0 5px 5px; vertical-align:middle;"></span>KAM</span>
+        </div>
+        <span class="banner-row__spec">1080 × 1080<small>1 : 1 · cream</small></span>
+      </div>
+      <div class="banner-row">
+        <div class="banner-row__meta">
+          <span class="banner-row__platform">Instagram story</span>
+          <span class="banner-row__use">Vertical full-bleed</span>
+        </div>
+        <div class="banner-row__art" style="aspect-ratio: 9 / 16; height: 92px;">
+          <span class="mark__letter" style="font-size: 14px; color: var(--forest);">E<span style="display:inline-block; width:3px; height:3px; border-radius:50%; background:var(--bindu); margin:0 4px 4px; vertical-align:middle;"></span>KAM</span>
+        </div>
+        <span class="banner-row__spec">1080 × 1920<small>9 : 16 · cream</small></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       C · TIER GLYPHS
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="sec">
+    <div class="sec__head">
+      <div>
+        <div class="sec__no">C<span class="sec__no-dev">वर्ग · the tiers</span></div>
+      </div>
+      <div>
+        <h3 class="sec__title">Brand glyphs. <em>Tier marks, sacred.</em></h3>
+        <p class="sec__sub">Four custom marks, one per sub-brand. The only brand-specific icons in the system. 2 px stroke · 48 px minimum · tier identifier, never decoration.</p>
+      </div>
+    </div>
+
+    <div class="glyphs">
+      <div class="glyphs__cell">
+        <svg class="glyphs__svg" viewBox="0 0 120 100">
+          <path d="M 20 56 L 60 22 L 100 56" fill="none" stroke="#2B4630" stroke-width="2"/>
+          <path d="M 28 56 L 28 86 L 92 86 L 92 56" fill="none" stroke="#2B4630" stroke-width="2"/>
+          <rect x="52" y="62" width="16" height="16" fill="#B4613A"/>
+          <path d="M 76 26 L 76 14 L 84 14 L 84 33" fill="none" stroke="#2B4630" stroke-width="2"/>
+        </svg>
+        <div class="glyphs__dev">कुटीर</div>
+        <div class="glyphs__name">KUTIR</div>
+        <div class="glyphs__role">The cabin · sheltered</div>
+      </div>
+      <div class="glyphs__cell">
+        <svg class="glyphs__svg" viewBox="0 0 120 100">
+          <path d="M 24 84 L 24 64 M 14 64 L 24 36 L 34 64 Z" fill="none" stroke="#2B4630" stroke-width="2"/>
+          <path d="M 60 88 L 60 60 M 46 60 L 60 22 L 74 60 Z" fill="none" stroke="#2B4630" stroke-width="2"/>
+          <path d="M 96 84 L 96 64 M 86 64 L 96 36 L 106 64 Z" fill="none" stroke="#2B4630" stroke-width="2"/>
+        </svg>
+        <div class="glyphs__dev">वन</div>
+        <div class="glyphs__name">VAN</div>
+        <div class="glyphs__role">The forest · immersed</div>
+      </div>
+      <div class="glyphs__cell">
+        <svg class="glyphs__svg" viewBox="0 0 120 100">
+          <path d="M 30 80 L 60 28 L 90 80" fill="none" stroke="#2B4630" stroke-width="2"/>
+          <path d="M 50 80 L 80 38 L 110 80 Z" fill="#2B4630"/>
+          <line x1="14" y1="80" x2="110" y2="80" stroke="#2B4630" stroke-width="2"/>
+          <path d="M 53 40 L 60 28 L 67 40" fill="none" stroke="#FAF7F0" stroke-width="1.2"/>
+        </svg>
+        <div class="glyphs__dev">शिखर</div>
+        <div class="glyphs__name">SHIKHAR</div>
+        <div class="glyphs__role">The ridge · solitary</div>
+      </div>
+      <div class="glyphs__cell">
+        <svg class="glyphs__svg" viewBox="0 0 120 100">
+          <path d="M 50 22 Q 46 14 52 6" fill="none" stroke="#2B4630" stroke-width="1.2"/>
+          <path d="M 60 22 Q 58 12 62 4" fill="none" stroke="#2B4630" stroke-width="1.2"/>
+          <path d="M 70 22 Q 74 14 68 6" fill="none" stroke="#2B4630" stroke-width="1.2"/>
+          <path d="M 38 32 L 42 76 L 78 76 L 82 32 Z" fill="none" stroke="#2B4630" stroke-width="2"/>
+          <path d="M 82 42 Q 96 42 96 56 Q 96 68 82 64" fill="none" stroke="#2B4630" stroke-width="2"/>
+          <ellipse cx="60" cy="82" rx="34" ry="4" fill="none" stroke="#2B4630" stroke-width="2"/>
+          <line x1="26" y1="86" x2="94" y2="86" stroke="#2B4630" stroke-width="2"/>
+        </svg>
+        <div class="glyphs__dev">चाय</div>
+        <div class="glyphs__name">CHAI</div>
+        <div class="glyphs__role">The cup · the pause</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       D · PROPERTY SIGNAGE
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="sec">
+    <div class="sec__head">
+      <div>
+        <div class="sec__no">D<span class="sec__no-dev">पट · the signs</span></div>
+      </div>
+      <div>
+        <h3 class="sec__title">Property signage. <em>Quiet rules, kept on cream and forest.</em></h3>
+        <p class="sec__sub">Every rule on site, drawn in the same vocabulary. House rules, wayfinding, cabin plates. <strong>Never a red-circle prohibition</strong> — instructions read as care, not authority.</p>
+      </div>
+    </div>
+
+    <!-- D1 · House rules / informational signage -->
+    <h4 style="font-family: var(--font-ui); font-size: 10px; letter-spacing: 2.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; margin: 0;">— House rules · 12 panels</h4>
+
+    <div class="signage-grid">
+
+      <!-- No smoking -->
+      <div class="sign">
+        <svg class="sign__svg" viewBox="0 0 64 64">
+          <!-- cigarette body -->
+          <rect x="8" y="34" width="36" height="6"/>
+          <line x1="20" y1="34" x2="20" y2="40"/>
+          <line x1="32" y1="34" x2="32" y2="40"/>
+          <!-- filter -->
+          <rect x="44" y="34" width="8" height="6" class="fill"/>
+          <!-- smoke wisps (muted) -->
+          <path class="mute" d="M 16 26 q -2 -6 2 -10 q 2 -4 -1 -8" />
+          <path class="mute" d="M 28 26 q -2 -6 2 -10 q 2 -4 -1 -8" />
+          <!-- diagonal forbid stroke in clay -->
+          <line class="clay" x1="6" y1="58" x2="58" y2="10" stroke-width="2.4"/>
+        </svg>
+        <h5 class="sign__title">No smoking</h5>
+        <p class="sign__sub">Anywhere on site, indoors or out. The forest holds smoke.</p>
+      </div>
+
+      <!-- Silence policy / listen to the forest -->
+      <div class="sign">
+        <svg class="sign__svg" viewBox="0 0 64 64">
+          <!-- finger to lips -->
+          <circle cx="32" cy="22" r="10"/>
+          <line x1="32" y1="36" x2="32" y2="42" />
+          <line x1="32" y1="22" x2="32" y2="14" stroke-width="2.4" class="clay"/>
+          <!-- listening rings -->
+          <path d="M 14 32 q 6 6 6 14" />
+          <path d="M 50 32 q -6 6 -6 14" />
+        </svg>
+        <h5 class="sign__title">Listen to the forest</h5>
+        <p class="sign__sub">Quiet hours · 9 pm — 7 am. No music outdoors.</p>
+      </div>
+
+      <!-- Phones away / digital sabbath -->
+      <div class="sign">
+        <svg class="sign__svg" viewBox="0 0 64 64">
+          <!-- phone outline -->
+          <rect x="20" y="10" width="24" height="44" rx="3"/>
+          <line x1="20" y1="16" x2="44" y2="16"/>
+          <line x1="20" y1="48" x2="44" y2="48"/>
+          <circle cx="32" cy="51" r="1.2" class="fill"/>
+          <!-- z's drifting up — sleep -->
+          <text x="48" y="20" font-family="Cormorant Garamond" font-style="italic" font-size="14" class="clay-fill">z</text>
+          <text x="52" y="14" font-family="Cormorant Garamond" font-style="italic" font-size="10" class="clay-fill">z</text>
+        </svg>
+        <h5 class="sign__title">Phones, at rest</h5>
+        <p class="sign__sub">Airplane mode encouraged. The stay holds for you.</p>
+      </div>
+
+      <!-- Hot water hours -->
+      <div class="sign">
+        <svg class="sign__svg" viewBox="0 0 64 64">
+          <!-- kettle outline -->
+          <path d="M 18 28 L 18 46 q 0 6 6 6 L 40 52 q 6 0 6 -6 L 46 28 Z" />
+          <path d="M 22 28 L 22 22 q 0 -2 2 -2 L 40 20 q 2 0 2 2 L 42 28" />
+          <line x1="32" y1="20" x2="32" y2="16"/>
+          <!-- spout -->
+          <path d="M 46 32 q 8 0 8 6 q 0 4 -4 4" />
+          <!-- steam (clay) -->
+          <path class="clay" d="M 24 14 q -2 -4 1 -7"/>
+          <path class="clay" d="M 30 12 q -2 -4 1 -7"/>
+        </svg>
+        <h5 class="sign__title">Hot water · 6:30 &amp; 9:00</h5>
+        <p class="sign__sub">Wood-fired geyser. Two windows. Ask, otherwise.</p>
+      </div>
+
+      <!-- Wifi (with reluctance) -->
+      <div class="sign">
+        <svg class="sign__svg" viewBox="0 0 64 64">
+          <!-- wifi arcs -->
+          <path d="M 14 30 q 18 -18 36 0"/>
+          <path d="M 22 36 q 10 -10 20 0"/>
+          <path d="M 30 42 q 2 -2 4 0"/>
+          <circle cx="32" cy="48" r="2" class="clay-fill"/>
+          <!-- tiny x-mark hint to side: 'only in reading corner' -->
+          <line class="mute" x1="48" y1="14" x2="56" y2="22"/>
+          <line class="mute" x1="48" y1="22" x2="56" y2="14"/>
+        </svg>
+        <h5 class="sign__title">Wi-Fi · reading corner</h5>
+        <p class="sign__sub">Only in the corner room, by design. Code at reception.</p>
+      </div>
+
+      <!-- Recycle / leave-no-trace -->
+      <div class="sign">
+        <svg class="sign__svg" viewBox="0 0 64 64">
+          <!-- three arrows triangle -->
+          <path d="M 32 12 L 44 32 L 38 32 L 38 28 L 28 28 L 32 12 Z" />
+          <path d="M 50 42 L 38 56 L 35 51 L 39 49 L 34 41 L 50 42 Z" />
+          <path d="M 14 42 L 30 41 L 25 49 L 29 51 L 26 56 L 14 42 Z" />
+        </svg>
+        <h5 class="sign__title">Leave nothing</h5>
+        <p class="sign__sub">Three bins · wet, dry, glass. The cabin team sorts.</p>
+      </div>
+
+      <!-- Wildlife caution -->
+      <div class="sign">
+        <svg class="sign__svg" viewBox="0 0 64 64">
+          <!-- monal silhouette -->
+          <path d="M 16 44 q 8 -16 26 -20 q 6 -1 8 4 q 1 6 -6 6 q -4 0 -4 4 q 0 8 -10 10 q -10 2 -14 -4 z" class="fill"/>
+          <line x1="48" y1="32" x2="56" y2="28" class="clay"/>
+          <circle cx="42" cy="32" r="1.4" stroke="#FAF7F0" class="fill" />
+        </svg>
+        <h5 class="sign__title">Wildlife about</h5>
+        <p class="sign__sub">Monal at dawn · langurs by noon. Look, don't feed.</p>
+      </div>
+
+      <!-- No drone -->
+      <div class="sign">
+        <svg class="sign__svg" viewBox="0 0 64 64">
+          <!-- quadcopter -->
+          <rect x="26" y="28" width="12" height="6"/>
+          <line x1="14" y1="22" x2="20" y2="22"/>
+          <line x1="44" y1="22" x2="50" y2="22"/>
+          <line x1="14" y1="40" x2="20" y2="40"/>
+          <line x1="44" y1="40" x2="50" y2="40"/>
+          <line x1="20" y1="22" x2="26" y2="28"/>
+          <line x1="44" y1="22" x2="38" y2="28"/>
+          <line x1="20" y1="40" x2="26" y2="34"/>
+          <line x1="44" y1="40" x2="38" y2="34"/>
+          <line class="clay" x1="8" y1="56" x2="56" y2="8" stroke-width="2.4"/>
+        </svg>
+        <h5 class="sign__title">No drones</h5>
+        <p class="sign__sub">Forest sanctuary. Permit-only for documentation.</p>
+      </div>
+
+      <!-- No pets (or pets allowed sign variant) -->
+      <div class="sign">
+        <svg class="sign__svg" viewBox="0 0 64 64">
+          <!-- pawprint -->
+          <ellipse cx="32" cy="40" rx="10" ry="9"/>
+          <circle cx="20" cy="26" r="4"/>
+          <circle cx="28" cy="20" r="4"/>
+          <circle cx="36" cy="20" r="4"/>
+          <circle cx="44" cy="26" r="4"/>
+          <!-- check (clay) -->
+          <path d="M 46 50 L 50 54 L 58 46" class="clay" stroke-width="2.4"/>
+        </svg>
+        <h5 class="sign__title">Pet-friendly cabin</h5>
+        <p class="sign__sub">Marked cabins only. On leash outside the deck.</p>
+      </div>
+
+      <!-- Trail open / closed -->
+      <div class="sign">
+        <svg class="sign__svg" viewBox="0 0 64 64">
+          <!-- footsteps -->
+          <ellipse cx="20" cy="22" rx="4" ry="6"/>
+          <circle cx="18" cy="14" r="1.5"/>
+          <circle cx="22" cy="13" r="1.5"/>
+          <ellipse cx="36" cy="36" rx="4" ry="6"/>
+          <circle cx="34" cy="28" r="1.5"/>
+          <circle cx="38" cy="27" r="1.5"/>
+          <ellipse cx="50" cy="50" rx="4" ry="6"/>
+          <circle cx="48" cy="42" r="1.5"/>
+          <circle cx="52" cy="41" r="1.5"/>
+        </svg>
+        <h5 class="sign__title">Trails · open</h5>
+        <p class="sign__sub">Map under your cup. Carry water. Tell Aarav.</p>
+      </div>
+
+      <!-- Slippery (rain / dew) -->
+      <div class="sign">
+        <svg class="sign__svg" viewBox="0 0 64 64">
+          <path d="M 14 50 q 8 -14 18 -10 q 12 4 18 10" />
+          <!-- person slipping marker -->
+          <circle cx="32" cy="22" r="4"/>
+          <path d="M 32 26 L 28 36 L 24 40" />
+          <path d="M 32 26 L 36 36 L 42 38" />
+          <path d="M 28 36 L 24 50" />
+          <!-- water drops in clay -->
+          <path d="M 50 18 q -3 4 0 7 q 3 -3 0 -7 Z" class="clay-fill"/>
+          <path d="M 18 18 q -3 4 0 7 q 3 -3 0 -7 Z" class="clay-fill"/>
+        </svg>
+        <h5 class="sign__title">Slippery when wet</h5>
+        <p class="sign__sub">Deck planks &amp; the stream trail. Take care.</p>
+      </div>
+
+      <!-- Fire safety / fireplace use -->
+      <div class="sign">
+        <svg class="sign__svg" viewBox="0 0 64 64">
+          <!-- flame -->
+          <path d="M 32 12 q 4 8 10 14 q 6 8 4 18 q -2 12 -14 12 q -12 0 -14 -12 q -2 -10 4 -18 q 6 -6 10 -14 z" class="clay-fill"/>
+          <!-- inner flicker -->
+          <path d="M 32 28 q 2 4 6 8 q 2 4 0 8 q -2 6 -6 6 q -4 0 -6 -6 q -2 -4 0 -8 q 4 -4 6 -8 z" stroke="#FAF7F0" fill="#FAF7F0"/>
+        </svg>
+        <h5 class="sign__title">Fire-pit · with team</h5>
+        <p class="sign__sub">Lit by the cabin team only. Cedar wood, by hand.</p>
+      </div>
+
+    </div>
+
+    <!-- D2 · Cabin number plates -->
+    <h4 style="font-family: var(--font-ui); font-size: 10px; letter-spacing: 2.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; margin: 24px 0 0;">— Cabin plates · forest, brass-screwed, eye-level</h4>
+
+    <div class="plates">
+      <div class="plate">
+        <div class="plate__top">
+          <span class="plate__no">03<span class="dot"></span></span>
+          <span class="plate__tier">कुटीर</span>
+        </div>
+        <div>
+          <span class="plate__name">Binsar.</span>
+          <div class="plate__rule"></div>
+          <span class="plate__brand">E<span class="dot"></span>KAM</span>
+        </div>
+      </div>
+      <div class="plate">
+        <div class="plate__top">
+          <span class="plate__no">07<span class="dot"></span></span>
+          <span class="plate__tier">वन</span>
+        </div>
+        <div>
+          <span class="plate__name">Munsiyari.</span>
+          <div class="plate__rule"></div>
+          <span class="plate__brand">E<span class="dot"></span>KAM</span>
+        </div>
+      </div>
+      <div class="plate">
+        <div class="plate__top">
+          <span class="plate__no">11<span class="dot"></span></span>
+          <span class="plate__tier">शिखर</span>
+        </div>
+        <div>
+          <span class="plate__name">Kalpa.</span>
+          <div class="plate__rule"></div>
+          <span class="plate__brand">E<span class="dot"></span>KAM</span>
+        </div>
+      </div>
+      <div class="plate">
+        <div class="plate__top">
+          <span class="plate__no">14<span class="dot"></span></span>
+          <span class="plate__tier">शिखर</span>
+        </div>
+        <div>
+          <span class="plate__name">Baspa.</span>
+          <div class="plate__rule"></div>
+          <span class="plate__brand">E<span class="dot"></span>KAM</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- D3 · Way-finding -->
+    <h4 style="font-family: var(--font-ui); font-size: 10px; letter-spacing: 2.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; margin: 24px 0 0;">— Way-finding · arrows on forest panels</h4>
+
+    <div class="wayfind">
+      <div class="wf">
+        <span class="wf__arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+        <div class="wf__lbl">Cabins 01 — 06<span style="display:block; font-family:'Inter',sans-serif; font-size:9px; letter-spacing:1.5px; color:rgba(250,247,240,0.55); text-transform:uppercase; font-weight:500; margin-top:3px;">120 m</span></div>
+      </div>
+      <div class="wf">
+        <span class="wf__arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M5 12l7-7M5 12l7 7"/></svg></span>
+        <div class="wf__lbl">Reception<span style="display:block; font-family:'Inter',sans-serif; font-size:9px; letter-spacing:1.5px; color:rgba(250,247,240,0.55); text-transform:uppercase; font-weight:500; margin-top:3px;">80 m</span></div>
+      </div>
+      <div class="wf">
+        <span class="wf__arrow"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span>
+        <div class="wf__lbl">Trail · ridge walk<span style="display:block; font-family:'Inter',sans-serif; font-size:9px; letter-spacing:1.5px; color:rgba(250,247,240,0.55); text-transform:uppercase; font-weight:500; margin-top:3px;">2.4 km</span></div>
+      </div>
+      <div class="wf">
+        <span class="wf__arrow"><svg viewBox="0 0 24 24"><path d="M12 5v14M12 5l-7 7M12 5l7 7"/></svg></span>
+        <div class="wf__lbl">Kitchen &amp; chai<span style="display:block; font-family:'Inter',sans-serif; font-size:9px; letter-spacing:1.5px; color:rgba(250,247,240,0.55); text-transform:uppercase; font-weight:500; margin-top:3px;">40 m</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       E · UI ICONS (LUCIDE)
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="sec">
+    <div class="sec__head">
+      <div>
+        <div class="sec__no">E<span class="sec__no-dev">कार्य · the function</span></div>
+      </div>
+      <div>
+        <h3 class="sec__title">UI icons. <em>Lucide stroke 1.5.</em></h3>
+        <p class="sec__sub">Functional only. Sit behind the content, never compete with it. 16 / 20 / 24 px · ink on cream, sand on forest. The set the EKAM app uses, by name.</p>
+      </div>
+    </div>
+
+    <div class="lucide-grid">
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg><span class="lucide-cell__nm">arrow-right</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 5l-7 7 7 7"/></svg><span class="lucide-cell__nm">arrow-left</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg><span class="lucide-cell__nm">chevron-down</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg><span class="lucide-cell__nm">chevron-right</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg><span class="lucide-cell__nm">x</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></svg><span class="lucide-cell__nm">plus</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg><span class="lucide-cell__nm">minus</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span class="lucide-cell__nm">check</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><span class="lucide-cell__nm">search</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></svg><span class="lucide-cell__nm">menu</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16"/><path d="M3 9h18M8 3v4M16 3v4"/></svg><span class="lucide-cell__nm">calendar</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span class="lucide-cell__nm">clock</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1116 0z"/><circle cx="12" cy="10" r="3"/></svg><span class="lucide-cell__nm">map-pin</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M2 12h20M12 2a14 14 0 010 20M12 2a14 14 0 000 20"/></svg><span class="lucide-cell__nm">globe</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-7-10a4 4 0 017-2.65A4 4 0 0119 11c0 5.65-7 10-7 10z"/></svg><span class="lucide-cell__nm">heart</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><span class="lucide-cell__nm">check-circle</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><span class="lucide-cell__nm">info</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zM12 10v4M12 18h.01"/></svg><span class="lucide-cell__nm">alert</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg><span class="lucide-cell__nm">activity</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.37 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg><span class="lucide-cell__nm">phone</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg><span class="lucide-cell__nm">message</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span class="lucide-cell__nm">mail</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1M5 8h13v9a4 4 0 01-4 4H9a4 4 0 01-4-4V8zM6 2v3M10 2v3M14 2v3"/></svg><span class="lucide-cell__nm">coffee</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M3 12l2-2 7 7 9-9 0 9H3z"/><circle cx="8" cy="7" r="2"/></svg><span class="lucide-cell__nm">image</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg><span class="lucide-cell__nm">package</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/></svg><span class="lucide-cell__nm">compass</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M3 21l18-18M3 3l18 18"/></svg><span class="lucide-cell__nm">x-large</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M12 3l9 6-9 6-9-6 9-6zM3 14l9 6 9-6"/></svg><span class="lucide-cell__nm">layers</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 17v.01"/><path d="M12 13a3 3 0 10-3-3"/></svg><span class="lucide-cell__nm">help</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span class="lucide-cell__nm">settings</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V7M16 7l-4-4-4 4M12 3v14"/></svg><span class="lucide-cell__nm">share</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span class="lucide-cell__nm">lock</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 019.5-2"/></svg><span class="lucide-cell__nm">unlock</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M20 7l-1 13a2 2 0 01-2 2H7a2 2 0 01-2-2L4 7M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3M3 7h18M10 11v6M14 11v6"/></svg><span class="lucide-cell__nm">trash</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/></svg><span class="lucide-cell__nm">edit</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M16 12l-4-4-4 4M12 16V8"/></svg><span class="lucide-cell__nm">arrow-up</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2zM17 21v-8H7v8M7 3v5h8"/></svg><span class="lucide-cell__nm">save</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a6.5 6.5 0 0113 0"/></svg><span class="lucide-cell__nm">user</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2h-4M9 22V12h6v10"/></svg><span class="lucide-cell__nm">home</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg><span class="lucide-cell__nm">clipboard</span></div>
+    </div>
+
+    <!-- Chat-specific icon cluster -->
+    <h4 style="font-family: var(--font-ui); font-size: 10px; letter-spacing: 2.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; margin: 24px 0 0;">— Chat icons · host conversation</h4>
+
+    <div class="lucide-grid">
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg><span class="lucide-cell__nm">send</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M21.44 11.05l-9.19 9.19a6 6 0 11-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66L9.41 17.41a2 2 0 11-2.83-2.83l8.49-8.48"/></svg><span class="lucide-cell__nm">attach</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10a7 7 0 01-14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg><span class="lucide-cell__nm">mic</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg><span class="lucide-cell__nm">video</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg><span class="lucide-cell__nm">camera</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span class="lucide-cell__nm">gallery</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1116 0z"/><circle cx="12" cy="10" r="3"/></svg><span class="lucide-cell__nm">location</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="18" cy="12" r="1.5" fill="currentColor"/></svg><span class="lucide-cell__nm">typing</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><polyline points="4 13 9 18 20 7"/></svg><span class="lucide-cell__nm">sent</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><polyline points="2 13 7 18 18 7"/><polyline points="7 13 12 18 22 7"/></svg><span class="lucide-cell__nm">delivered</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24" style="color:#B4613A; stroke:#B4613A;"><polyline points="2 13 7 18 18 7"/><polyline points="7 13 12 18 22 7"/></svg><span class="lucide-cell__nm">read · clay</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg><span class="lucide-cell__nm">pending</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg><span class="lucide-cell__nm">chat</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span class="lucide-cell__nm">reply</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><polyline points="15 17 20 12 15 7"/><path d="M4 18v-2a4 4 0 014-4h12"/></svg><span class="lucide-cell__nm">forward</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0016.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 002 8.5c0 2.29 1.51 4.04 3 5.5l7 7z"/></svg><span class="lucide-cell__nm">react</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg><span class="lucide-cell__nm">more</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><span class="lucide-cell__nm">bell</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 01-9 9 9.74 9.74 0 01-4-.9L3 21l1.9-5a9.74 9.74 0 01-.9-4 9 9 0 0118 0z"/><path d="M9 10h.01M12 10h.01M15 10h.01"/></svg><span class="lucide-cell__nm">unread</span></div>
+      <div class="lucide-cell"><svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg><span class="lucide-cell__nm">delete-chat</span></div>
+    </div>
+  </section>
+
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       F · USER AVATARS · NOTIFICATIONS · FAVICONS · BINDU LOADER
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="sec">
+    <div class="sec__head">
+      <div>
+        <div class="sec__no">F<span class="sec__no-dev">संकेत · the signal</span></div>
+      </div>
+      <div>
+        <h3 class="sec__title">Avatars, notifications, favicons — <em>and the bindu, working.</em></h3>
+        <p class="sec__sub">Two-initial user avatars · push notification marks (Android + iOS + watch) · browser favicons (light, dark, masked, apple-touch) · and the bindu doing double duty as the loading / progress indicator. The dot is the brand, so the dot is the spinner.</p>
+      </div>
+    </div>
+
+    <!-- F1 · User avatars with 2 initials -->
+    <h4 style="font-family: var(--font-ui); font-size: 10px; letter-spacing: 2.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; margin: 0;">— User avatar · two initials, never one</h4>
+
+    <div class="avatar-row">
+      <div class="avatar">
+        <div class="av" style="width: 72px; height: 72px; font-size: 22px;">AS</div>
+        <span class="av__lbl">Default · sand</span>
+        <span class="av__sz">Anika Sharma</span>
+      </div>
+      <div class="avatar">
+        <div class="av dark" style="width: 72px; height: 72px; font-size: 22px;">AK</div>
+        <span class="av__lbl">Forest · dark</span>
+        <span class="av__sz">Aarav Khanna</span>
+      </div>
+      <div class="avatar">
+        <div class="av bindu" style="width: 72px; height: 72px; font-size: 22px;">TG</div>
+        <span class="av__lbl">Bindu · host</span>
+        <span class="av__sz">Tashi Gurung</span>
+      </div>
+      <div class="avatar">
+        <div class="av ghost" style="width: 72px; height: 72px; font-size: 22px;">JM</div>
+        <span class="av__lbl">Ghost · guest</span>
+        <span class="av__sz">For-someone-else</span>
+      </div>
+      <div class="avatar">
+        <div class="av" style="width: 56px; height: 56px; font-size: 17px;">AS<span class="av__badge"></span></div>
+        <span class="av__lbl">Unread · 56 px</span>
+        <span class="av__sz">Clay dot for new</span>
+      </div>
+      <div class="avatar">
+        <div class="av" style="width: 40px; height: 40px; font-size: 13px;">AS</div>
+        <span class="av__lbl">Inline · 40 px</span>
+        <span class="av__sz">List rows · chat</span>
+      </div>
+    </div>
+
+    <p style="font-family: var(--font-editorial); font-style: italic; font-size: 12.5px; color: var(--moss); line-height: 1.5; margin: 8px 0 0; max-width: 720px;">
+      <strong style="font-family: var(--font-ui); font-style: normal; font-size: 11px; letter-spacing: 1.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500;">— Rule</strong>&nbsp;&nbsp;Two initials always (first &amp; last). Single-letter avatars read as draft accounts. Inter Medium 500 · letter-spacing 0.4 px · uppercased. Host avatars are clay; guest avatars are sand. Never auto-coloured by name hash.
+    </p>
+
+    <!-- F2 · Notification icons -->
+    <h4 style="font-family: var(--font-ui); font-size: 10px; letter-spacing: 2.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; margin: 24px 0 0;">— Notification marks</h4>
+
+    <div class="notif-grid">
+      <div class="notif">
+        <div class="notif__chip ink">
+          <svg viewBox="0 0 64 64" width="38" height="38"><text x="22" y="42" font-family="Cormorant Garamond" font-weight="400" font-size="32" fill="#FAF7F0">E</text><circle cx="42" cy="32" r="3.4" fill="#FAF7F0"/></svg>
+        </div>
+        <span class="notif__lbl">Android · silhouette</span>
+        <span class="notif__sz">24 dp · white on transparent</span>
+      </div>
+      <div class="notif">
+        <div class="notif__chip dark" style="border-radius: 22%;">
+          <svg viewBox="0 0 64 64" width="42" height="42"><text x="22" y="42" font-family="Cormorant Garamond" font-weight="400" font-size="32" fill="#FAF7F0">E</text><circle cx="42" cy="32" r="3.4" fill="#B4613A"/></svg>
+        </div>
+        <span class="notif__lbl">iOS · push</span>
+        <span class="notif__sz">60 × 60 · forest plate</span>
+      </div>
+      <div class="notif">
+        <div class="notif__chip" style="border-radius: 28%; background: var(--forest);">
+          <svg viewBox="0 0 64 64" width="40" height="40"><text x="22" y="42" font-family="Cormorant Garamond" font-weight="400" font-size="32" fill="#FAF7F0">E</text><circle cx="42" cy="32" r="3.4" fill="#B4613A"/></svg>
+        </div>
+        <span class="notif__lbl">Lock-screen</span>
+        <span class="notif__sz">120 px · keeps the bindu</span>
+      </div>
+      <div class="notif">
+        <div class="notif__chip" style="border-radius: 50%; background: var(--forest); position: relative;">
+          <svg viewBox="0 0 64 64" width="34" height="34"><text x="22" y="42" font-family="Cormorant Garamond" font-weight="400" font-size="32" fill="#FAF7F0">E</text><circle cx="42" cy="32" r="3" fill="#B4613A"/></svg>
+          <span style="position: absolute; top: 6px; right: 6px; width: 14px; height: 14px; border-radius: 50%; background: var(--bindu); border: 2px solid var(--cream);"></span>
+        </div>
+        <span class="notif__lbl">Profile · unread</span>
+        <span class="notif__sz">40 px · clay dot for new</span>
+      </div>
+      <div class="notif">
+        <div class="notif__chip ink" style="border-radius: 18%;">
+          <svg viewBox="0 0 64 64" width="34" height="34"><text x="22" y="42" font-family="Cormorant Garamond" font-weight="400" font-size="32" fill="#FAF7F0">E</text><circle cx="42" cy="32" r="3" fill="#FAF7F0"/></svg>
+        </div>
+        <span class="notif__lbl">Apple Watch</span>
+        <span class="notif__sz">86 × 86 · mono on ink</span>
+      </div>
+    </div>
+
+    <p style="font-family: var(--font-editorial); font-style: italic; font-size: 12.5px; color: var(--moss); line-height: 1.5; margin: 8px 0 0; max-width: 720px;">
+      <strong style="font-family: var(--font-ui); font-style: normal; font-size: 11px; letter-spacing: 1.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500;">— Rule</strong>&nbsp;&nbsp;Monochrome contexts (Android status bar, Apple Watch) strip the dot to white. Full-colour contexts keep the bindu clay — it is the badge, not decoration.
+    </p>
+
+    <!-- F3 · Favicons -->
+    <h4 style="font-family: var(--font-ui); font-size: 10px; letter-spacing: 2.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; margin: 24px 0 0;">— Website favicons</h4>
+
+    <div class="fav-row">
+      <div class="fav"><div class="fav__chip" style="width: 32px; height: 32px;"><div style="width: 32%; height: 32%; border-radius: 50%; background: var(--bindu);"></div></div><span class="fav__lbl">Bindu · 16 px</span><span class="fav__sz">favicon-16.png</span></div>
+      <div class="fav"><div class="fav__chip" style="width: 56px; height: 56px;"><div style="width: 30%; height: 30%; border-radius: 50%; background: var(--bindu);"></div></div><span class="fav__lbl">Bindu · 32 px</span><span class="fav__sz">favicon-32.png</span></div>
+      <div class="fav"><div class="fav__chip" style="width: 72px; height: 72px;"><svg viewBox="0 0 64 64" width="54" height="54"><text x="22" y="42" font-family="Cormorant Garamond" font-weight="400" font-size="32" fill="#2B4630">E</text><circle cx="42" cy="32" r="3.4" fill="#B4613A"/></svg></div><span class="fav__lbl">Monogram · 48</span><span class="fav__sz">favicon-48.png</span></div>
+      <div class="fav"><div class="fav__chip dark" style="width: 96px; height: 96px; border-radius: 22%;"><svg viewBox="0 0 64 64" width="72" height="72"><text x="22" y="42" font-family="Cormorant Garamond" font-weight="400" font-size="32" fill="#FAF7F0">E</text><circle cx="42" cy="32" r="3.4" fill="#B4613A"/></svg></div><span class="fav__lbl">Apple touch · 180</span><span class="fav__sz">apple-touch-icon.png</span></div>
+      <div class="fav"><div class="fav__chip" style="width: 72px; height: 72px;"><svg viewBox="0 0 64 64" width="54" height="54"><text x="22" y="42" font-family="Cormorant Garamond" font-weight="400" font-size="32" fill="#14201A">E</text><circle cx="42" cy="32" r="3.4" fill="#14201A"/></svg></div><span class="fav__lbl">Mask · Safari pin</span><span class="fav__sz">safari-pinned.svg</span></div>
+      <div class="fav"><div class="fav__chip dark" style="width: 72px; height: 72px;"><svg viewBox="0 0 64 64" width="54" height="54"><text x="22" y="42" font-family="Cormorant Garamond" font-weight="400" font-size="32" fill="#FAF7F0">E</text><circle cx="42" cy="32" r="3.4" fill="#B4613A"/></svg></div><span class="fav__lbl">Dark mode · 32</span><span class="fav__sz">prefers-color-scheme</span></div>
+    </div>
+
+    <div style="margin-top: 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
+      <div class="fav__chip tab">
+        <svg viewBox="0 0 64 64" width="16" height="16" style="flex-shrink:0;"><text x="22" y="42" font-family="Cormorant Garamond" font-weight="400" font-size="32" fill="#2B4630">E</text><circle cx="42" cy="32" r="3.4" fill="#B4613A"/></svg>
+        <span class="fav__url">ekam.in — Hospitality, disguised as solitude.</span>
+      </div>
+      <div class="fav__chip tab" style="background: var(--ink); color: var(--cream);">
+        <svg viewBox="0 0 64 64" width="16" height="16" style="flex-shrink:0;"><text x="22" y="42" font-family="Cormorant Garamond" font-weight="400" font-size="32" fill="#FAF7F0">E</text><circle cx="42" cy="32" r="3.4" fill="#B4613A"/></svg>
+        <span class="fav__url" style="color: var(--sand);">ekam.in — Hospitality, disguised as solitude.</span>
+      </div>
+    </div>
+
+    <!-- F4 · Bindu loader / progress -->
+    <h4 style="font-family: var(--font-ui); font-size: 10px; letter-spacing: 2.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; margin: 32px 0 0;">— The bindu, working · loaders &amp; progress</h4>
+
+    <p style="font-family: var(--font-editorial); font-style: italic; font-size: 13.5px; color: var(--moss); line-height: 1.55; margin: 0 0 6px; max-width: 720px;">
+      The dot is the brand and the only saturated colour. When something loads, the dot does the work — breathe, fill, sweep — instead of importing a spinner.
+    </p>
+
+    <div class="loader-grid">
+      <div class="loader-card">
+        <div class="loader-card__stage"><span class="bindu-breathe"></span></div>
+        <h5 class="loader-card__title">A · The bindu breathes</h5>
+        <p class="loader-card__sub">Indeterminate. While the app waits on the network. <em>2.4 s loop.</em></p>
+      </div>
+      <div class="loader-card">
+        <div class="loader-card__stage">
+          <div class="bindu-ring">
+            <div class="bindu-ring__track"></div>
+            <svg viewBox="0 0 90 90"><circle class="bindu-ring__arc" cx="45" cy="45" r="42"/></svg>
+            <span class="bindu-ring__dot">68<span style="font-family: var(--font-ui); font-size: 9px; letter-spacing: 1.5px; color: var(--moss); margin-left: 1px;">%</span></span>
+          </div>
+        </div>
+        <h5 class="loader-card__title">B · The bindu fills</h5>
+        <p class="loader-card__sub">Determinate. Booking confirm · image upload · file download.</p>
+      </div>
+      <div class="loader-card dark">
+        <div class="loader-card__stage">
+          <div style="width: 200px;">
+            <div class="bindu-bar"><span class="bindu-bar__fill"></span><span class="bindu-bar__head"></span></div>
+            <span style="display:block; margin-top:8px; font-family: var(--font-ui); font-size: 10px; letter-spacing: 2px; color: rgba(250,247,240,0.6); text-transform: uppercase; font-weight: 500;">Preparing your cabin · 62%</span>
+          </div>
+        </div>
+        <h5 class="loader-card__title">C · The bindu travels</h5>
+        <p class="loader-card__sub">Page progress bar. Sits 1 px at the top of the viewport.</p>
+      </div>
+      <div class="loader-card">
+        <div class="loader-card__stage"><div class="bindu-sweep"></div></div>
+        <h5 class="loader-card__title">D · The bindu sweeps</h5>
+        <p class="loader-card__sub">Chapter switch · hard navigation. 1.6 s loop. Stops on ready.</p>
+      </div>
+      <div class="loader-card">
+        <div class="loader-card__stage">
+          <span class="bindu-pulse-inline">Aarav is here · typing…</span>
+        </div>
+        <h5 class="loader-card__title">E · The bindu pulses</h5>
+        <p class="loader-card__sub">Inline live status — host typing, fire-pit lit, kettle on.</p>
+      </div>
+      <div class="loader-card dark">
+        <div class="loader-card__stage">
+          <div class="bindu-orbit"><span></span><span></span><span></span></div>
+        </div>
+        <h5 class="loader-card__title">F · Three bindus orbit</h5>
+        <p class="loader-card__sub">Long ops (image batch · syncing). Quiet, never frantic.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       RULES
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="rules">
+    <div class="rules__col">
+      <h4>— Discipline</h4>
+      <ul>
+        <li><b>One stroke</b>1.5 px for UI · 2 px for brand glyphs · 2.4 px for signage. Never thicker.</li>
+        <li><b>One accent</b>Bindu (#B4613A) is the only saturated colour. The dot itself is never animated.</li>
+        <li><b>Two materials</b>Forest plates (outdoor signage) and cream paper (in-app, social). Nothing else.</li>
+        <li><b>Sizes lock</b>UI 16/20/24 · brand glyphs 48/56/64 · signage 280×320 mm · cabin plates 200×140 mm.</li>
+      </ul>
+    </div>
+    <div class="rules__col no">
+      <h4>— Never</h4>
+      <ul>
+        <li><b>Emoji, anywhere</b>🌲 🏡 ☕ are banned. Use the Tier glyphs or the Lucide set.</li>
+        <li><b>Red-circle prohibition</b>The clay diagonal does the same job, without the airport vocabulary.</li>
+        <li><b>Filled or chunky icon styles</b>No Material-fill, no Phosphor-bold. Lucide stroke is the canon.</li>
+        <li><b>Animated app icon or wordmark</b>The bindu does not pulse on the home screen. The wordmark is not a logo intro.</li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+
+</body>
+</html>

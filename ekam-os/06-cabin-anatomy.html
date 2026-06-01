@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EKAM OS · 06 Cabin anatomy</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="stylesheet" href="_chrome.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=Raleway:wght@300;400;500&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  /* ─── Floor plan ─── */
+  .plan { background: var(--sand); border: 1px solid var(--bone); border-radius: 4px; padding: 28px 36px; }
+  .plan__svg { width: 100%; aspect-ratio: 16 / 10; max-height: 360px; display: block; }
+  .plan__svg .wall { stroke: var(--forest); stroke-width: 1.6; fill: none; }
+  .plan__svg .feature { stroke: var(--moss); stroke-width: 0.7; fill: rgba(180,97,58,0.05); }
+  .plan__svg .annotate { font-family: var(--font-ui); font-size: 9px; letter-spacing: 1.4px; fill: var(--bindu); text-transform: uppercase; font-weight: 500; }
+  .plan__svg .name { font-family: var(--font-display); font-style: italic; font-size: 11px; fill: var(--forest); }
+  .plan__svg .dim { stroke: var(--bindu); stroke-width: 0.4; fill: none; }
+  .plan__svg .dim-text { font-family: 'Inter', sans-serif; font-size: 7px; fill: var(--bindu); }
+  .plan__svg .marker { fill: var(--bindu); }
+
+  /* ─── Surface table ─── */
+  .surface { width: 100%; border-collapse: collapse; }
+  .surface tr { border-bottom: 1px solid var(--bone); }
+  .surface tr:last-child { border-bottom: 0; }
+  .surface th, .surface td { padding: 14px 12px; text-align: left; vertical-align: top; font-family: var(--font-body); font-weight: 300; font-size: 12.5px; color: var(--ink); line-height: 1.55; }
+  .surface th { background: var(--sand); font-family: var(--font-ui); font-size: 9.5px; letter-spacing: 1.8px; color: var(--bindu); text-transform: uppercase; font-weight: 500; border-bottom: 1px solid var(--bone); }
+  .surface td.item { font-family: var(--font-display); font-style: italic; color: var(--forest); font-size: 14px; font-weight: 400; width: 22%; }
+  .surface td.mat b { font-family: 'Inter', sans-serif; color: var(--forest); font-weight: 500; font-size: 11.5px; }
+  .surface td.cycle { font-family: var(--font-ui); font-size: 10px; letter-spacing: 1.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+  .surface td.cycle em { font-family: var(--font-editorial); font-style: italic; color: var(--moss); font-weight: 400; letter-spacing: 0; text-transform: none; }
+
+  /* Zone heading */
+  .zone-head {
+    display: grid; grid-template-columns: 56px 1fr;
+    gap: 18px; align-items: baseline;
+    padding-bottom: 14px; margin-bottom: 14px;
+    border-bottom: 1px solid var(--bone);
+  }
+  .zone-head__no { font-family: var(--font-display); font-style: italic; font-size: 30px; color: var(--bindu); font-weight: 400; line-height: 1; }
+  .zone-head__body { display: flex; flex-direction: column; gap: 4px; }
+  .zone-head__name { font-family: var(--font-display); font-weight: 400; font-size: 22px; color: var(--forest); letter-spacing: 0.3px; margin: 0; }
+  .zone-head__what { font-family: var(--font-editorial); font-style: italic; font-size: 13.5px; color: var(--moss); line-height: 1.5; margin: 0; }
+</style>
+</head>
+<body>
+
+<div class="os">
+
+  <aside class="os-nav">
+    <div class="os-nav__brand">
+      <span class="os-nav__brand-dev">एकम् · संचालन</span>
+      <span class="os-nav__brand-wm">E<span class="dot"></span>KAM</span>
+      <span class="os-nav__brand-tag">The operating system · v1.0 · draft</span>
+    </div>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Foundation</span>
+      <a class="os-nav__item" href="00-principles.html"><span class="os-nav__item-no">00</span><span>Principles</span></a>
+      <a class="os-nav__item is-pending" href="#"><span class="os-nav__item-no">01</span><span>Tokens</span></a>
+      <a class="os-nav__item" href="02-spatial-type.html"><span class="os-nav__item-no">02</span><span>Spatial type</span></a>
+      <a class="os-nav__item" href="03-materials.html"><span class="os-nav__item-no">03</span><span>Materials</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Environmental</span>
+      <a class="os-nav__item" href="04-signage.html"><span class="os-nav__item-no">04</span><span>Signage system</span></a>
+      <a class="os-nav__item" href="05-wayfinding.html"><span class="os-nav__item-no">05</span><span>Wayfinding</span></a>
+      <a class="os-nav__item is-on" href="06-cabin-anatomy.html"><span class="os-nav__item-no">06</span><span>Cabin anatomy</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Hospitality</span>
+      <a class="os-nav__item is-pending" href="#"><span class="os-nav__item-no">07</span><span>Guest journey</span></a>
+      <a class="os-nav__item is-pending" href="#"><span class="os-nav__item-no">08</span><span>Rituals on site</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Build</span>
+      <a class="os-nav__item is-pending" href="#"><span class="os-nav__item-no">09</span><span>Fabrication</span></a>
+      <a class="os-nav__item is-pending" href="#"><span class="os-nav__item-no">10</span><span>Utility &amp; emergency</span></a>
+      <a class="os-nav__item is-pending" href="#"><span class="os-nav__item-no">11</span><span>Staff systems</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Scale</span>
+      <a class="os-nav__item is-pending" href="#"><span class="os-nav__item-no">12</span><span>Tier variation</span></a>
+      <a class="os-nav__item is-pending" href="#"><span class="os-nav__item-no">13</span><span>Partner tiers</span></a>
+      <a class="os-nav__item is-pending" href="#"><span class="os-nav__item-no">14</span><span>Exports</span></a>
+    </nav>
+    <div class="os-nav__foot"><b>— Reading</b>Every surface inside a cabin, named.</div>
+  </aside>
+
+  <main class="os-main">
+
+    <header class="os-head">
+      <div>
+        <span class="os-head__eb">— 06 · Cabin anatomy</span>
+        <span class="os-head__dev">कुटीर · the cabin</span>
+        <h1 class="os-head__title">Every surface, <em>annotated.</em></h1>
+        <p class="os-head__lede">The reference cabin in plan view, then each of six zones — door, bedside, kitchenette, bathroom, deck, threshold — with every object on it specified: material, dimension, supplier, replacement cycle. Two EKAM cabins on different continents share this list, item for item.</p>
+      </div>
+      <div class="os-head__meta">
+        <span>Section <b>06 / 14</b></span>
+        <span>Reading <b>~14 min</b></span>
+        <span>Updated <b>28 May 2026</b></span>
+      </div>
+    </header>
+
+    <!-- ───────── A · REFERENCE CABIN PLAN ───────── -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div><div class="os-sub__no">A<span class="os-sub__no-dev">रेखा · the plan</span></div></div>
+        <div>
+          <h2 class="os-sub__title">The reference cabin. <em>6.4 × 3.6 metres.</em></h2>
+          <p class="os-sub__lede">23 m² floor plate. One room. The bed faces the window. The kitchenette and bathroom are on the back wall. The deck extends beyond the window. Every tier (Kutir / Van / Shikhar) varies this plate by ≤ 15%; the spine of the cabin is invariant.</p>
+        </div>
+      </header>
+
+      <div class="plan">
+        <svg class="plan__svg" viewBox="0 0 640 360" aria-label="Reference cabin floor plan">
+          <!-- outer walls -->
+          <rect class="wall" x="60" y="60" width="520" height="240"/>
+          <!-- deck (outside, dashed) -->
+          <rect class="wall" x="60" y="60" width="520" height="60" stroke-dasharray="4 3" opacity="0.5"/>
+          <!-- internal divider — bathroom wall -->
+          <line class="wall" x1="440" y1="120" x2="440" y2="300"/>
+          <!-- bathroom door -->
+          <path d="M 440 220 A 24 24 0 0 1 464 244" class="feature" fill="none"/>
+          <!-- entry door (front of cabin, bottom) -->
+          <path d="M 200 300 A 30 30 0 0 0 230 330" class="feature" fill="none" transform="translate(0 -30)"/>
+          <line class="wall" x1="200" y1="300" x2="230" y2="300"/>
+
+          <!-- ============== BED ============== -->
+          <rect x="100" y="150" width="120" height="80" class="feature" fill="rgba(180,97,58,0.08)"/>
+          <text x="160" y="195" text-anchor="middle" class="name">bed</text>
+          <text x="160" y="240" text-anchor="middle" class="annotate">B</text>
+
+          <!-- bedside -->
+          <rect x="100" y="240" width="40" height="40" class="feature"/>
+          <text x="120" y="265" text-anchor="middle" class="annotate">BS</text>
+
+          <!-- window (facing valley) — top wall -->
+          <line x1="100" y1="60" x2="220" y2="60" stroke="#B4613A" stroke-width="2"/>
+          <text x="160" y="80" text-anchor="middle" class="annotate">window · view</text>
+
+          <!-- ============== KITCHENETTE ============== -->
+          <rect x="260" y="240" width="160" height="40" class="feature"/>
+          <text x="340" y="265" text-anchor="middle" class="name">kitchenette</text>
+          <text x="340" y="290" text-anchor="middle" class="annotate">K</text>
+
+          <!-- stove inset -->
+          <rect x="280" y="248" width="24" height="24" stroke="#2B4630" stroke-width="0.7" fill="none"/>
+          <!-- kettle slot -->
+          <circle cx="324" cy="260" r="8" stroke="#2B4630" stroke-width="0.7" fill="none"/>
+          <!-- chai tin -->
+          <rect x="370" y="252" width="16" height="16" stroke="#B4613A" stroke-width="0.7" fill="rgba(180,97,58,0.1)"/>
+
+          <!-- ============== BATHROOM ============== -->
+          <text x="510" y="170" text-anchor="middle" class="name">bathroom</text>
+          <text x="510" y="195" text-anchor="middle" class="annotate">BR</text>
+          <!-- geyser -->
+          <rect x="455" y="135" width="20" height="30" class="feature"/>
+          <text x="465" y="125" text-anchor="middle" class="annotate" font-size="7">geyser</text>
+          <!-- shower -->
+          <rect x="495" y="230" width="60" height="50" class="feature"/>
+
+          <!-- ============== DECK ============== -->
+          <text x="320" y="100" text-anchor="middle" class="name">deck · 6.4 × 1.6 m</text>
+          <!-- deck bench -->
+          <rect x="100" y="70" width="80" height="14" stroke="#2B4630" stroke-width="0.7" fill="rgba(180,97,58,0.05)"/>
+          <!-- marker post for cabin no. -->
+          <circle cx="60" cy="60" r="4" class="marker"/>
+
+          <!-- dimensions -->
+          <line class="dim" x1="60" y1="320" x2="580" y2="320"/>
+          <line class="dim" x1="60" y1="317" x2="60" y2="323"/>
+          <line class="dim" x1="580" y1="317" x2="580" y2="323"/>
+          <text class="dim-text" x="320" y="333" text-anchor="middle">6400 mm overall</text>
+
+          <line class="dim" x1="40" y1="120" x2="40" y2="300"/>
+          <line class="dim" x1="37" y1="120" x2="43" y2="120"/>
+          <line class="dim" x1="37" y1="300" x2="43" y2="300"/>
+          <text class="dim-text" x="35" y="215" text-anchor="middle" transform="rotate(-90 35 215)">3600 mm interior</text>
+
+          <!-- N indicator -->
+          <g transform="translate(610 90)">
+            <circle r="10" fill="none" stroke="#B4613A" stroke-width="0.4"/>
+            <path d="M 0 -7 L 2 0 L 0 7 L -2 0 Z" fill="#B4613A"/>
+            <text y="-13" text-anchor="middle" font-family="Inter" font-size="7" fill="#B4613A">N</text>
+          </g>
+        </svg>
+      </div>
+
+      <p style="font-family: var(--font-editorial); font-style: italic; font-size: 13.5px; color: var(--moss); line-height: 1.6; margin: 18px 0 0; max-width: 720px;">
+        <strong style="font-family: var(--font-ui); font-style: normal; font-size: 11px; letter-spacing: 1.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500;">— Floor area</strong>&nbsp;&nbsp;
+        Interior <b style="font-family: 'Inter', sans-serif; font-style: normal; color: var(--forest); font-weight: 500;">23.0 m²</b> · deck <b style="font-family: 'Inter', sans-serif; font-style: normal; color: var(--forest); font-weight: 500;">10.2 m²</b> · footprint <b style="font-family: 'Inter', sans-serif; font-style: normal; color: var(--forest); font-weight: 500;">33.2 m²</b>. The bed faces the window. The kitchenette and bathroom are on the back wall, away from the view. The door enters from the side — never from the front, so the first thing the guest sees is the window, not the entry.
+      </p>
+    </section>
+
+    <!-- ───────── B · DOOR & ENTRY ───────── -->
+    <section class="os-sub">
+      <div class="zone-head">
+        <span class="zone-head__no">B</span>
+        <div class="zone-head__body">
+          <h2 class="zone-head__name">The door &amp; entry threshold</h2>
+          <p class="zone-head__what">What the guest touches first. Cabin plate outside; key handover on threshold; first object on entry is a chalkboard with their name.</p>
+        </div>
+      </div>
+
+      <table class="surface">
+        <thead><tr><th>Item</th><th>Material &amp; spec</th><th>Supplier · cycle</th></tr></thead>
+        <tbody>
+          <tr><td class="item">Cabin number plate</td><td class="mat"><b>Forest MS plate</b> · 220 × 360 mm · plinth-mounted at 1100 mm centre · per `04-signage` §C</td><td class="cycle">Roorkee Sign Studio<br/><em>7 yr</em></td></tr>
+          <tr><td class="item">Door</td><td class="mat"><b>Cedar timber</b> · 1000 × 2100 mm × 45 mm · vertical board · charcoal-tinted tung oil · brass hardware</td><td class="cycle">Local joinery<br/><em>25–40 yr</em></td></tr>
+          <tr><td class="item">Door handle</td><td class="mat"><b>Sandblasted brass</b> · lever handle · 140 mm · pearwood backplate · brass screws</td><td class="cycle">Auroville Brass<br/><em>50+ yr · patina</em></td></tr>
+          <tr><td class="item">Lock</td><td class="mat">5-pin tumbler · brass cylinder · keyed to the guest's brass tag · app-unlock pending (see Companion `E5`)</td><td class="cycle">Local · brass tag<br/><em>annual oil</em></td></tr>
+          <tr><td class="item">Threshold mat</td><td class="mat"><b>Jute weave</b> · 60 × 100 cm · raw undyed · no logo · no rubber backing</td><td class="cycle">Local cooperative<br/><em>seasonal · 1 yr</em></td></tr>
+          <tr><td class="item">Welcome chalkboard</td><td class="mat"><b>Pearwood</b> 200 × 280 mm · chalk-finished forest-paint inset · guest first name written in Caveat by Aarav</td><td class="cycle">Nainital joinery<br/><em>re-paint at 5 yr</em></td></tr>
+          <tr><td class="item">Coat hook row</td><td class="mat">3 brass hooks · sandblasted matte · mounted on a single pearwood batten · centre at 1650 mm</td><td class="cycle">Auroville Brass<br/><em>50+ yr</em></td></tr>
+          <tr><td class="item">Boot tray</td><td class="mat">Concrete · 500 × 300 × 40 mm · grey · sand-rubbed · drains forward</td><td class="cycle">Local cast<br/><em>40+ yr</em></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ───────── C · BEDSIDE ───────── -->
+    <section class="os-sub">
+      <div class="zone-head">
+        <span class="zone-head__no">C</span>
+        <div class="zone-head__body">
+          <h2 class="zone-head__name">The bed &amp; bedside</h2>
+          <p class="zone-head__what">Bed faces the window. One lamp. One journal. One pencil. One carafe of water. Nothing more.</p>
+        </div>
+      </div>
+
+      <table class="surface">
+        <thead><tr><th>Item</th><th>Material &amp; spec</th><th>Supplier · cycle</th></tr></thead>
+        <tbody>
+          <tr><td class="item">Bed frame</td><td class="mat"><b>Cedar timber</b> · 1900 × 1500 mm queen · platform style, no headboard taller than 600 mm · charcoal-tinted</td><td class="cycle">Local joinery<br/><em>25 yr</em></td></tr>
+          <tr><td class="item">Mattress</td><td class="mat">Natural cotton + coconut coir · medium-firm · 200 mm thick · no springs · no synthetic foam</td><td class="cycle">Kerala mills<br/><em>refresh 8 yr</em></td></tr>
+          <tr><td class="item">Linen set</td><td class="mat"><b>Khadi cotton</b> · cream undyed · 250 GSM · two duvet covers, two flat sheets, four pillowcases per bed</td><td class="cycle">Khadi Mission<br/><em>2 yr</em></td></tr>
+          <tr><td class="item">Bedside table</td><td class="mat"><b>Pearwood</b> · 400 × 400 × 600 mm · single drawer · brass pull · matte tung-oil finish</td><td class="cycle">Nainital joinery<br/><em>20+ yr</em></td></tr>
+          <tr><td class="item">Bedside lamp</td><td class="mat">Brass base · cream linen shade · 5 W warm LED · pull-chain switch · no dimmer</td><td class="cycle">Auroville · 5 yr bulb</td></tr>
+          <tr><td class="item">The journal</td><td class="mat"><b>240 gsm cream</b> · jute-bound · 48 pages · screen-printed cabin number + tier on cover · pearwood pencil clipped in</td><td class="cycle">Modi Press · new per stay</td></tr>
+          <tr><td class="item">Water carafe</td><td class="mat">Borosilicate glass · 1 L · pearwood lid · brass embedded mark "एकम्" on the lid</td><td class="cycle">Local glassblower<br/><em>10+ yr</em></td></tr>
+          <tr><td class="item">Drinking glass</td><td class="mat">Same family · 200 ml · two per cabin</td><td class="cycle">Local · 10+ yr</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ───────── D · KITCHENETTE ───────── -->
+    <section class="os-sub">
+      <div class="zone-head">
+        <span class="zone-head__no">D</span>
+        <div class="zone-head__body">
+          <h2 class="zone-head__name">The kitchenette</h2>
+          <p class="zone-head__what">A stove. A kettle. Three teas. One jar of jaggery. One bowl of seasonal fruit. <em>Not a kitchen — a chai surface.</em></p>
+        </div>
+      </div>
+
+      <table class="surface">
+        <thead><tr><th>Item</th><th>Material &amp; spec</th><th>Supplier · cycle</th></tr></thead>
+        <tbody>
+          <tr><td class="item">Counter top</td><td class="mat"><b>Local stone</b> · sandstone slab · 600 × 1800 × 30 mm · sealed only against oil</td><td class="cycle">Local quarry<br/><em>40+ yr</em></td></tr>
+          <tr><td class="item">Cabinetry</td><td class="mat"><b>Cedar timber</b> · two-door under-counter · brass knobs · sand-papered, tung-oiled</td><td class="cycle">Nainital joinery<br/><em>25+ yr</em></td></tr>
+          <tr><td class="item">Gas stove</td><td class="mat">Two-burner manual LPG · cast iron · no electronic ignition · separate regulator labelled per `04-signage`</td><td class="cycle">Local · annual service</td></tr>
+          <tr><td class="item">The kettle</td><td class="mat"><b>Copper kettle</b> · 1.2 L · brass handle · whistles when ready · no plastic anywhere on the kettle</td><td class="cycle">Moradabad copper<br/><em>10+ yr · polished annually by host</em></td></tr>
+          <tr><td class="item">The chai tin</td><td class="mat"><b>Brass tin</b> · 120 × 80 × 60 mm · etched "चाय" + EKAM mark · holds Darjeeling first flush · 100 g · refilled per stay</td><td class="cycle">Auroville Brass<br/><em>50+ yr · contents · weekly</em></td></tr>
+          <tr><td class="item">Three teas</td><td class="mat">Darjeeling first flush · Kangra green · Himalayan tulsi · brass tins · cream paper labels · screen-printed forest</td><td class="cycle">Tea cooperative<br/><em>weekly refill</em></td></tr>
+          <tr><td class="item">Jaggery jar</td><td class="mat">Borosilicate jar · pearwood lid · 250 g organic gur from local mill</td><td class="cycle">Local mill<br/><em>weekly refill</em></td></tr>
+          <tr><td class="item">Fruit bowl</td><td class="mat"><b>Brass bowl</b> · 280 mm dia · sandblasted matte · seasonal fruit (apple in autumn, plum in summer, walnut in winter)</td><td class="cycle">Auroville Brass<br/><em>50+ yr · contents · daily</em></td></tr>
+          <tr><td class="item">Utensils</td><td class="mat">Two cedar spoons · one brass strainer · one pearwood cutting board · one steel knife · all hand-finished, no plastic</td><td class="cycle">Local · refresh as needed</td></tr>
+          <tr><td class="item">No refrigerator</td><td class="mat"><em>Intentionally absent.</em> The chai is fresh, the fruit is seasonal, the milk is delivered at 6:00 in a brass canister.</td><td class="cycle">—</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ───────── E · BATHROOM ───────── -->
+    <section class="os-sub">
+      <div class="zone-head">
+        <span class="zone-head__no">E</span>
+        <div class="zone-head__body">
+          <h2 class="zone-head__name">The bathroom</h2>
+          <p class="zone-head__what">A wood-fired geyser. Hot water at 6:30 and 9:00 (panel on door). One brass shower head. One mirror, no second mirror. Towels are khadi.</p>
+        </div>
+      </div>
+
+      <table class="surface">
+        <thead><tr><th>Item</th><th>Material &amp; spec</th><th>Supplier · cycle</th></tr></thead>
+        <tbody>
+          <tr><td class="item">Wood-fired geyser</td><td class="mat"><b>Copper tank · steel firebox</b> · 30 L · fed from rainwater tank · lit manually by the cabin team · ceramic plate labels switch position</td><td class="cycle">Local · annual descale</td></tr>
+          <tr><td class="item">Hot-water plate</td><td class="mat">Ceramic tile · 120 × 80 mm · iron-oxide print · "HOT WATER · 6:30 &amp; 9:00" · per `04-signage` §E</td><td class="cycle">Local kiln · 20+ yr</td></tr>
+          <tr><td class="item">Shower head</td><td class="mat"><b>Brass · sandblasted matte</b> · single rainfall · 120 mm dia · no hand-held attachment · no dual-control</td><td class="cycle">Jaipur brass · 25+ yr</td></tr>
+          <tr><td class="item">Basin</td><td class="mat">Hand-thrown stoneware · cream glaze · 360 mm dia · sits on a pearwood ledge · brass tap with pearwood handle</td><td class="cycle">Local pottery · 20+ yr</td></tr>
+          <tr><td class="item">Mirror</td><td class="mat">Single mirror · 500 × 700 mm · brass frame · sandblasted edges · mounted at 1500 mm centre · <em>no second mirror anywhere</em></td><td class="cycle">Local · 20+ yr</td></tr>
+          <tr><td class="item">Towel set</td><td class="mat"><b>Khadi cotton</b> · cream undyed · 4 sizes (bath, hand, face, foot) · 3 of each per cabin · folded on a single pearwood shelf</td><td class="cycle">Khadi Mission · 2 yr</td></tr>
+          <tr><td class="item">Soap</td><td class="mat">Cold-processed olive oil · unscented · 90 g bar · wrapped in cream paper · no plastic dispenser</td><td class="cycle">Auroville soaps · per stay</td></tr>
+          <tr><td class="item">No toiletries</td><td class="mat"><em>Intentionally absent.</em> No shampoo bottles, no mini-bottles, no plastic. Guests bring what they need or borrow from reception.</td><td class="cycle">—</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ───────── F · DECK ───────── -->
+    <section class="os-sub">
+      <div class="zone-head">
+        <span class="zone-head__no">F</span>
+        <div class="zone-head__body">
+          <h2 class="zone-head__name">The deck</h2>
+          <p class="zone-head__what">A bench. A small table. A doorstep lantern lit at dusk by the host. The deck extends 1.6 m beyond the cabin window, framed by cedar rails, no glass barriers.</p>
+        </div>
+      </div>
+
+      <table class="surface">
+        <thead><tr><th>Item</th><th>Material &amp; spec</th><th>Supplier · cycle</th></tr></thead>
+        <tbody>
+          <tr><td class="item">Deck floor</td><td class="mat"><b>Cedar planks</b> · 28 × 140 × 6400 mm · ship-lap · 3 mm gaps · charcoal-tinted tung oil · slip rating R10</td><td class="cycle">Local mill<br/><em>re-oil 3 yr · replace 25+ yr</em></td></tr>
+          <tr><td class="item">Deck rail</td><td class="mat">Cedar · 1100 mm height · single horizontal · no balusters · no glass · brass fixings</td><td class="cycle">Local joinery · 25+ yr</td></tr>
+          <tr><td class="item">Deck bench</td><td class="mat"><b>Cedar single plank</b> · 1800 × 400 × 450 mm · no back · tung-oiled · brass leg brackets</td><td class="cycle">Local joinery · 25+ yr</td></tr>
+          <tr><td class="item">Deck table</td><td class="mat">Cedar · 600 × 600 × 480 mm low table · matched to bench · brass corner brackets</td><td class="cycle">Local joinery · 25+ yr</td></tr>
+          <tr><td class="item">Doorstep lantern</td><td class="mat"><b>Brass + glass</b> · oil-fed · 280 mm tall · lit at dusk by host · extinguished at 22:00 · per `05-wayfinding` §D exception 1</td><td class="cycle">Local glassblower · 15+ yr</td></tr>
+          <tr><td class="item">Marker post</td><td class="mat">Cedar · 100 × 100 × 1500 mm · branded cabin number at top · per `05-wayfinding` §C</td><td class="cycle">Local mill · 15 yr</td></tr>
+          <tr><td class="item">Ash tray · refusal</td><td class="mat"><em>Intentionally absent.</em> Smoking is not permitted on site (`04-signage` §D · panel 1). Ash trays are not provided.</td><td class="cycle">—</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ───────── G · ROLL-UP TABLE ───────── -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div><div class="os-sub__no">G<span class="os-sub__no-dev">सम्पूर्ण · the total</span></div></div>
+        <div>
+          <h2 class="os-sub__title">A cabin in a row of numbers.</h2>
+          <p class="os-sub__lede">The summary inventory. A new property opens with this list; a partner property is audited against it.</p>
+        </div>
+      </header>
+
+      <div class="os-prose">
+        <p><strong>Floor area</strong> · 23.0 m² interior · 10.2 m² deck · 33.2 m² total footprint.</p>
+        <p><strong>Total objects in a cabin</strong> · ~52 named items across 6 zones (door 8, bedside 8, kitchenette 10, bathroom 8, deck 7, plus 11 fixed building elements).</p>
+        <p><strong>Total brass objects</strong> · 14 (hardware, kettle, tin, bowl, lantern, tap, shower, mirror frame, hooks, brand marks).</p>
+        <p><strong>Total cedar objects</strong> · 8 (door, frame, cabinetry, bench, table, deck planks, marker post, rail).</p>
+        <p><strong>Total pearwood objects</strong> · 7 (bedside table, lid for carafe, cutting board, shelf, batten, lantern base, pencils).</p>
+        <p><strong>Items the cabin <em>does not</em> have</strong> · refrigerator, second mirror, ash tray, TV, telephone landline, decorative wall art, headboard taller than 600 mm, plastic bottle of anything, paper-printed signage.</p>
+        <p><strong>Variant from this list</strong> · ≤ 15% by tier (Kutir keeps the list; Van adds a hammock; Shikhar adds a writing desk and a second lantern; Chai is a public-area variant, not a residential cabin).</p>
+      </div>
+    </section>
+
+    <footer class="os-foot">
+      <div class="os-foot__cell">
+        <span class="os-foot__lbl">— Previous · 05</span>
+        <a class="os-foot__link" href="05-wayfinding.html">Wayfinding</a>
+      </div>
+      <div class="os-foot__cell next">
+        <span class="os-foot__lbl">— Next · 07</span>
+        <a class="os-foot__link" href="#" style="opacity: 0.4; pointer-events: none;">Guest journey · pending</a>
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+</body>
+</html>

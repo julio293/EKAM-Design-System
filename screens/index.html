@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EKAM Mobile · Screens browser</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: #0c1410; color: var(--cream); font-family: var(--font-body); -webkit-font-smoothing: antialiased; overflow: hidden; }
+
+  /* ─── Layout: sidebar + stage ─── */
+  .app {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    height: 100vh; min-height: 100dvh;
+    overflow: hidden;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     SIDEBAR
+     ═══════════════════════════════════════════════════════════ */
+  .nav {
+    background: var(--ink);
+    border-right: 1px solid rgba(180,97,58,0.18);
+    display: flex; flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .nav__brand {
+    padding: 28px 28px 22px;
+    border-bottom: 1px solid rgba(180,97,58,0.18);
+  }
+  .nav__brand-eb {
+    font-family: var(--font-ui); font-size: 10px;
+    letter-spacing: 3px; color: var(--bindu);
+    text-transform: uppercase; font-weight: 500;
+    display: block; margin-bottom: 8px;
+  }
+  .nav__brand-dev {
+    font-family: var(--font-devanagari); font-size: 14px;
+    color: var(--bindu); letter-spacing: 1.5px;
+  }
+  .nav__brand-wm {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: 26px; letter-spacing: 0.1em;
+    color: var(--cream);
+    margin-top: 8px;
+    display: inline-block;
+  }
+  .nav__brand-wm .dot {
+    display: inline-block;
+    width: 0.12em; height: 0.12em; border-radius: 50%;
+    background: var(--bindu);
+    vertical-align: 0.30em;
+  }
+  .nav__brand-tag {
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 12px; color: rgba(250,247,240,0.55);
+    line-height: 1.5; margin-top: 10px;
+  }
+
+  .nav__list {
+    flex: 1;
+    padding: 18px 14px;
+    display: flex; flex-direction: column;
+    gap: 4px;
+  }
+
+  .nav__item {
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    gap: 14px;
+    padding: 14px 14px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    text-decoration: none;
+    color: rgba(250,247,240,0.7);
+    cursor: pointer;
+    background: transparent;
+    text-align: left;
+    transition: background 180ms, color 180ms, border-color 180ms;
+    align-items: baseline;
+  }
+  .nav__item:hover {
+    background: rgba(250,247,240,0.04);
+    color: var(--cream);
+  }
+  .nav__item.is-on {
+    background: rgba(180,97,58,0.14);
+    border-color: rgba(180,97,58,0.5);
+    color: var(--cream);
+  }
+
+  .nav__item-no {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 18px; color: var(--bindu);
+    font-weight: 400; line-height: 1;
+  }
+  .nav__item-body { display: flex; flex-direction: column; gap: 3px; }
+  .nav__item-dev {
+    font-family: var(--font-devanagari);
+    font-size: 11px; color: rgba(180,97,58,0.85);
+    letter-spacing: 1px; line-height: 1;
+  }
+  .nav__item-title {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: 17px; letter-spacing: 0.3px;
+    line-height: 1.15;
+    color: inherit;
+  }
+  .nav__item-sub {
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 11.5px; color: rgba(250,247,240,0.45);
+    line-height: 1.35; margin-top: 2px;
+  }
+  .nav__item.is-on .nav__item-sub { color: rgba(250,247,240,0.6); }
+
+  .nav__item-arrow {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 18px; color: rgba(180,97,58,0.4);
+    align-self: center;
+    transition: color 180ms, transform 180ms;
+  }
+  .nav__item:hover .nav__item-arrow { color: var(--bindu); transform: translateX(2px); }
+  .nav__item.is-on .nav__item-arrow { color: var(--bindu); }
+
+  .nav__foot {
+    padding: 20px 28px 24px;
+    border-top: 1px solid rgba(180,97,58,0.18);
+  }
+  .nav__foot-eb {
+    font-family: var(--font-ui); font-size: 9.5px;
+    letter-spacing: 2px; color: var(--bindu);
+    text-transform: uppercase; font-weight: 500;
+    display: block; margin-bottom: 8px;
+  }
+  .nav__foot-p {
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 12.5px; color: rgba(250,247,240,0.55);
+    line-height: 1.5; margin: 0;
+  }
+  .nav__foot-p a { color: var(--bindu); text-decoration: none; border-bottom: 1px dotted rgba(180,97,58,0.5); }
+
+  /* ═══════════════════════════════════════════════════════════
+     STAGE
+     ═══════════════════════════════════════════════════════════ */
+  .stage {
+    position: relative;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+
+  .stage__bar {
+    padding: 16px 28px;
+    background: rgba(20,32,26,0.5);
+    border-bottom: 1px solid rgba(180,97,58,0.15);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-shrink: 0;
+  }
+  .stage__bar-eb {
+    font-family: var(--font-ui); font-size: 10px;
+    letter-spacing: 2.5px; color: var(--bindu);
+    text-transform: uppercase; font-weight: 500;
+  }
+  .stage__bar-title {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: 16px; color: var(--cream);
+    letter-spacing: 0.3px;
+    margin-left: 18px;
+    display: inline-block;
+  }
+  .stage__bar-title em { font-family: var(--font-editorial); font-style: italic; color: var(--bindu); font-weight: 400; }
+  .stage__bar-right { display: flex; gap: 8px; align-items: center; }
+  .stage__bar-link {
+    font-family: var(--font-ui); font-size: 10px;
+    letter-spacing: 1.8px; color: rgba(250,247,240,0.55);
+    text-transform: uppercase; font-weight: 500;
+    text-decoration: none;
+    padding: 6px 12px;
+    border: 1px solid rgba(180,97,58,0.32);
+    border-radius: 4px;
+    transition: color 180ms, border-color 180ms;
+  }
+  .stage__bar-link:hover { color: var(--bindu); border-color: var(--bindu); }
+
+  .stage__frame {
+    flex: 1;
+    position: relative;
+    background: #0c1410;
+    overflow: hidden;
+  }
+  .stage__iframe {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    border: 0;
+    background: transparent;
+    opacity: 0;
+    transition: opacity 320ms ease;
+  }
+  .stage__iframe.is-loaded { opacity: 1; }
+
+  .stage__loading {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 14px;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 220ms ease;
+  }
+  .stage__loading.is-hidden { opacity: 0; }
+  .stage__loading-dot {
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--bindu);
+    animation: pulse 2.2s cubic-bezier(0.22,0.68,0.16,1) infinite;
+  }
+  @keyframes pulse {
+    0%,100% { transform: scale(0.55); opacity: 0.4; box-shadow: 0 0 0 0 rgba(180,97,58,0.35); }
+    50%     { transform: scale(1);    opacity: 1;   box-shadow: 0 0 0 12px rgba(180,97,58,0); }
+  }
+  .stage__loading-text {
+    font-family: var(--font-ui); font-size: 10px;
+    letter-spacing: 2px; color: rgba(250,247,240,0.4);
+    text-transform: uppercase; font-weight: 500;
+  }
+
+  /* ─── Tablet down ─── */
+  @media (max-width: 880px) {
+    .app { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+    .nav { border-right: 0; border-bottom: 1px solid rgba(180,97,58,0.18); max-height: 40vh; }
+    .nav__list { padding: 12px; }
+    .nav__item { padding: 10px 12px; }
+    .nav__brand { padding: 18px 22px; }
+    .nav__foot { display: none; }
+    .stage__bar { padding: 12px 18px; }
+    .stage__bar-title { font-size: 13px; margin-left: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SIDEBAR
+       ═══════════════════════════════════════════════════════════ -->
+  <aside class="nav">
+    <div class="nav__brand">
+      <span class="nav__brand-eb">— Mobile screens · browser</span>
+      <span class="nav__brand-dev">पट · the screens, alone</span>
+      <div class="nav__brand-wm">E<span class="dot"></span>KAM</div>
+      <p class="nav__brand-tag">Click any chapter to load its phone-only viewer in the stage.</p>
+    </div>
+
+    <div class="nav__list" id="nav-list">
+      <button class="nav__item is-on" data-src="onboarding.html" data-title="Chapter I · Onboarding" data-doc="../EKAM Mobile - Onboarding.html">
+        <span class="nav__item-no">I</span>
+        <div class="nav__item-body">
+          <span class="nav__item-dev">क्रम · the order</span>
+          <span class="nav__item-title">Onboarding</span>
+          <span class="nav__item-sub">A letter, an intent, a held shortlist</span>
+        </div>
+        <span class="nav__item-arrow">→</span>
+      </button>
+
+      <button class="nav__item" data-src="home.html" data-title="Chapter II · Home &amp; Discovery" data-doc="../EKAM Mobile - Home &amp; Discovery.html">
+        <span class="nav__item-no">II</span>
+        <div class="nav__item-body">
+          <span class="nav__item-dev">खोज · seek</span>
+          <span class="nav__item-title">Home &amp; Discovery</span>
+          <span class="nav__item-sub">Editorial feed, topographic map, saved escapes</span>
+        </div>
+        <span class="nav__item-arrow">→</span>
+      </button>
+
+      <button class="nav__item" data-src="property.html" data-title="Chapter III · Property &amp; Booking" data-doc="../EKAM Mobile - Property &amp; Booking.html">
+        <span class="nav__item-no">III</span>
+        <div class="nav__item-body">
+          <span class="nav__item-dev">कुटीर · the cabin</span>
+          <span class="nav__item-title">Property &amp; Booking</span>
+          <span class="nav__item-sub">Hero, included, reviews, sheet, lead guest, confirmed</span>
+        </div>
+        <span class="nav__item-arrow">→</span>
+      </button>
+
+      <button class="nav__item" data-src="saved.html" data-title="Chapter IV · Saved &amp; Membership" data-doc="../EKAM Mobile - Saved &amp; Membership.html">
+        <span class="nav__item-no">IV</span>
+        <div class="nav__item-body">
+          <span class="nav__item-dev">मन · the shortlist</span>
+          <span class="nav__item-title">Saved &amp; Membership</span>
+          <span class="nav__item-sub">Saved escapes, empty state, profile, journeys</span>
+        </div>
+        <span class="nav__item-arrow">→</span>
+      </button>
+
+      <button class="nav__item" data-src="profile.html" data-title="Chapter V · Profile, Mudra &amp; Referral" data-doc="../EKAM Mobile - Profile, Mudra &amp; Referral.html">
+        <span class="nav__item-no">V</span>
+        <div class="nav__item-body">
+          <span class="nav__item-dev">मुद्रा · the seal</span>
+          <span class="nav__item-title">Profile, Mudra &amp; Referral</span>
+          <span class="nav__item-sub">Mudra map, journal page, balance, invitation</span>
+        </div>
+        <span class="nav__item-arrow">→</span>
+      </button>
+
+      <button class="nav__item" data-src="companion.html" data-title="Chapter VI · Companion (in-stay)" data-doc="../EKAM Mobile - Companion.html">
+        <span class="nav__item-no">VI</span>
+        <div class="nav__item-body">
+          <span class="nav__item-dev">साथ · with you</span>
+          <span class="nav__item-title">Companion (in-stay)</span>
+          <span class="nav__item-sub">Home, cabin, today, kitchen, trails, rituals</span>
+        </div>
+        <span class="nav__item-arrow">→</span>
+      </button>
+    </div>
+
+    <div class="nav__foot">
+      <span class="nav__foot-eb">— How this works</span>
+      <p class="nav__foot-p">Each viewer reuses its chapter's full code (<code style="font-family: 'Inter', monospace; font-size: 11px; color: var(--bindu);">data + screens + app</code>) and applies a CSS layer that hides the documentation around the phone — so what you see is the live, working app on a clean dark stage.</p>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       STAGE
+       ═══════════════════════════════════════════════════════════ -->
+  <main class="stage">
+    <div class="stage__bar">
+      <div>
+        <span class="stage__bar-eb">— Now showing</span>
+        <span class="stage__bar-title" id="stage-title">Chapter I · <em>Onboarding</em></span>
+      </div>
+      <div class="stage__bar-right">
+        <a class="stage__bar-link" id="stage-doc-link" href="../EKAM Mobile - Onboarding.html" target="_top">Open full document ↗</a>
+        <a class="stage__bar-link" id="stage-popout-link" href="onboarding.html" target="_blank">Open in new tab ↗</a>
+      </div>
+    </div>
+
+    <div class="stage__frame">
+      <div class="stage__loading" id="stage-loading">
+        <span class="stage__loading-dot"></span>
+        <span class="stage__loading-text">Loading chapter</span>
+      </div>
+      <iframe class="stage__iframe" id="stage-iframe" src="onboarding.html" title="Phone-only chapter viewer"></iframe>
+    </div>
+  </main>
+
+</div>
+
+<script>
+(function () {
+  const items   = document.querySelectorAll('.nav__item');
+  const iframe  = document.getElementById('stage-iframe');
+  const loading = document.getElementById('stage-loading');
+  const title   = document.getElementById('stage-title');
+  const doc     = document.getElementById('stage-doc-link');
+  const popout  = document.getElementById('stage-popout-link');
+
+  const STORAGE_KEY = 'ekam-screens-browser-src';
+
+  function setActive(src) {
+    items.forEach(item => item.classList.toggle('is-on', item.dataset.src === src));
+  }
+
+  function load(src, opts = {}) {
+    const item = [...items].find(i => i.dataset.src === src);
+    if (!item) return;
+
+    setActive(src);
+    title.innerHTML = item.dataset.title;
+    doc.href = item.dataset.doc;
+    popout.href = src;
+
+    iframe.classList.remove('is-loaded');
+    loading.classList.remove('is-hidden');
+
+    iframe.src = src;
+    localStorage.setItem(STORAGE_KEY, src);
+
+    if (opts.scroll !== false) {
+      // No scroll behaviour — sidebar is sticky.
+    }
+  }
+
+  iframe.addEventListener('load', () => {
+    iframe.classList.add('is-loaded');
+    loading.classList.add('is-hidden');
+  });
+
+  items.forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      load(item.dataset.src);
+    });
+  });
+
+  // Restore the last-viewed chapter on reload.
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved && [...items].some(i => i.dataset.src === saved)) {
+    load(saved);
+  }
+})();
+</script>
+
+</body>
+</html>

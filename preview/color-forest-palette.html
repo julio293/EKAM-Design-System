@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>EKAM · Forest Palette</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { height: 100%; }
+  .stage { width: 700px; min-height: 240px; padding: 32px 48px; background: var(--forest); }
+  .row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid rgba(236,228,211,0.18); }
+  .sw { padding: 16px; min-height: 120px; display: flex; flex-direction: column; justify-content: flex-end; border-right: 1px solid rgba(236,228,211,0.18); }
+  .sw:last-child { border-right: 0; }
+  .sw .nm { font-family: var(--font-ui); font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--cream); margin-bottom: 4px; }
+  .sw .hex { font-family: var(--font-ui); font-size: 10px; font-weight: 300; letter-spacing: 1px; color: var(--moss-on-forest); }
+  .sw.ink     { background: var(--ink); }
+  .sw.forest  { background: var(--forest); }
+  .sw.deep    { background: var(--forest-deep); }
+  .sw.sage    { background: var(--sage); }
+  .sw.sage .nm  { color: var(--ink); }
+  .sw.sage .hex { color: var(--forest); }
+  .caption { font-family: var(--font-editorial); font-style: italic; font-size: 13px; color: var(--sage); margin-top: 18px; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="row">
+      <div class="sw ink"><div class="nm">Ink</div><div class="hex">#14201A — night</div></div>
+      <div class="sw forest"><div class="nm">Forest</div><div class="hex">#2B4630 — canopy at dusk</div></div>
+      <div class="sw deep"><div class="nm">Forest Deep</div><div class="hex">#1F3525 — inner recess</div></div>
+      <div class="sw sage"><div class="nm">Sage</div><div class="hex">#C9D6BC — young leaves</div></div>
+    </div>
+    <p class="caption">Depth, on-forest. About 30% of a layout. Ink is for hero, type, and night-mode sections.</p>
+  </div>
+</body>
+</html>

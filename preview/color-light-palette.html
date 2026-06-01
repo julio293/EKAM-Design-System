@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>EKAM · Light Palette</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { height: 100%; }
+  .stage {
+    width: 700px; min-height: 280px;
+    padding: 28px 32px;
+    background: var(--cream);
+  }
+
+  /* Primary row — one large feature swatch with usage % */
+  .primary {
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 1px solid var(--bone);
+    margin-bottom: 0;
+  }
+  .primary__fill {
+    background: var(--cream);
+    height: 120px;
+    border-bottom: 1px solid var(--bone);
+    position: relative;
+  }
+  .primary__pct {
+    position: absolute;
+    right: 18px;
+    top: 14px;
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--bindu);
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  .primary__caption {
+    padding: 14px 18px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 18px;
+  }
+  .primary__caption .nm {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--forest);
+    letter-spacing: 1px;
+    font-weight: 400;
+  }
+  .primary__caption .hex {
+    font-family: var(--font-ui);
+    font-size: 10.5px;
+    letter-spacing: 2px;
+    color: var(--moss);
+    font-weight: 500;
+  }
+  .primary__caption .role {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--moss);
+    flex: 1;
+    text-align: right;
+  }
+
+  /* Supporting row — smaller swatches, no percentage */
+  .supporting {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--bone);
+    border-top: 0;
+  }
+  .sup {
+    border-right: 1px solid var(--bone);
+    display: flex;
+    flex-direction: column;
+  }
+  .sup:last-child { border-right: 0; }
+  .sup__fill { height: 60px; border-bottom: 1px solid var(--bone); }
+  .sup__caption {
+    padding: 10px 14px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .sup__caption .nm {
+    font-family: var(--font-display);
+    font-size: 15px;
+    color: var(--forest);
+    letter-spacing: 0.5px;
+    font-weight: 400;
+  }
+  .sup__caption .hex {
+    font-family: var(--font-ui);
+    font-size: 9.5px;
+    letter-spacing: 1.5px;
+    color: var(--moss);
+    font-weight: 500;
+  }
+  .sup__role {
+    padding: 0 14px 12px;
+    font-family: var(--font-ui);
+    font-size: 9.5px;
+    letter-spacing: 1.2px;
+    color: var(--moss);
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+
+  .caption-line {
+    margin-top: 16px;
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 12.5px;
+    color: var(--moss);
+    line-height: 1.55;
+  }
+  .caption-line b {
+    font-family: var(--font-ui);
+    font-style: normal;
+    font-weight: 500;
+    color: var(--bindu);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-right: 8px;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="primary">
+      <div class="primary__fill">
+        <span class="primary__pct">60% · Page surface</span>
+      </div>
+      <div class="primary__caption">
+        <span class="nm">Cream</span>
+        <span class="hex">#FAF7F0</span>
+        <span class="role">Morning mist — the default ground.</span>
+      </div>
+    </div>
+
+    <div class="supporting">
+      <div class="sup">
+        <div class="sup__fill" style="background:#F4EDE1;"></div>
+        <div class="sup__caption"><span class="nm">Sand</span><span class="hex">#F4EDE1</span></div>
+        <div class="sup__role">Light cards · panels</div>
+      </div>
+      <div class="sup">
+        <div class="sup__fill" style="background:#ECE4D3;"></div>
+        <div class="sup__caption"><span class="nm">Bone</span><span class="hex">#ECE4D3</span></div>
+        <div class="sup__role">Hairlines · borders</div>
+      </div>
+      <div class="sup">
+        <div class="sup__fill" style="background:#D8D3C4;"></div>
+        <div class="sup__caption"><span class="nm">Mist</span><span class="hex">#D8D3C4</span></div>
+        <div class="sup__role">Dividers · low surface</div>
+      </div>
+      <div class="sup">
+        <div class="sup__fill" style="background:#7A8A6B;"></div>
+        <div class="sup__caption"><span class="nm" style="color:var(--cream);background:transparent;">Moss</span><span class="hex">#7A8A6B</span></div>
+        <div class="sup__role">Secondary text · labels</div>
+      </div>
+    </div>
+
+    <p class="caption-line"><b>Per BOS Ch. 17</b>One primary surface (Cream, 60%) with four supporting tones. The rule of saffron — clay sits beside this palette but never inside it.</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,517 @@
+/* ============================================================
+   EKAM Design System — Foundational Tokens
+   Colors · Typography · Spacing · Motion · Borders
+   ============================================================
+   Earth before accent. Cream, forest, a single clay dot.
+   Usage ratio: 60% Cream/Sand · 30% Forest · 8% Ink · 2% Bindu Clay.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&display=swap');
+
+/* ---------- LOCAL FONTS · Cormorant Garamond (variable) ---------- */
+/* The brand wordmark family. Variable wght axis. */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('fonts/CormorantGaramond-VariableFont_wght.ttf') format('truetype-variations');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('fonts/CormorantGaramond-Italic-VariableFont_wght.ttf') format('truetype-variations');
+}
+
+/* ---------- LOCAL FONTS · Fraunces (variable, SOFT, WONK, opsz axes) ---------- */
+/* The "Storytelling" face per BOS Volume IV. Italic is the voice. */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('fonts/Fraunces-VariableFont.ttf') format('truetype-variations');
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('fonts/Fraunces-Italic-VariableFont.ttf') format('truetype-variations');
+}
+
+/* ---------- LOCAL FONTS · Tiro Devanagari Hindi ---------- */
+/* The Sanskrit script — एकम् कुटीर वन शिखर. */
+
+@font-face {
+  font-family: 'Tiro Devanagari Hindi';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/TiroDevanagariHindi-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Tiro Devanagari Hindi';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/TiroDevanagariHindi-Italic.ttf') format('truetype');
+}
+
+/* ---------- LOCAL FONTS · Raleway (variable) ---------- */
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('fonts/Raleway-VariableFont_wght.ttf') format('truetype-variations');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('fonts/Raleway-Italic-VariableFont_wght.ttf') format('truetype-variations');
+}
+
+/* ---------- LOCAL FONTS · Inter (variable, opsz axis) ---------- */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype-variations');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('fonts/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype-variations');
+}
+
+:root {
+  color-scheme: light;
+
+  /* ---------- COLOR · earth palette ---------- */
+
+  /* Surfaces — light */
+  --cream:        #FAF7F0;   /* morning mist · page background */
+  --sand:         #F4EDE1;   /* ground at first light · light cards */
+  --bone:         #ECE4D3;   /* weathered wood · tertiary surfaces, subtle borders */
+  --mist:         #D8D3C4;   /* fog sitting low · dividers */
+
+  /* Forest — depth */
+  --forest:       #2B4630;   /* forest canopy at dusk · hero surface */
+  --forest-deep:  #1F3525;   /* deeper recess of forest */
+  --ink:          #14201A;   /* darkest part of the forest at night · primary text */
+
+  /* Foliage */
+  --moss:         #4F5C3F;   /* darkened from #7A8A6B for WCAG AA on cream (~6.5:1) */
+  --moss-soft:    #7A8A6B;   /* original brand moss — decorative only (no text on cream) */
+  --moss-deep:    #3D4830;   /* AAA · captions, fine print, micro-text */
+  --moss-on-forest: #8A9476; /* lichen seen against canopy — readable on forest */
+  --sage:         #C9D6BC;   /* young leaves · onforest body */
+
+  /* Accent — sacred */
+  --bindu:        #B4613A;   /* fired terracotta · the dot, accent only */
+  --bindu-deep:   #8a4527;   /* impressed wax · interior recess of seal */
+  --bindu-soft:   #d68763;   /* heated wax highlight */
+
+  /* Material — used in artifact illustration only */
+  --wood:         #6b4a2b;
+  --wood-light:   #8a6e4f;
+  --wood-dark:    #3a2c1e;
+  --stone:        #696662;
+  --sulfur:       #E8C744;
+
+  /* ---------- COLOR · semantic ---------- */
+
+  --bg:           var(--cream);
+  --bg-alt:       var(--sand);
+  --bg-deep:      var(--forest);
+  --bg-deepest:   var(--ink);
+
+  --fg:           var(--ink);
+  --fg-soft:      var(--moss);
+  --fg-muted:     #6a7560;
+  --fg-onforest:  var(--cream);
+  --fg-onforest-soft: var(--sage);
+  --fg-onforest-muted: var(--moss-on-forest);
+
+  --accent:       var(--bindu);
+  --border:       var(--bone);
+  --border-soft:  var(--mist);
+  --border-onforest: rgba(236, 228, 211, 0.18);
+
+  /* ---------- TYPOGRAPHY · families ---------- */
+
+  --font-display:    'Cormorant Garamond', 'Garamond', 'Times New Roman', serif;
+  --font-editorial:  'Cormorant Garamond', 'EB Garamond', 'Garamond', serif;     /* italic voice — one family, two roles */
+  --font-body:       'Raleway', 'Inter', system-ui, sans-serif;   /* long-form body */
+  --font-ui:         'Inter', system-ui, sans-serif;              /* labels, buttons, metadata */
+  --font-devanagari: 'Tiro Devanagari Hindi', serif;
+  --font-hand:       'Caveat', cursive;                           /* welcome cards, host hand */
+
+  /* ---------- TYPOGRAPHY · scale (px, deck-friendly) ---------- */
+
+  --t-hero:    96px;   /* cover wordmark / hero display */
+  --t-display: 72px;   /* section opener */
+  --t-h1:      56px;   /* chapter title */
+  --t-h2:      42px;   /* major section */
+  --t-h3:      28px;   /* sub-heading */
+  --t-h4:      22px;   /* small heading / tagline */
+  --t-lede:    22px;   /* italic Fraunces lede */
+  --t-body:    15px;   /* Raleway body */
+  --t-body-lg: 16px;
+  --t-small:   13.5px;
+  --t-meta:    12px;   /* Inter metadata */
+  --t-label:   11px;   /* Inter UI label */
+  --t-eyebrow: 11px;   /* uppercase eyebrow */
+
+  /* ---------- TYPOGRAPHY · letterspacing ---------- */
+
+  --ls-wordmark:   8px;     /* EKAM cover */
+  --ls-display:    6px;     /* hero display */
+  --ls-headline:   4px;     /* generous headlines */
+  --ls-eyebrow:    4px;
+  --ls-label:      3px;
+  --ls-body:       0.5px;
+  --ls-tight:      1px;
+
+  /* ---------- TYPOGRAPHY · line heights ---------- */
+
+  --lh-tight:   1.05;
+  --lh-snug:    1.2;
+  --lh-cozy:    1.4;
+  --lh-comfy:   1.6;
+  --lh-loose:   1.75;
+  --lh-airy:    1.85;
+
+  /* ---------- SPACING · 8-pt scale ---------- */
+
+  --space-xs:   4px;
+  --space-sm:   8px;
+  --space-md:   16px;
+  --space-lg:   24px;
+  --space-xl:   40px;
+  --space-2xl:  64px;
+  --space-3xl:  96px;
+  --space-4xl:  128px;
+  --space-5xl:  192px;
+
+  /* ---------- BORDERS · hard edges ---------- */
+
+  --r:        0px;     /* The radius rule: zero. Hard edges. */
+  --r-soft:   0px;     /* If a future button MUST round, it pills. */
+  --r-pill:   999px;   /* CTA pill — only allowed shape for rounding */
+
+  --hairline: 1px solid var(--border);
+  --hairline-bindu: 1px solid var(--accent);
+  --hairline-onforest: 1px solid var(--border-onforest);
+
+  /* ---------- ELEVATION · paper, not glow ---------- */
+
+  /* Use SHADOW only for physical artifacts (cards, paper).
+     UI elevation is communicated by hairlines + tone, not shadow. */
+  --shadow-paper: 0 16px 32px rgba(20, 32, 26, 0.18),
+                  0 4px 8px rgba(20, 32, 26, 0.08);
+  --shadow-paper-soft: 0 8px 16px rgba(20, 32, 26, 0.10);
+  --shadow-paper-deep: 0 24px 48px rgba(20, 32, 26, 0.22),
+                       0 8px 16px rgba(20, 32, 26, 0.10);
+
+  /* ---------- MOTION · the bindu does not pulse ---------- */
+
+  --ease-quiet:  cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-arrive: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-quick:   180ms;
+  --dur-soft:    320ms;
+  --dur-arrive:  640ms;
+
+  /* ---------- LAYOUT ---------- */
+
+  --width-narrow:  760px;
+  --width-default: 1080px;
+  --width-wide:    1180px;
+}
+
+/* ============================================================
+   RESETS — sparing
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-radius: var(--r);
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: var(--t-body);
+  line-height: var(--lh-loose);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ============================================================
+   SEMANTIC TYPE — Cormorant for display, Fraunces italic for
+   voice, Raleway for body, Inter for UI. Devanagari for marks.
+   ============================================================ */
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  color: var(--forest);
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-tight);
+}
+
+h1, .h1 {
+  font-size: var(--t-h1);
+  letter-spacing: 2px;
+  line-height: 1.05;
+}
+
+h2, .h2 {
+  font-size: var(--t-h2);
+  letter-spacing: 1px;
+  line-height: 1.1;
+}
+
+h3, .h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--t-h3);
+  letter-spacing: 1px;
+}
+
+h4, .h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--t-h4);
+  letter-spacing: 1px;
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--t-display);
+  letter-spacing: var(--ls-display);
+  line-height: var(--lh-tight);
+  color: var(--forest);
+}
+
+.hero {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--t-hero);
+  letter-spacing: var(--ls-wordmark);
+  line-height: 0.95;
+  color: var(--cream);
+}
+
+.lede {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 300;
+  font-size: var(--t-lede);
+  line-height: var(--lh-comfy);
+  color: var(--fg);
+  max-width: 640px;
+}
+
+p, .body-copy {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: var(--t-body);
+  line-height: var(--lh-airy);
+  color: var(--fg);
+  max-width: 60ch;
+}
+
+.eyebrow {
+  font-family: var(--font-ui);
+  font-size: var(--t-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--moss);
+}
+.eyebrow--clay   { color: var(--accent); }
+.eyebrow--ink    { color: var(--ink); }
+
+.label {
+  font-family: var(--font-ui);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--moss);
+}
+
+.meta {
+  font-family: var(--font-ui);
+  font-size: var(--t-meta);
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: var(--fg-muted);
+}
+
+.devanagari {
+  font-family: var(--font-devanagari);
+  color: var(--accent);
+  letter-spacing: 2px;
+}
+
+.hand {
+  font-family: var(--font-hand);
+  font-weight: 400;
+  color: var(--ink);
+}
+
+/* ON-FOREST CONTEXT — text reversed onto forest/ink surfaces */
+
+.on-forest {
+  background: var(--forest);
+  color: var(--cream);
+}
+.on-forest .eyebrow,
+.eyebrow--onforest { color: var(--moss-on-forest); }
+.on-forest .lede,
+.lede--onforest    { color: var(--sand); }
+.on-forest p,
+.body-copy--onforest { color: var(--sand); }
+.on-forest h1,
+.on-forest h2,
+.on-forest h3,
+.on-forest h4,
+.on-forest .display,
+.on-forest .hero { color: var(--cream); }
+
+/* ============================================================
+   RULES — hairlines as the only divider
+   ============================================================ */
+
+hr,
+.hairline {
+  border: 0;
+  height: 1px;
+  background: var(--border-soft);
+  width: 100%;
+}
+.hairline--bindu   { background: var(--accent); }
+.hairline--short   { width: 48px; height: 1px; background: var(--accent); }
+.hairline--onforest{ background: var(--border-onforest); }
+
+/* ============================================================
+   THE BINDU — never below 6px on screen
+   ============================================================ */
+
+.bindu {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  vertical-align: middle;
+}
+.bindu--lg { width: 12px; height: 12px; }
+.bindu--xl { width: 20px; height: 20px; }
+
+/* ============================================================
+   WORDMARK — the bindu sits BETWEEN E and K, on the cap-midline.
+   Never above a letter. Never on the baseline. Fill #B4613A always.
+   (BOS v2.0 · Ch.15 · The Wordmark; Ch.18A · Anatomy; Ch.18I · Misuse.)
+
+   Markup:  E<span class="dot"></span>KAM
+   The wordmark container is normal inline flow (display: inline-block),
+   letter-spacing provides the optical gap, and the dot uses
+   vertical-align to land on the cap-midline. This helper sets the
+   geometry for any wordmark whose dot carries class .dot or .b.
+   ============================================================ */
+
+.ekam-wm {
+  display: inline-block;
+  font-family: var(--font-display);
+  line-height: 1;
+}
+.ekam-wm > .dot,
+.ekam-wm > .b {
+  display: inline-block;
+  width: 0.12em;
+  height: 0.12em;
+  border-radius: 50%;
+  background: var(--accent); /* #B4613A clay — always */
+  vertical-align: 0.30em;    /* cap-midline */
+}
+
+/* ============================================================
+   FOCUS — keyboard-visible, mouse-invisible
+   Brand rule (README · Hover, press, focus):
+   "Focus = 1px bindu outline at 2px offset. Visible to the
+   keyboard, invisible to the mouse."
+   ============================================================ */
+
+:focus { outline: none; }
+:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   MOTION — honour the user's OS preference.
+   Brand rule: animations are quiet and rare. When the user has
+   asked for reduced motion, they are quieter and rarer still:
+   infinite animations stop; durations collapse to a single tick.
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   SCROLLBARS — hidden inside phone screens.
+   The interface does not show its plumbing. Scroll still works;
+   the track is simply not drawn. (Applies to every in-phone
+   scroll surface across all chapters; the desktop page keeps its
+   native scrollbar.)
+   ============================================================ */
+
+.net-body, .net-body--center,
+.content,
+.circle-body, .circle-sheet,
+.comp-body, .comp-home-body,
+.ob,
+.pdp-body, .pdp-sheet__body, .lg-picker__list, .pdp-confirmed,
+.disc__sheet-list, .filt__body,
+.sp-scroll {
+  scrollbar-width: none;          /* Firefox */
+  -ms-overflow-style: none;       /* legacy Edge */
+}
+.net-body::-webkit-scrollbar, .net-body--center::-webkit-scrollbar,
+.content::-webkit-scrollbar,
+.circle-body::-webkit-scrollbar, .circle-sheet::-webkit-scrollbar,
+.comp-body::-webkit-scrollbar, .comp-home-body::-webkit-scrollbar,
+.ob::-webkit-scrollbar,
+.pdp-body::-webkit-scrollbar, .pdp-sheet__body::-webkit-scrollbar,
+.lg-picker__list::-webkit-scrollbar, .pdp-confirmed::-webkit-scrollbar,
+.disc__sheet-list::-webkit-scrollbar, .filt__body::-webkit-scrollbar,
+.sp-scroll::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background: transparent;
+}

@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EKAM Mobile — Deck</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="stylesheet" href="../ambient-ridge.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { background: #1a1a1a; color: var(--ink); margin: 0; }
+  body { font-family: var(--font-body); -webkit-font-smoothing: antialiased; padding: 32px 0; }
+
+  /* Slide — A4 landscape, 16:9 friendly */
+  .slide {
+    width: 1280px;
+    height: 720px;
+    margin: 0 auto 24px;
+    background: var(--cream);
+    color: var(--ink);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+    page-break-after: always;
+    break-after: page;
+  }
+  .slide:last-child { page-break-after: auto; break-after: auto; }
+
+  /* Print rules — Save-as-PDF lands at 16:9 landscape */
+  @page {
+    size: 1280px 720px;
+    margin: 0;
+  }
+  @media print {
+    html, body { background: var(--cream); padding: 0; }
+    .slide { box-shadow: none; margin: 0; }
+    .toolbar { display: none !important; }
+  }
+
+  /* Floating toolbar (screen only) */
+  .toolbar {
+    position: fixed; top: 14px; right: 14px;
+    z-index: 100;
+    background: rgba(20,32,26,0.92);
+    color: var(--cream);
+    padding: 12px 16px;
+    border-radius: 8px;
+    display: flex; align-items: center; gap: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    font-family: var(--font-ui); font-size: 11px; letter-spacing: 0.3px;
+  }
+  .toolbar p { margin: 0; max-width: 220px; line-height: 1.4; }
+  .toolbar p b { color: var(--bindu); }
+  .toolbar button {
+    background: var(--bindu); color: var(--cream);
+    border: 0; padding: 10px 16px; border-radius: 999px;
+    font-family: var(--font-ui); font-size: 10.5px;
+    letter-spacing: 2px; text-transform: uppercase; font-weight: 500;
+    cursor: pointer;
+  }
+
+  /* Slide chrome */
+  .slide__no {
+    position: absolute; top: 32px; right: 44px;
+    font-family: var(--font-ui); font-size: 10px; letter-spacing: 2.5px;
+    color: var(--moss); text-transform: uppercase; font-weight: 500;
+  }
+  .slide__brand {
+    position: absolute; top: 30px; left: 44px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .slide__brand-dev { font-family: var(--font-devanagari); font-size: 13px; color: var(--bindu); letter-spacing: 1px; }
+  .slide__brand-wm { font-family: var(--font-display); font-size: 16px; color: var(--forest); letter-spacing: 3px; display: inline-block; line-height: 1; }
+  .slide__brand-wm .b { display: inline-block; width: 0.13em; height: 0.13em; border-radius: 50%; background: var(--bindu); vertical-align: 0.30em; }
+
+  /* ─── COVER ───────────────────────────────────────── */
+  .cover {
+    background-color: #14201A;
+    background-image: url('assets/ambient-ridge.svg');
+    background-size: cover; background-position: center;
+    color: var(--cream);
+    padding: 80px 96px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .cover .slide__brand-dev { color: var(--bindu); }
+  .cover .slide__brand-wm { color: var(--cream); }
+  .cover .slide__no { color: rgba(250,247,240,0.5); }
+  .cover__main { max-width: 720px; }
+  .cover__eb { font-family: var(--font-ui); font-size: 12px; letter-spacing: 4px; color: var(--bindu); text-transform: uppercase; font-weight: 500; margin-bottom: 24px; display: block; }
+  .cover__title { font-family: var(--font-display); font-weight: 300; font-size: 88px; color: var(--cream); letter-spacing: 0.4px; line-height: 1.02; margin: 0 0 28px; }
+  .cover__title em { font-family: var(--font-editorial); font-style: italic; color: var(--bindu); }
+  .cover__sub { font-family: var(--font-editorial); font-style: italic; font-size: 22px; color: rgba(250,247,240,0.85); line-height: 1.5; max-width: 560px; margin: 0; }
+  .cover__foot {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: var(--font-ui); font-size: 11px;
+    letter-spacing: 2.5px; color: rgba(250,247,240,0.6);
+    text-transform: uppercase; font-weight: 500;
+  }
+  .cover__foot b { color: var(--cream); }
+
+  /* ─── CHAPTER DIVIDER ─────────────────────────────── */
+  .divider {
+    padding: 80px 96px;
+    display: grid; grid-template-columns: 220px 1fr; gap: 64px;
+    align-items: center;
+    background-color: #14201A;
+    background-image: url('assets/ambient-ridge.svg');
+    background-size: cover; background-position: center;
+    color: var(--cream);
+  }
+  .divider .slide__brand-dev { color: var(--bindu); }
+  .divider .slide__brand-wm { color: var(--cream); }
+  .divider .slide__no { color: rgba(250,247,240,0.5); }
+  .divider__no {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 140px; color: var(--bindu); font-weight: 400;
+    line-height: 1;
+  }
+  .divider__no-dev {
+    display: block; font-family: var(--font-devanagari);
+    font-size: 24px; color: var(--bindu); letter-spacing: 2px;
+    margin-top: 14px;
+  }
+  .divider__eb { font-family: var(--font-ui); font-size: 12px; letter-spacing: 3px; color: var(--bindu); text-transform: uppercase; font-weight: 500; margin-bottom: 18px; display: block; }
+  .divider__title { font-family: var(--font-display); font-weight: 300; font-size: 64px; color: var(--cream); letter-spacing: 0.3px; line-height: 1.05; margin: 0 0 22px; max-width: 720px; }
+  .divider__title em { font-family: var(--font-editorial); font-style: italic; color: var(--bindu); }
+  .divider__sub { font-family: var(--font-editorial); font-style: italic; font-size: 19px; color: rgba(250,247,240,0.8); line-height: 1.5; max-width: 580px; margin: 0; }
+
+  /* ─── CONTENT SLIDE ───────────────────────────────── */
+  .content {
+    padding: 90px 96px 60px;
+    display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px;
+    align-items: stretch;
+  }
+  .content__left {
+    display: flex; flex-direction: column; gap: 18px;
+  }
+  .content__eb { font-family: var(--font-ui); font-size: 11px; letter-spacing: 3px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+  .content__title { font-family: var(--font-display); font-weight: 300; font-size: 48px; color: var(--forest); letter-spacing: 0.3px; line-height: 1.05; margin: 0; }
+  .content__title em { font-family: var(--font-editorial); font-style: italic; color: var(--bindu); }
+  .content__sub { font-family: var(--font-editorial); font-style: italic; font-size: 17px; color: var(--moss); line-height: 1.5; margin: 8px 0 0; }
+  .content__rule { width: 36px; height: 1px; background: var(--bindu); margin: 14px 0; }
+  .content__list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; }
+  .content__list li {
+    display: grid; grid-template-columns: 22px 1fr;
+    gap: 14px; align-items: baseline;
+    font-family: var(--font-body); font-weight: 300;
+    font-size: 14px; color: var(--ink); line-height: 1.55;
+  }
+  .content__list li::before {
+    content: ''; width: 4px; height: 4px; border-radius: 50%;
+    background: var(--bindu); margin-top: 8px;
+  }
+  .content__list li b { font-family: var(--font-ui); font-style: normal; font-weight: 500; font-size: 12.5px; letter-spacing: 0.3px; color: var(--forest); display: block; margin-bottom: 3px; }
+  .content__list li em { font-family: var(--font-editorial); font-style: italic; color: var(--moss); }
+
+  /* Phone mockup column */
+  .content__right {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+    align-items: center;
+  }
+  .phone-mini {
+    aspect-ratio: 9 / 19;
+    background: #1a1a1a;
+    border-radius: 22px;
+    padding: 4px;
+    position: relative;
+    box-shadow: 0 12px 28px rgba(20,32,26,0.18);
+  }
+  .phone-mini::before {
+    content: ''; position: absolute;
+    top: 9px; left: 50%; transform: translateX(-50%);
+    width: 50px; height: 14px; background: #0a0a0a;
+    border-radius: 999px;
+  }
+  .phone-mini__screen {
+    width: 100%; height: 100%;
+    background: var(--cream);
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+    display: flex; flex-direction: column;
+    padding: 24px 14px 14px;
+  }
+  .phone-mini__screen.dark {
+    background-color: #14201A;
+    background-image: url('assets/ambient-ridge.svg');
+    background-size: cover; background-position: center;
+    color: var(--cream);
+  }
+  .phone-mini__eb { font-family: var(--font-devanagari); font-size: 10px; color: var(--bindu); letter-spacing: 0.8px; }
+  .phone-mini__title { font-family: var(--font-display); font-size: 15px; color: var(--forest); font-weight: 400; margin: 3px 0; line-height: 1; }
+  .phone-mini__title em { color: var(--bindu); font-style: italic; }
+  .phone-mini__screen.dark .phone-mini__title { color: var(--cream); }
+  .phone-mini__sub { font-family: var(--font-editorial); font-style: italic; font-size: 8.5px; color: var(--moss); line-height: 1.3; }
+  .phone-mini__screen.dark .phone-mini__sub { color: rgba(250,247,240,0.7); }
+  .phone-mini__photo {
+    aspect-ratio: 16 / 9; margin: 8px 0;
+    background: linear-gradient(180deg, #0c1410 0%, #2B4630 60%, #6a7565 100%);
+    border-radius: 2px;
+  }
+  .phone-mini__chip {
+    align-self: flex-start;
+    padding: 2px 6px; background: var(--sand);
+    font-family: var(--font-ui); font-size: 6.5px;
+    color: var(--bindu); letter-spacing: 1px;
+    text-transform: uppercase; font-weight: 500;
+    border-radius: 999px;
+    margin: 4px 0;
+  }
+  .phone-mini__cta {
+    margin-top: auto; padding: 6px 0;
+    background: var(--bindu); color: var(--cream);
+    text-align: center; border-radius: 999px;
+    font-family: var(--font-ui); font-size: 7px;
+    letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500;
+  }
+  .phone-mini__cap {
+    font-family: var(--font-ui); font-size: 8.5px;
+    letter-spacing: 1.2px; color: var(--moss);
+    text-transform: uppercase; font-weight: 500;
+    text-align: center; margin-top: 6px;
+    grid-column: span 1;
+  }
+  .phone-mini-wrap { display: flex; flex-direction: column; gap: 4px; }
+
+  /* ─── SCREENS PAGE — grid of 6 screens ───────────── */
+  .screens {
+    padding: 80px 60px 60px;
+    display: flex; flex-direction: column; gap: 28px;
+  }
+  .screens__head {
+    display: grid; grid-template-columns: 240px 1fr;
+    gap: 48px; align-items: baseline;
+    padding-bottom: 18px; border-bottom: 1px solid var(--bone);
+  }
+  .screens__eb { font-family: var(--font-ui); font-size: 11px; letter-spacing: 3px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+  .screens__title { font-family: var(--font-display); font-weight: 300; font-size: 38px; color: var(--forest); letter-spacing: 0.3px; margin: 8px 0 0; }
+  .screens__sub { font-family: var(--font-editorial); font-style: italic; font-size: 15px; color: var(--moss); line-height: 1.5; margin: 0; max-width: 580px; }
+  .screens__grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+  .screens__cell { display: flex; flex-direction: column; gap: 10px; }
+  .screens__cell .phone-mini { aspect-ratio: 9 / 18; }
+  .screens__cell-lbl {
+    font-family: var(--font-ui); font-size: 9.5px;
+    letter-spacing: 1.5px; color: var(--bindu);
+    text-transform: uppercase; font-weight: 500;
+  }
+  .screens__cell-name {
+    font-family: var(--font-display); font-size: 16px;
+    color: var(--forest); font-weight: 400; letter-spacing: 0.2px;
+    line-height: 1.1;
+  }
+  .screens__cell-note {
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 12px; color: var(--moss); line-height: 1.4;
+  }
+
+  /* ─── CLOSING ─────────────────────────────────────── */
+  .closing {
+    background-color: #14201A;
+    background-image: url('assets/ambient-ridge.svg');
+    background-size: cover; background-position: center;
+    color: var(--cream);
+    padding: 96px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+  }
+  .closing .slide__brand-dev { color: var(--bindu); }
+  .closing .slide__brand-wm { color: var(--cream); }
+  .closing .slide__no { color: rgba(250,247,240,0.5); }
+  .closing__eb { font-family: var(--font-ui); font-size: 11px; letter-spacing: 3px; color: var(--bindu); text-transform: uppercase; font-weight: 500; margin-bottom: 24px; display: block; }
+  .closing__quote {
+    font-family: var(--font-display); font-weight: 300;
+    font-style: italic; font-size: 64px; color: var(--cream);
+    letter-spacing: 0.3px; line-height: 1.15;
+    margin: 0; max-width: 880px;
+  }
+  .closing__quote em { color: var(--bindu); font-style: italic; }
+  .closing__rule { width: 48px; height: 1px; background: var(--bindu); margin: 36px 0; }
+  .closing__sig { font-family: 'Caveat', cursive; font-size: 32px; color: var(--bindu); }
+
+  /* PHONE MINI VARIANTS — small visual mockups by chapter */
+  .pm-splash .phone-mini__screen { background: linear-gradient(180deg, #14201A 0%, #1F3525 100%); color: var(--cream); padding-top: 28px; align-items: center; }
+  .pm-splash .phone-mini__wm { font-family: var(--font-display); font-size: 24px; color: var(--cream); letter-spacing: 6px; margin: auto 0; }
+  .pm-splash .phone-mini__wm .b { display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: var(--bindu); margin: 0 3px 4px; }
+  .pm-splash .phone-mini__tag { font-family: var(--font-editorial); font-style: italic; font-size: 8.5px; color: rgba(250,247,240,0.7); text-align: center; margin-bottom: 10px; }
+
+  .pm-postcard .phone-mini__photo { background: linear-gradient(180deg, #0c1410 0%, #2B4630 60%, #6a7565 100%); height: 60%; aspect-ratio: auto; position: relative; }
+  .pm-postcard .phone-mini__photo::after {
+    content: 'कुटीर'; position: absolute; top: 8px; right: 8px;
+    background: rgba(250,247,240,0.92); padding: 4px 6px;
+    font-family: var(--font-devanagari); font-size: 8px; color: var(--bindu);
+    border: 1px dashed rgba(180,97,58,0.5);
+  }
+
+  /* Print button — only on screen */
+  .print-bar {
+    text-align: center;
+    margin: 24px 0;
+    font-family: var(--font-ui); font-size: 12px;
+    color: rgba(250,247,240,0.65);
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <p>EKAM Mobile — 8 slides ready for PDF export. <b>Cmd · P</b> on Mac · <b>Ctrl · P</b> on Windows. Choose <b>Save as PDF</b>.</p>
+  <button onclick="window.print()">Save as PDF</button>
+</div>
+
+<!-- ─── 01 · COVER ──────────────────────────────────── -->
+<section class="slide cover">
+  <div class="slide__brand">
+    <span class="slide__brand-dev">एकम्</span>
+    <span class="slide__brand-wm">E<span class="b"></span>KAM</span>
+  </div>
+  <span class="slide__no">01 / 09</span>
+  <div class="cover__main">
+    <span class="cover__eb">— EKAM Living · Mobile · Design Review</span>
+    <h1 class="cover__title">A retreat,<br/><em>made in your phone.</em></h1>
+    <p class="cover__sub">Six chapters · forty screens · one design system. Built under restraint: the cabin and the land are always louder than the app.</p>
+  </div>
+  <div class="cover__foot">
+    <span>Prepared by <b>Design</b> · for the founders</span>
+    <span>Version <b>1.0</b> · May 2026</span>
+  </div>
+</section>
+
+<!-- ─── 02 · MANIFESTO ──────────────────────────────── -->
+<section class="slide divider">
+  <div class="slide__brand">
+    <span class="slide__brand-dev">एकम्</span>
+    <span class="slide__brand-wm">E<span class="b"></span>KAM</span>
+  </div>
+  <span class="slide__no">02 / 09</span>
+  <div>
+    <span class="divider__no-dev">कथन</span>
+    <div class="divider__no" style="font-size: 80px;">— The brief.</div>
+  </div>
+  <div>
+    <span class="divider__eb">— What we built for</span>
+    <h2 class="divider__title">Airbnb usability, <em>Aman calmness, Apple-quality refinement.</em></h2>
+    <p class="divider__sub">A mobile app that gets out of the way. Every familiar OTA mechanic — wishlist, loyalty, push notifications, referral codes — retranslated under brand restraint. Nothing flashy. Everything intentional.</p>
+  </div>
+</section>
+
+<!-- ─── 03 · CHAPTER I · ONBOARDING ─────────────────── -->
+<section class="slide divider">
+  <div class="slide__brand">
+    <span class="slide__brand-dev">एकम्</span>
+    <span class="slide__brand-wm">E<span class="b"></span>KAM</span>
+  </div>
+  <span class="slide__no">03 / 09</span>
+  <div>
+    <div class="divider__no">I.<span class="divider__no-dev">क्रम · the sequence</span></div>
+  </div>
+  <div>
+    <span class="divider__eb">— Chapter I</span>
+    <h2 class="divider__title">Onboarding.<br/><em>A letter, an intent, a held shortlist.</em></h2>
+    <p class="divider__sub">Eight screens. Splash → welcome letter → intent cards → party → elevation slider → season → notification preferences → "your retreat companion is ready". Sets the brand temperature for everything that follows.</p>
+  </div>
+</section>
+
+<!-- ─── 04 · CHAPTER II · HOME & DISCOVERY ─────────── -->
+<section class="slide content">
+  <div class="slide__brand">
+    <span class="slide__brand-dev">एकम्</span>
+    <span class="slide__brand-wm">E<span class="b"></span>KAM</span>
+  </div>
+  <span class="slide__no">04 / 09</span>
+  <div class="content__left">
+    <span class="content__eb">— Chapter II · Home &amp; Discovery</span>
+    <h2 class="content__title">An editorial feed.<br/><em>A topographic map.</em></h2>
+    <p class="content__sub">Six screens. The home is not a marketplace grid. Discover is not a tile of price pins. Saved is a held shortlist, not a folder system.</p>
+    <div class="content__rule"></div>
+    <ul class="content__list">
+      <li><span><b>Home</b>Three to five collections, each a written sentence. Cards on a hairline, no shadow.</span></li>
+      <li><span><b>Discover</b>SVG topographic landscape — not Google tiles. Clay pins. No prices on the map.</span></li>
+      <li><span><b>Filters</b>A sheet, not a screen. Tier · elevation · drive time · suitability.</span></li>
+      <li><span><b>Saved · Stay · Profile</b>Three more surfaces that complete the shell.</span></li>
+    </ul>
+  </div>
+  <div class="content__right">
+    <div class="phone-mini-wrap">
+      <div class="phone-mini">
+        <div class="phone-mini__screen">
+          <span class="phone-mini__eb">घर</span>
+          <div class="phone-mini__title" style="font-family: 'Caveat', cursive; font-size: 13px; color: var(--ink);">Good morning, Anika.</div>
+          <div class="phone-mini__photo" style="background: linear-gradient(180deg, #2a3845, #b8a48c); margin-top: 6px;"></div>
+          <span class="phone-mini__chip" style="font-size: 5px; margin: 4px 0;">FOR THE STILLNESS</span>
+          <div class="phone-mini__cta" style="background: transparent; color: var(--bindu); border: 0.5px solid var(--bindu); margin-top: auto;">View</div>
+        </div>
+      </div>
+      <span class="phone-mini__cap">Home</span>
+    </div>
+    <div class="phone-mini-wrap">
+      <div class="phone-mini">
+        <div class="phone-mini__screen">
+          <span class="phone-mini__eb">खोज</span>
+          <div class="phone-mini__title">Discover.</div>
+          <div style="flex: 1; background: var(--sand); margin-top: 8px; position: relative; border-radius: 2px;">
+            <span style="position: absolute; width: 5px; height: 5px; background: var(--bindu); border-radius: 50%; top: 30%; left: 35%;"></span>
+            <span style="position: absolute; width: 5px; height: 5px; background: var(--bindu); border-radius: 50%; top: 45%; left: 65%;"></span>
+            <span style="position: absolute; width: 5px; height: 5px; background: var(--bindu); border-radius: 50%; top: 60%; left: 50%;"></span>
+          </div>
+        </div>
+      </div>
+      <span class="phone-mini__cap">Discover</span>
+    </div>
+    <div class="phone-mini-wrap">
+      <div class="phone-mini">
+        <div class="phone-mini__screen">
+          <span class="phone-mini__eb">मन</span>
+          <div class="phone-mini__title">Saved.</div>
+          <div style="display: flex; gap: 4px; margin-top: 8px;">
+            <div style="width: 24px; aspect-ratio: 4/5; background: linear-gradient(180deg, #0c1410, #6a7565);"></div>
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 1px;">
+              <span style="font-family: var(--font-display); font-size: 11px; color: var(--forest);">Kalpa</span>
+              <span style="font-family: var(--font-editorial); font-style: italic; font-size: 7px; color: var(--moss);">Kinnaur · 3,200 m</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="phone-mini__cap">Saved Escapes</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 05 · CHAPTER III · PROPERTY & BOOKING ─────── -->
+<section class="slide content">
+  <div class="slide__brand">
+    <span class="slide__brand-dev">एकम्</span>
+    <span class="slide__brand-wm">E<span class="b"></span>KAM</span>
+  </div>
+  <span class="slide__no">05 / 09</span>
+  <div class="content__left">
+    <span class="content__eb">— Chapter III · Property &amp; Booking</span>
+    <h2 class="content__title">Postcard hero.<br/><em>75% booking sheet.</em></h2>
+    <p class="content__sub">Seven screens — the most-trafficked surface in the app. The booking sheet matches the standalone web widget exactly: same fields, same math, same vocabulary.</p>
+    <div class="content__rule"></div>
+    <ul class="content__list">
+      <li><span><b>Hero · meta · book bar</b>Six-slide cabin gallery, three-number meta, sticky urgency line.</span></li>
+      <li><span><b>Included &amp; rituals</b>Six numbered things included. Four optional rituals (breakfast on the house).</span></li>
+      <li><span><b>Reviews</b>Two themed pull-quotes, four category ratings, host strip.</span></li>
+      <li><span><b>Booking · guests · lead guest</b>Smart capacity, mandatory child ages, contact-picker for "for someone else".</span></li>
+      <li><span><b>Confirmed</b>Companion handoff with confirmation code, not a receipt.</span></li>
+    </ul>
+  </div>
+  <div class="content__right">
+    <div class="phone-mini-wrap">
+      <div class="phone-mini pm-postcard">
+        <div class="phone-mini__screen" style="padding: 0;">
+          <div class="phone-mini__photo" style="margin: 0;"></div>
+          <div style="padding: 8px;">
+            <span class="phone-mini__eb">EKAM · CABIN</span>
+            <div class="phone-mini__title">Binsar.</div>
+            <span class="phone-mini__sub">Kumaon · 2,400 m</span>
+          </div>
+        </div>
+      </div>
+      <span class="phone-mini__cap">Hero</span>
+    </div>
+    <div class="phone-mini-wrap">
+      <div class="phone-mini">
+        <div class="phone-mini__screen" style="padding: 22px 10px 8px; background: rgba(20,32,26,0.7); justify-content: flex-end;">
+          <div style="background: var(--cream); border-radius: 8px 8px 0 0; padding: 8px;">
+            <span class="phone-mini__eb">₹8,400 / NIGHT</span>
+            <div class="phone-mini__title" style="font-size: 12px; margin: 3px 0;">Your stay</div>
+            <span class="phone-mini__sub">12 — 15 Mar · 2 guests</span>
+            <div class="phone-mini__cta" style="font-size: 6px; margin-top: 6px;">RESERVE · ₹25,754</div>
+          </div>
+        </div>
+      </div>
+      <span class="phone-mini__cap">Book sheet</span>
+    </div>
+    <div class="phone-mini-wrap">
+      <div class="phone-mini">
+        <div class="phone-mini__screen dark" style="padding: 22px 10px 8px; align-items: center;">
+          <div style="width: 16px; height: 16px; border: 1px solid var(--bindu); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--bindu); font-size: 9px;">✓</div>
+          <span class="phone-mini__eb" style="margin-top: 6px;">— RESERVED</span>
+          <div class="phone-mini__title" style="font-size: 10px; color: var(--cream); text-align: center; line-height: 1.2; margin-top: 3px;">Your companion <em>is ready.</em></div>
+          <div style="padding: 4px 6px; border: 0.5px dashed rgba(180,97,58,0.5); margin-top: 6px;">
+            <span style="font-family: var(--font-display); font-size: 10px; color: var(--cream); letter-spacing: 2px;">EKM · 7842</span>
+          </div>
+        </div>
+      </div>
+      <span class="phone-mini__cap">Confirmed</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 06 · CHAPTER IV+V · SAVED · MUDRA · REFERRAL ─ -->
+<section class="slide content">
+  <div class="slide__brand">
+    <span class="slide__brand-dev">एकम्</span>
+    <span class="slide__brand-wm">E<span class="b"></span>KAM</span>
+  </div>
+  <span class="slide__no">06 / 09</span>
+  <div class="content__left">
+    <span class="content__eb">— Chapters IV &amp; V · Retention</span>
+    <h2 class="content__title">Mudra.<br/><em>No tiers, no badges.</em></h2>
+    <p class="content__sub">Loyalty is rebuilt entirely. A wax-sealed journal arrives in the post after each stay; the app mirrors that artifact. Referrals are a personal postcard, not a coupon.</p>
+    <div class="content__rule"></div>
+    <ul class="content__list">
+      <li><span><b>Saved Escapes · empty state</b>Ambient map + three starter cabins. The first decision, not a paragraph about absence.</span></li>
+      <li><span><b>Mudra · the seals</b>Visited cabins as clay dots on a quiet HP/UK map. Unvisited as outlines. No progress bar.</span></li>
+      <li><span><b>Mudra balance</b>1 mudra = ₹1. Applied to 20% of any booking. Earned by introductions + milestones.</span></li>
+      <li><span><b>Referral · invitation</b>Postcard preview, Caveat note, ₹1,000 after their first stay.</span></li>
+    </ul>
+  </div>
+  <div class="content__right">
+    <div class="phone-mini-wrap">
+      <div class="phone-mini">
+        <div class="phone-mini__screen dark" style="padding: 22px 8px 8px;">
+          <span class="phone-mini__eb">मन · THE SHORTLIST</span>
+          <div class="phone-mini__title" style="color: var(--cream); font-size: 13px;">Pick three to <em>begin.</em></div>
+          <div style="flex: 1; position: relative; margin-top: 8px; background: rgba(250,247,240,0.04); border-radius: 2px;">
+            <span style="position: absolute; width: 5px; height: 5px; background: var(--bindu); border-radius: 50%; top: 30%; left: 30%;"></span>
+            <span style="position: absolute; width: 5px; height: 5px; background: var(--bindu); border-radius: 50%; top: 50%; left: 60%;"></span>
+            <span style="position: absolute; width: 5px; height: 5px; background: var(--bindu); border-radius: 50%; top: 65%; left: 40%;"></span>
+          </div>
+        </div>
+      </div>
+      <span class="phone-mini__cap">Saved · empty</span>
+    </div>
+    <div class="phone-mini-wrap">
+      <div class="phone-mini">
+        <div class="phone-mini__screen">
+          <span class="phone-mini__eb">मुद्रा</span>
+          <div class="phone-mini__title">Held for you.</div>
+          <div style="background: var(--sand); border-left: 1px solid var(--bindu); padding: 6px; margin-top: 6px;">
+            <span style="font-family: var(--font-display); font-size: 18px; color: var(--forest);">₹1,390</span>
+            <span style="font-family: var(--font-devanagari); font-size: 7px; color: var(--bindu); margin-left: 3px;">मुद्रा</span>
+          </div>
+          <span style="font-family: var(--font-editorial); font-style: italic; font-size: 7px; color: var(--moss); margin-top: 6px;">Applies to 20% of any booking</span>
+        </div>
+      </div>
+      <span class="phone-mini__cap">Mudra balance</span>
+    </div>
+    <div class="phone-mini-wrap">
+      <div class="phone-mini">
+        <div class="phone-mini__screen dark" style="padding: 0;">
+          <div style="height: 50%; background: linear-gradient(180deg, #0c1410 0%, #2B4630 60%, #6a7565 100%); position: relative;">
+            <span style="position:absolute; top:6px; right:6px; background: rgba(250,247,240,0.9); padding: 3px 4px; font-family: var(--font-devanagari); font-size: 6px; color: var(--bindu); border: 0.5px dashed var(--bindu);">कुटीर</span>
+          </div>
+          <div style="padding: 8px;">
+            <span class="phone-mini__eb">A NOTE FROM AARAV</span>
+            <div class="phone-mini__title" style="color: var(--cream); font-size: 10px; line-height: 1.2;">The fire will be lit when you arrive.</div>
+          </div>
+        </div>
+      </div>
+      <span class="phone-mini__cap">Invitation</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 07 · CHAPTER VI · COMPANION ──────────────── -->
+<section class="slide content">
+  <div class="slide__brand">
+    <span class="slide__brand-dev">एकम्</span>
+    <span class="slide__brand-wm">E<span class="b"></span>KAM</span>
+  </div>
+  <span class="slide__no">07 / 09</span>
+  <div class="content__left">
+    <span class="content__eb">— Chapter VI · Companion (in-stay)</span>
+    <h2 class="content__title">The cabin,<br/><em>in your phone.</em></h2>
+    <p class="content__sub">The chapter Airbnb doesn't have. Runs only while the guest is on site. Letters in place of notifications. Gate code in 64pt display serif.</p>
+    <div class="content__rule"></div>
+    <ul class="content__list">
+      <li><span><b>Home</b>Ambient ridge backdrop with a slow window glow. Greeting · letter · host one tap.</span></li>
+      <li><span><b>Cabin · Today · Trails</b>Gate code, loose schedule, three drawn walks.</span></li>
+      <li><span><b>Kitchen</b>Complimentary first. EKAM chai (satvik). Today's tiffin. Short à-la-carte. Tray pinned bottom.</span></li>
+      <li><span><b>Letters · Reach</b>No push notifications. The host is the first contact, always.</span></li>
+    </ul>
+  </div>
+  <div class="content__right">
+    <div class="phone-mini-wrap">
+      <div class="phone-mini">
+        <div class="phone-mini__screen dark" style="padding: 22px 8px 8px;">
+          <span class="phone-mini__eb" style="color: rgba(250,247,240,0.7);">DAY 2 · BINSAR</span>
+          <div class="phone-mini__title" style="color: var(--cream); font-family: var(--font-display); font-size: 14px;">Morning, Anika.</div>
+          <span class="phone-mini__sub">The kettle's on the stove.</span>
+          <div style="background: var(--sand); padding: 5px 6px; margin-top: 8px; border-left: 1px solid var(--bindu);">
+            <span style="font-family: var(--font-ui); font-size: 5px; color: var(--bindu); letter-spacing: 1px;">— COMING UP</span>
+            <span style="display: block; font-family: var(--font-display); font-size: 10px; color: var(--forest); margin-top: 2px;">Fire-pit dinner</span>
+          </div>
+        </div>
+      </div>
+      <span class="phone-mini__cap">Companion home</span>
+    </div>
+    <div class="phone-mini-wrap">
+      <div class="phone-mini">
+        <div class="phone-mini__screen">
+          <span class="phone-mini__eb">कुटी · CABIN NO. 03</span>
+          <div class="phone-mini__title">What you need.</div>
+          <div style="background: var(--ink); color: var(--cream); padding: 10px 6px; margin-top: 6px; text-align: center;">
+            <span style="font-family: var(--font-ui); font-size: 5px; color: var(--bindu); letter-spacing: 1.5px;">GATE CODE</span>
+            <div style="font-family: var(--font-display); font-weight: 300; font-size: 22px; letter-spacing: 3px; margin-top: 3px;">2811</div>
+          </div>
+        </div>
+      </div>
+      <span class="phone-mini__cap">Cabin</span>
+    </div>
+    <div class="phone-mini-wrap">
+      <div class="phone-mini">
+        <div class="phone-mini__screen">
+          <span class="phone-mini__eb">अन्न</span>
+          <div class="phone-mini__title">From the kitchen.</div>
+          <div style="background: var(--sand); padding: 4px 6px; margin-top: 4px;">
+            <span style="font-family: var(--font-ui); font-size: 5px; color: var(--bindu); letter-spacing: 1px;">— ON THE HOUSE</span>
+          </div>
+          <span style="font-family: var(--font-ui); font-size: 6px; color: var(--bindu); margin-top: 4px; letter-spacing: 1px;">— EKAM चाय</span>
+          <span style="font-family: var(--font-display); font-size: 9px; color: var(--forest);">Adrak-elaichi</span>
+          <span style="font-family: var(--font-editorial); font-style: italic; font-size: 6px; color: var(--moss);">Ginger, cardamom, jaggery</span>
+        </div>
+      </div>
+      <span class="phone-mini__cap">Kitchen</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 08 · THE SYSTEM ────────────────────────────── -->
+<section class="slide content">
+  <div class="slide__brand">
+    <span class="slide__brand-dev">एकम्</span>
+    <span class="slide__brand-wm">E<span class="b"></span>KAM</span>
+  </div>
+  <span class="slide__no">08 / 09</span>
+  <div class="content__left">
+    <span class="content__eb">— The design system</span>
+    <h2 class="content__title">One language.<br/><em>Six surfaces.</em></h2>
+    <p class="content__sub">Eight colour tokens. Six typefaces. One easing curve. One accent (clay). Everything else is restraint.</p>
+    <div class="content__rule"></div>
+    <ul class="content__list">
+      <li><span><b>Colours</b>Cream / Sand / Bone / Mist / Moss / Forest / Ink + one accent (Bindu clay).</span></li>
+      <li><span><b>Type</b>Cormorant Garamond display · Fraunces italic editorial · Raleway body · Inter UI · Tiro Devanagari · Caveat hand.</span></li>
+      <li><span><b>Motion</b><em>cubic-bezier(0.22, 0.68, 0.16, 1)</em> for everything except the cabin-window glow (6s natural loop).</span></li>
+      <li><span><b>Buttons</b>Pill radius always. Clay primary · ghost outline · underlined link. WCAG 44px tap.</span></li>
+    </ul>
+  </div>
+  <div class="content__right" style="grid-template-columns: 1fr 1fr; gap: 14px;">
+    <!-- Colour swatches -->
+    <div style="aspect-ratio: 1; background: var(--cream); border: 1px solid var(--bone); position: relative; padding: 10px;">
+      <span style="position:absolute; bottom: 10px; left: 10px; font-family: var(--font-ui); font-size: 9px; color: var(--ink);">Cream<br/><span style="color: var(--moss); font-size: 7px;">#FAF7F0</span></span>
+    </div>
+    <div style="aspect-ratio: 1; background: var(--bindu); position: relative; padding: 10px;">
+      <span style="position:absolute; bottom: 10px; left: 10px; font-family: var(--font-ui); font-size: 9px; color: var(--cream);">Bindu<br/><span style="color: var(--sand); font-size: 7px;">#B4613A</span></span>
+    </div>
+    <div style="aspect-ratio: 1; background: var(--forest); position: relative; padding: 10px;">
+      <span style="position:absolute; bottom: 10px; left: 10px; font-family: var(--font-ui); font-size: 9px; color: var(--cream);">Forest<br/><span style="color: var(--sand); font-size: 7px;">#2B4630</span></span>
+    </div>
+    <div style="aspect-ratio: 1; background: var(--ink); position: relative; padding: 10px;">
+      <span style="position:absolute; bottom: 10px; left: 10px; font-family: var(--font-ui); font-size: 9px; color: var(--cream);">Ink<br/><span style="color: var(--sand); font-size: 7px;">#14201A</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 09 · CLOSING ─────────────────────────────── -->
+<section class="slide closing">
+  <div class="slide__brand">
+    <span class="slide__brand-dev">एकम्</span>
+    <span class="slide__brand-wm">E<span class="b"></span>KAM</span>
+  </div>
+  <span class="slide__no">09 / 09</span>
+  <span class="closing__eb">— The system, summarised</span>
+  <h2 class="closing__quote">
+    "<em>One bed. One stove. One window.</em><br/>
+    Everything else is restraint."
+  </h2>
+  <span class="closing__rule"></span>
+  <span class="closing__sig">— Thank you.</span>
+</section>
+
+<div class="print-bar">9 slides · 16:9 · landscape PDF · ready to share</div>
+
+<script>
+  // Optional: open print dialog if requested via ?print=1
+  if (location.search.includes('print=1')) setTimeout(() => window.print(), 600);
+</script>
+
+</body>
+</html>

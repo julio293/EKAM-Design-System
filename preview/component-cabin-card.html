@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>EKAM · Cabin Card</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { height: 100%; }
+  .stage { width: 700px; min-height: 320px; padding: 28px 32px; background: var(--cream); display: flex; gap: 16px; }
+  .card {
+    flex: 1; background: var(--sand);
+    border-bottom: 1px solid var(--bone);
+    padding: 0; display: flex; flex-direction: column;
+  }
+  .photo {
+    background: linear-gradient(160deg, #2B4630, #14201A);
+    height: 130px;
+    position: relative;
+    overflow: hidden;
+  }
+  /* small reverse wordmark in top-left */
+  .photo__mark {
+    position: absolute;
+    left: 14px; top: 12px;
+    height: 14px;
+  }
+  .photo__mark svg { height: 100%; width: auto; display: block; }
+  /* full sub-brand glyph in bottom-right */
+  .photo__glyph {
+    position: absolute;
+    right: 16px; bottom: 14px;
+    width: 48px; height: 40px;
+  }
+  .photo__glyph svg { width: 100%; height: 100%; display: block; }
+
+  .body { padding: 16px 18px 18px; }
+  .dev { font-family: var(--font-devanagari); font-size: 14px; color: var(--bindu); letter-spacing: 1.5px; margin-bottom: 6px; }
+  .nm { font-family: var(--font-display); font-size: 22px; color: var(--forest); letter-spacing: 3px; font-weight: 400; margin-bottom: 8px; }
+  .desc { font-family: var(--font-editorial); font-style: italic; font-size: 12.5px; color: var(--moss); line-height: 1.55; margin-bottom: 14px; }
+  .meta-row { display: flex; justify-content: space-between; align-items: baseline; padding-top: 12px; border-top: 1px solid var(--bone); }
+  .meta-row .price { font-family: var(--font-display); font-size: 18px; color: var(--ink); letter-spacing: 1px; font-weight: 400; }
+  .meta-row .lbl { font-family: var(--font-ui); font-size: 9.5px; letter-spacing: 2px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+</style>
+</head>
+<body>
+  <div class="stage">
+
+    <!-- KUTIR -->
+    <div class="card">
+      <div class="photo">
+        <div class="photo__mark">
+          <svg viewBox="0 0 200 48">
+            <text x="6" y="38" font-family="Cormorant Garamond, serif" font-weight="500" font-size="30" fill="#FAF7F0" letter-spacing="3">E</text>
+            <circle cx="38" cy="26" r="2.4" fill="#B4613A"/>
+            <text x="48" y="38" font-family="Cormorant Garamond, serif" font-weight="500" font-size="30" fill="#FAF7F0" letter-spacing="3">KAM</text>
+          </svg>
+        </div>
+        <div class="photo__glyph">
+          <svg viewBox="0 0 120 100">
+            <path d="M 20 56 L 60 22 L 100 56" fill="none" stroke="#FAF7F0" stroke-width="2"/>
+            <path d="M 28 56 L 28 86 L 92 86 L 92 56" fill="none" stroke="#FAF7F0" stroke-width="2"/>
+            <rect x="52" y="62" width="16" height="16" fill="#B4613A"/>
+            <path d="M 76 26 L 76 14 L 84 14 L 84 33" fill="none" stroke="#FAF7F0" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+      <div class="body">
+        <div class="dev">कुटीर</div>
+        <div class="nm">KUTIR</div>
+        <p class="desc">Standard cabin. Stone floor. A window onto the forest.</p>
+        <div class="meta-row"><span class="price">₹6,400 / night</span><span class="lbl">From</span></div>
+      </div>
+    </div>
+
+    <!-- VAN -->
+    <div class="card">
+      <div class="photo">
+        <div class="photo__mark">
+          <svg viewBox="0 0 200 48">
+            <text x="6" y="38" font-family="Cormorant Garamond, serif" font-weight="500" font-size="30" fill="#FAF7F0" letter-spacing="3">E</text>
+            <circle cx="38" cy="26" r="2.4" fill="#B4613A"/>
+            <text x="48" y="38" font-family="Cormorant Garamond, serif" font-weight="500" font-size="30" fill="#FAF7F0" letter-spacing="3">KAM</text>
+          </svg>
+        </div>
+        <div class="photo__glyph">
+          <svg viewBox="0 0 120 100">
+            <path d="M 24 84 L 24 64 M 14 64 L 24 36 L 34 64 Z" fill="none" stroke="#FAF7F0" stroke-width="2"/>
+            <path d="M 60 88 L 60 60 M 46 60 L 60 22 L 74 60 Z" fill="none" stroke="#FAF7F0" stroke-width="2"/>
+            <path d="M 96 84 L 96 64 M 86 64 L 96 36 L 106 64 Z" fill="none" stroke="#FAF7F0" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+      <div class="body">
+        <div class="dev">वन</div>
+        <div class="nm">VAN</div>
+        <p class="desc">Premium. Tents woven into the canopy. Living with the land.</p>
+        <div class="meta-row"><span class="price">₹9,200 / night</span><span class="lbl">From</span></div>
+      </div>
+    </div>
+
+    <!-- SHIKHAR -->
+    <div class="card">
+      <div class="photo">
+        <div class="photo__mark">
+          <svg viewBox="0 0 200 48">
+            <text x="6" y="38" font-family="Cormorant Garamond, serif" font-weight="500" font-size="30" fill="#FAF7F0" letter-spacing="3">E</text>
+            <circle cx="38" cy="26" r="2.4" fill="#B4613A"/>
+            <text x="48" y="38" font-family="Cormorant Garamond, serif" font-weight="500" font-size="30" fill="#FAF7F0" letter-spacing="3">KAM</text>
+          </svg>
+        </div>
+        <div class="photo__glyph">
+          <svg viewBox="0 0 120 100">
+            <path d="M 30 80 L 60 28 L 90 80" fill="none" stroke="#FAF7F0" stroke-width="2"/>
+            <path d="M 50 80 L 80 38 L 110 80 Z" fill="#FAF7F0"/>
+            <line x1="14" y1="80" x2="110" y2="80" stroke="#FAF7F0" stroke-width="2"/>
+            <path d="M 53 40 L 60 28 L 67 40" fill="none" stroke="#2B4630" stroke-width="1.2"/>
+          </svg>
+        </div>
+      </div>
+      <div class="body">
+        <div class="dev">शिखर</div>
+        <div class="nm">SHIKHAR</div>
+        <p class="desc">Luxury. Ridgeline. The view is unobstructed. Now breathe.</p>
+        <div class="meta-row"><span class="price">₹14,800 / night</span><span class="lbl">From</span></div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

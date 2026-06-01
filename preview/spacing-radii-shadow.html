@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>EKAM · Radii & Shadows</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { height: 100%; }
+  .stage { width: 700px; min-height: 260px; padding: 36px 48px; background: var(--cream); }
+  .row { display: flex; gap: 28px; align-items: stretch; }
+  .col { flex: 1; }
+  .col h5 { font-family: var(--font-ui); font-size: 10px; letter-spacing: 3px; color: var(--bindu); text-transform: uppercase; font-weight: 500; margin-bottom: 14px; }
+  .sample-row { display: flex; gap: 14px; align-items: center; margin-bottom: 14px; }
+  .box-square { width: 60px; height: 60px; background: var(--sand); border: 1px solid var(--bone); }
+  .box-square2 { width: 60px; height: 60px; background: var(--forest); }
+  .pill { padding: 10px 22px; border: 1px solid var(--bindu); border-radius: 999px; font-family: var(--font-ui); font-size: 11px; letter-spacing: 2.5px; color: var(--forest); text-transform: uppercase; font-weight: 500; background: transparent; }
+  .lbl { font-family: var(--font-ui); font-size: 10px; letter-spacing: 1.5px; color: var(--moss); font-weight: 300; }
+  .lbl b { color: var(--ink); font-weight: 500; display: block; margin-bottom: 2px; letter-spacing: 2px; text-transform: uppercase; font-size: 9.5px; }
+  .paper { background: var(--cream); width: 100%; min-height: 140px; box-shadow: 0 16px 32px rgba(20,32,26,0.18), 0 4px 8px rgba(20,32,26,0.08); padding: 18px; transform: rotate(-2deg); }
+  .paper-mark { font-family: var(--font-display); font-size: 22px; color: var(--forest); letter-spacing: 4px; text-align: center; padding: 18px 0; }
+  .paper-dev { font-family: var(--font-devanagari); font-size: 14px; color: var(--bindu); text-align: center; }
+  .note { font-family: var(--font-editorial); font-style: italic; font-size: 12.5px; color: var(--moss); margin-top: 18px; line-height: 1.6; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="row">
+      <div class="col">
+        <h5>Radii — hard edges</h5>
+        <div class="sample-row">
+          <div class="box-square"></div>
+          <div class="lbl"><b>0 px default</b>Cards, inputs, panels, photos.</div>
+        </div>
+        <div class="sample-row">
+          <div class="box-square2"></div>
+          <div class="lbl"><b>0 px on forest</b>Same rule, dark surface.</div>
+        </div>
+        <div class="sample-row">
+          <button class="pill">Find your Ekam</button>
+          <div class="lbl"><b>Pill — CTA only</b>The only allowed rounding.</div>
+        </div>
+      </div>
+      <div class="col">
+        <h5>Shadow — paper, not glow</h5>
+        <div class="paper">
+          <div class="paper-dev">एकम्</div>
+          <div class="paper-mark">EKAM</div>
+        </div>
+        <p class="note">Used only on physical artifact illustrations. UI never carries shadow — elevation is hairline + tone.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

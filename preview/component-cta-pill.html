@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>EKAM · CTA Pill</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { height: 100%; }
+  .stage {
+    width: 700px; min-height: 320px;
+    padding: 0;
+    background: var(--cream);
+    display: flex; flex-direction: column;
+  }
+
+  /* PILL STYLES */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 22px;
+    border: 1px solid var(--bindu);
+    border-radius: 999px;
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    background: transparent;
+    color: var(--forest);
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .pill .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--bindu);
+    display: inline-block;
+  }
+  .pill.hover { color: var(--bindu); }
+  .pill.pressed { color: var(--bindu-deep); border-color: var(--bindu-deep); }
+  .pill.disabled { color: var(--moss); border-color: var(--mist); cursor: not-allowed; }
+  .pill.solid { background: var(--bindu); color: var(--cream); border-color: var(--bindu); }
+  .pill.solid .dot { background: var(--cream); }
+  .pill.solid.hover { background: var(--bindu-deep); border-color: var(--bindu-deep); }
+  .pill.onforest {
+    background: var(--cream);
+    color: var(--forest);
+    border-color: var(--cream);
+  }
+  .pill.onforest .dot { background: var(--bindu); }
+  .pill.onforest.hover {
+    background: var(--sand);
+    color: var(--ink);
+    border-color: var(--sand);
+  }
+
+  /* SIZES */
+  .pill.sm { padding: 7px 14px; font-size: 9.5px; letter-spacing: 2px; }
+  .pill.lg { padding: 14px 28px; font-size: 12px; letter-spacing: 3px; }
+
+  /* SECTION — light states matrix */
+  .matrix {
+    display: grid;
+    grid-template-columns: 80px repeat(4, 1fr);
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--bone);
+    gap: 12px;
+  }
+  .matrix:last-of-type { border-bottom: 0; }
+  .row-lbl {
+    font-family: var(--font-ui);
+    font-size: 9.5px;
+    letter-spacing: 2px;
+    color: var(--bindu);
+    text-transform: uppercase;
+    font-weight: 500;
+    text-align: right;
+    padding-right: 4px;
+  }
+  .matrix.dark { background: var(--forest); border-bottom: 0; }
+  .matrix.dark .row-lbl { color: var(--moss-on-forest); }
+  .col-head {
+    display: grid;
+    grid-template-columns: 80px repeat(4, 1fr);
+    align-items: center;
+    padding: 12px 24px 8px;
+    gap: 12px;
+    border-bottom: 1px solid var(--bone);
+  }
+  .col-head span {
+    font-family: var(--font-ui);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: var(--moss);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* Cell wrap to show pill in a row */
+  .cell { display: flex; justify-content: flex-start; }
+
+  /* Top eyebrow */
+  .head {
+    padding: 16px 24px 6px;
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .head .nm {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--bindu);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .head .quote {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 12px;
+    color: var(--moss);
+  }
+
+  /* Bottom rules */
+  .rules {
+    padding: 12px 24px 16px;
+    background: var(--sand);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--bone);
+  }
+  .rule {
+    padding: 0 16px;
+    border-right: 1px solid var(--bone);
+    font-family: var(--font-ui);
+    font-size: 10px;
+    color: var(--ink);
+    font-weight: 300;
+    line-height: 1.5;
+    letter-spacing: 0.3px;
+  }
+  .rule:first-child { padding-left: 0; }
+  .rule:last-child { border-right: 0; padding-right: 0; }
+  .rule b {
+    color: var(--bindu);
+    font-weight: 500;
+    display: block;
+    font-size: 9px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+
+    <div class="head">
+      <span class="nm">— CTA Pill</span>
+      <span class="quote">The only rounded shape in the system.</span>
+    </div>
+
+    <div class="col-head">
+      <span></span>
+      <span>Default</span>
+      <span>Hover</span>
+      <span>Pressed</span>
+      <span>Disabled</span>
+    </div>
+
+    <div class="matrix">
+      <span class="row-lbl">Ghost</span>
+      <div class="cell"><a class="pill"><span class="dot"></span>Find your Ekam</a></div>
+      <div class="cell"><a class="pill hover"><span class="dot"></span>Find your Ekam</a></div>
+      <div class="cell"><a class="pill pressed"><span class="dot"></span>Find your Ekam</a></div>
+      <div class="cell"><a class="pill disabled"><span class="dot" style="background:var(--mist);"></span>Unavailable</a></div>
+    </div>
+
+    <div class="matrix">
+      <span class="row-lbl">Solid</span>
+      <div class="cell"><a class="pill solid">Confirm — ₹8,400</a></div>
+      <div class="cell"><a class="pill solid hover">Confirm — ₹8,400</a></div>
+      <div class="cell"><a class="pill solid" style="opacity:.6;">Confirm — ₹8,400</a></div>
+      <div class="cell"><a class="pill solid" style="background:var(--mist); border-color:var(--mist); color:var(--moss);">Unavailable</a></div>
+    </div>
+
+    <div class="matrix dark">
+      <span class="row-lbl">On forest</span>
+      <div class="cell"><a class="pill onforest"><span class="dot"></span>Begin the stay</a></div>
+      <div class="cell"><a class="pill onforest hover"><span class="dot"></span>Begin the stay</a></div>
+      <div class="cell"><a class="pill onforest" style="background:var(--bone); border-color:var(--bone); color:var(--ink);"><span class="dot"></span>Begin the stay</a></div>
+      <div class="cell"><a class="pill onforest" style="background:transparent; color:var(--moss-on-forest); border-color:var(--moss-on-forest);">Unavailable</a></div>
+    </div>
+
+    <div class="rules">
+      <div class="rule"><b>— Use</b>Always for a primary CTA. Never for an icon, never for a chip, never for a list item.</div>
+      <div class="rule"><b>— Behavior</b>Hover shifts text to clay. Press dims to deeper clay for 60 ms. No transform, no shadow.</div>
+      <div class="rule"><b>— Sizes</b>Three: <span class="sm-inline" style="font-family:var(--font-display); font-style:italic; font-size:11px; color:var(--forest);">sm</span> 28 / <span style="font-family:var(--font-display); font-style:italic; font-size:11px; color:var(--forest);">md</span> 36 / <span style="font-family:var(--font-display); font-style:italic; font-size:11px; color:var(--forest);">lg</span> 44 px tall.</div>
+    </div>
+
+  </div>
+</body>
+</html>

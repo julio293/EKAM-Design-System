@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EKAM OS · 03 Materials</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="stylesheet" href="_chrome.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=Raleway:wght@300;400;500&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  /* ─── Material card ─── */
+  .mat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .mat {
+    border: 1px solid var(--bone);
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--cream);
+    display: flex; flex-direction: column;
+  }
+  .mat__stage {
+    height: 180px; position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  /* Material swatches — built from gradients to read as the real material */
+  .mat__stage.forest-plate { background: linear-gradient(135deg, #2B4630 0%, #1F3525 50%, #14201A 100%); }
+  .mat__stage.brass { background: linear-gradient(135deg, #b18545 0%, #c9a062 30%, #8b6628 60%, #a78048 100%); position: relative; }
+  .mat__stage.brass::after { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(127deg, transparent 0px, transparent 1px, rgba(0,0,0,0.05) 1px, rgba(0,0,0,0.05) 2px); }
+  .mat__stage.pearwood { background: linear-gradient(135deg, #c89968 0%, #b8835a 40%, #8e6038 100%); position: relative; }
+  .mat__stage.pearwood::after { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(91deg, transparent 0px, transparent 18px, rgba(0,0,0,0.06) 18px, rgba(0,0,0,0.06) 19px, transparent 19px, transparent 32px); }
+  .mat__stage.cream-paper { background: #f3ecd9; background-image: repeating-linear-gradient(89deg, transparent 0px, transparent 2px, rgba(180,97,58,0.025) 2px, rgba(180,97,58,0.025) 3px); }
+  .mat__stage.cedar { background: linear-gradient(135deg, #7a5435 0%, #5a3a22 50%, #432817 100%); position: relative; }
+  .mat__stage.cedar::after { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(89deg, transparent 0px, transparent 14px, rgba(0,0,0,0.10) 14px, rgba(0,0,0,0.10) 15px); }
+  .mat__stage.wax { background: radial-gradient(circle at 35% 30%, #d6815b 0%, #a55a31 40%, #5e2c12 80%, #1c0802 100%); }
+  .mat__stage.jute { background: #b8a075; background-image: repeating-linear-gradient(89deg, transparent 0px, transparent 3px, rgba(80,60,30,0.18) 3px, rgba(80,60,30,0.18) 4px), repeating-linear-gradient(0deg, transparent 0px, transparent 3px, rgba(80,60,30,0.12) 3px, rgba(80,60,30,0.12) 4px); }
+  .mat__stage.concrete { background: linear-gradient(135deg, #b8b3a8 0%, #a09a8e 50%, #8a8478 100%); }
+
+  .mat__chip {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.0);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 400; font-size: 22px;
+    color: rgba(0,0,0,0); /* the swatch IS the chip */
+  }
+
+  .mat__meta { padding: 18px 22px 20px; }
+  .mat__no {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 18px; color: var(--bindu); font-weight: 400; line-height: 1;
+  }
+  .mat__name {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: 21px; color: var(--forest);
+    letter-spacing: 0.3px; margin: 6px 0 0;
+  }
+  .mat__name em { font-family: var(--font-editorial); font-style: italic; color: var(--bindu); font-weight: 400; }
+  .mat__hint {
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 12.5px; color: var(--moss);
+    margin: 6px 0 14px;
+  }
+  .mat__spec { display: flex; flex-direction: column; }
+  .mat__row {
+    display: grid; grid-template-columns: 72px 1fr;
+    gap: 12px; padding: 8px 0;
+    border-top: 1px solid var(--bone);
+    align-items: baseline;
+  }
+  .mat__row:first-child { border-top: 0; padding-top: 0; }
+  .mat__lbl {
+    font-family: var(--font-ui); font-size: 9px;
+    letter-spacing: 1.8px; color: var(--bindu);
+    text-transform: uppercase; font-weight: 500;
+  }
+  .mat__val {
+    font-family: var(--font-body); font-weight: 300;
+    font-size: 12.5px; color: var(--ink); line-height: 1.5;
+  }
+  .mat__val b { font-family: 'Inter', sans-serif; color: var(--forest); font-weight: 500; font-size: 11.5px; }
+  .mat__val em { font-family: var(--font-editorial); font-style: italic; color: var(--moss); }
+
+  /* Cycle row */
+  .cycles {
+    width: 100%; border-collapse: collapse;
+    border: 1px solid var(--bone);
+  }
+  .cycles th, .cycles td {
+    text-align: left; padding: 14px 18px;
+    border-bottom: 1px solid var(--bone);
+    font-family: var(--font-body); font-weight: 300;
+    font-size: 13px; color: var(--ink);
+  }
+  .cycles tr:last-child td { border-bottom: 0; }
+  .cycles th {
+    background: var(--sand);
+    font-family: var(--font-ui); font-size: 9.5px;
+    letter-spacing: 2px; color: var(--bindu);
+    text-transform: uppercase; font-weight: 500;
+  }
+  .cycles td.cycle-mat { font-family: var(--font-display); color: var(--forest); font-size: 15px; font-weight: 400; }
+  .cycles td.cycle-time { font-family: 'Inter', monospace; color: var(--bindu); font-weight: 500; font-size: 12px; }
+
+  /* Forbidden materials list */
+  .forbid {
+    background: var(--sand);
+    border: 1px solid var(--bone);
+    border-radius: 4px;
+    padding: 24px 28px;
+  }
+  .forbid h4 {
+    font-family: var(--font-ui); font-size: 11px;
+    letter-spacing: 2.5px; color: var(--bindu);
+    text-transform: uppercase; font-weight: 500;
+    margin: 0 0 12px;
+  }
+  .forbid ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .forbid li {
+    display: grid; grid-template-columns: 24px 1fr 2fr;
+    gap: 16px; padding: 8px 0;
+    border-bottom: 1px solid var(--bone);
+    align-items: baseline;
+  }
+  .forbid li:last-child { border-bottom: 0; }
+  .forbid li .sym { font-family: var(--font-display); font-style: italic; font-size: 18px; color: var(--moss); }
+  .forbid li .what { font-family: var(--font-display); font-weight: 400; font-size: 16px; color: var(--forest); }
+  .forbid li .why { font-family: var(--font-editorial); font-style: italic; font-size: 13px; color: var(--moss); line-height: 1.5; }
+
+  /* Vendor block */
+  .vendors { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .vendor {
+    background: var(--cream);
+    border: 1px solid var(--bone);
+    padding: 22px 24px;
+  }
+  .vendor__h {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-bottom: 10px; margin-bottom: 12px;
+    border-bottom: 1px solid var(--bone);
+  }
+  .vendor__h-name { font-family: var(--font-display); font-size: 17px; color: var(--forest); letter-spacing: 0.3px; }
+  .vendor__h-region { font-family: var(--font-ui); font-size: 9.5px; letter-spacing: 1.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+  .vendor__row {
+    display: grid; grid-template-columns: 90px 1fr;
+    gap: 12px; padding: 6px 0;
+    font-family: var(--font-body); font-size: 12.5px; color: var(--ink); line-height: 1.5; font-weight: 300;
+  }
+  .vendor__row b { font-family: var(--font-ui); font-size: 9px; letter-spacing: 1.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+  .vendor__row em { font-family: var(--font-editorial); font-style: italic; color: var(--moss); }
+</style>
+</head>
+<body>
+
+<div class="os">
+
+  <!-- ─── Sidebar ─── -->
+  <aside class="os-nav">
+    <div class="os-nav__brand">
+      <span class="os-nav__brand-dev">एकम् · संचालन</span>
+      <span class="os-nav__brand-wm">E<span class="dot"></span>KAM</span>
+      <span class="os-nav__brand-tag">The operating system · v1.0 · draft</span>
+    </div>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Foundation</span>
+      <a class="os-nav__item" href="00-principles.html"><span class="os-nav__item-no">00</span><span>Principles</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="01-tokens.html"><span class="os-nav__item-no">01</span><span>Tokens</span></a>
+      <a class="os-nav__item" href="02-spatial-type.html"><span class="os-nav__item-no">02</span><span>Spatial type</span></a>
+      <a class="os-nav__item is-on" href="03-materials.html"><span class="os-nav__item-no">03</span><span>Materials</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Environmental</span>
+      <a class="os-nav__item" href="04-signage.html"><span class="os-nav__item-no">04</span><span>Signage system</span></a>
+      <a class="os-nav__item" href="05-wayfinding.html"><span class="os-nav__item-no">05</span><span>Wayfinding</span></a>
+      <a class="os-nav__item" href="06-cabin-anatomy.html"><span class="os-nav__item-no">06</span><span>Cabin anatomy</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Hospitality</span>
+      <a class="os-nav__item is-pending" href="#" data-pending="07-guest-journey.html"><span class="os-nav__item-no">07</span><span>Guest journey</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="08-rituals.html"><span class="os-nav__item-no">08</span><span>Rituals on site</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Build</span>
+      <a class="os-nav__item is-pending" href="#" data-pending="09-fabrication.html"><span class="os-nav__item-no">09</span><span>Fabrication</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="10-utility-emergency.html"><span class="os-nav__item-no">10</span><span>Utility &amp; emergency</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="11-staff.html"><span class="os-nav__item-no">11</span><span>Staff systems</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Scale</span>
+      <a class="os-nav__item is-pending" href="#" data-pending="12-tier-variation.html"><span class="os-nav__item-no">12</span><span>Tier variation</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="13-partner-tiers.html"><span class="os-nav__item-no">13</span><span>Partner tiers</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="14-prints.html"><span class="os-nav__item-no">14</span><span>Exports</span></a>
+    </nav>
+    <div class="os-nav__foot"><b>— Reading</b>The material palette. Vendor-ready.</div>
+  </aside>
+
+  <main class="os-main">
+
+    <!-- ─── Section header ─── -->
+    <header class="os-head">
+      <div>
+        <span class="os-head__eb">— 03 · Materials</span>
+        <span class="os-head__dev">द्रव्य · the material</span>
+        <h1 class="os-head__title">Eight materials. <em>One palette, every property.</em></h1>
+        <p class="os-head__lede">The physical brand is built from eight materials and nothing else. Every cabin, every plate, every plaque, every artifact on site uses this palette. New materials require founder + head-of-brand sign-off. The discipline of the palette is what makes the second property recognisable as EKAM without seeing a wordmark.</p>
+      </div>
+      <div class="os-head__meta">
+        <span>Section <b>03 / 14</b></span>
+        <span>Reading <b>~9 min</b></span>
+        <span>Updated <b>28 May 2026</b></span>
+      </div>
+    </header>
+
+    <!-- ═════════════════════════════════════════════════════════
+         A · THE EIGHT MATERIALS
+         ═════════════════════════════════════════════════════════ -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div>
+          <div class="os-sub__no">A<span class="os-sub__no-dev">पट्ट · the palette</span></div>
+        </div>
+        <div>
+          <h2 class="os-sub__title">Eight materials. <em>Each with a role.</em></h2>
+          <p class="os-sub__lede">Three primary surfaces, three accent surfaces, two artifact materials. Vendor-ready specs: dimensions, finish, weather rating, longevity, replacement cycle.</p>
+        </div>
+      </header>
+
+      <div class="mat-grid">
+
+        <!-- 01 · Forest-painted MS plate -->
+        <div class="mat">
+          <div class="mat__stage forest-plate"></div>
+          <div class="mat__meta">
+            <div class="mat__no">01</div>
+            <h3 class="mat__name">Forest plate <em>· the default outdoor</em></h3>
+            <p class="mat__hint">The signage workhorse. Cabin plates, gate panels, wayfinding posts.</p>
+            <div class="mat__spec">
+              <div class="mat__row"><span class="mat__lbl">Substrate</span><span class="mat__val">2 mm mild steel sheet · laser-cut</span></div>
+              <div class="mat__row"><span class="mat__lbl">Finish</span><span class="mat__val">Powder-coat <b>RAL 6009 (Forest #2B4630)</b> · matte 10% gloss</span></div>
+              <div class="mat__row"><span class="mat__lbl">Lettering</span><span class="mat__val">Cream vinyl decal · 200 µm cast vinyl · 7-year outdoor</span></div>
+              <div class="mat__row"><span class="mat__lbl">Weather</span><span class="mat__val">IP65 · UV-stable · monsoon-tested</span></div>
+              <div class="mat__row"><span class="mat__lbl">Lifespan</span><span class="mat__val"><b>7–10 years</b> in Himalayan conditions</span></div>
+              <div class="mat__row"><span class="mat__lbl">Cycle</span><span class="mat__val">Inspect annually · re-paint at 7 yr · re-vinyl at 5 yr</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 02 · Sandblasted brass -->
+        <div class="mat">
+          <div class="mat__stage brass"></div>
+          <div class="mat__meta">
+            <div class="mat__no">02</div>
+            <h3 class="mat__name">Brass <em>· the heritage plate</em></h3>
+            <p class="mat__hint">Cabin door plate, wax seal stamp, retail tag. Develops patina.</p>
+            <div class="mat__spec">
+              <div class="mat__row"><span class="mat__lbl">Substrate</span><span class="mat__val">3 mm sand-cast brass (CuZn37) · sandblasted matte</span></div>
+              <div class="mat__row"><span class="mat__lbl">Finish</span><span class="mat__val">Acid-etched lettering · raw oiled · <em>no lacquer</em></span></div>
+              <div class="mat__row"><span class="mat__lbl">Mount</span><span class="mat__val">Brass screws into pearwood backplate</span></div>
+              <div class="mat__row"><span class="mat__lbl">Weather</span><span class="mat__val">Outdoor-rated · develops forest-green patina</span></div>
+              <div class="mat__row"><span class="mat__lbl">Lifespan</span><span class="mat__val"><b>50+ years</b> · patina is feature, not defect</span></div>
+              <div class="mat__row"><span class="mat__lbl">Cycle</span><span class="mat__val">Oil once a year (light tung) · never polish bright</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 03 · Pearwood -->
+        <div class="mat">
+          <div class="mat__stage pearwood"></div>
+          <div class="mat__meta">
+            <div class="mat__no">03</div>
+            <h3 class="mat__name">Pearwood <em>· the warm interior</em></h3>
+            <p class="mat__hint">Stamp handles, journal covers, kitchen utensils, switch plates.</p>
+            <div class="mat__spec">
+              <div class="mat__row"><span class="mat__lbl">Substrate</span><span class="mat__val">Indian pearwood (<em>Pyrus pashia</em>) · kiln-dried 8% MC</span></div>
+              <div class="mat__row"><span class="mat__lbl">Finish</span><span class="mat__val">Hand-sanded · natural beeswax · matte</span></div>
+              <div class="mat__row"><span class="mat__lbl">Etching</span><span class="mat__val">Laser-etched marks · burned 0.4 mm deep</span></div>
+              <div class="mat__row"><span class="mat__lbl">Weather</span><span class="mat__val"><strong style="color:#B23A2A; font-weight: 500;">Indoor only</strong> · cracks in monsoon if exposed</span></div>
+              <div class="mat__row"><span class="mat__lbl">Lifespan</span><span class="mat__val"><b>15–25 years</b> with annual wax</span></div>
+              <div class="mat__row"><span class="mat__lbl">Cycle</span><span class="mat__val">Re-wax annually · re-sand at 10 yr · replace if cracked</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 04 · Cream paper plaque -->
+        <div class="mat">
+          <div class="mat__stage cream-paper"></div>
+          <div class="mat__meta">
+            <div class="mat__no">04</div>
+            <h3 class="mat__name">Cream paper plaque <em>· the indoor instruction</em></h3>
+            <p class="mat__hint">Common-area signage, kitchen rules, journal pages, welcome letter.</p>
+            <div class="mat__spec">
+              <div class="mat__row"><span class="mat__lbl">Substrate</span><span class="mat__val">240 gsm cream cotton-rag · acid-free</span></div>
+              <div class="mat__row"><span class="mat__lbl">Printing</span><span class="mat__val">Screen-print forest ink · 1-colour · oversized for plates</span></div>
+              <div class="mat__row"><span class="mat__lbl">Mount</span><span class="mat__val">Brass push-pin into pearwood frame (no glass)</span></div>
+              <div class="mat__row"><span class="mat__lbl">Weather</span><span class="mat__val"><strong style="color:#B23A2A; font-weight: 500;">Indoor only</strong> · humidity-sensitive</span></div>
+              <div class="mat__row"><span class="mat__lbl">Lifespan</span><span class="mat__val"><b>2–4 years</b> before fade</span></div>
+              <div class="mat__row"><span class="mat__lbl">Cycle</span><span class="mat__val">Replace seasonally if message changes · re-print every 3 yr</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 05 · Cedar timber -->
+        <div class="mat">
+          <div class="mat__stage cedar"></div>
+          <div class="mat__meta">
+            <div class="mat__no">05</div>
+            <h3 class="mat__name">Cedar timber <em>· the cabin skin</em></h3>
+            <p class="mat__hint">Cabin cladding, trail markers, fire-pit boundary, deck planks.</p>
+            <div class="mat__spec">
+              <div class="mat__row"><span class="mat__lbl">Substrate</span><span class="mat__val">Local deodar cedar · 18 mm vertical board · ship-lap</span></div>
+              <div class="mat__row"><span class="mat__lbl">Finish</span><span class="mat__val">Tung oil · charcoal-tinted (40% black) · 3 coats</span></div>
+              <div class="mat__row"><span class="mat__lbl">Marks</span><span class="mat__val">Hot iron brand · 8–12 mm cap height · no paint</span></div>
+              <div class="mat__row"><span class="mat__lbl">Weather</span><span class="mat__val">Outdoor · weathers to silver-grey over 18 months</span></div>
+              <div class="mat__row"><span class="mat__lbl">Lifespan</span><span class="mat__val"><b>25–40 years</b> with oil refresh</span></div>
+              <div class="mat__row"><span class="mat__lbl">Cycle</span><span class="mat__val">Re-oil every 3 yr · replace boards as needed</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 06 · Bindu wax -->
+        <div class="mat">
+          <div class="mat__stage wax"></div>
+          <div class="mat__meta">
+            <div class="mat__no">06</div>
+            <h3 class="mat__name">Bindu wax <em>· the seal</em></h3>
+            <p class="mat__hint">The departure seal. The one piece of brand that travels home in the guest's pocket.</p>
+            <div class="mat__spec">
+              <div class="mat__row"><span class="mat__lbl">Composition</span><span class="mat__val">Sealing wax (beeswax 40 / resin 35 / shellac 25) · pigmented <b>Bindu #B4613A</b></span></div>
+              <div class="mat__row"><span class="mat__lbl">Application</span><span class="mat__val">Warm-pressed at <b>92 °C</b> · hand-pressed brass stamp</span></div>
+              <div class="mat__row"><span class="mat__lbl">Diameter</span><span class="mat__val">28–32 mm · <em>slight oval — never mechanically circular</em></span></div>
+              <div class="mat__row"><span class="mat__lbl">Weather</span><span class="mat__val">Stable below 40 °C · ships in waxed paper sleeve</span></div>
+              <div class="mat__row"><span class="mat__lbl">Lifespan</span><span class="mat__val"><b>Permanent</b> · the artifact</span></div>
+              <div class="mat__row"><span class="mat__lbl">Cycle</span><span class="mat__val">One per stay · numbered in the host's journal</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 07 · Jute / hemp twine -->
+        <div class="mat">
+          <div class="mat__stage jute"></div>
+          <div class="mat__meta">
+            <div class="mat__no">07</div>
+            <h3 class="mat__name">Jute twine <em>· the tie</em></h3>
+            <p class="mat__hint">Packaging ties, retail tag string, journal bookmark, gift wrap.</p>
+            <div class="mat__spec">
+              <div class="mat__row"><span class="mat__lbl">Spec</span><span class="mat__val">3-ply hemp · 2.5 mm dia · raw undyed</span></div>
+              <div class="mat__row"><span class="mat__lbl">Use</span><span class="mat__val">Tie around journal · seal the welcome letter · binding</span></div>
+              <div class="mat__row"><span class="mat__lbl">Knot</span><span class="mat__val">Simple square knot · never bow</span></div>
+              <div class="mat__row"><span class="mat__lbl">Weather</span><span class="mat__val">Indoor and short outdoor · rots in monsoon</span></div>
+              <div class="mat__row"><span class="mat__lbl">Lifespan</span><span class="mat__val"><b>3–5 years</b> indoor · 1 yr outdoor</span></div>
+              <div class="mat__row"><span class="mat__lbl">Cycle</span><span class="mat__val">Single-use for guest gifts · re-spool for in-house</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 08 · Concrete plinth -->
+        <div class="mat">
+          <div class="mat__stage concrete"></div>
+          <div class="mat__meta">
+            <div class="mat__no">08</div>
+            <h3 class="mat__name">Concrete plinth <em>· the ground</em></h3>
+            <p class="mat__hint">Sign mounts, plate plinths, fire-pit base, step risers.</p>
+            <div class="mat__spec">
+              <div class="mat__row"><span class="mat__lbl">Substrate</span><span class="mat__val">M30 grey concrete · 220 × 220 × 80 mm cast plinth</span></div>
+              <div class="mat__row"><span class="mat__lbl">Finish</span><span class="mat__val">Sand-rubbed matte · no sealer · ages with site</span></div>
+              <div class="mat__row"><span class="mat__lbl">Mount</span><span class="mat__val">Embedded MS anchor (8 mm rod, 60 mm deep)</span></div>
+              <div class="mat__row"><span class="mat__lbl">Weather</span><span class="mat__val">Fully outdoor · monsoon-rated</span></div>
+              <div class="mat__row"><span class="mat__lbl">Lifespan</span><span class="mat__val"><b>40+ years</b> · the foundation outlives the sign</span></div>
+              <div class="mat__row"><span class="mat__lbl">Cycle</span><span class="mat__val">Inspect anchor bolts at 5 yr · rarely needs replacement</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═════════════════════════════════════════════════════════
+         B · REPLACEMENT CYCLES
+         ═════════════════════════════════════════════════════════ -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div>
+          <div class="os-sub__no">B<span class="os-sub__no-dev">क्षण · the cycle</span></div>
+        </div>
+        <div>
+          <h2 class="os-sub__title">Replacement, by year. <em>A planner's table.</em></h2>
+          <p class="os-sub__lede">A property's maintenance budget rolls against this table. Year 1 is mostly nothing; year 5 is the first vinyl refresh; year 10 is a paint cycle; year 25 is a hull-life cabin refit.</p>
+        </div>
+      </header>
+
+      <table class="cycles">
+        <thead>
+          <tr><th>Material</th><th>Inspect</th><th>Refresh</th><th>Replace</th><th>Trigger</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="cycle-mat">Forest plate</td>
+            <td class="cycle-time">Annual</td>
+            <td class="cycle-time">Vinyl · 5 yr</td>
+            <td class="cycle-time">Paint · 7 yr</td>
+            <td>Visible rust at edges, fade of vinyl letters.</td>
+          </tr>
+          <tr>
+            <td class="cycle-mat">Brass</td>
+            <td class="cycle-time">Annual oiling</td>
+            <td class="cycle-time">Never bright</td>
+            <td class="cycle-time">50+ yr</td>
+            <td>Structural damage only. Patina is feature, not defect.</td>
+          </tr>
+          <tr>
+            <td class="cycle-mat">Pearwood</td>
+            <td class="cycle-time">Annual wax</td>
+            <td class="cycle-time">Sand · 10 yr</td>
+            <td class="cycle-time">If cracked</td>
+            <td>Crack visible to the eye. Replace, do not glue.</td>
+          </tr>
+          <tr>
+            <td class="cycle-mat">Cream paper plaque</td>
+            <td class="cycle-time">Quarterly</td>
+            <td class="cycle-time">3 yr</td>
+            <td class="cycle-time">Seasonal</td>
+            <td>Fading, foxing, message change.</td>
+          </tr>
+          <tr>
+            <td class="cycle-mat">Cedar timber</td>
+            <td class="cycle-time">Annual</td>
+            <td class="cycle-time">Oil · 3 yr</td>
+            <td class="cycle-time">25–40 yr</td>
+            <td>Soft spots, deep splits, board-level rot.</td>
+          </tr>
+          <tr>
+            <td class="cycle-mat">Bindu wax</td>
+            <td class="cycle-time">N/A</td>
+            <td class="cycle-time">N/A</td>
+            <td class="cycle-time">Permanent</td>
+            <td>The seal is permanent. Stamp is re-cut every 5 yr.</td>
+          </tr>
+          <tr>
+            <td class="cycle-mat">Jute twine</td>
+            <td class="cycle-time">Per-use</td>
+            <td class="cycle-time">N/A</td>
+            <td class="cycle-time">Per-use</td>
+            <td>Single-use for guest gifts. Re-spool in-house.</td>
+          </tr>
+          <tr>
+            <td class="cycle-mat">Concrete plinth</td>
+            <td class="cycle-time">5 yr</td>
+            <td class="cycle-time">N/A</td>
+            <td class="cycle-time">40+ yr</td>
+            <td>Anchor failure, plinth crack, site movement.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ═════════════════════════════════════════════════════════
+         C · VENDORS
+         ═════════════════════════════════════════════════════════ -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div>
+          <div class="os-sub__no">C<span class="os-sub__no-dev">शिल्पी · the makers</span></div>
+        </div>
+        <div>
+          <h2 class="os-sub__title">Vendor pack. <em>Named makers per material.</em></h2>
+          <p class="os-sub__lede">Each material has a primary vendor and a backup. Primary is sourced once, audited annually. The backup is held in reserve, not used until the primary fails — discipline of supply chain matters as much as discipline of design.</p>
+        </div>
+      </header>
+
+      <div class="vendors">
+        <div class="vendor">
+          <div class="vendor__h"><span class="vendor__h-name">Forest plate &amp; brass</span><span class="vendor__h-region">— Roorkee, UK</span></div>
+          <div class="vendor__row"><b>Primary</b>Sign Studio Roorkee · powder-coat + vinyl + brass etching under one roof</div>
+          <div class="vendor__row"><b>Backup</b>Dehradun Steelworks <em>(brass only)</em></div>
+          <div class="vendor__row"><b>Lead</b>3 weeks · MOQ 4 plates</div>
+          <div class="vendor__row"><b>Audit</b>Annual visit · sample plate retained</div>
+        </div>
+        <div class="vendor">
+          <div class="vendor__h"><span class="vendor__h-name">Pearwood &amp; cedar</span><span class="vendor__h-region">— Nainital + Kalpa</span></div>
+          <div class="vendor__row"><b>Primary</b>Bishan Singh Joinery (Nainital) · all pearwood; cedar from local sourcing</div>
+          <div class="vendor__row"><b>Backup</b>Kalpa Wood Co-op</div>
+          <div class="vendor__row"><b>Lead</b>4–6 weeks · seasonal availability</div>
+          <div class="vendor__row"><b>Audit</b>Forest-stewardship cert required (FSC equivalent)</div>
+        </div>
+        <div class="vendor">
+          <div class="vendor__h"><span class="vendor__h-name">Cream paper &amp; printing</span><span class="vendor__h-region">— Delhi</span></div>
+          <div class="vendor__row"><b>Primary</b>Achiever Paper (240 gsm cotton rag) · Modi Press Delhi for screen-print</div>
+          <div class="vendor__row"><b>Backup</b>Sangam Mills (Faridabad)</div>
+          <div class="vendor__row"><b>Lead</b>2 weeks · MOQ 50 sheets</div>
+          <div class="vendor__row"><b>Audit</b>Pantone match check on each batch</div>
+        </div>
+        <div class="vendor">
+          <div class="vendor__h"><span class="vendor__h-name">Sealing wax &amp; stamp</span><span class="vendor__h-region">— Pondicherry</span></div>
+          <div class="vendor__row"><b>Primary</b>Auroville Wax Co. · custom Bindu pigment + brass stamp by hand</div>
+          <div class="vendor__row"><b>Backup</b>Calcutta Sealing Wax</div>
+          <div class="vendor__row"><b>Lead</b>3 weeks (wax), 6 weeks (stamp re-cut)</div>
+          <div class="vendor__row"><b>Audit</b>Pigment colour-match every 1000-unit batch</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═════════════════════════════════════════════════════════
+         D · WHAT WE DO NOT USE
+         ═════════════════════════════════════════════════════════ -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div>
+          <div class="os-sub__no">D<span class="os-sub__no-dev">निषेध · the refusals</span></div>
+        </div>
+        <div>
+          <h2 class="os-sub__title">Materials we do not use. <em>Even when they are cheaper.</em></h2>
+          <p class="os-sub__lede">Each of these has been proposed by a vendor at some point. Each is named here so the decision is not re-litigated when the next vendor proposes it.</p>
+        </div>
+      </header>
+
+      <div class="forbid">
+        <h4>— Removed from consideration</h4>
+        <ul>
+          <li><span class="sym">✕</span><span class="what">Acrylic / Perspex / PVC</span><span class="why">Cheap, available, weather-proof — and reads as municipal signage. The brand is a forest property, not a bus stop.</span></li>
+          <li><span class="sym">✕</span><span class="what">Aluminium composite (ACP)</span><span class="why">Industry-standard for hotel signage. Looks identical to the airport, the mall, the highway. Used precisely <strong>nowhere</strong> in EKAM.</span></li>
+          <li><span class="sym">✕</span><span class="what">Stainless steel</span><span class="why">Too reflective, too clinical. Our brass develops patina; steel never does. Use only for hidden hardware.</span></li>
+          <li><span class="sym">✕</span><span class="what">Glass-faced signs</span><span class="why">Plate inside a glass case. Reads as bus-stand advertising. We never frame a plate; the plate is the frame.</span></li>
+          <li><span class="sym">✕</span><span class="what">Backlit / LED-edge signs</span><span class="why">No internal illumination, anywhere. The cabin's lit window is the only thing that glows on site after dusk.</span></li>
+          <li><span class="sym">✕</span><span class="what">Synthetic stone (Corian, quartz)</span><span class="why">Looks like stone, isn't. Where stone is needed, local sandstone is used — even at higher cost.</span></li>
+          <li><span class="sym">✕</span><span class="what">Brass-coloured paint / brass laminate</span><span class="why">Brass is brass. Paint reads as paint within six months. If we cannot afford brass for a surface, we use forest plate instead.</span></li>
+          <li><span class="sym">✕</span><span class="what">Plastic twine / nylon string</span><span class="why">Synthetic ties on a journal that's meant to compost in 25 years. Jute, always.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═════════════════════════════════════════════════════════
+         E · TOTAL PALETTE
+         ═════════════════════════════════════════════════════════ -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div>
+          <div class="os-sub__no">E<span class="os-sub__no-dev">सम्पूर्ण · the total</span></div>
+        </div>
+        <div>
+          <h2 class="os-sub__title">Eight materials. <em>Everything else is removed.</em></h2>
+          <p class="os-sub__lede">A new material requires written sign-off from the founders and the head of brand. The default response is no. The system is the discipline.</p>
+        </div>
+      </header>
+
+      <div class="os-prose">
+        <p>The reason the palette is small is not aesthetic — it is operational. With eight materials, every property runs the same maintenance schedule, sources from the same four vendors, and renders the brand identically. With twelve, the second property starts to drift; with twenty, it becomes someone else's property under our wordmark.</p>
+        <p>The hardest decision in a hospitality system is not what to include. It is what to refuse. The list above is more brand than any artifact in this document.</p>
+      </div>
+    </section>
+
+    <!-- ─── Footer ─── -->
+    <footer class="os-foot">
+      <div class="os-foot__cell">
+        <span class="os-foot__lbl">— Previous · 02</span>
+        <a class="os-foot__link" href="02-spatial-type.html">Spatial type</a>
+      </div>
+      <div class="os-foot__cell next">
+        <span class="os-foot__lbl">— Next · 04</span>
+        <a class="os-foot__link" href="04-signage.html">Signage system</a>
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+</body>
+</html>

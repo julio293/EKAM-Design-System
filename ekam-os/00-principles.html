@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EKAM OS · 00 Principles</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="stylesheet" href="_chrome.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=Raleway:wght@300;400;500&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  /* ─── Discipline budget chart ─── */
+  .budget {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+    margin: 24px 0 48px;
+  }
+  .budget__bar { display: flex; height: 18px; border-radius: 999px; overflow: hidden; }
+  .budget__seg { color: var(--cream); font-family: var(--font-ui); font-size: 8.5px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500; display: flex; align-items: center; justify-content: center; }
+  .budget__seg.aman      { background: #2B4630; flex: 35; }
+  .budget__seg.apple     { background: #4F5C3F; flex: 30; }
+  .budget__seg.muji      { background: #7A8A6B; flex: 15; }
+  .budget__seg.patagonia { background: #B4613A; flex: 10; }
+  .budget__seg.arc       { background: #c87a52; flex: 5; }
+  .budget__seg.sixsenses { background: #C9C2AC; color: var(--ink); flex: 5; }
+
+  .budget__list { display: flex; flex-direction: column; }
+  .budget__row {
+    display: grid; grid-template-columns: 32px 1fr 60px;
+    gap: 14px; padding: 12px 0;
+    border-bottom: 1px solid var(--bone);
+    align-items: baseline;
+  }
+  .budget__row:last-child { border-bottom: 0; }
+  .budget__pct { font-family: var(--font-display); font-style: italic; font-size: 22px; color: var(--bindu); font-weight: 400; line-height: 1; }
+  .budget__name { font-family: var(--font-display); font-weight: 400; font-size: 17px; color: var(--forest); letter-spacing: 0.3px; }
+  .budget__name small { display: block; font-family: var(--font-editorial); font-style: italic; font-size: 12.5px; color: var(--moss); font-weight: 400; line-height: 1.45; margin-top: 4px; letter-spacing: 0; }
+  .budget__contributes { font-family: var(--font-ui); font-size: 9.5px; letter-spacing: 1.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; text-align: right; }
+
+  /* ─── Voice grid ─── */
+  .voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 16px 0 48px; }
+  .voice-card {
+    padding: 28px 30px;
+    border: 1px solid var(--bone);
+    background: var(--cream);
+    border-radius: 4px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .voice-card.no { background: var(--sand); }
+  .voice-card__h {
+    display: flex; align-items: baseline; gap: 12px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--bone);
+  }
+  .voice-card__sym { font-family: var(--font-display); font-style: italic; font-size: 26px; color: var(--bindu); font-weight: 400; line-height: 1; }
+  .voice-card.no .voice-card__sym { color: var(--moss); }
+  .voice-card__name { font-family: var(--font-ui); font-size: 11px; letter-spacing: 2.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+  .voice-card.no .voice-card__name { color: var(--moss); }
+  .voice-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; padding: 12px 0; border-bottom: 1px dashed var(--bone); }
+  .voice-pair:last-child { border-bottom: 0; }
+  .voice-pair__lbl { font-family: var(--font-ui); font-size: 9.5px; letter-spacing: 1.8px; color: var(--moss); text-transform: uppercase; font-weight: 500; }
+  .voice-pair__txt { font-family: var(--font-body); font-weight: 300; font-size: 13.5px; color: var(--ink); line-height: 1.55; }
+  .voice-pair__txt em { font-family: var(--font-editorial); font-style: italic; color: var(--moss); }
+  .voice-card.no .voice-pair__txt { color: var(--moss); font-style: italic; font-family: var(--font-editorial); }
+
+  /* ─── Five-rule discipline strip ─── */
+  .rules-strip {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 18px; margin: 16px 0 48px;
+  }
+  .rule {
+    padding: 22px 22px 20px;
+    background: var(--forest);
+    color: var(--cream);
+    border-radius: 4px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .rule__no { font-family: var(--font-display); font-style: italic; font-size: 28px; color: var(--bindu); font-weight: 400; line-height: 1; }
+  .rule__h { font-family: var(--font-display); font-weight: 400; font-size: 17px; color: var(--cream); letter-spacing: 0.3px; line-height: 1.2; margin: 8px 0 0; }
+  .rule__p { font-family: var(--font-editorial); font-style: italic; font-size: 12.5px; color: rgba(250,247,240,0.7); line-height: 1.5; margin: 4px 0 0; }
+
+  /* ─── Anti-pattern table ─── */
+  .anti { border: 1px solid var(--bone); }
+  .anti__row {
+    display: grid; grid-template-columns: 28px 1fr 1.4fr;
+    gap: 24px; padding: 16px 22px;
+    border-bottom: 1px solid var(--bone);
+    align-items: baseline;
+  }
+  .anti__row:last-child { border-bottom: 0; }
+  .anti__sym { font-family: var(--font-display); font-style: italic; font-size: 20px; color: var(--bindu); }
+  .anti__what { font-family: var(--font-display); font-weight: 400; font-size: 16px; color: var(--forest); letter-spacing: 0.3px; }
+  .anti__why { font-family: var(--font-editorial); font-style: italic; font-size: 13.5px; color: var(--moss); line-height: 1.55; }
+</style>
+</head>
+<body>
+
+<div class="os">
+
+  <!-- ─── Sidebar (same as index) ─── -->
+  <aside class="os-nav">
+    <div class="os-nav__brand">
+      <span class="os-nav__brand-dev">एकम् · संचालन</span>
+      <span class="os-nav__brand-wm">E<span class="dot"></span>KAM</span>
+      <span class="os-nav__brand-tag">The operating system · v1.0 · draft</span>
+    </div>
+
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Foundation</span>
+      <a class="os-nav__item is-on" href="00-principles.html"><span class="os-nav__item-no">00</span><span>Principles</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="01-tokens.html"><span class="os-nav__item-no">01</span><span>Tokens</span></a>
+      <a class="os-nav__item" href="02-spatial-type.html"><span class="os-nav__item-no">02</span><span>Spatial type</span></a>
+      <a class="os-nav__item" href="03-materials.html"><span class="os-nav__item-no">03</span><span>Materials</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Environmental</span>
+      <a class="os-nav__item" href="04-signage.html"><span class="os-nav__item-no">04</span><span>Signage system</span></a>
+      <a class="os-nav__item" href="05-wayfinding.html"><span class="os-nav__item-no">05</span><span>Wayfinding</span></a>
+      <a class="os-nav__item" href="06-cabin-anatomy.html"><span class="os-nav__item-no">06</span><span>Cabin anatomy</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Hospitality</span>
+      <a class="os-nav__item is-pending" href="#" data-pending="07-guest-journey.html"><span class="os-nav__item-no">07</span><span>Guest journey</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="08-rituals.html"><span class="os-nav__item-no">08</span><span>Rituals on site</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Build</span>
+      <a class="os-nav__item is-pending" href="#" data-pending="09-fabrication.html"><span class="os-nav__item-no">09</span><span>Fabrication</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="10-utility-emergency.html"><span class="os-nav__item-no">10</span><span>Utility &amp; emergency</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="11-staff.html"><span class="os-nav__item-no">11</span><span>Staff systems</span></a>
+    </nav>
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Scale</span>
+      <a class="os-nav__item is-pending" href="#" data-pending="12-tier-variation.html"><span class="os-nav__item-no">12</span><span>Tier variation</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="13-partner-tiers.html"><span class="os-nav__item-no">13</span><span>Partner tiers</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="14-prints.html"><span class="os-nav__item-no">14</span><span>Exports</span></a>
+    </nav>
+
+    <div class="os-nav__foot">
+      <b>— Reading</b>
+      Start here, then 01 Tokens.<br/>
+      Read once. Refer always.
+    </div>
+  </aside>
+
+  <main class="os-main">
+
+    <!-- ─── Section header ─── -->
+    <header class="os-head">
+      <div>
+        <span class="os-head__eb">— 00 · Principles</span>
+        <span class="os-head__dev">सिद्धान्त · the foundation</span>
+        <h1 class="os-head__title">The thesis, the voice,<br/><em>the discipline budget.</em></h1>
+        <p class="os-head__lede">Before any cabin is built, every other section of this document is checked against this page. If a sign, a screen, a room or a sentence violates the thesis, it is removed — not negotiated.</p>
+      </div>
+      <div class="os-head__meta">
+        <span>Section <b>00 / 14</b></span>
+        <span>Reading <b>~8 min</b></span>
+        <span>Updated <b>28 May 2026</b></span>
+      </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         A · THE THESIS
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div>
+          <div class="os-sub__no">A<span class="os-sub__no-dev">कथन · the thesis</span></div>
+        </div>
+        <div>
+          <h2 class="os-sub__title">Hospitality, disguised <em>as solitude.</em></h2>
+          <p class="os-sub__lede">EKAM is a slow-hospitality operating system rooted in the Indian Himalayas. The brand defers to the cabin and the land. The interface — physical or digital — gets out of the way. The silence stays.</p>
+        </div>
+      </header>
+
+      <div class="os-prose">
+        <p>EKAM is not a hotel brand. It is a system for repeatable solitude.</p>
+
+        <p>The product is a single cabin, brought to the same standard in every property — the same kettle, the same stove, the same warm window. The standard is the brand. The standard is also the only thing that travels with us as we open the second cabin, the tenth cabin, the partnered fifty.</p>
+
+        <p>Everything in this document exists to keep that standard intact under pressure. Pressure from cost, from time, from vendors, from new markets, from clever ideas that arrive uninvited. The document is the boundary.</p>
+
+        <blockquote>
+          One bed. One stove. One window. Everything else is restraint.
+          <cite>— the founders, on the first cabin</cite>
+        </blockquote>
+
+        <h3>The four shifts</h3>
+        <p>The system is built against four conventional defaults of the hospitality industry. These are the shifts EKAM commits to, document-wide.</p>
+      </div>
+
+      <div class="os-row-2" style="margin-top: 18px;">
+        <div class="os-card">
+          <span class="os-card__eb">— Shift 01</span>
+          <h4 class="os-card__h">From service, to <em>presence</em>.</h4>
+          <p class="os-card__p">Aman taught hospitality that staff are felt, not seen. EKAM takes one step further: the cabin is the host. The team is small, named, on-site — proximity replaces a service tier.</p>
+        </div>
+        <div class="os-card">
+          <span class="os-card__eb">— Shift 02</span>
+          <h4 class="os-card__h">From decoration, to <em>discipline</em>.</h4>
+          <p class="os-card__p">Apple taught design that constraint is a feature. EKAM has one accent, one easing curve, one wax. The rest is restraint. The system says no to "could-be-nice" — by default.</p>
+        </div>
+        <div class="os-card">
+          <span class="os-card__eb">— Shift 03</span>
+          <h4 class="os-card__h">From experience, to <em>artefact</em>.</h4>
+          <p class="os-card__p">Muji taught us that the object carries the brand. The wax seal, the brass cabin plate, the handwritten note in Caveat — these travel home with the guest. Memory lives in objects, not in stays.</p>
+        </div>
+        <div class="os-card">
+          <span class="os-card__eb">— Shift 04</span>
+          <h4 class="os-card__h">From luxury, to <em>ethic</em>.</h4>
+          <p class="os-card__p">Patagonia taught that the most premium thing is honesty. EKAM is built to a footprint, not a price. We say what is on site, what is not, and what we will not do. <em>Quietness is the luxury.</em></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         B · THE DISCIPLINE BUDGET
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div>
+          <div class="os-sub__no">B<span class="os-sub__no-dev">अनुपात · the budget</span></div>
+        </div>
+        <div>
+          <h2 class="os-sub__title">Six references, blended <em>by ratio.</em></h2>
+          <p class="os-sub__lede">Every reference contributes a portion. The exact ratio is the design system's resting metabolism. If a surface drifts (too cold, too techy, too eco-performative), this is the map back to centre.</p>
+        </div>
+      </header>
+
+      <div class="budget">
+        <div>
+          <div class="budget__bar">
+            <span class="budget__seg aman">35%</span>
+            <span class="budget__seg apple">30%</span>
+            <span class="budget__seg muji">15%</span>
+            <span class="budget__seg patagonia">10%</span>
+            <span class="budget__seg arc">5%</span>
+            <span class="budget__seg sixsenses">5%</span>
+          </div>
+          <p style="font-family: var(--font-editorial); font-style: italic; font-size: 13px; color: var(--moss); line-height: 1.55; margin: 16px 0 0;">
+            Read the bar left to right. Aman is the load-bearing temperature; Apple is the rigour underneath. Muji and Patagonia keep us honest. Arc and Six Senses are small softening accents — never headline.
+          </p>
+        </div>
+
+        <div class="budget__list">
+          <div class="budget__row">
+            <span class="budget__pct">35</span>
+            <span class="budget__name">Aman<small>Silence · restraint · spatial calm · hospitality emotion · environmental integration.</small></span>
+            <span class="budget__contributes">— Temperature</span>
+          </div>
+          <div class="budget__row">
+            <span class="budget__pct">30</span>
+            <span class="budget__name">Apple<small>Systems discipline · interaction rigor · consistency · hierarchy · precision · operational clarity.</small></span>
+            <span class="budget__contributes">— Rigor</span>
+          </div>
+          <div class="budget__row">
+            <span class="budget__pct">15</span>
+            <span class="budget__name">Muji<small>Humility · utility · material honesty · the object that earns its place.</small></span>
+            <span class="budget__contributes">— Honesty</span>
+          </div>
+          <div class="budget__row">
+            <span class="budget__pct">10</span>
+            <span class="budget__name">Patagonia<small>Ecological ethics · anti-luxury honesty · environmental credibility.</small></span>
+            <span class="budget__contributes">— Ethic</span>
+          </div>
+          <div class="budget__row">
+            <span class="budget__pct">5</span>
+            <span class="budget__name">Arc Browser<small>Contemporary digital softness · intelligent motion · emotional UI behaviour.</small></span>
+            <span class="budget__contributes">— Softness</span>
+          </div>
+          <div class="budget__row">
+            <span class="budget__pct">5</span>
+            <span class="budget__name">Six Senses<small>Warmth · sensory hospitality · wellness tone.</small></span>
+            <span class="budget__contributes">— Warmth</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="os-prose">
+        <h3>Why this exact mix</h3>
+        <p>Each ingredient is a corrective to the others. Without Apple, Aman becomes spiritual and unscalable. Without Aman, Apple becomes cold. Muji prevents the system from sliding into boutique. Patagonia prevents it from sliding into self-congratulation. Arc keeps the digital surface contemporary. Six Senses prevents the whole register from going austere.</p>
+        <p><strong>The system is therefore: a disciplined hospitality operating system with emotional depth.</strong> Hold it there, against pressure.</p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         C · THE VOICE
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div>
+          <div class="os-sub__no">C<span class="os-sub__no-dev">वाणी · the voice</span></div>
+        </div>
+        <div>
+          <h2 class="os-sub__title">Editorial, <em>direct, quiet.</em></h2>
+          <p class="os-sub__lede">Every line of copy is signed, present-tense, and uses the smallest verbs. We never write to a persona. We write to one guest, by name, on one morning.</p>
+        </div>
+      </header>
+
+      <div class="voice-grid">
+        <!-- ─── Always ─── -->
+        <div class="voice-card">
+          <div class="voice-card__h">
+            <span class="voice-card__sym">✓</span>
+            <span class="voice-card__name">Always</span>
+          </div>
+          <div class="voice-pair">
+            <span class="voice-pair__lbl">Present, named</span>
+            <span class="voice-pair__txt">"Morning, Anika. The kettle's on the stove." <em>Not</em> "Good morning, valued guest."</span>
+          </div>
+          <div class="voice-pair">
+            <span class="voice-pair__lbl">Small verbs</span>
+            <span class="voice-pair__txt">Lights, sits, walks, holds, opens. The verb does the work; the adjective is dropped.</span>
+          </div>
+          <div class="voice-pair">
+            <span class="voice-pair__lbl">Specific nouns</span>
+            <span class="voice-pair__txt">"Monal at 5:42." Not "wildlife around dawn." A specific number, a specific bird.</span>
+          </div>
+          <div class="voice-pair">
+            <span class="voice-pair__lbl">Signed</span>
+            <span class="voice-pair__txt">Every letter, every plate carries an author — "from Aarav" or "from the cabin". The reader knows who.</span>
+          </div>
+          <div class="voice-pair">
+            <span class="voice-pair__lbl">Short</span>
+            <span class="voice-pair__txt">A sentence is enough. Two is generous. Three is a paragraph and a paragraph is rare.</span>
+          </div>
+        </div>
+
+        <!-- ─── Never ─── -->
+        <div class="voice-card no">
+          <div class="voice-card__h">
+            <span class="voice-card__sym">✕</span>
+            <span class="voice-card__name">Never</span>
+          </div>
+          <div class="voice-pair">
+            <span class="voice-pair__lbl">Marketing register</span>
+            <span class="voice-pair__txt">No "experience," "journey," "curated," "exclusive," "luxury," "bespoke," "wellness."</span>
+          </div>
+          <div class="voice-pair">
+            <span class="voice-pair__lbl">Hotel register</span>
+            <span class="voice-pair__txt">No "amenities," "guest services," "check-in," "valet," "concierge," "F&amp;B."</span>
+          </div>
+          <div class="voice-pair">
+            <span class="voice-pair__lbl">Startup register</span>
+            <span class="voice-pair__txt">No "we believe…," "join us…," "we're on a mission…" The work argues itself.</span>
+          </div>
+          <div class="voice-pair">
+            <span class="voice-pair__lbl">Spiritual register</span>
+            <span class="voice-pair__txt">No "soul," "essence," "mindful," "intentional," "presence" as nouns. We use the senses, not the abstractions.</span>
+          </div>
+          <div class="voice-pair">
+            <span class="voice-pair__lbl">Eco register</span>
+            <span class="voice-pair__txt">No "sustainable," "green," "eco-conscious," "carbon-neutral" without the number that proves it.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="os-prose">
+        <h3>One sentence, three drafts</h3>
+        <p>To keep the voice consistent, every line of guest-facing copy is written through three drafts before it ships:</p>
+        <p><strong>Draft 1 · The verb.</strong> Write the action plainly. <em>"The kettle is on the stove."</em></p>
+        <p><strong>Draft 2 · The witness.</strong> Add who. <em>"Aarav lit the kettle before sunrise."</em></p>
+        <p><strong>Draft 3 · The cut.</strong> Remove half the words. <em>"The kettle's on the stove."</em></p>
+        <p>Most lines stop at draft 3. The cuts are the voice.</p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         D · THE FIVE RULES
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div>
+          <div class="os-sub__no">D<span class="os-sub__no-dev">पंच · the five</span></div>
+        </div>
+        <div>
+          <h2 class="os-sub__title">The five rules of EKAM.</h2>
+          <p class="os-sub__lede">If a decision is ambiguous, walk it past these five. If it fails any one, the decision is made.</p>
+        </div>
+      </header>
+
+      <div class="rules-strip">
+        <div class="rule">
+          <span class="rule__no">01</span>
+          <h4 class="rule__h">The cabin &amp; the land are louder than the app.</h4>
+          <p class="rule__p">No interface — physical or digital — competes with what's outside the window.</p>
+        </div>
+        <div class="rule">
+          <span class="rule__no">02</span>
+          <h4 class="rule__h">One accent. Always the bindu.</h4>
+          <p class="rule__p">The clay dot is the only saturated colour. The rest is forest, cream, sand, ink.</p>
+        </div>
+        <div class="rule">
+          <span class="rule__no">03</span>
+          <h4 class="rule__h">If it cannot be named, it is not included.</h4>
+          <p class="rule__p">Every object on site has an author, a material, a vendor, a replacement cycle. Anonymous additions are removed.</p>
+        </div>
+        <div class="rule">
+          <span class="rule__no">04</span>
+          <h4 class="rule__h">Letters, not notifications.</h4>
+          <p class="rule__p">No push, no streaks, no badges. The guest opens what they want, when they want.</p>
+        </div>
+        <div class="rule">
+          <span class="rule__no">05</span>
+          <h4 class="rule__h">Proximity replaces support tiers.</h4>
+          <p class="rule__p">The host is on site, has a name, has hours, picks up. No queues. No tickets. No SLAs.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         E · WHAT WE NEVER DO
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div>
+          <div class="os-sub__no">E<span class="os-sub__no-dev">निषेध · the refusals</span></div>
+        </div>
+        <div>
+          <h2 class="os-sub__title">Things we considered, and removed.</h2>
+          <p class="os-sub__lede">A list of conventional moves the system explicitly refuses. Each is considered, named, and crossed out — so it is not re-litigated every quarter.</p>
+        </div>
+      </header>
+
+      <div class="anti">
+        <div class="anti__row">
+          <span class="anti__sym">✕</span>
+          <span class="anti__what">A "wellness programme"</span>
+          <span class="anti__why">The forest does the work. No yoga schedules, no spa menus, no curated mindfulness. The cabin and the walks are the practice.</span>
+        </div>
+        <div class="anti__row">
+          <span class="anti__sym">✕</span>
+          <span class="anti__what">Push notifications during a stay</span>
+          <span class="anti__why">The guest is here to be off. Letters live in the Companion feed and are opened when chosen. <em>"You will never get a push notification during your stay."</em></span>
+        </div>
+        <div class="anti__row">
+          <span class="anti__sym">✕</span>
+          <span class="anti__what">Loyalty tiers</span>
+          <span class="anti__why">No silver/gold/platinum. The seal, the journal, the seat at the fire — these accrue. The brand does not stratify the guest.</span>
+        </div>
+        <div class="anti__row">
+          <span class="anti__sym">✕</span>
+          <span class="anti__what">Streaks and counters</span>
+          <span class="anti__why">No daily-prompt streak, no completion badge. Each day is its own. The ritual is the doing, not the counting.</span>
+        </div>
+        <div class="anti__row">
+          <span class="anti__sym">✕</span>
+          <span class="anti__what">Confirmation modals on destructive actions</span>
+          <span class="anti__why">Sign out is one tap. Release-from-saved is one tap. The cabin will be there. We trust the guest.</span>
+        </div>
+        <div class="anti__row">
+          <span class="anti__sym">✕</span>
+          <span class="anti__what">Stock imagery</span>
+          <span class="anti__why">Every photograph is from an EKAM cabin. If we don't have it, we use a placeholder. We never buy hospitality stock.</span>
+        </div>
+        <div class="anti__row">
+          <span class="anti__sym">✕</span>
+          <span class="anti__what">Red-circle prohibition signs</span>
+          <span class="anti__why">The clay diagonal does the same job in the EKAM register. Airport vocabulary is out of place in a cabin.</span>
+        </div>
+        <div class="anti__row">
+          <span class="anti__sym">✕</span>
+          <span class="anti__what">Emoji, anywhere</span>
+          <span class="anti__why">🌲 🏡 ☕ are banned. The Tier glyphs (Kutir, Van, Shikhar, Chai) and the Lucide set are sufficient.</span>
+        </div>
+        <div class="anti__row">
+          <span class="anti__sym">✕</span>
+          <span class="anti__what">Performative Indianness</span>
+          <span class="anti__why">No "namaste" copy, no rangoli graphics, no incense as decor. Devanagari is load-bearing where it carries meaning, not as ornament.</span>
+        </div>
+        <div class="anti__row">
+          <span class="anti__sym">✕</span>
+          <span class="anti__what">A second saturated colour</span>
+          <span class="anti__why">Adding another accent (a "highlight green," a "deep blue") is a request to be reviewed by the founders and the head of brand. Default is no.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         F · GLOBAL & TRANSLATION
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="os-sub">
+      <header class="os-sub__head">
+        <div>
+          <div class="os-sub__no">F<span class="os-sub__no-dev">देश · the geography</span></div>
+        </div>
+        <div>
+          <h2 class="os-sub__title">Globally scalable. <em>Soul rooted in India.</em></h2>
+          <p class="os-sub__lede">The system is bilingual-capable from day one. English is primary; Devanagari is secondary and load-bearing where it carries meaning. Future languages slot in as cabins open in new geographies.</p>
+        </div>
+      </header>
+
+      <div class="os-prose">
+        <p>EKAM travels. The cabin in Kalpa works the same way as the cabin we may one day open in the Atlas Mountains, in Hokkaido, in Patagonia. The forest, the kettle, the warm window are universal.</p>
+        <p>The soul, however, stays Indian. Devanagari is not retired when we leave India — it travels with us, like a stamp on the back of a postcard. The brand is <em>globally premium, quietly Indian, never performatively Indian.</em></p>
+        <h3>Devanagari rules</h3>
+        <p><strong>Load-bearing.</strong> Devanagari is used where it carries meaning — tier names (कुटीर / वन / शिखर / चाय), section heads in this document, the wax seal stamp, the cabin number plates.</p>
+        <p><strong>Never decorative.</strong> Devanagari is never used as a font swap for English ("welcome" rendered in Devanagari letters). That is performative.</p>
+        <p><strong>Always with English.</strong> In any guest-facing surface, Devanagari is paired with an English equivalent. The English is the access point; the Devanagari is the depth.</p>
+        <p><strong>The single typeface.</strong> Tiro Devanagari Hindi. No variants. The face matches Cormorant Garamond in optical weight — they sit together on a plate.</p>
+      </div>
+    </section>
+
+    <!-- ─── Footer · cross-link ─── -->
+    <footer class="os-foot">
+      <div class="os-foot__cell">
+        <span class="os-foot__lbl">— Previous</span>
+        <a class="os-foot__link" href="index.html" style="font-style: normal; font-family: var(--font-display);">The operating system</a>
+      </div>
+      <div class="os-foot__cell next">
+        <span class="os-foot__lbl">— Next · 01</span>
+        <a class="os-foot__link" href="01-tokens.html">Tokens</a>
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+</body>
+</html>

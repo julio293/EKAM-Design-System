@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>EKAM · Wordmark</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { background: var(--cream); height: 100%; }
+  .stage {
+    width: 700px; min-height: 220px;
+    padding: 40px 48px;
+    display: flex; align-items: center; gap: 48px;
+    background: var(--cream);
+  }
+  .mark { flex: 0 0 320px; }
+  .mark svg { width: 100%; height: auto; display: block; }
+  .meta { flex: 1; }
+  .row { display: flex; gap: 18px; padding: 8px 0; font-family: var(--font-ui); font-size: 11px; letter-spacing: 1px; color: var(--moss); border-top: 1px solid var(--bone); }
+  .row:first-child { border-top: 0; }
+  .row b { color: var(--ink); font-weight: 500; flex: 0 0 110px; letter-spacing: 2px; }
+  .row span { flex: 1; font-weight: 300; line-height: 1.6; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="mark">
+      <svg viewBox="0 0 600 200">
+        <text x="60" y="160" font-family="Cormorant Garamond, serif" font-weight="400" font-size="150" fill="#2B4630" letter-spacing="10">E</text>
+        <circle cx="200" cy="107" r="10" fill="#B4613A"/>
+        <text x="240" y="160" font-family="Cormorant Garamond, serif" font-weight="400" font-size="150" fill="#2B4630" letter-spacing="10">KAM</text>
+      </svg>
+    </div>
+    <div class="meta">
+      <div class="row"><b>Type</b><span>Cormorant Garamond, 400</span></div>
+      <div class="row"><b>Letterspacing</b><span>10 (8px+ minimum on wordmark)</span></div>
+      <div class="row"><b>Bindu</b><span>Clay #B4613A · never below 6px on screen</span></div>
+      <div class="row"><b>Use</b><span>Primary brand presence · hero · print covers</span></div>
+    </div>
+  </div>
+</body>
+</html>

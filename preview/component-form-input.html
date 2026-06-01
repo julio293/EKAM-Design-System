@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>EKAM · Form Inputs</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { height: 100%; }
+  .stage {
+    width: 700px; min-height: 420px;
+    padding: 0;
+    background: var(--cream);
+    display: flex; flex-direction: column;
+  }
+  .head {
+    padding: 14px 24px 12px;
+    display: flex; justify-content: space-between; align-items: baseline;
+    border-bottom: 1px solid var(--bone);
+  }
+  .head .nm {
+    font-family: var(--font-ui); font-size: 10px; letter-spacing: 3px;
+    color: var(--bindu); text-transform: uppercase; font-weight: 500;
+  }
+  .head .quote {
+    font-family: var(--font-editorial); font-style: italic; font-size: 12px;
+    color: var(--moss);
+  }
+
+  /* ============ TOP — anatomy + states ============ */
+  .top {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    border-bottom: 1px solid var(--bone);
+  }
+  .anatomy {
+    padding: 16px 20px;
+    background: var(--sand);
+    border-right: 1px solid var(--bone);
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .anatomy__lbl {
+    font-family: var(--font-ui); font-size: 9px; letter-spacing: 2.5px;
+    color: var(--bindu); text-transform: uppercase; font-weight: 500;
+  }
+  .anatomy__input {
+    border: 0; background: transparent;
+    border-bottom: 1px solid var(--ink);
+    padding: 6px 0;
+    font-family: var(--font-ui); font-size: 13px; color: var(--ink);
+    font-weight: 400; letter-spacing: 0.3px;
+    outline: none; width: 100%;
+  }
+  .anatomy__help {
+    font-family: var(--font-ui); font-size: 9.5px; color: var(--moss);
+    font-weight: 300; letter-spacing: 0.2px;
+  }
+  .annot {
+    margin-top: 12px;
+    font-family: var(--font-ui); font-size: 9px; letter-spacing: 1.5px;
+    color: var(--moss); text-transform: uppercase; font-weight: 500;
+    line-height: 1.55;
+  }
+  .annot .n { color: var(--bindu); font-style: italic; font-family: var(--font-editorial); text-transform: none; letter-spacing: 0; font-size: 12px; font-weight: 400; margin-right: 6px; }
+
+  .states {
+    padding: 16px 20px;
+  }
+  .states-head {
+    font-family: var(--font-ui); font-size: 9.5px; letter-spacing: 3px;
+    color: var(--bindu); text-transform: uppercase; font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .state-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 0;
+    border: 1px solid var(--bone);
+  }
+  .state {
+    padding: 10px 12px; border-right: 1px solid var(--bone); border-bottom: 1px solid var(--bone);
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .state:nth-child(2n) { border-right: 0; }
+  .state:nth-last-child(-n+2) { border-bottom: 0; }
+  .state__cap {
+    font-family: var(--font-ui); font-size: 8.5px; letter-spacing: 2px;
+    color: var(--bindu); text-transform: uppercase; font-weight: 500;
+  }
+  .state__inp {
+    background: transparent; border: 0; border-bottom: 1px solid var(--ink);
+    padding: 4px 0;
+    font-family: var(--font-ui); font-size: 12px; color: var(--ink);
+    font-weight: 400; letter-spacing: 0.3px; outline: none;
+  }
+  .state__inp::placeholder { color: var(--moss); font-weight: 300; }
+  .state__inp.focused { border-bottom-color: var(--bindu); }
+  .state__inp.error { border-bottom-color: var(--bindu); color: var(--bindu-deep); }
+  .state__inp.disabled { border-bottom-color: var(--mist); color: var(--moss); }
+  .state__hint {
+    font-family: var(--font-ui); font-size: 9px; color: var(--moss);
+    letter-spacing: 0.3px; font-weight: 300;
+  }
+  .state__hint.err { color: var(--bindu); }
+  .state__lbl {
+    font-family: var(--font-ui); font-size: 8px; letter-spacing: 1.5px;
+    color: var(--moss); text-transform: uppercase; font-weight: 500;
+    margin-top: 2px;
+  }
+
+  /* ============ MIDDLE — Location picker (the clever pattern) ============ */
+  .picker {
+    padding: 16px 24px 18px;
+    border-bottom: 1px solid var(--bone);
+  }
+  .picker__head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 12px;
+  }
+  .picker__lbl {
+    font-family: var(--font-ui); font-size: 9.5px; letter-spacing: 3px;
+    color: var(--bindu); text-transform: uppercase; font-weight: 500;
+  }
+  .picker__hint {
+    font-family: var(--font-editorial); font-style: italic; font-size: 12px;
+    color: var(--moss);
+  }
+  .places {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    border-top: 1px solid var(--bone);
+    border-bottom: 1px solid var(--bone);
+  }
+  .place {
+    padding: 14px 14px 14px;
+    border-right: 1px solid var(--bone);
+    cursor: pointer;
+    background: transparent;
+    text-align: left;
+    display: flex; flex-direction: column; gap: 4px;
+    position: relative;
+    transition: background 180ms;
+  }
+  .place:last-child { border-right: 0; }
+  .place__top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 4px;
+  }
+  .place__glyph {
+    width: 28px; height: 24px;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0.55;
+  }
+  .place__glyph svg { width: 100%; height: 100%; display: block; }
+  .place__tier {
+    font-family: var(--font-ui); font-size: 8.5px; letter-spacing: 2px;
+    color: var(--bindu); text-transform: uppercase; font-weight: 500;
+    margin-top: 6px;
+  }
+  .place__name {
+    font-family: var(--font-display); font-weight: 400; font-size: 22px;
+    color: var(--forest); letter-spacing: 0.5px; line-height: 1.1;
+  }
+  .place__region {
+    font-family: var(--font-editorial); font-style: italic; font-size: 12px;
+    color: var(--moss); line-height: 1.4;
+  }
+  .place__foot {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--bone);
+  }
+  .place__price {
+    font-family: var(--font-ui); font-size: 11px; color: var(--ink);
+    font-weight: 500; letter-spacing: 0.3px;
+  }
+  .place__price small {
+    color: var(--moss); font-weight: 300;
+    letter-spacing: 1.5px; text-transform: uppercase; font-size: 8.5px;
+    display: block; margin-bottom: 1px;
+  }
+  .place__elev {
+    font-family: var(--font-ui); font-size: 9.5px; letter-spacing: 1.5px;
+    color: var(--moss); text-transform: uppercase; font-weight: 500;
+  }
+  /* Selected */
+  .place.on {
+    background: var(--sand);
+  }
+  .place.on .place__glyph { opacity: 1; }
+  .place.on::after {
+    content: ""; position: absolute;
+    left: 14px; right: 14px; bottom: 0;
+    height: 2px; background: var(--bindu);
+  }
+  .place.on .place__foot { border-top-color: var(--mist); }
+
+  /* ============ BOTTOM — minor controls ============ */
+  .controls {
+    padding: 12px 24px 14px;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 24px;
+    align-items: center;
+  }
+  .ctl__lbl {
+    font-family: var(--font-ui); font-size: 8.5px; letter-spacing: 2px;
+    color: var(--moss); text-transform: uppercase; font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .check {
+    width: 18px; height: 18px; border: 1px solid var(--ink);
+    background: transparent; position: relative; flex-shrink: 0; cursor: pointer;
+  }
+  .check.on { background: var(--ink); }
+  .check.on::after {
+    content: ""; position: absolute; left: 4px; top: 1px;
+    width: 5px; height: 10px; border: solid var(--cream);
+    border-width: 0 1.5px 1.5px 0; transform: rotate(45deg);
+  }
+  .check-row {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-ui); font-size: 12px; color: var(--ink);
+    font-weight: 400;
+  }
+  .check-row small {
+    font-family: var(--font-ui); font-size: 10px; color: var(--moss);
+    font-weight: 300; margin-left: 6px;
+  }
+  .toggle-row {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-ui); font-size: 12px; color: var(--ink);
+  }
+  .toggle-knob {
+    width: 36px; height: 20px; background: var(--forest);
+    border-radius: 999px; position: relative; cursor: pointer;
+  }
+  .toggle-knob::after {
+    content: ""; position: absolute;
+    width: 16px; height: 16px; background: var(--cream);
+    border-radius: 50%; top: 2px; left: 18px;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+
+    <div class="head">
+      <span class="nm">— Form Input</span>
+      <span class="quote">Underline only. No box, no shadow.</span>
+    </div>
+
+    <!-- TOP: anatomy + states -->
+    <div class="top">
+      <div class="anatomy">
+        <span class="anatomy__lbl"><span class="annot__num"></span>Arrive</span>
+        <input class="anatomy__input" value="12 March 2026" />
+        <span class="anatomy__help">Format: dd MMM yyyy</span>
+        <div class="annot"><span class="n">i</span>Inter 500 · 10 / ls 2.5 · clay</div>
+        <div class="annot"><span class="n">ii</span>Inter 400 · 13 · ink · 1 px baseline</div>
+        <div class="annot"><span class="n">iii</span>Inter 300 · 10 · moss · helper</div>
+      </div>
+      <div class="states">
+        <div class="states-head">— States</div>
+        <div class="state-grid">
+          <div class="state">
+            <span class="state__cap">Depart</span>
+            <input class="state__inp" placeholder="Pick a date" />
+            <span class="state__lbl">Default · placeholder</span>
+          </div>
+          <div class="state">
+            <span class="state__cap">Guests</span>
+            <input class="state__inp focused" value="Two adults" />
+            <span class="state__hint">— Bindu baseline on focus</span>
+            <span class="state__lbl">Focused</span>
+          </div>
+          <div class="state">
+            <span class="state__cap">Email</span>
+            <input class="state__inp error" value="anika@" />
+            <span class="state__hint err">— Looks unfinished.</span>
+          </div>
+          <div class="state">
+            <span class="state__cap">Member ID</span>
+            <input class="state__inp disabled" value="EKM-0042" disabled />
+            <span class="state__lbl">Disabled</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MIDDLE: location picker — choose by place, tier surfaces as metadata -->
+    <div class="picker">
+      <div class="picker__head">
+        <span class="picker__lbl">— Where</span>
+        <span class="picker__hint">Pick a place. The tier comes with the land.</span>
+      </div>
+      <div class="places">
+        <button class="place">
+          <div class="place__top">
+            <div>
+              <div class="place__tier">कुटीर · KUTIR</div>
+            </div>
+            <div class="place__glyph">
+              <svg viewBox="0 0 120 100"><path d="M 20 56 L 60 22 L 100 56" fill="none" stroke="#2B4630" stroke-width="2"/><path d="M 28 56 L 28 86 L 92 86 L 92 56" fill="none" stroke="#2B4630" stroke-width="2"/><rect x="52" y="62" width="16" height="16" fill="#B4613A"/></svg>
+            </div>
+          </div>
+          <div class="place__name">Chitkul</div>
+          <div class="place__region">Sangla Valley · 2,400 m</div>
+          <div class="place__foot">
+            <div class="place__price"><small>From</small>₹6,400 / night</div>
+            <span class="place__elev">— Mar–Oct</span>
+          </div>
+        </button>
+        <button class="place on">
+          <div class="place__top">
+            <div>
+              <div class="place__tier">वन · VAN</div>
+            </div>
+            <div class="place__glyph">
+              <svg viewBox="0 0 120 100"><path d="M 24 84 L 24 64 M 14 64 L 24 36 L 34 64 Z" fill="none" stroke="#2B4630" stroke-width="2"/><path d="M 60 88 L 60 60 M 46 60 L 60 22 L 74 60 Z" fill="none" stroke="#2B4630" stroke-width="2"/><path d="M 96 84 L 96 64 M 86 64 L 96 36 L 106 64 Z" fill="none" stroke="#2B4630" stroke-width="2"/></svg>
+            </div>
+          </div>
+          <div class="place__name">Baspa</div>
+          <div class="place__region">Valley canopy · 1,900 m</div>
+          <div class="place__foot">
+            <div class="place__price"><small>From</small>₹9,200 / night</div>
+            <span class="place__elev">— Year-round</span>
+          </div>
+        </button>
+        <button class="place">
+          <div class="place__top">
+            <div>
+              <div class="place__tier">शिखर · SHIKHAR</div>
+            </div>
+            <div class="place__glyph">
+              <svg viewBox="0 0 120 100"><path d="M 30 80 L 60 28 L 90 80" fill="none" stroke="#2B4630" stroke-width="2"/><path d="M 50 80 L 80 38 L 110 80 Z" fill="#2B4630"/><line x1="14" y1="80" x2="110" y2="80" stroke="#2B4630" stroke-width="2"/></svg>
+            </div>
+          </div>
+          <div class="place__name">Kalpa</div>
+          <div class="place__region">Ridgeline · 3,200 m</div>
+          <div class="place__foot">
+            <div class="place__price"><small>From</small>₹14,800 / night</div>
+            <span class="place__elev">— Apr–Sep</span>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- BOTTOM: minor controls -->
+    <div class="controls">
+      <div>
+        <div class="ctl__lbl">— Checkbox</div>
+        <div class="check-row">
+          <span class="check on"></span>
+          <span>Add carbon offset <small>· ₹120 / night, funds saplings near this cabin</small></span>
+        </div>
+      </div>
+      <div>
+        <div class="ctl__lbl">— Toggle (settings)</div>
+        <div class="toggle-row">
+          <span class="toggle-knob"></span>
+          <span>Linen change · on</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

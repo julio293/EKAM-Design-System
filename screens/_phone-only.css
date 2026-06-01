@@ -1,0 +1,193 @@
+/* ═══════════════════════════════════════════════════════════════
+   EKAM Mobile · phone-only viewer override
+   ───────────────────────────────────────────────────────────────
+   Re-uses each chapter's full code (data.jsx + screens.jsx + app.jsx)
+   but strips the documentation chrome so only the phone + a
+   compact screen-picker dock remain in the viewport.
+
+   Load order:
+     1. colors_and_type.css
+     2. ../ekam-<chapter>/styles.css
+     3. THIS file  ← must come last so its overrides win
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Page shell ───────────────────────────────────────────── */
+html, body {
+  margin: 0; padding: 0;
+  min-height: 100vh; min-height: 100dvh;
+  background: #0c1410;
+  color: var(--cream);
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh; min-height: 100dvh;
+  display: flex; align-items: stretch; justify-content: center;
+}
+
+/* ─── Hide every section of the documentation page ──────────── */
+/* Aggressive approach: hide ALL direct children of .page,
+   then re-show only the section that contains the phone.       */
+.page > * { display: none !important; }
+.page > *:has(.phone-wrap),
+.page > *:has(.phone) {
+  display: contents !important;
+}
+
+/* Within that section, hide everything except the phone-wrap
+   and any .tabs screen-picker.                                   */
+.page section > *,
+.page > section > div > * {
+  /* nothing here; we'll target specific kill-lists below */
+}
+
+/* Kill the doc text & notes columns by class — these recur     */
+.page__head, .page__meta, .page__title, .page__lede,
+.intro, .pattern, .index,
+.strat, .strat__intro, .map, .twocol, .panel,
+.stage__notes-left, .stage__notes-right,
+.stage__why-head, .stage__why-list, .stage__why-body,
+.stage__step, .stage__h, .stage__sub,
+.phone__caption,
+.colophon, .footer, .legend, .credits {
+  display: none !important;
+}
+
+/* The chapter root often lives inside a .page that sets max-width,
+   padding, etc — neutralise it so the phone fills the viewport.    */
+.page {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  max-width: none !important;
+  width: 100%; min-height: 100vh; min-height: 100dvh;
+  background: transparent !important;
+}
+
+/* Sections inside .page that hold the prototype — keep only the
+   stage / tabs / phone. Everything else collapses.                 */
+.page > section,
+.page > div {
+  display: contents !important;
+}
+/* But re-enable child rules below explicitly */
+
+/* ─── Stage = the phone container ──────────────────────────── */
+.stage {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  border: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  gap: 14px !important;
+  grid-template-columns: none !important;
+  width: 100%; max-width: none !important;
+  flex: 1;
+}
+
+/* ─── Screen-picker tabs — floating dock at the top ─────────── */
+.tabs {
+  position: fixed !important;
+  top: max(12px, env(safe-area-inset-top));
+  left: 50%; transform: translateX(-50%);
+  z-index: 50;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center;
+  gap: 4px !important;
+  padding: 6px !important;
+  margin: 0 !important;
+  background: rgba(20, 32, 26, 0.82) !important;
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(180, 97, 58, 0.22) !important;
+  border-radius: 999px !important;
+  max-width: calc(100vw - 24px);
+}
+.tabs__btn {
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  padding: 7px 12px !important;
+  border-radius: 999px !important;
+  font-family: var(--font-ui) !important;
+  font-size: 10px !important;
+  letter-spacing: 1.6px !important;
+  color: rgba(250, 247, 240, 0.55) !important;
+  text-transform: uppercase !important;
+  font-weight: 500 !important;
+  cursor: pointer;
+  display: inline-flex !important; align-items: center; gap: 7px;
+  white-space: nowrap;
+  transition: color 180ms, background 180ms, border-color 180ms;
+}
+.tabs__btn:hover { color: var(--cream) !important; }
+.tabs__btn.on {
+  background: var(--bindu) !important;
+  color: var(--cream) !important;
+  border-color: var(--bindu) !important;
+}
+.tabs__btn .dev {
+  font-family: var(--font-devanagari) !important;
+  font-size: 11px !important;
+  color: inherit !important;
+  opacity: 0.85;
+  letter-spacing: 0.5px !important;
+}
+
+/* ─── Phone — fill remaining space, scale to fit ─────────────── */
+.phone-wrap {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  padding: 88px 16px 24px !important;       /* room for top dock */
+  padding-top: calc(88px + env(safe-area-inset-top)) !important;
+  padding-bottom: max(24px, env(safe-area-inset-bottom)) !important;
+  gap: 0 !important;
+  width: 100%;
+  flex: 1;
+  margin: 0 !important;
+}
+
+.phone {
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5) !important;
+  /* JS sets --phone-scale based on viewport */
+  transform: scale(var(--phone-scale, 1)) !important;
+  transform-origin: top center !important;
+}
+
+/* Hide any phone caption text that prints "iPhone 15 · 393×852 dp" */
+.phone-wrap > span,
+.phone-wrap > p {
+  display: none !important;
+}
+.phone-wrap > .phone {
+  display: block !important;
+}
+
+/* ─── Onboarding has no tabs — give it more room ────────────── */
+body.no-tabs .phone-wrap {
+  padding-top: 24px !important;
+}
+
+@media (max-width: 420px) {
+  .phone {
+    width: calc(100vw - 16px) !important;
+    height: calc((100vw - 16px) * 800 / 380) !important;
+    max-height: calc(100vh - 110px) !important;
+    border-radius: 32px !important;
+    transform: none !important;
+  }
+  .phone__screen { border-radius: 24px !important; }
+}

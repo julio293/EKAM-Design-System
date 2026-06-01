@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>EKAM · Three Pillars</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { height: 100%; }
+  .stage { width: 700px; min-height: 320px; padding: 28px 32px; background: var(--cream); }
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--bone);
+  }
+  .p {
+    padding: 26px 22px 22px;
+    border-right: 1px solid var(--bone);
+    background: var(--cream);
+    display: flex; flex-direction: column;
+    position: relative;
+  }
+  .p:last-child { border-right: 0; }
+
+  /* Roman numeral at top */
+  .p__num {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--bindu);
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+  }
+
+  /* Devanagari */
+  .p__dev {
+    font-family: var(--font-devanagari);
+    font-size: 24px;
+    color: var(--bindu);
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+
+  /* English name */
+  .p__name {
+    font-family: var(--font-display);
+    font-size: 28px;
+    letter-spacing: 6px;
+    color: var(--forest);
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  /* Short bindu rule */
+  .p__rule {
+    width: 28px; height: 1px;
+    background: var(--bindu);
+    margin: 0 0 12px;
+  }
+
+  /* Italic tagline */
+  .p__quote {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 14px;
+    color: var(--moss);
+    line-height: 1.4;
+    margin-bottom: 14px;
+  }
+
+  /* Body */
+  .p__body {
+    font-family: var(--font-body);
+    font-size: 12.5px;
+    color: var(--ink);
+    font-weight: 300;
+    line-height: 1.65;
+  }
+
+  /* Bottom keyword strip */
+  .p__keys {
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid var(--bone);
+    font-family: var(--font-ui);
+    font-size: 9px;
+    letter-spacing: 1.8px;
+    color: var(--moss);
+    text-transform: uppercase;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="pillars">
+
+      <div class="p">
+        <span class="p__num">I</span>
+        <div class="p__dev">एकम्</div>
+        <div class="p__name">Singular</div>
+        <div class="p__rule"></div>
+        <p class="p__quote">The one.</p>
+        <p class="p__body">The cabin is constant. The land speaks the difference. No two sunsets hit the same ridge the same way.</p>
+        <div class="p__keys">Unity · Arrival · No two alike</div>
+      </div>
+
+      <div class="p">
+        <span class="p__num">II</span>
+        <div class="p__dev">शान्ति</div>
+        <div class="p__name">Serene</div>
+        <div class="p__rule"></div>
+        <p class="p__quote">The long exhale.</p>
+        <p class="p__body">Quiet by design. A kettle, a window, the cup of tea at six in the morning. The voice mirrors that calm.</p>
+        <div class="p__keys">Stillness · Restraint · Silence</div>
+      </div>
+
+      <div class="p">
+        <span class="p__num">III</span>
+        <div class="p__dev">वन्य</div>
+        <div class="p__name">Wild</div>
+        <div class="p__rule"></div>
+        <p class="p__quote">Worth the walk.</p>
+        <p class="p__body">Off-grid, off-map, on its own. Harder-to-reach places, on purpose. The reward of arrival is the entire experience.</p>
+        <div class="p__keys">Wilderness · Solitude · Arrival</div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

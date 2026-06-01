@@ -1,0 +1,268 @@
+/* ═══════════════════════════════════════════════════════════════
+   components-canonical/Card.css
+   The canonical EKAM card primitive.
+
+   Documented in:   EKAM Human Interface System.md §7.4
+   Reference page:  components-canonical/Card.html
+
+   Anatomy:
+     photo → eyebrow row (glyph + label + heart) → title → body → meta → chevron.
+
+   Sizes:   --sm   --md (default)   --lg
+   Ratios:  4:5 (default · feed)   |   16:11 (wide · upcoming trips)
+   States:  idle · hover · focus-visible · pressed · saved
+
+   The card is the most-used surface in the product. Treat this
+   file as the single source of truth. Author chapter-specific
+   variations as overrides; do not author parallel implementations.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Base ─────────────────────────────────────────── */
+.c-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--sand);
+  border-bottom: 1px solid var(--bone);
+  text-align: left;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--ink);
+  transition: border-color 180ms var(--ease-quiet);
+  /* Hard edges — the card is square, never rounded. */
+  border-radius: 0;
+}
+
+/* The entire card is one tappable region.
+   Hover = colour shift (HIS §8). No translateY, no scale. */
+.c-card:hover { border-bottom-color: var(--bindu); }
+.c-card:hover .c-card__title { color: var(--bindu); }
+.c-card:focus-visible {
+  outline: 1px solid var(--bindu);
+  outline-offset: 2px;
+}
+.c-card:active .c-card__title { color: var(--bindu-deep, #8E4626); }
+
+/* ─── Photo slot ───────────────────────────────────── */
+.c-card__photo {
+  position: relative;
+  width: 100%;
+  background: var(--sand);
+  overflow: hidden;
+}
+.c-card__photo--4-5   { aspect-ratio: 4 / 5; }
+.c-card__photo--16-11 { aspect-ratio: 16 / 11; }
+
+.c-card__photo > img,
+.c-card__photo > picture > img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Photo placeholder — striped sand surface for dev/missing images.
+   In production, replace with a real <img>. */
+.c-card__photo--placeholder {
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--sand) 0, var(--sand) 6px,
+    var(--bone) 6px, var(--bone) 7px
+  );
+  display: flex; align-items: center; justify-content: center;
+}
+.c-card__photo-tag {
+  font-family: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: var(--moss);
+  text-transform: uppercase;
+}
+
+/* ─── Body (the text area) ─────────────────────────── */
+.c-card__body {
+  padding: 22px 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ─── Eyebrow row: tier glyph + label + save heart ─── */
+.c-card__head {
+  display: flex; align-items: center;
+  gap: 12px;
+  min-height: 28px;
+}
+
+/* The tier glyph slot. See HIS §7.9 for usage rules.
+   Each chapter SHOULD show the glyph; it identifies the cabin's
+   tier at a glance. */
+.c-card__glyph {
+  width: 40px; height: 33px;
+  flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.c-card__glyph > img,
+.c-card__glyph > svg {
+  display: block;
+  width: 100%; height: 100%;
+}
+
+.c-card__eyebrow {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  color: var(--bindu);
+  text-transform: uppercase;
+  line-height: 1.2;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Save heart — cream square with bone hairline.
+   No backdrop-filter. No box-shadow. (HIS §3 #2.) */
+.c-card__heart {
+  width: 32px; height: 32px;
+  border: 1px solid var(--bone);
+  background: var(--cream);
+  color: var(--ink);
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: border-color 180ms var(--ease-quiet),
+              color 180ms var(--ease-quiet);
+  border-radius: 0;
+}
+.c-card__heart:hover {
+  color: var(--bindu);
+  border-color: var(--bindu);
+}
+.c-card__heart:focus-visible {
+  outline: 1px solid var(--bindu);
+  outline-offset: 2px;
+}
+.c-card__heart svg {
+  width: 14px; height: 14px;
+  stroke: currentColor; stroke-width: 1.6;
+  fill: none;
+}
+.c-card__heart[aria-pressed="true"] {
+  border-color: var(--bindu);
+}
+.c-card__heart[aria-pressed="true"] svg {
+  fill: var(--bindu);
+  stroke: var(--bindu);
+}
+
+/* ─── Title ────────────────────────────────────────── */
+.c-card__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 28px;
+  letter-spacing: 0.2px;
+  line-height: 1.1;
+  color: var(--ink);
+  margin: 0;
+  transition: color 180ms var(--ease-quiet);
+  text-wrap: balance;
+}
+
+/* ─── Body copy ────────────────────────────────────── */
+.c-card__copy {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--moss);
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* ─── Metadata strip ───────────────────────────────── */
+.c-card__meta {
+  display: flex; flex-wrap: wrap;
+  gap: 8px 14px;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--moss);
+  letter-spacing: 0.4px;
+}
+.c-card__meta span { display: inline-flex; align-items: baseline; gap: 4px; }
+.c-card__meta b { font-weight: 500; color: var(--ink); }
+
+/* ─── CTA row: small clay rule + chevron ───────────── */
+.c-card__cta-row {
+  display: flex; align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+  padding-top: 14px;
+  border-top: 1px solid var(--bone);
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  color: var(--bindu);
+  text-transform: uppercase;
+}
+.c-card__cta-row::before {
+  content: '';
+  display: inline-block;
+  width: 18px; height: 1px;
+  background: var(--bindu);
+}
+.c-card__cta-row svg {
+  margin-left: auto;
+  width: 14px; height: 14px;
+  stroke: var(--bindu); stroke-width: 1.6;
+  fill: none;
+}
+
+/* ─── Size variants ────────────────────────────────── */
+/* --sm  Dense rows — Saved list, Recently viewed strip */
+.c-card--sm .c-card__body { padding: 16px 18px 16px; gap: 8px; }
+.c-card--sm .c-card__title { font-size: 18px; }
+.c-card--sm .c-card__head { min-height: 22px; }
+.c-card--sm .c-card__glyph { width: 24px; height: 20px; }
+.c-card--sm .c-card__copy { display: none; }
+.c-card--sm .c-card__cta-row { font-size: 9px; padding-top: 10px; gap: 10px; }
+.c-card--sm .c-card__cta-row::before { width: 14px; }
+
+/* --lg  Hero — Property landing, tier-overview */
+.c-card--lg .c-card__body { padding: 32px 28px 28px; gap: 16px; }
+.c-card--lg .c-card__title { font-size: 36px; line-height: 1.05; }
+.c-card--lg .c-card__glyph { width: 56px; height: 47px; }
+
+/* ─── Horizontal variant ───────────────────────────── */
+/* Use when the chapter needs a row layout instead of stacked
+   (Saved list, Recently viewed). Photo on the left, body on the right. */
+.c-card--row {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 0;
+}
+.c-card--row .c-card__photo {
+  aspect-ratio: 4 / 5;
+  width: 96px;
+}
+.c-card--row .c-card__body { padding: 14px 16px; gap: 6px; }
+.c-card--row .c-card__title { font-size: 17px; }
+.c-card--row .c-card__copy { display: none; }
+.c-card--row .c-card__cta-row { display: none; }
+.c-card--row .c-card__head { min-height: 20px; }
+.c-card--row .c-card__glyph { width: 22px; height: 18px; }
+
+/* ─── Cabin not available ──────────────────────────── */
+/* The card is shown but tapping it goes to a waitlist. */
+.c-card--unavailable .c-card__title,
+.c-card--unavailable .c-card__copy {
+  color: var(--moss);
+}
+.c-card--unavailable .c-card__photo {
+  opacity: 0.6;
+}
+.c-card--unavailable .c-card__cta-row {
+  color: var(--moss);
+}
+.c-card--unavailable .c-card__cta-row::before { background: var(--moss); }
+.c-card--unavailable .c-card__cta-row svg { stroke: var(--moss); }

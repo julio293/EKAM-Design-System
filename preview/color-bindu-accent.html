@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>EKAM · Bindu Accent</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { height: 100%; }
+  .stage {
+    width: 700px; min-height: 380px;
+    padding: 0;
+    background: var(--cream);
+  }
+
+  /* TOP — the swatch + identity row */
+  .top {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    border-bottom: 1px solid var(--bone);
+  }
+  .swatch {
+    background: var(--bindu);
+    padding: 22px 24px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: var(--cream);
+    min-height: 150px;
+  }
+  .swatch__top {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+    opacity: 0.85;
+  }
+  .swatch__bindu-dev {
+    font-family: var(--font-devanagari);
+    font-size: 22px;
+    color: var(--cream);
+    letter-spacing: 2px;
+    margin-top: -4px;
+    margin-bottom: 10px;
+    opacity: 0.55;
+  }
+  .swatch__hex {
+    font-family: var(--font-display);
+    font-size: 38px;
+    color: var(--cream);
+    letter-spacing: 2px;
+    font-weight: 300;
+    line-height: 1;
+  }
+  .swatch__meta {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--cream);
+    opacity: 0.78;
+    font-weight: 300;
+    line-height: 1.55;
+  }
+  .swatch__meta span { display: block; }
+
+  .ident {
+    padding: 22px 24px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .ident h4 {
+    font-family: var(--font-display);
+    font-size: 26px;
+    color: var(--forest);
+    letter-spacing: 1px;
+    font-weight: 400;
+    margin-bottom: 4px;
+  }
+  .ident .quote {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--moss);
+    line-height: 1.55;
+    margin-bottom: 14px;
+    max-width: 380px;
+  }
+  .ident__rows { display: grid; gap: 0; }
+  .ident__row {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 12px;
+    padding: 6px 0;
+    border-top: 1px solid var(--bone);
+    font-family: var(--font-ui);
+    font-size: 11px;
+    color: var(--ink);
+    font-weight: 300;
+    letter-spacing: 0.3px;
+    line-height: 1.5;
+  }
+  .ident__row:first-of-type { border-top: 0; }
+  .ident__row b {
+    color: var(--bindu);
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 9.5px;
+  }
+
+  /* MIDDLE — ratio strip */
+  .ratio-wrap {
+    padding: 18px 24px 14px;
+    border-bottom: 1px solid var(--bone);
+  }
+  .ratio-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .ratio-head .nm {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    color: var(--bindu);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .ratio-head .rule {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 12px;
+    color: var(--moss);
+  }
+  .ratio { display: flex; gap: 0; height: 24px; border: 1px solid var(--bone); }
+  .ratio > div { display: flex; align-items: center; justify-content: center; font-family: var(--font-ui); font-size: 9px; letter-spacing: 1px; color: var(--cream); font-weight: 500; }
+  .ratio .cream  { flex: 60; background: var(--cream); color: var(--moss); border-right: 1px solid var(--bone); }
+  .ratio .forest { flex: 30; background: var(--forest); }
+  .ratio .ink    { flex: 8;  background: var(--ink); }
+  .ratio .clay   { flex: 2;  background: var(--bindu); }
+  .ratio-keys { display: flex; justify-content: space-between; font-family: var(--font-ui); font-size: 9.5px; letter-spacing: 1.5px; color: var(--moss); text-transform: uppercase; font-weight: 500; margin-top: 8px; }
+
+  /* BOTTOM — usage examples */
+  .examples {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 0;
+  }
+  .ex {
+    padding: 18px 16px 18px;
+    border-right: 1px solid var(--bone);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    min-height: 100px;
+  }
+  .ex:last-child { border-right: 0; }
+  .ex__demo {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .ex__cap {
+    font-family: var(--font-ui);
+    font-size: 9.5px;
+    letter-spacing: 1.5px;
+    color: var(--moss);
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  /* Example demos */
+  .ex-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--bindu); }
+  .ex-rule { width: 48px; height: 1px; background: var(--bindu); }
+  .ex-pill {
+    padding: 8px 18px;
+    border: 1px solid var(--bindu);
+    border-radius: 999px;
+    font-family: var(--font-ui);
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--forest);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .ex-eyebrow {
+    font-family: var(--font-ui);
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--bindu);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+
+    <!-- TOP -->
+    <div class="top">
+      <div class="swatch">
+        <div>
+          <div class="swatch__top">Bindu · Clay</div>
+          <div class="swatch__bindu-dev">बिंदु</div>
+        </div>
+        <div>
+          <div class="swatch__hex">#B4613A</div>
+          <div class="swatch__meta">
+            <span>oklch(0.58 0.114 47)</span>
+            <span>rgb(180 97 58)</span>
+          </div>
+        </div>
+      </div>
+      <div class="ident">
+        <div>
+          <h4>The only accent.</h4>
+          <p class="quote">Clay behaves like saffron in food — small quantity, unmissable presence.</p>
+        </div>
+        <div class="ident__rows">
+          <div class="ident__row"><b>Source</b><span>Fired terracotta. The colour of sacred objects, of warm wax, of dawn embers.</span></div>
+          <div class="ident__row"><b>Min</b><span>6 px on screen · 2 mm in print · never below</span></div>
+          <div class="ident__row"><b>Never</b><span>Backgrounds · text fills · gradients · duplicated</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MIDDLE -->
+    <div class="ratio-wrap">
+      <div class="ratio-head">
+        <span class="nm">— Usage ratio</span>
+        <span class="rule">The rule of saffron · 60 / 30 / 8 / 2</span>
+      </div>
+      <div class="ratio">
+        <div class="cream">60%</div>
+        <div class="forest">30%</div>
+        <div class="ink">8%</div>
+        <div class="clay">2%</div>
+      </div>
+      <div class="ratio-keys">
+        <span>Cream · surface</span>
+        <span>Forest · depth</span>
+        <span>Ink · type</span>
+        <span style="color:var(--bindu);">Bindu · accent</span>
+      </div>
+    </div>
+
+    <!-- BOTTOM — where bindu appears -->
+    <div class="examples">
+      <div class="ex">
+        <div class="ex__demo"><span class="ex-dot"></span></div>
+        <div class="ex__cap">The dot<br/><em>once per section</em></div>
+      </div>
+      <div class="ex">
+        <div class="ex__demo"><span class="ex-rule"></span></div>
+        <div class="ex__cap">48 px rule<br/><em>section anchor</em></div>
+      </div>
+      <div class="ex">
+        <div class="ex__demo"><span class="ex-eyebrow">EKAM · THE SINGULAR</span></div>
+        <div class="ex__cap">Eyebrow label<br/><em>4 px letterspacing</em></div>
+      </div>
+      <div class="ex ex--rare">
+        <div class="ex__demo"><span class="ex-pill">Find your Ekam</span></div>
+        <div class="ex__cap"><strong>Primary CTA pill</strong><br/><em>the only rounded shape in the system</em></div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

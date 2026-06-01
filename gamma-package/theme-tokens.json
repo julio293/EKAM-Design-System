@@ -1,0 +1,47 @@
+{
+  "name": "EKAM Living",
+  "version": "1.0",
+  "description": "EKAM brand theme for Gamma — slow-luxury eco-retreat hospitality.",
+  "colors": {
+    "primary": "#B4613A",
+    "secondary": "#2B4630",
+    "background": "#FAF7F0",
+    "surface": "#F4EDE1",
+    "text": "#14201A",
+    "textSecondary": "#4F5C3F",
+    "border": "#ECE4D3",
+    "muted": "#D8D3C4"
+  },
+  "palette": [
+    { "name": "Cream",  "hex": "#FAF7F0", "role": "Default surface" },
+    { "name": "Sand",   "hex": "#F4EDE1", "role": "Subtle elevation" },
+    { "name": "Bone",   "hex": "#ECE4D3", "role": "Hairline dividers" },
+    { "name": "Mist",   "hex": "#D8D3C4", "role": "Disabled state" },
+    { "name": "Moss",   "hex": "#4F5C3F", "role": "Secondary text" },
+    { "name": "Forest", "hex": "#2B4630", "role": "Headlines" },
+    { "name": "Ink",    "hex": "#14201A", "role": "Body / dark" },
+    { "name": "Bindu",  "hex": "#B4613A", "role": "Accent · the only one" }
+  ],
+  "typography": {
+    "display":     { "family": "Cormorant Garamond", "weights": [300, 400, 500], "use": "Headlines, cabin names" },
+    "editorial":   { "family": "Fraunces", "weights": [400], "styles": ["italic"], "use": "Emotional copy, taglines" },
+    "body":        { "family": "Raleway", "weights": [300, 400, 500], "use": "Long-form paragraphs" },
+    "ui":          { "family": "Inter", "weights": [500], "use": "Labels, CTAs" },
+    "devanagari":  { "family": "Tiro Devanagari Hindi", "weights": [400], "use": "Tier marks, cultural depth" },
+    "hand":        { "family": "Caveat", "weights": [500], "use": "Greetings, referral notes" }
+  },
+  "motion": {
+    "ease":     "cubic-bezier(0.22, 0.68, 0.16, 1)",
+    "durations": {
+      "instant": "100ms",
+      "quick":   "180ms",
+      "normal":  "320ms",
+      "sheet":   "380ms",
+      "ambient": "6000ms"
+    }
+  },
+  "voice": {
+    "do":    ["calm", "specific", "editorial", "land-led", "restrained"],
+    "avoid": ["urgency", "discounts", "exclamation marks", "luxury clichés", "ecommerce jargon"]
+  }
+}

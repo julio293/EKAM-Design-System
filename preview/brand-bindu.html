@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>EKAM · The Bindu</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { height: 100%; }
+  .stage {
+    width: 700px; min-height: 280px;
+    padding: 32px 40px;
+    background: var(--cream);
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 36px;
+    align-items: center;
+  }
+
+  /* LEFT — the scale, each dot in its own row with size label beside it */
+  .scale { background: var(--sand); padding: 22px 24px; border: 1px solid var(--bone); }
+  .scale__row {
+    display: grid;
+    grid-template-columns: 56px 56px 1fr;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 0;
+    border-top: 1px solid var(--bone);
+  }
+  .scale__row:first-child { border-top: 0; }
+  /* Dot column — fixed 56px wide so the right edges of all dots align, centered horizontally */
+  .scale__dot-cell { display: flex; justify-content: center; align-items: center; }
+  .scale__dot { background: var(--bindu); border-radius: 50%; display: block; }
+  .scale__px {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: var(--bindu);
+    font-weight: 500;
+    text-align: right;
+  }
+  .scale__use {
+    font-family: var(--font-ui);
+    font-size: 10.5px;
+    letter-spacing: 0.5px;
+    color: var(--moss);
+    font-weight: 300;
+    line-height: 1.4;
+  }
+
+  /* RIGHT — meta */
+  .meta h4 {
+    font-family: var(--font-display);
+    font-size: 26px;
+    color: var(--forest);
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+    font-weight: 400;
+  }
+  .meta .quote {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--moss);
+    margin-bottom: 16px;
+    line-height: 1.55;
+  }
+  .meta .row {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 14px;
+    padding: 8px 0;
+    font-family: var(--font-ui);
+    font-size: 11px;
+    color: var(--ink);
+    font-weight: 300;
+    line-height: 1.55;
+    border-top: 1px solid var(--bone);
+    letter-spacing: 0.3px;
+  }
+  .meta .row:first-of-type { border-top: 0; }
+  .meta .row b {
+    color: var(--bindu);
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 9.5px;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="scale">
+      <div class="scale__row">
+        <div class="scale__dot-cell">
+          <span class="scale__dot" style="width:6px;height:6px;"></span>
+        </div>
+        <div class="scale__px">6 px</div>
+        <div class="scale__use">Print minimum · 2 mm</div>
+      </div>
+      <div class="scale__row">
+        <div class="scale__dot-cell">
+          <span class="scale__dot" style="width:12px;height:12px;"></span>
+        </div>
+        <div class="scale__px">12 px</div>
+        <div class="scale__use">Body · inline punctuation</div>
+      </div>
+      <div class="scale__row">
+        <div class="scale__dot-cell">
+          <span class="scale__dot" style="width:24px;height:24px;"></span>
+        </div>
+        <div class="scale__px">24 px</div>
+        <div class="scale__use">Section anchor · CTA</div>
+      </div>
+      <div class="scale__row">
+        <div class="scale__dot-cell">
+          <span class="scale__dot" style="width:40px;height:40px;"></span>
+        </div>
+        <div class="scale__px">40 px</div>
+        <div class="scale__use">Wordmark scale · hero</div>
+      </div>
+    </div>
+
+    <div class="meta">
+      <h4>The Bindu</h4>
+      <p class="quote">Anusvāra. The point of stillness before sound. One per composition.</p>
+      <div class="row"><b>Color</b><span>#B4613A — clay, fired terracotta. Never another.</span></div>
+      <div class="row"><b>Min</b><span>6 px on screen · 2 mm in print</span></div>
+      <div class="row"><b>Never</b><span>Pulsed · scattered · paired with a logo mark</span></div>
+      <div class="row"><b>Sacred</b><span>One per artifact. Many breaks the rule.</span></div>
+    </div>
+  </div>
+</body>
+</html>

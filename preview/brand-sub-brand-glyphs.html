@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>EKAM · Sub-brand Glyphs</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; background: var(--cream); -webkit-font-smoothing: antialiased; }
+
+  .stage {
+    width: 1080px;
+    padding: 36px 36px 44px;
+    background: var(--cream);
+  }
+
+  /* ─── Grid · 3 columns, 5 cards (A-E) ─── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .card {
+    background: var(--cream);
+    border: 1px solid var(--bone);
+    border-radius: 8px;
+    padding: 36px 28px 0;
+    display: flex; flex-direction: column;
+    align-items: center; text-align: center;
+    min-height: 420px;
+    overflow: hidden;
+  }
+  .card.dark {
+    background: var(--forest);
+    border-color: transparent;
+    color: var(--cream);
+  }
+
+  /* ─── Wordmark (canonical: E · KAM) ─── */
+  .wm {
+    display: inline-flex; align-items: center;
+    font-family: var(--font-display); font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.1em;     /* 10 · 8px+ min */
+  }
+  .wm__dot {
+    display: inline-block;
+    width: 0.16em; height: 0.16em;
+    border-radius: 50%;
+    background: var(--bindu);
+    margin: 0 0.32em;
+    flex-shrink: 0;
+  }
+  .card .wm { font-size: 22px; color: var(--forest); }
+  .card.dark .wm { color: var(--cream); }
+
+  /* Stacked bilingual variant (card A) */
+  .stack-dev {
+    font-family: var(--font-devanagari); font-size: 28px;
+    color: var(--ink); letter-spacing: 2px;
+    line-height: 1; margin-bottom: 12px;
+  }
+  .stack-wm { font-size: 32px !important; color: var(--ink) !important; }
+
+  /* Clay rule between wordmark and glyph */
+  .rule {
+    width: 36px; height: 1px;
+    background: var(--bindu);
+    margin: 14px 0 20px;
+  }
+
+  /* Glyph slot */
+  .glyph {
+    width: 70px; height: 60px;
+    margin: 6px 0 16px;
+    display: block;
+  }
+  .glyph * {
+    fill: none; stroke: var(--forest); stroke-width: 1.8;
+    stroke-linejoin: round; stroke-linecap: round;
+  }
+  .glyph .fill { fill: var(--forest); stroke: var(--forest); }
+  .glyph .clay { fill: var(--bindu); stroke: var(--bindu); }
+  .card.dark .glyph * { stroke: var(--cream); }
+  .card.dark .glyph .fill { fill: var(--cream); stroke: var(--cream); }
+
+  /* Sub-brand name */
+  .name {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: 22px; letter-spacing: 5px;
+    color: var(--ink);
+    margin: 4px 0 4px;
+  }
+  .card.dark .name { color: var(--cream); }
+
+  /* Descriptor strip beneath the name */
+  .descriptor {
+    font-family: var(--font-ui); font-size: 10px;
+    letter-spacing: 2.5px; color: var(--moss);
+    text-transform: uppercase; font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .card.dark .descriptor { color: rgba(250,247,240,0.65); }
+
+  /* Footer band */
+  .foot {
+    margin-top: auto;
+    padding: 18px 18px 20px;
+    width: calc(100% + 56px);
+    margin-left: -28px;
+    border-top: 1px solid var(--bone);
+    display: flex; flex-direction: column;
+    gap: 6px; align-items: center;
+  }
+  .card.dark .foot {
+    border-top-color: rgba(180,97,58,0.32);
+  }
+  .foot-id {
+    font-family: var(--font-ui); font-size: 10px;
+    letter-spacing: 2.5px; color: var(--bindu);
+    text-transform: uppercase; font-weight: 500;
+  }
+  .foot-tag {
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 13px; color: var(--moss); line-height: 1.4;
+    max-width: 280px;
+  }
+  .card.dark .foot-tag { color: rgba(250,247,240,0.7); }
+
+  /* Footnote */
+  .footnote {
+    margin-top: 24px;
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 13px; color: var(--moss); line-height: 1.5;
+    padding-top: 16px;
+    border-top: 1px dashed rgba(180,97,58,0.32);
+  }
+  .footnote::before { content: '— '; color: var(--bindu); font-style: normal; }
+</style>
+</head>
+<body>
+  <div class="stage">
+
+    <div class="grid">
+
+      <!-- ─── A · STACKED BILINGUAL ─── -->
+      <div class="card">
+        <div class="stack-dev">एकम्</div>
+        <div class="wm stack-wm">E<span class="wm__dot"></span>KAM</div>
+        <div class="rule"></div>
+        <div class="descriptor">No two alike</div>
+        <div class="foot">
+          <div class="foot-id">A · Stacked bilingual</div>
+          <div class="foot-tag">Cabin doors · Vertical signage · Narrow spaces</div>
+        </div>
+      </div>
+
+      <!-- ─── B · KUTIR ─── -->
+      <div class="card">
+        <div class="wm">E<span class="wm__dot"></span>KAM</div>
+        <div class="rule"></div>
+        <svg class="glyph" viewBox="0 0 70 60">
+          <!-- A-frame hut: roof + walls + lit window (clay) -->
+          <polyline points="10 36 35 8 60 36"/>
+          <polyline points="16 36 16 54 54 54 54 36"/>
+          <rect x="22" y="42" width="9" height="9" class="clay"/>
+        </svg>
+        <div class="name">KUTIR</div>
+        <div class="descriptor">Valley cabin</div>
+        <div class="foot">
+          <div class="foot-id">B · Tier lockup · Kutir</div>
+          <div class="foot-tag">A lit hut at dusk — the fire is on, the door is open</div>
+        </div>
+      </div>
+
+      <!-- ─── C · VAN ─── -->
+      <div class="card dark">
+        <div class="wm">E<span class="wm__dot"></span>KAM</div>
+        <div class="rule"></div>
+        <svg class="glyph" viewBox="0 0 70 60">
+          <!-- Pine triad: outer pines shorter, middle taller, all filled -->
+          <polygon points="10 50 18 14 26 50" class="fill"/>
+          <polygon points="27 50 35 4 43 50" class="fill"/>
+          <polygon points="44 50 52 14 60 50" class="fill"/>
+        </svg>
+        <div class="name">VAN</div>
+        <div class="descriptor">Forest cabin</div>
+        <div class="foot">
+          <div class="foot-id">C · Tier lockup · Van</div>
+          <div class="foot-tag">The forest · Immersion · Tents</div>
+        </div>
+      </div>
+
+      <!-- ─── D · SHIKHAR ─── -->
+      <div class="card">
+        <div class="wm">E<span class="wm__dot"></span>KAM</div>
+        <div class="rule"></div>
+        <svg class="glyph" viewBox="0 0 70 60">
+          <!-- Twin peaks: back peak outlined, front peak filled forest -->
+          <polygon points="8 52 24 18 40 52"/>
+          <polygon points="28 52 46 6 64 52" class="fill"/>
+          <!-- Snow notch on filled peak -->
+          <polyline points="40 22 46 12 52 22" stroke="#FAF7F0" stroke-width="1.2" fill="none"/>
+        </svg>
+        <div class="name">SHIKHAR</div>
+        <div class="descriptor">Ridgeline cabin</div>
+        <div class="foot">
+          <div class="foot-id">D · Tier lockup · Shikhar</div>
+          <div class="foot-tag">The peak · Ridgeline · Solitude</div>
+        </div>
+      </div>
+
+      <!-- ─── E · CHAI ─── -->
+      <div class="card dark">
+        <div class="wm">E<span class="wm__dot"></span>KAM</div>
+        <div class="rule"></div>
+        <svg class="glyph" viewBox="0 0 70 60">
+          <!-- Steam wisps -->
+          <path d="M 24 14 Q 21 10 24 4" stroke-width="1.2"/>
+          <path d="M 34 12 Q 31 8 34 2" stroke-width="1.2"/>
+          <path d="M 44 14 Q 41 10 44 4" stroke-width="1.2"/>
+          <!-- Cup body -->
+          <path d="M 16 22 L 16 42 Q 16 50 24 50 L 44 50 Q 52 50 52 42 L 52 22 Z"/>
+          <!-- Handle -->
+          <path d="M 52 28 Q 60 28 60 34 Q 60 40 52 40"/>
+          <!-- Saucer -->
+          <ellipse cx="34" cy="54" rx="22" ry="2.8"/>
+        </svg>
+        <div class="name">CHAI</div>
+        <div class="descriptor">Route &amp; in-house</div>
+        <div class="foot">
+          <div class="foot-id">E · Tier lockup · Chai</div>
+          <div class="foot-tag">The cup · The pause · The path to the cabin</div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="footnote">Five variants of one parent mark. A is the bilingual variant for narrow vertical surfaces. B through E are the four sub-brand lockups — descriptive, not hierarchical. None of these are price tiers; all are expressions of the same brand.</p>
+
+  </div>
+</body>
+</html>

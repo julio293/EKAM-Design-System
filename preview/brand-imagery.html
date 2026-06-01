@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>EKAM · Imagery Direction</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--cream); -webkit-font-smoothing: antialiased; }
+
+  .stage { width: 1100px; background: var(--cream); padding: 36px 40px 44px; }
+
+  /* ─── Header ─── */
+  .head { display: grid; grid-template-columns: 2fr 1.1fr; gap: 48px; align-items: baseline; padding-bottom: 22px; margin-bottom: 26px; border-bottom: 1px solid var(--bone); }
+  .head__eb { font-family: var(--font-ui); font-size: 10px; letter-spacing: 3px; color: var(--bindu); text-transform: uppercase; font-weight: 500; display: block; margin-bottom: 10px; }
+  .head__dev { font-family: var(--font-devanagari); font-size: 15px; color: var(--bindu); letter-spacing: 1.5px; }
+  .head__h { font-family: var(--font-display); font-weight: 300; font-size: 40px; color: var(--forest); letter-spacing: 0.5px; line-height: 1.05; margin: 8px 0 0; }
+  .head__h em { font-family: var(--font-editorial); font-style: italic; color: var(--bindu); font-weight: 400; }
+  .head__lede { font-family: var(--font-editorial); font-style: italic; font-size: 15px; color: var(--moss); line-height: 1.55; margin: 0; max-width: 380px; }
+  .head__lede b { font-style: normal; font-family: var(--font-ui); font-size: 11px; letter-spacing: 1.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+
+  /* ─── Section divider ─── */
+  .sec-head { display: grid; grid-template-columns: 200px 1fr; gap: 32px; align-items: baseline; padding-bottom: 14px; margin-bottom: 18px; border-bottom: 1px solid var(--bone); }
+  .sec-no { font-family: var(--font-display); font-style: italic; font-size: 28px; color: var(--bindu); font-weight: 400; line-height: 1; }
+  .sec-no small { display: block; font-family: var(--font-devanagari); font-size: 13px; color: var(--bindu); letter-spacing: 1px; margin-top: 6px; font-style: normal; }
+  .sec-title { font-family: var(--font-display); font-weight: 400; font-size: 22px; color: var(--forest); letter-spacing: 0.3px; line-height: 1.15; margin: 0; }
+  .sec-title em { font-family: var(--font-editorial); font-style: italic; color: var(--bindu); }
+  .sec-sub { font-family: var(--font-editorial); font-style: italic; font-size: 13.5px; color: var(--moss); line-height: 1.5; margin: 6px 0 0; max-width: 600px; }
+
+  /* ─── A · AUDIT LOG ─── */
+  .audit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+  .audit { display: flex; flex-direction: column; border: 1px solid var(--bone); border-radius: 4px; overflow: hidden; background: var(--cream); }
+  .audit__img { aspect-ratio: 16 / 9; width: 100%; overflow: hidden; background: var(--ink); position: relative; }
+  .audit__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .audit__pill { position: absolute; top: 10px; left: 10px; padding: 5px 10px; font-family: var(--font-ui); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; border-radius: 999px; backdrop-filter: blur(8px); }
+  .audit__pill.ok    { background: rgba(43,122,63,0.92); color: var(--cream); }
+  .audit__pill.warn  { background: rgba(180,97,58,0.92); color: var(--cream); }
+  .audit__pill.no    { background: rgba(20,32,26,0.92); color: var(--cream); }
+  .audit__meta { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 6px; }
+  .audit__name { font-family: var(--font-display); font-weight: 400; font-size: 15px; color: var(--forest); letter-spacing: 0.3px; line-height: 1.2; }
+  .audit__rule { font-family: var(--font-ui); font-size: 9px; letter-spacing: 1.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+  .audit__rule.warn { color: #B4613A; }
+  .audit__rule.no   { color: var(--moss); }
+  .audit__notes { font-family: var(--font-editorial); font-style: italic; font-size: 11.5px; color: var(--moss); line-height: 1.45; margin: 0; }
+
+  /* ─── B · MOODBOARD MOSAIC ─── */
+  .moodboard { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 90px; gap: 6px; margin-bottom: 28px; }
+  .mb { position: relative; overflow: hidden; background: var(--ink); }
+  .mb img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 700ms cubic-bezier(0.22,0.68,0.16,1), filter 700ms; filter: saturate(0.92); }
+  .mb:hover img { transform: scale(1.04); filter: saturate(1); }
+  .mb__cap { position: absolute; left: 12px; bottom: 12px; color: var(--cream); background: rgba(20,32,26,0.55); backdrop-filter: blur(6px); padding: 5px 10px; font-family: var(--font-ui); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; z-index: 2; }
+  .mb__cap .dot { display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: var(--bindu); margin-right: 7px; vertical-align: middle; }
+
+  .mb-hero  { grid-column: span 6; grid-row: span 4; }
+  .mb-third { grid-column: span 2; grid-row: span 3; }
+  .mb-wide  { grid-column: span 4; grid-row: span 3; }
+  .mb-tall  { grid-column: span 2; grid-row: span 4; }
+  .mb-square{ grid-column: span 2; grid-row: span 3; }
+  .mb-half  { grid-column: span 3; grid-row: span 3; }
+
+  /* ─── C · BRIEF ─── */
+  .brief { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--bone); border-bottom: 1px solid var(--bone); }
+  .brief__cell { padding: 18px 24px; border-right: 1px solid var(--bone); display: grid; grid-template-columns: 76px 1fr; gap: 16px; align-items: baseline; }
+  .brief__cell:nth-child(3n) { border-right: 0; }
+  .brief__cell:nth-child(n+4) { border-top: 1px solid var(--bone); }
+  .brief__lbl { font-family: var(--font-ui); font-size: 9.5px; letter-spacing: 2.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; line-height: 1.4; }
+  .brief__val { font-family: var(--font-body); font-weight: 300; font-size: 13px; color: var(--ink); line-height: 1.55; letter-spacing: 0.2px; }
+  .brief__val b { font-family: var(--font-ui); font-size: 10px; letter-spacing: 1.5px; color: var(--forest); text-transform: uppercase; font-weight: 500; }
+  .brief__val em { font-family: var(--font-editorial); font-style: italic; color: var(--moss); font-weight: 400; }
+
+  /* ─── D · RULES (Always / Tread carefully) ─── */
+  .rules { display: grid; grid-template-columns: 1fr 1fr; margin-top: 22px; }
+  .rules__col { padding: 20px 24px; }
+  .rules__col.always { background: var(--cream); border-right: 1px solid var(--bone); }
+  .rules__col.never  { background: var(--sand); }
+  .rules__head { display: flex; align-items: baseline; gap: 10px; padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--bone); }
+  .rules__head .sym { font-family: var(--font-display); font-style: italic; font-size: 22px; line-height: 1; color: var(--bindu); }
+  .rules__col.never .rules__head .sym { color: var(--moss); }
+  .rules__head .name { font-family: var(--font-ui); font-size: 11px; letter-spacing: 2.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+  .rules__col.never .rules__head .name { color: var(--moss); }
+  .rules__list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; }
+  .rules__list li { font-family: var(--font-body); font-weight: 300; font-size: 13px; color: var(--ink); line-height: 1.5; padding-left: 14px; position: relative; }
+  .rules__list li::before { content: ''; position: absolute; left: 0; top: 8px; width: 4px; height: 4px; border-radius: 50%; background: var(--bindu); }
+  .rules__col.never .rules__list li { color: var(--moss); }
+  .rules__col.never .rules__list li::before { background: var(--moss); }
+  .rules__list li b { font-family: var(--font-display); font-style: italic; font-weight: 400; color: var(--forest); font-size: 14px; display: block; margin-bottom: 1px; }
+  .rules__col.never .rules__list li b { color: var(--moss); font-style: italic; }
+</style>
+</head>
+<body>
+  <div class="stage">
+
+    <!-- ─── Header ─── -->
+    <header class="head">
+      <div>
+        <span class="head__eb">— Photography direction · 02 of 12</span>
+        <span class="head__dev">दृश्य · the view</span>
+        <h2 class="head__h">A cabin, <em>held by the land.</em></h2>
+      </div>
+      <p class="head__lede">
+        <b>Reference register —</b> the Bobocabin / glamping-modular vocabulary. Modern timber-and-steel cabins set inside tea plantations, forest ridges, dusk skies. The cabin reads as small inside a large hush; people are almost never the subject.
+      </p>
+    </header>
+
+    <!-- ─── A · AUDIT LOG ─── -->
+    <section>
+      <div class="sec-head">
+        <div><div class="sec-no">A<small>लेखा · the audit</small></div></div>
+        <div>
+          <h3 class="sec-title">Audit log · <em>28 May 2026 batch.</em></h3>
+          <p class="sec-sub">Seven new references scored against the brand OS imagery rules (00-principles · §F · Photographic register). Three accepted into the canonical moodboard. One requires care. Three refused, with the rule cited.</p>
+        </div>
+      </div>
+
+      <div class="audit-grid">
+
+        <!-- 01 · ACCEPT · bedroom misty -->
+        <div class="audit">
+          <div class="audit__img">
+            <img src="../assets/imagery/_audit-2026-05-28/01-bedroom-misty.webp" alt="Bedroom interior with floor-level bed; large window looking out to a tree and misty hillside." />
+            <span class="audit__pill ok">✓ Accept · canonical</span>
+          </div>
+          <div class="audit__meta">
+            <div class="audit__rule">— Rule · Interior looking out</div>
+            <div class="audit__name">Bedroom, view through the tree.</div>
+            <p class="audit__notes">Cabin interior framing the land. The bed defers; the misty hillside &amp; tree are the subject. Soft, low-saturation grade. No faces.</p>
+          </div>
+        </div>
+
+        <!-- 02 · REJECT · commercial cafe -->
+        <div class="audit">
+          <div class="audit__img">
+            <img src="../assets/imagery/_audit-2026-05-28/02-commercial-cafe.webp" alt="Interior of a café/store with menu boards, coffee equipment, and a Coca-Cola fridge." />
+            <span class="audit__pill no">✕ Reject</span>
+          </div>
+          <div class="audit__meta">
+            <div class="audit__rule no">— Violates · No third-party brands · No retail register</div>
+            <div class="audit__name">The café with the soda fridge.</div>
+            <p class="audit__notes">Visible Coca-Cola signage; convenience-store stockists; commercial F&amp;B register. EKAM is a kitchen, not a kiosk.</p>
+          </div>
+        </div>
+
+        <!-- 03 · ACCEPT · cabins tea row -->
+        <div class="audit">
+          <div class="audit__img">
+            <img src="../assets/imagery/_audit-2026-05-28/03-cabins-tea-row.webp" alt="Row of modular timber cabins on stilts in a tea-plantation field at dusk; soft pink-and-blue sky." />
+            <span class="audit__pill ok">✓ Accept · canonical</span>
+          </div>
+          <div class="audit__meta">
+            <div class="audit__rule">— Rule · Cabin within the land · Real weather</div>
+            <div class="audit__name">Cabins in the tea field, dusk.</div>
+            <p class="audit__notes">Cabins small inside the frame; tea plantation dominant. Pink-blue dusk reads as time of day, not as filter. No faces.</p>
+          </div>
+        </div>
+
+        <!-- 04 · TREAD CAREFULLY · orange sunset -->
+        <div class="audit">
+          <div class="audit__img">
+            <img src="../assets/imagery/_audit-2026-05-28/04-orange-sunset.webp" alt="Cabins in a tea field with a dramatic orange-pink sunset and warm window glow." />
+            <span class="audit__pill warn">⚠ Tread carefully</span>
+          </div>
+          <div class="audit__meta">
+            <div class="audit__rule warn">— Borderline · Saturated sky · One warm window ✓</div>
+            <div class="audit__name">Orange-sky cabins in the tea field.</div>
+            <p class="audit__notes">Warm window glow is correct. Sky is saturated past the brand line. Useable only with grade pulled −15% on the orange channel.</p>
+          </div>
+        </div>
+
+        <!-- 05 · ACCEPT · dusk pathway -->
+        <div class="audit">
+          <div class="audit__img">
+            <img src="../assets/imagery/_audit-2026-05-28/05-dusk-pathway.webp" alt="Two cabins at dusk with a lit timber pathway between them; soft violet-pink sky." />
+            <span class="audit__pill ok">✓ Accept · canonical</span>
+          </div>
+          <div class="audit__meta">
+            <div class="audit__rule">— Rule · One warm window · Wayfinding visible</div>
+            <div class="audit__name">The path between two cabins.</div>
+            <p class="audit__notes">Lit cabin interiors as restraint, not display. Wayfinding bollards visible. Soft pastel sky just within the saturation line.</p>
+          </div>
+        </div>
+
+        <!-- 06 · REJECT · cabin from below -->
+        <div class="audit">
+          <div class="audit__img">
+            <img src="../assets/imagery/_audit-2026-05-28/06-cabin-from-below.webp" alt="Modular cabin photographed from a low angle against a pale dusk sky, looking imposing." />
+            <span class="audit__pill no">✕ Reject</span>
+          </div>
+          <div class="audit__meta">
+            <div class="audit__rule no">— Violates · Cabin as hero from below</div>
+            <div class="audit__name">Cabin shot from below.</div>
+            <p class="audit__notes">The cabin defers to the land — never the other way. Low-angle framing is the standard developer-portfolio move; explicitly anti-EKAM.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <p style="font-family: var(--font-editorial); font-style: italic; font-size: 12.5px; color: var(--moss); line-height: 1.55; margin: 4px 0 36px; max-width: 680px;">
+        <strong style="font-family: var(--font-ui); font-style: normal; font-size: 11px; letter-spacing: 1.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500;">— Outcome</strong>&nbsp;&nbsp;3 photos promoted to canonical (`cabin-bedroom-misty-view`, `cabins-tea-row-dusk`, `cabins-dusk-pathway`). 1 held for grade-pass. 2 refused, recorded here so the same source is not re-proposed.
+      </p>
+    </section>
+
+    <!-- ─── B · MOODBOARD ─── -->
+    <section>
+      <div class="sec-head">
+        <div><div class="sec-no">B<small>संग्रह · the moodboard</small></div></div>
+        <div>
+          <h3 class="sec-title">Moodboard · <em>the working palette.</em></h3>
+          <p class="sec-sub">Eleven references — eight from the original reference batch, three newly promoted. This is the register every working photograph is checked against.</p>
+        </div>
+      </div>
+
+      <div class="moodboard">
+
+        <!-- HERO — sunset cabin with mountain silhouette -->
+        <figure class="mb mb-hero" style="margin:0;">
+          <img src="../assets/imagery/cabin-sunset-mt.jpg" alt="Modular cabin overlooking a valley at dusk; mountain silhouette and palms; cabin number lit." />
+          <figcaption class="mb__cap"><span class="dot"></span>Dusk · Mt. silhouette · No. 12</figcaption>
+        </figure>
+
+        <!-- Row 2 — three medium tiles -->
+        <figure class="mb mb-third" style="margin:0;">
+          <img src="../assets/imagery/cabins-tea-plantation-aerial.jpg" alt="Aerial of modular cabins arranged across green tea-plantation terraces in mist." />
+          <figcaption class="mb__cap"><span class="dot"></span>Aerial · Scale, not heroism</figcaption>
+        </figure>
+        <figure class="mb mb-third" style="margin:0;">
+          <img src="../assets/imagery/cabin-hill-bluesky.jpg" alt="Single modern glass-and-timber cabin on a green hillside under a wide blue sky." />
+          <figcaption class="mb__cap"><span class="dot"></span>Cabin in field · Wide sky</figcaption>
+        </figure>
+        <figure class="mb mb-third" style="margin:0;">
+          <img src="../assets/imagery/cabin-black-umbrella.jpg" alt="Compact black-clad cabin with a wooden deck, table and umbrella, in a grassy clearing." />
+          <figcaption class="mb__cap"><span class="dot"></span>Character · Single unit</figcaption>
+        </figure>
+
+        <!-- Row 3 — wide + tall (NEW · bedroom + drone) -->
+        <figure class="mb mb-wide" style="margin:0;">
+          <img src="../assets/imagery/cabin-bedroom-misty-view.webp" alt="Bedroom interior with floor-level bed; large window looking out to a tree and misty hillside." />
+          <figcaption class="mb__cap"><span class="dot"></span>Interior · Looking out · NEW</figcaption>
+        </figure>
+        <figure class="mb mb-tall" style="margin:0;">
+          <img src="../assets/imagery/cabins-terraces-drone.jpg" alt="Two A-frame modular cabins on stilts perched on a hillside between tea-terrace rows; drone perspective." />
+          <figcaption class="mb__cap"><span class="dot"></span>Drone · The land first</figcaption>
+        </figure>
+
+        <!-- Row 4 — wide + square (NEW · tea row + bedroom window) -->
+        <figure class="mb mb-wide" style="margin:0;">
+          <img src="../assets/imagery/cabins-tea-row-dusk.webp" alt="Row of timber modular cabins on stilts in a tea-plantation field at dusk." />
+          <figcaption class="mb__cap"><span class="dot"></span>Tea row · Pink-blue dusk · NEW</figcaption>
+        </figure>
+        <figure class="mb mb-square" style="margin:0;">
+          <img src="../assets/imagery/cabin-bedroom-window.jpg" alt="Interior of a cabin bedroom: a bed in foreground, large window looking out onto a tree and misty valley." />
+          <figcaption class="mb__cap"><span class="dot"></span>Interior · The view, framed</figcaption>
+        </figure>
+
+        <!-- Row 5 — half + half (NEW · dusk pathway + interior wood) -->
+        <figure class="mb mb-half" style="margin:0;">
+          <img src="../assets/imagery/cabins-dusk-pathway.webp" alt="Two cabins at dusk with a lit timber pathway between them; soft violet-pink sky." />
+          <figcaption class="mb__cap"><span class="dot"></span>Path between · Lit windows · NEW</figcaption>
+        </figure>
+        <figure class="mb mb-half" style="margin:0;">
+          <img src="../assets/imagery/cabin-interior-wood.jpg" alt="Interior detail of a cabin: warm timber walls and ceiling, ribbed wood slats, small bed and side table." />
+          <figcaption class="mb__cap"><span class="dot"></span>Material · Timber, light</figcaption>
+        </figure>
+
+        <!-- Row 6 — wide (deck view) -->
+        <figure class="mb mb-hero" style="grid-row: span 3; margin: 0;">
+          <img src="../assets/imagery/cabin-deck-view.avif" alt="Wide view from a cabin deck: timber bench, glass railing, neighbouring cabins lining a ridge under a wide sky." />
+          <figcaption class="mb__cap"><span class="dot"></span>Deck · Looking out, never in</figcaption>
+        </figure>
+
+      </div>
+    </section>
+
+    <!-- ─── C · BRIEF ─── -->
+    <section>
+      <div class="brief">
+        <div class="brief__cell">
+          <span class="brief__lbl">Subject</span>
+          <span class="brief__val">The <b>cabin within the land</b> — tea terraces, forest ridges, dusk skies. People only as silhouettes.</span>
+        </div>
+        <div class="brief__cell">
+          <span class="brief__lbl">Frame</span>
+          <span class="brief__val">Wide. The cabin is <em>small inside a large landscape</em>. Aerials used sparingly, never as the headline.</span>
+        </div>
+        <div class="brief__cell">
+          <span class="brief__lbl">Light</span>
+          <span class="brief__val">Dusk · pre-dawn · overcast. One warm window glow inside if at night. Never harsh midday.</span>
+        </div>
+        <div class="brief__cell">
+          <span class="brief__lbl">Camera</span>
+          <span class="brief__val"><b>35mm</b> full-frame or medium format. Drone allowed for the land, never the cabin.</span>
+        </div>
+        <div class="brief__cell">
+          <span class="brief__lbl">Grade</span>
+          <span class="brief__val">Saturation <b>−8 to −12%</b>. Blacks lifted ≤ 5%. Whites slightly warmed. Greens preserved.</span>
+        </div>
+        <div class="brief__cell">
+          <span class="brief__lbl">Mood</span>
+          <span class="brief__val"><em>Patient. Quiet. Lived-in.</em> Earth-tone register; never cool blue resort cast.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── D · ALWAYS / TREAD CAREFULLY ─── -->
+    <section class="rules">
+      <div class="rules__col always">
+        <div class="rules__head"><span class="sym">✓</span><span class="name">Always</span></div>
+        <ul class="rules__list">
+          <li><b>Cabin in the land</b>Small inside a vast frame. Tea terraces, forest, mist.</li>
+          <li><b>One warm window</b>Restraint reads as occupied.</li>
+          <li><b>Real weather</b>Mist, drizzle, dusk light read as time of day.</li>
+          <li><b>Negative space for type</b>Bottom-left quadrant stays quiet.</li>
+          <li><b>Interior looking out</b>The view is the subject, not the bed.</li>
+          <li><b>Numbered cabin marker</b>Quiet wayfinding · part of the scene.</li>
+        </ul>
+      </div>
+      <div class="rules__col never">
+        <div class="rules__head"><span class="sym">✕</span><span class="name">Tread carefully</span></div>
+        <ul class="rules__list">
+          <li><b>Faces in foreground</b>Lifestyle staging. The brand is what they walk into.</li>
+          <li><b>Orange-and-teal grade</b>Travel-magazine cliché. Our palette is muted.</li>
+          <li><b>Cabin as hero from below</b>The cabin defers to the land — never the other way.</li>
+          <li><b>Drone overheads of empty land</b>No land alone. Cabin + land, always together.</li>
+          <li><b>Third-party brands in frame</b>Coca-Cola fridges, retail signage, OTA marks.</li>
+          <li><b>Saturated sunsets / fire skies</b>Pull orange −15% in grade, or skip the shot.</li>
+        </ul>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

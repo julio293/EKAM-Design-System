@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EKAM Operating System</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="stylesheet" href="_chrome.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=Raleway:wght@300;400;500&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  /* ─── Landing-specific ─── */
+  .home-hero {
+    padding: 56px 64px 64px;
+    background:
+      radial-gradient(ellipse at 30% 30%, rgba(180,97,58,0.08) 0%, transparent 50%),
+      var(--cream);
+    border-bottom: 1px solid var(--bone);
+    margin-bottom: 64px;
+  }
+  .home-hero__eb { font-family: var(--font-ui); font-size: 11px; letter-spacing: 4px; color: var(--bindu); text-transform: uppercase; font-weight: 500; display: block; margin-bottom: 14px; }
+  .home-hero__dev { font-family: var(--font-devanagari); font-size: 20px; color: var(--bindu); letter-spacing: 2px; }
+  .home-hero__title { font-family: var(--font-display); font-weight: 300; font-size: 72px; color: var(--forest); letter-spacing: 0.4px; line-height: 1.02; margin: 16px 0 0; max-width: 920px; }
+  .home-hero__title em { font-family: var(--font-editorial); font-style: italic; color: var(--bindu); font-weight: 400; }
+  .home-hero__lede { font-family: var(--font-editorial); font-style: italic; font-size: 20px; color: var(--moss); line-height: 1.55; margin: 24px 0 0; max-width: 720px; }
+  .home-hero__meta {
+    display: flex; gap: 48px;
+    margin-top: 48px; padding-top: 32px;
+    border-top: 1px solid var(--bone);
+    font-family: var(--font-ui); font-size: 10px;
+    letter-spacing: 2.5px; color: var(--moss);
+    text-transform: uppercase; font-weight: 500;
+  }
+  .home-hero__meta b { display: block; color: var(--bindu); font-family: var(--font-display); font-style: italic; font-size: 22px; letter-spacing: 0.3px; font-weight: 400; margin-bottom: 4px; text-transform: none; }
+
+  /* Pillar grid */
+  .pillars { padding: 0 64px; margin-bottom: 80px; }
+  .pillars__head { display: grid; grid-template-columns: 240px 1fr; gap: 48px; align-items: baseline; padding-bottom: 18px; border-bottom: 1px solid var(--bone); margin-bottom: 32px; }
+  .pillars__eb { font-family: var(--font-ui); font-size: 10px; letter-spacing: 2.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+  .pillars__title { font-family: var(--font-display); font-weight: 400; font-size: 28px; color: var(--forest); letter-spacing: 0.3px; line-height: 1.1; margin: 0; }
+  .pillars__sub { font-family: var(--font-editorial); font-style: italic; font-size: 15px; color: var(--moss); line-height: 1.55; margin: 8px 0 0; max-width: 580px; }
+
+  .pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .pillar {
+    padding: 28px 28px 26px;
+    background: var(--cream);
+    border: 1px solid var(--bone);
+    display: flex; flex-direction: column;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 220ms, transform 220ms, background 220ms;
+    min-height: 260px;
+  }
+  .pillar:hover {
+    border-color: var(--bindu);
+    transform: translateY(-2px);
+    background: rgba(250,247,240,0.9);
+  }
+  .pillar.dark {
+    background: var(--forest);
+    color: var(--cream);
+    border-color: transparent;
+  }
+  .pillar.dark:hover { background: #1F3525; }
+
+  .pillar__no { font-family: var(--font-display); font-style: italic; font-size: 36px; color: var(--bindu); font-weight: 400; line-height: 1; }
+  .pillar__dev { font-family: var(--font-devanagari); font-size: 14px; color: var(--bindu); letter-spacing: 1.5px; margin-top: 4px; }
+  .pillar__title { font-family: var(--font-display); font-weight: 400; font-size: 21px; color: var(--forest); letter-spacing: 0.3px; line-height: 1.15; margin: 12px 0 0; }
+  .pillar.dark .pillar__title { color: var(--cream); }
+  .pillar__lede { font-family: var(--font-editorial); font-style: italic; font-size: 13px; color: var(--moss); line-height: 1.5; margin: 8px 0 0; flex: 1; }
+  .pillar.dark .pillar__lede { color: rgba(250,247,240,0.7); }
+  .pillar__foot {
+    margin-top: 16px; padding-top: 14px;
+    border-top: 1px solid var(--bone);
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: var(--font-ui); font-size: 9.5px;
+    letter-spacing: 1.8px; color: var(--bindu);
+    text-transform: uppercase; font-weight: 500;
+  }
+  .pillar.dark .pillar__foot { border-top-color: rgba(180,97,58,0.32); }
+  .pillar__status { color: var(--moss); }
+  .pillar.dark .pillar__status { color: rgba(250,247,240,0.55); }
+  .pillar__status.draft { color: var(--bindu); }
+  .pillar__status.live  { color: #2B7A3F; }
+
+  /* Manifesto block — at bottom of landing */
+  .manifesto {
+    padding: 64px;
+    margin: 0 64px 80px;
+    background: var(--forest);
+    color: var(--cream);
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 64px; align-items: center;
+  }
+  .manifesto__eb { font-family: var(--font-ui); font-size: 11px; letter-spacing: 3px; color: var(--bindu); text-transform: uppercase; font-weight: 500; display: block; margin-bottom: 14px; }
+  .manifesto__title { font-family: var(--font-display); font-weight: 300; font-size: 38px; color: var(--cream); letter-spacing: 0.3px; line-height: 1.1; margin: 0; }
+  .manifesto__title em { font-family: var(--font-editorial); font-style: italic; color: var(--bindu); font-weight: 400; }
+  .manifesto__quote {
+    font-family: var(--font-display); font-weight: 300;
+    font-style: italic; font-size: 22px;
+    color: rgba(250,247,240,0.85); line-height: 1.45;
+    padding-left: 24px; border-left: 1px solid rgba(180,97,58,0.5);
+  }
+  .manifesto__quote strong { color: var(--bindu); font-weight: 400; }
+
+  /* Sidebar overrides for the home page */
+  .os { grid-template-columns: 280px 1fr; }
+  .os-main { padding: 0; max-width: none; }
+
+  /* Reader badges (audience map row) */
+  .audience { padding: 0 64px 80px; }
+  .audience__head { display: grid; grid-template-columns: 240px 1fr; gap: 48px; align-items: baseline; padding-bottom: 18px; border-bottom: 1px solid var(--bone); margin-bottom: 32px; }
+  .audience-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .audience-card {
+    padding: 24px 22px 20px;
+    background: var(--sand);
+    border: 1px solid var(--bone);
+  }
+  .audience-card__rank { font-family: var(--font-ui); font-size: 10px; letter-spacing: 2.5px; color: var(--bindu); text-transform: uppercase; font-weight: 500; }
+  .audience-card__name { font-family: var(--font-display); font-weight: 400; font-size: 19px; color: var(--forest); letter-spacing: 0.3px; margin: 8px 0 0; }
+  .audience-card__needs { font-family: var(--font-body); font-weight: 300; font-size: 13px; color: var(--ink); line-height: 1.55; margin: 10px 0 0; }
+  .audience-card__needs em { font-family: var(--font-editorial); font-style: italic; color: var(--moss); }
+</style>
+</head>
+<body>
+
+<div class="os">
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SIDEBAR
+       ═══════════════════════════════════════════════════════════ -->
+  <aside class="os-nav">
+    <div class="os-nav__brand">
+      <span class="os-nav__brand-dev">एकम् · संचालन</span>
+      <span class="os-nav__brand-wm">E<span class="dot"></span>KAM</span>
+      <span class="os-nav__brand-tag">The operating system · v1.0 · draft</span>
+    </div>
+
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Foundation</span>
+      <a class="os-nav__item is-on" href="index.html">          <span class="os-nav__item-no">00</span><span>Principles</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="01-tokens.html">            <span class="os-nav__item-no">01</span><span>Tokens</span></a>
+      <a class="os-nav__item" href="02-spatial-type.html">      <span class="os-nav__item-no">02</span><span>Spatial type</span></a>
+      <a class="os-nav__item" href="03-materials.html">         <span class="os-nav__item-no">03</span><span>Materials</span></a>
+    </nav>
+
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Environmental</span>
+      <a class="os-nav__item" href="04-signage.html">           <span class="os-nav__item-no">04</span><span>Signage system</span></a>
+      <a class="os-nav__item" href="05-wayfinding.html">        <span class="os-nav__item-no">05</span><span>Wayfinding</span></a>
+      <a class="os-nav__item" href="06-cabin-anatomy.html">     <span class="os-nav__item-no">06</span><span>Cabin anatomy</span></a>
+    </nav>
+
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Hospitality</span>
+      <a class="os-nav__item is-pending" href="#" data-pending="07-guest-journey.html">     <span class="os-nav__item-no">07</span><span>Guest journey</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="08-rituals.html">           <span class="os-nav__item-no">08</span><span>Rituals on site</span></a>
+    </nav>
+
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Build</span>
+      <a class="os-nav__item is-pending" href="#" data-pending="09-fabrication.html">       <span class="os-nav__item-no">09</span><span>Fabrication</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="10-utility-emergency.html"> <span class="os-nav__item-no">10</span><span>Utility &amp; emergency</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="11-staff.html">             <span class="os-nav__item-no">11</span><span>Staff systems</span></a>
+    </nav>
+
+    <nav class="os-nav__group">
+      <span class="os-nav__group-h">— Scale</span>
+      <a class="os-nav__item is-pending" href="#" data-pending="12-tier-variation.html">    <span class="os-nav__item-no">12</span><span>Tier variation</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="13-partner-tiers.html">     <span class="os-nav__item-no">13</span><span>Partner tiers</span></a>
+      <a class="os-nav__item is-pending" href="#" data-pending="14-prints.html">            <span class="os-nav__item-no">14</span><span>Exports</span></a>
+    </nav>
+
+    <div class="os-nav__foot">
+      <b>— Version</b>
+      v1.0 · 28 May 2026<br/>
+      Owner · Design<br/>
+      Status · draft, in build
+    </div>
+  </aside>
+
+  <main class="os-main">
+
+    <!-- ─── Hero ─── -->
+    <section class="home-hero">
+      <span class="home-hero__eb">— The operating system · v1.0</span>
+      <span class="home-hero__dev">एकम् · संचालन</span>
+      <h1 class="home-hero__title">Every cabin, <em>every plate, every plaque,</em> every guest moment — one document.</h1>
+      <p class="home-hero__lede">EKAM is a hospitality system before it is a digital product. This document is the source of truth — material, dimensional, behavioural — for every property, every partner, and every staff member who carries the brand.</p>
+      <div class="home-hero__meta">
+        <span><b>15</b>sections</span>
+        <span><b>4</b>audiences</span>
+        <span><b>1</b>discipline</span>
+        <span><b>0</b>compromises</span>
+      </div>
+    </section>
+
+    <!-- ─── Pillar grid ─── -->
+    <section class="pillars">
+      <header class="pillars__head">
+        <div>
+          <span class="pillars__eb">— The system</span>
+        </div>
+        <div>
+          <h2 class="pillars__title">Fifteen sections. Four audiences. One source of truth.</h2>
+          <p class="pillars__sub">Read top to bottom for the first build of a property. Open a single section as a reference once the build is underway. Every artifact in this document is downloadable, printable, and vendor-ready.</p>
+        </div>
+      </header>
+
+      <div class="pillar-grid">
+
+        <!-- 00 -->
+        <a class="pillar" href="00-principles.html">
+          <div>
+            <div class="pillar__no">00</div>
+            <div class="pillar__dev">सिद्धान्त · the foundation</div>
+          </div>
+          <h3 class="pillar__title">Principles</h3>
+          <p class="pillar__lede">The Aman + Apple thesis. The voice. The restraint budget. The discipline budget — what we never do.</p>
+          <div class="pillar__foot"><span>Foundation</span><span class="pillar__status draft">Draft</span></div>
+        </a>
+
+        <!-- 01 -->
+        <a class="pillar is-pending" href="#" data-pending="01-tokens.html">
+          <div>
+            <div class="pillar__no">01</div>
+            <div class="pillar__dev">सूत्र · the tokens</div>
+          </div>
+          <h3 class="pillar__title">Tokens</h3>
+          <p class="pillar__lede">Colour, type, space, elevation, radii, motion. The atoms. Figma-ready, Tokens-Studio-importable.</p>
+          <div class="pillar__foot"><span>Foundation</span><span class="pillar__status draft">Draft</span></div>
+        </a>
+
+        <!-- 02 -->
+        <a class="pillar" href="02-spatial-type.html">
+          <div>
+            <div class="pillar__no">02</div>
+            <div class="pillar__dev">अक्षर · the letter at scale</div>
+          </div>
+          <h3 class="pillar__title">Spatial type</h3>
+          <p class="pillar__lede">Typography sized for buildings. Carved on stone, etched on brass, printed on cream paper, painted on a forest plate.</p>
+          <div class="pillar__foot"><span>Foundation</span><span class="pillar__status draft">Draft</span></div>
+        </a>
+
+        <!-- 03 -->
+        <a class="pillar" href="03-materials.html">
+          <div>
+            <div class="pillar__no">03</div>
+            <div class="pillar__dev">द्रव्य · the material</div>
+          </div>
+          <h3 class="pillar__title">Materials</h3>
+          <p class="pillar__lede">Eight materials, one wax, one accent. Spec, finish, vendor, weather, longevity, replacement cycle.</p>
+          <div class="pillar__foot"><span>Foundation</span><span class="pillar__status draft">Draft</span></div>
+        </a>
+
+        <!-- 04 -->
+        <a class="pillar dark" href="04-signage.html">
+          <div>
+            <div class="pillar__no">04</div>
+            <div class="pillar__dev">पट · the signs</div>
+          </div>
+          <h3 class="pillar__title">Signage system</h3>
+          <p class="pillar__lede">Property gate, house-rule panels, cabin plates, utility plates. Every sign on site, drawn once.</p>
+          <div class="pillar__foot"><span>Environmental</span><span class="pillar__status draft">Draft</span></div>
+        </a>
+
+        <!-- 05 -->
+        <a class="pillar" href="05-wayfinding.html">
+          <div>
+            <div class="pillar__no">05</div>
+            <div class="pillar__dev">पथ · the path</div>
+          </div>
+          <h3 class="pillar__title">Wayfinding</h3>
+          <p class="pillar__lede">Trail markers, arrow vocabulary, post-mount specs. No artificial light. Moonlight is enough.</p>
+          <div class="pillar__foot"><span>Environmental</span><span class="pillar__status draft">Draft</span></div>
+        </a>
+
+        <!-- 06 -->
+        <a class="pillar" href="06-cabin-anatomy.html">
+          <div>
+            <div class="pillar__no">06</div>
+            <div class="pillar__dev">कुटीर · the cabin</div>
+          </div>
+          <h3 class="pillar__title">Cabin anatomy</h3>
+          <p class="pillar__lede">Every surface annotated. Door, bedside, kitchenette, bathroom, deck. Material, dimension, supplier, cycle.</p>
+          <div class="pillar__foot"><span>Environmental</span><span class="pillar__status draft">Draft</span></div>
+        </a>
+
+        <!-- 07 -->
+        <a class="pillar is-pending" href="#" data-pending="07-guest-journey.html">
+          <div>
+            <div class="pillar__no">07</div>
+            <div class="pillar__dev">यात्रा · the arc</div>
+          </div>
+          <h3 class="pillar__title">Guest journey</h3>
+          <p class="pillar__lede">Arrival → cabin → fire-pit → ritual → departure-seal. Mapped against physical artifacts.</p>
+          <div class="pillar__foot"><span>Hospitality</span><span class="pillar__status">Pending</span></div>
+        </a>
+
+        <!-- 08 -->
+        <a class="pillar is-pending" href="#" data-pending="08-rituals.html">
+          <div>
+            <div class="pillar__no">08</div>
+            <div class="pillar__dev">क्रिया · the rituals</div>
+          </div>
+          <h3 class="pillar__title">Rituals on site</h3>
+          <p class="pillar__lede">Chai at dusk. The journal prompt. The fire lit. The seal pressed on departure. Cabin time, slow.</p>
+          <div class="pillar__foot"><span>Hospitality</span><span class="pillar__status">Pending</span></div>
+        </a>
+
+        <!-- 09 -->
+        <a class="pillar dark is-pending" href="#" data-pending="09-fabrication.html">
+          <div>
+            <div class="pillar__no">09</div>
+            <div class="pillar__dev">निर्माण · the build</div>
+          </div>
+          <h3 class="pillar__title">Fabrication</h3>
+          <p class="pillar__lede">Vendor-ready files. Dieline AIs, brass-etch specs, screen-print files, font licensing, naming convention.</p>
+          <div class="pillar__foot"><span>Build</span><span class="pillar__status">Pending</span></div>
+        </a>
+
+        <!-- 10 -->
+        <a class="pillar is-pending" href="#" data-pending="10-utility-emergency.html">
+          <div>
+            <div class="pillar__no">10</div>
+            <div class="pillar__dev">सहाय · the safety</div>
+          </div>
+          <h3 class="pillar__title">Utility &amp; emergency</h3>
+          <p class="pillar__lede">Gate code, fire-pit rules, geyser controls, evacuation route, clinic-drive contact card.</p>
+          <div class="pillar__foot"><span>Build</span><span class="pillar__status">Pending</span></div>
+        </a>
+
+        <!-- 11 -->
+        <a class="pillar is-pending" href="#" data-pending="11-staff.html">
+          <div>
+            <div class="pillar__no">11</div>
+            <div class="pillar__dev">सहयोग · the staff</div>
+          </div>
+          <h3 class="pillar__title">Staff systems</h3>
+          <p class="pillar__lede">Uniforms, badges, back-of-house signage. The team is part of the system, not a uniform line item.</p>
+          <div class="pillar__foot"><span>Build</span><span class="pillar__status">Pending</span></div>
+        </a>
+
+        <!-- 12 -->
+        <a class="pillar is-pending" href="#" data-pending="12-tier-variation.html">
+          <div>
+            <div class="pillar__no">12</div>
+            <div class="pillar__dev">वर्ग · the tiers</div>
+          </div>
+          <h3 class="pillar__title">Tier variation</h3>
+          <p class="pillar__lede">What Kutir, Van, Shikhar &amp; Chai change. What is invariant. Discipline before personalisation.</p>
+          <div class="pillar__foot"><span>Scale</span><span class="pillar__status">Pending</span></div>
+        </a>
+
+        <!-- 13 -->
+        <a class="pillar dark is-pending" href="#" data-pending="13-partner-tiers.html">
+          <div>
+            <div class="pillar__no">13</div>
+            <div class="pillar__dev">साझे · the partners</div>
+          </div>
+          <h3 class="pillar__title">Partner tiers</h3>
+          <p class="pillar__lede">EKAM Certified · EKAM Managed · EKAM Partner. Compliance ladder for properties we don't own.</p>
+          <div class="pillar__foot"><span>Scale</span><span class="pillar__status">Pending</span></div>
+        </a>
+
+        <!-- 14 -->
+        <a class="pillar is-pending" href="#" data-pending="14-prints.html">
+          <div>
+            <div class="pillar__no">14</div>
+            <div class="pillar__dev">कोश · the dictionary</div>
+          </div>
+          <h3 class="pillar__title">Exports</h3>
+          <p class="pillar__lede">Curated PDF exports — Investor, Construction, Operations, Brand Book. Figma library, dieline pack.</p>
+          <div class="pillar__foot"><span>Scale</span><span class="pillar__status">Pending</span></div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ─── Audience map ─── -->
+    <section class="audience">
+      <header class="audience__head">
+        <div>
+          <span class="pillars__eb">— Audiences</span>
+        </div>
+        <div>
+          <h2 class="pillars__title">Four readers, in this order.</h2>
+          <p class="pillars__sub">v1 is written for the founders and the construction team first. Investor narrative is generated <em>from</em> the system, never before it.</p>
+        </div>
+      </header>
+
+      <div class="audience-grid">
+        <div class="audience-card">
+          <span class="audience-card__rank">— Primary · 01</span>
+          <h4 class="audience-card__name">Founders + Operations</h4>
+          <p class="audience-card__needs">Decision tool. The system makes the build-vs-skip call, the vendor-vs-vendor call, the partner-yes-or-no call. <em>The voice lives here.</em></p>
+        </div>
+        <div class="audience-card">
+          <span class="audience-card__rank">— Primary · 02</span>
+          <h4 class="audience-card__name">Construction &amp; Vendors</h4>
+          <p class="audience-card__needs">Spec sheet. Every dimension, every material, every file. <em>If a vendor can't quote from this document, the document is incomplete.</em></p>
+        </div>
+        <div class="audience-card">
+          <span class="audience-card__rank">— Secondary</span>
+          <h4 class="audience-card__name">Designers &amp; Agencies</h4>
+          <p class="audience-card__needs">Handoff library. Tokens, components, voice, anti-patterns. <em>For when external teams execute the website, the campaign, the merchandise.</em></p>
+        </div>
+        <div class="audience-card">
+          <span class="audience-card__rank">— Tertiary</span>
+          <h4 class="audience-card__name">Investors</h4>
+          <p class="audience-card__needs">Defensibility. The discipline, the coherence, the scale-readiness. <em>Storytelling is curated out of this document, never written first.</em></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Manifesto ─── -->
+    <section class="manifesto">
+      <div>
+        <span class="manifesto__eb">— The discipline budget</span>
+        <h2 class="manifesto__title">Aman calmness · Apple rigor · Muji honesty · Patagonia ethics.<br/><em>In that order.</em></h2>
+      </div>
+      <div class="manifesto__quote">
+        "<strong>One bed.</strong> <strong>One stove.</strong> <strong>One window.</strong><br/>
+        Everything else is restraint.<br/><br/>
+        The system is the discipline.<br/>
+        The discipline is the product."
+      </div>
+    </section>
+
+  </main>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EKAM — The Touchpoints</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;700&family=Fraunces:ital,opsz,wght@1,9..144,300;1,9..144,400&family=Raleway:wght@300;400;500;600&family=Inter:wght@300;400;500;600&family=Tiro+Devanagari+Hindi:ital@0;1&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --cream:#FAF7F0; --sand:#F4EDE1; --bone:#ECE4D3; --mist:#D8D3C4;
+  --ink:#14201A; --forest:#2B4630; --moss:#7A8A6B;
+  --moss-on-forest:#8A9476; --bindu:#B4613A; --wood:#6b4a2b; --wood-light:#8a6e4f;
+  --space-xs:4px; --space-sm:8px; --space-md:16px; --space-lg:24px;
+  --space-xl:40px; --space-2xl:64px; --space-3xl:96px; --space-4xl:128px;
+  --space-5xl:192px; --r:0px;
+}
+*{box-sizing:border-box; margin:0; padding:0; border-radius:var(--r);}
+html,body{ background:var(--cream); color:var(--ink); font-family:'Raleway', sans-serif; font-weight:300; line-height:1.75; -webkit-font-smoothing:antialiased; }
+
+.eyebrow{ font-family:'Inter', sans-serif; font-size:11px; font-weight:500; letter-spacing:4px; text-transform:uppercase; color:var(--moss); }
+.eyebrow--onforest{ color:var(--moss-on-forest); }
+.eyebrow--clay{ color:var(--bindu); }
+.devanagari{ font-family:'Tiro Devanagari Hindi', serif; color:var(--bindu); letter-spacing:2px; }
+
+.body-copy{ font-family:'Raleway', sans-serif; font-weight:300; font-size:15px; line-height:1.85; color:var(--ink); max-width:580px; }
+.body-copy--onforest{ color:var(--sand); }
+.lede{ font-family:'Fraunces', serif; font-style:italic; font-weight:300; font-size:22px; line-height:1.6; color:var(--ink); max-width:640px; }
+.lede--onforest{ color:var(--sand); }
+
+/* NAV */
+.nav{ position:sticky; top:0; z-index:200; height:64px; background:var(--cream); border-bottom:1px solid var(--bone); display:flex; align-items:center; justify-content:space-between; padding:0 var(--space-xl); }
+.nav__brand svg{ height:24px; width:auto; display:block; }
+.nav__meta{ font-family:'Inter', sans-serif; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--moss); font-weight:500; }
+.nav__links{ display:flex; gap:var(--space-md); }
+.nav__links a{ font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--ink); text-decoration:none; font-weight:500; }
+.nav__links a:hover{ color:var(--bindu); }
+@media (max-width:980px){ .nav__links{ display:none; } }
+
+/* SECTIONS */
+section{ padding:var(--space-4xl) var(--space-xl); border-bottom:1px solid var(--bone); }
+.section--forest{ background:var(--forest); color:var(--cream); border-bottom:none; }
+.section--sand{ background:var(--sand); }
+.section--ink{ background:var(--ink); color:var(--cream); border-bottom:none; }
+.section__inner{ max-width:1180px; margin:0 auto; }
+.section__inner--narrow{ max-width:760px; margin:0 auto; }
+
+/* COVER */
+.cover{ min-height:90vh; display:flex; flex-direction:column; justify-content:space-between; padding:var(--space-4xl) var(--space-xl); }
+.cover__center{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:var(--space-xl); }
+.cover__title{ font-family:'Cormorant Garamond', serif; font-weight:300; font-size:96px; letter-spacing:8px; color:var(--cream); line-height:1; }
+.cover__rule{ width:48px; height:1px; background:var(--bindu); }
+.cover__sub{ font-family:'Fraunces', serif; font-style:italic; font-size:22px; color:var(--sand); max-width:560px; }
+.cover__top, .cover__foot{ display:flex; justify-content:space-between; font-family:'Inter', sans-serif; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--moss-on-forest); }
+
+/* TOUCHPOINT GRID */
+.touchpoint{
+  display:grid; grid-template-columns:1fr 1fr; gap:var(--space-4xl);
+  align-items:center; max-width:1180px; margin:0 auto;
+}
+.touchpoint--reverse{ direction:rtl; }
+.touchpoint--reverse > *{ direction:ltr; }
+@media (max-width:980px){ .touchpoint{ grid-template-columns:1fr; gap:var(--space-2xl); } .touchpoint--reverse{ direction:ltr; } }
+
+.touchpoint__visual{
+  display:flex; align-items:center; justify-content:center;
+  min-height:480px;
+  padding:var(--space-2xl);
+}
+.touchpoint__spec h2{
+  font-family:'Cormorant Garamond', serif; font-weight:300;
+  font-size:56px; letter-spacing:2px; line-height:1.05;
+  color:var(--forest); margin-bottom:var(--space-md);
+}
+.touchpoint__spec h2--onforest{ color:var(--cream); }
+.touchpoint__num{ font-family:'Inter', sans-serif; font-size:11px; letter-spacing:4px; color:var(--bindu); text-transform:uppercase; font-weight:500; display:block; margin-bottom:var(--space-md); }
+.touchpoint__lede{ font-family:'Fraunces', serif; font-style:italic; font-size:20px; line-height:1.55; color:var(--ink); margin-bottom:var(--space-xl); max-width:480px; }
+.touchpoint__lede--onforest{ color:var(--sand); }
+.touchpoint__doctrine{ border-top:1px solid var(--bone); margin-top:var(--space-md); }
+.touchpoint__row{ display:grid; grid-template-columns:140px 1fr; gap:var(--space-lg); padding:var(--space-md) 0; border-bottom:1px solid var(--bone); align-items:start; }
+.touchpoint__row-label{ font-family:'Inter', sans-serif; font-size:10px; letter-spacing:2.5px; color:var(--bindu); text-transform:uppercase; font-weight:500; }
+.touchpoint__row-body{ font-family:'Raleway', sans-serif; font-weight:300; font-size:13.5px; line-height:1.7; color:var(--ink); }
+.touchpoint__doctrine--onforest{ border-color:rgba(236,228,211,0.18); }
+.touchpoint__doctrine--onforest .touchpoint__row{ border-color:rgba(236,228,211,0.18); }
+.touchpoint__doctrine--onforest .touchpoint__row-body{ color:var(--sand); }
+.touchpoint__quote{
+  font-family:'Cormorant Garamond', serif; font-weight:300;
+  font-size:22px; line-height:1.4; color:var(--moss);
+  letter-spacing:0.5px; max-width:440px; margin-top:var(--space-xl);
+  padding-top:var(--space-md); border-top:1px solid var(--mist);
+  font-style:italic;
+}
+
+.anchor-target{ scroll-margin-top:80px; }
+
+/* TERMINUS */
+.terminus{ display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:60vh; gap:var(--space-xl); padding:var(--space-4xl) var(--space-xl); }
+.terminus__rule{ width:48px; height:1px; background:var(--bindu); }
+.terminus__line{ font-family:'Fraunces', serif; font-style:italic; font-size:24px; color:var(--sand); max-width:600px; line-height:1.5; }
+.terminus__cred{ font-family:'Inter', sans-serif; font-size:11px; letter-spacing:4px; color:var(--moss-on-forest); text-transform:uppercase; }
+
+/* SVG FILTERS - shared shadows for paper realism */
+.paper-shadow{ filter: drop-shadow(0 16px 32px rgba(20,32,26,0.18)) drop-shadow(0 4px 8px rgba(20,32,26,0.08)); }
+
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="wordmark" viewBox="0 0 600 200">
+      <text x="60" y="160" font-family="Cormorant Garamond, serif" font-weight="400" font-size="150" fill="#2B4630" letter-spacing="10">E</text>
+      <circle cx="200" cy="107" r="10" fill="#B4613A"/>
+      <text x="240" y="160" font-family="Cormorant Garamond, serif" font-weight="400" font-size="150" fill="#2B4630" letter-spacing="10">KAM</text>
+    </symbol>
+    <symbol id="wordmark-nav" viewBox="0 0 200 48">
+      <text x="10" y="38" font-family="Cormorant Garamond, serif" font-weight="500" font-size="30" fill="#14201A" letter-spacing="3">E</text>
+      <circle cx="42" cy="26" r="2.4" fill="#B4613A"/>
+      <text x="52" y="38" font-family="Cormorant Garamond, serif" font-weight="500" font-size="30" fill="#14201A" letter-spacing="3">KAM</text>
+    </symbol>
+  </defs>
+</svg>
+
+<nav class="nav">
+  <div class="nav__brand"><svg><use href="#wordmark-nav" /></svg></div>
+  <div class="nav__links">
+    <a href="#card">Welcome card</a>
+    <a href="#wax">Wax seal</a>
+    <a href="#match">Matches</a>
+    <a href="#mug">The mug</a>
+    <a href="#map">Property map</a>
+    <a href="#letterpress">Letterpress</a>
+    <a href="#journal">Journal</a>
+    <a href="#monolith">Monolith</a>
+    <a href="#lantern">Lantern</a>
+  </div>
+  <div class="nav__meta">The Touchpoints · 2026</div>
+</nav>
+
+<!-- COVER -->
+<section class="section--forest anchor-target" id="cover">
+  <div class="section__inner cover">
+    <div class="cover__top">
+      <span>Companion to the Brand Operating System</span>
+      <span>Twelve physical artifacts · 2026</span>
+    </div>
+    <div class="cover__center">
+      <div class="devanagari" style="font-size:32px;">एकम्</div>
+      <h1 class="cover__title">The Touchpoints</h1>
+      <div class="cover__rule"></div>
+      <div class="cover__sub">Twelve physical artifacts a guest touches, from the road to the wax seal on the morning of departure.</div>
+    </div>
+    <div class="cover__foot">
+      <span>Read paired with the BOS</span>
+      <span>Materials per the Sustainability Roadmap</span>
+    </div>
+  </div>
+</section>
+
+<!-- PREFACE -->
+<section>
+  <div class="section__inner section__inner--narrow">
+    <div class="eyebrow">Preface</div>
+    <h2 style="font-family:'Cormorant Garamond', serif; font-weight:300; font-size:42px; color:var(--forest); letter-spacing:1px; margin-top:var(--space-md); margin-bottom:var(--space-xl); line-height:1.1;">What this is.</h2>
+    <div class="body-copy">
+      <p>The Brand Operating System describes the brand in words. This document is the gallery of the artifacts those words point at. Twelve objects, rendered as a designer would draft them before they go to the carpenter, the printer, the potter, the smith.</p>
+      <p>Each artifact carries the same anatomy: <em>the object</em>, the role it plays in the guest's day, the substrate it is made from (categorical — sources per the Sustainability Roadmap), the typography, the dimensions, and the one line from the doctrine that earned the artifact its place.</p>
+      <p>The renderings here are designer studies, not photographs. Treat them as briefs for the artisans who will build the final objects in stone, wood, iron, paper, ceramic, and wax.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 01 · WELCOME CARD -->
+<section class="anchor-target" id="card">
+  <div class="touchpoint">
+    <div class="touchpoint__visual">
+      <svg viewBox="0 0 520 700" width="100%" style="max-width:420px;" class="paper-shadow">
+        <!-- Card with slight rotation -->
+        <g transform="rotate(-3 260 350)">
+          <!-- card base, cream with paper texture -->
+          <rect x="40" y="40" width="440" height="620" fill="#FAF7F0" />
+          <!-- subtle paper texture lines -->
+          <rect x="40" y="40" width="440" height="620" fill="url(#paper-grain)" opacity="0.5"/>
+          <!-- top fold suggestion -->
+          <line x1="40" y1="40" x2="480" y2="40" stroke="#ECE4D3" stroke-width="2"/>
+
+          <!-- Devanagari एकम् small at top -->
+          <text x="260" y="120" text-anchor="middle" font-family="Tiro Devanagari Hindi, serif" font-size="32" fill="#B4613A" letter-spacing="2">एकम्</text>
+
+          <!-- EKAM wordmark -->
+          <text x="160" y="200" font-family="Cormorant Garamond, serif" font-weight="400" font-size="56" fill="#2B4630" letter-spacing="8">E</text>
+          <circle cx="220" cy="180" r="4" fill="#B4613A"/>
+          <text x="232" y="200" font-family="Cormorant Garamond, serif" font-weight="400" font-size="56" fill="#2B4630" letter-spacing="8">KAM</text>
+
+          <!-- Bindu hairline -->
+          <line x1="200" y1="240" x2="320" y2="240" stroke="#B4613A" stroke-width="1.2"/>
+
+          <!-- Handwritten message in Caveat -->
+          <text x="80" y="340" font-family="Caveat, cursive" font-size="26" fill="#14201A" font-weight="400">The cabin is yours for these days.</text>
+          <text x="80" y="380" font-family="Caveat, cursive" font-size="26" fill="#14201A" font-weight="400">The fire is laid.</text>
+          <text x="80" y="420" font-family="Caveat, cursive" font-size="26" fill="#14201A" font-weight="400">The kettle is on.</text>
+
+          <text x="80" y="500" font-family="Caveat, cursive" font-size="22" fill="#7A8A6B" font-weight="400" font-style="italic">Walk slowly. The land has waited.</text>
+
+          <!-- Signature -->
+          <text x="80" y="600" font-family="Caveat, cursive" font-size="28" fill="#14201A" font-weight="500" font-style="italic">— Aarav</text>
+
+          <!-- Footer eyebrow -->
+          <text x="260" y="640" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#7A8A6B" letter-spacing="4">EKAM KUTIR CHITKUL</text>
+        </g>
+
+        <defs>
+          <pattern id="paper-grain" patternUnits="userSpaceOnUse" width="3" height="3">
+            <rect width="3" height="3" fill="#FAF7F0"/>
+            <circle cx="1" cy="1" r="0.3" fill="#ECE4D3" opacity="0.4"/>
+          </pattern>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="touchpoint__spec">
+      <span class="touchpoint__num">Touchpoint 01</span>
+      <h2>The Welcome Card</h2>
+      <p class="touchpoint__lede">A handwritten card lies on the bed — not the table. Two sentences. Signed by the host with first name only.</p>
+      <div class="touchpoint__doctrine">
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Where</div><div class="touchpoint__row-body">On the bed, never on the table. The first thing the guest's hand meets when they sit.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Substrate</div><div class="touchpoint__row-body">Cream Mohawk Superfine 300 gsm, 100% post-consumer fibre. Letterpress masthead. Hand-written body.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Hand</div><div class="touchpoint__row-body">Re-written for each guest from a brief template — never photocopied. The host's own hand.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Signature</div><div class="touchpoint__row-body">First name only. No role title. No "team".</div></div>
+      </div>
+      <p class="touchpoint__quote">"The cabin smells like it has been aired, not perfumed. The host has been here recently, and is gone."</p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 · WAX SEAL -->
+<section class="section--sand anchor-target" id="wax">
+  <div class="touchpoint touchpoint--reverse">
+    <div class="touchpoint__visual">
+      <svg viewBox="0 0 520 520" width="100%" style="max-width:380px;" class="paper-shadow">
+        <!-- Cream paper background -->
+        <rect x="40" y="40" width="440" height="440" fill="#FAF7F0"/>
+        <rect x="40" y="40" width="440" height="440" fill="url(#paper-grain-2)" opacity="0.5"/>
+
+        <!-- Wax seal - main blob -->
+        <g transform="translate(260 260)">
+          <!-- Wax base shadow -->
+          <ellipse cx="2" cy="6" rx="124" ry="120" fill="#14201A" opacity="0.18"/>
+          <!-- Wax blob with irregular edge -->
+          <path d="M -120 -8 Q -118 -68 -88 -98 Q -56 -126 -8 -122 Q 48 -126 84 -100 Q 124 -72 124 -12 Q 126 44 96 80 Q 64 116 8 118 Q -52 122 -88 92 Q -120 60 -122 8 Z"
+                fill="#B4613A"/>
+          <!-- Inner depth shadow -->
+          <path d="M -120 -8 Q -118 -68 -88 -98 Q -56 -126 -8 -122 Q 48 -126 84 -100 Q 124 -72 124 -12 Q 126 44 96 80 Q 64 116 8 118 Q -52 122 -88 92 Q -120 60 -122 8 Z"
+                fill="url(#wax-gradient)"/>
+          <!-- Highlight on top edge -->
+          <path d="M -86 -94 Q -52 -118 -4 -118 Q 44 -120 80 -96"
+                fill="none" stroke="#d68763" stroke-width="3" opacity="0.5"/>
+          <!-- Devanagari एकम् impressed -->
+          <text x="0" y="14" text-anchor="middle" font-family="Tiro Devanagari Hindi, serif" font-size="58" fill="#8a4527" letter-spacing="2">एकम्</text>
+          <!-- subtle deeper recess at center -->
+          <text x="0" y="14" text-anchor="middle" font-family="Tiro Devanagari Hindi, serif" font-size="58" fill="#6c3520" letter-spacing="2" opacity="0.4">एकम्</text>
+        </g>
+
+        <!-- Caption below seal -->
+        <text x="260" y="450" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#7A8A6B" letter-spacing="4">PRESSED BY HAND · DEPARTURE MORNING</text>
+
+        <defs>
+          <radialGradient id="wax-gradient" cx="0.3" cy="0.25" r="0.85">
+            <stop offset="0%" stop-color="#d27a4f" stop-opacity="0.3"/>
+            <stop offset="50%" stop-color="#B4613A" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#7d3d22" stop-opacity="0.5"/>
+          </radialGradient>
+          <pattern id="paper-grain-2" patternUnits="userSpaceOnUse" width="3" height="3">
+            <rect width="3" height="3" fill="#FAF7F0"/>
+            <circle cx="1" cy="1" r="0.3" fill="#ECE4D3" opacity="0.4"/>
+          </pattern>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="touchpoint__spec">
+      <span class="touchpoint__num">Touchpoint 02</span>
+      <h2>The Wax Seal</h2>
+      <p class="touchpoint__lede">A hand-pressed wax seal in Bindu Clay, stamped with एकम्. The brand's signature, made by hand, in the dawn before departure.</p>
+      <div class="touchpoint__doctrine">
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Material</div><div class="touchpoint__row-body">Sealing wax in Bindu Clay #B4613A. Applied warm; cooled in place. Slight irregularity is the artifact's signature.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Stamp</div><div class="touchpoint__row-body">Brass stamp, hand-cut with the एकम् glyph in Tiro Devanagari Hindi. The same stamp across every property in the network.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Dimensions</div><div class="touchpoint__row-body">28–32 mm diameter. Slight oval; never circular by mechanical precision.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Where it appears</div><div class="touchpoint__row-body">Departure morning porch note. Retail twine closures. Pre-stay letterpress envelopes. Never as a decorative graphic.</div></div>
+      </div>
+      <p class="touchpoint__quote">"The wax seal closes the arc. Inside it: a hand-drawn map of the route home and the seasonal greeting. No signature."</p>
+    </div>
+  </div>
+</section>
+
+<!-- 03 · MATCH BOX -->
+<section class="anchor-target" id="match">
+  <div class="touchpoint">
+    <div class="touchpoint__visual">
+      <svg viewBox="0 0 600 400" width="100%" style="max-width:480px;">
+        <!-- Open match box -->
+
+        <!-- Inner tray (sulfur yellow visible) -->
+        <g transform="translate(310 110)">
+          <rect x="0" y="0" width="200" height="120" fill="#E8C744"/>
+          <!-- yellow texture -->
+          <rect x="0" y="0" width="200" height="120" fill="url(#sulfur-tex)" opacity="0.3"/>
+          <!-- inner shadow -->
+          <rect x="0" y="0" width="200" height="120" fill="none" stroke="#a8881f" stroke-width="2" opacity="0.4"/>
+          <!-- matches sticking out -->
+          <g transform="translate(20 8)">
+            <rect x="0" y="0" width="3" height="84" fill="#d4b88a"/>
+            <circle cx="1.5" cy="0" r="3" fill="#7d3d22"/>
+            <rect x="14" y="-4" width="3" height="88" fill="#d4b88a"/>
+            <circle cx="15.5" cy="-4" r="3" fill="#7d3d22"/>
+            <rect x="28" y="2" width="3" height="82" fill="#d4b88a"/>
+            <circle cx="29.5" cy="2" r="3" fill="#7d3d22"/>
+            <rect x="42" y="-2" width="3" height="86" fill="#d4b88a"/>
+            <circle cx="43.5" cy="-2" r="3" fill="#7d3d22"/>
+            <rect x="56" y="3" width="3" height="81" fill="#d4b88a"/>
+            <circle cx="57.5" cy="3" r="3" fill="#7d3d22"/>
+            <rect x="70" y="0" width="3" height="84" fill="#d4b88a"/>
+            <circle cx="71.5" cy="0" r="3" fill="#7d3d22"/>
+          </g>
+          <!-- side stamp -->
+          <text x="100" y="115" text-anchor="middle" font-family="Inter, sans-serif" font-size="6" fill="#7d3d22" letter-spacing="2">EKAM KUTIR CHITKUL</text>
+        </g>
+
+        <!-- Outer sleeve (cream, with black Bindu) - drop shadow -->
+        <g transform="translate(80 130) rotate(-4)" class="paper-shadow">
+          <rect x="0" y="0" width="240" height="140" fill="#FAF7F0"/>
+          <!-- texture -->
+          <rect x="0" y="0" width="240" height="140" fill="url(#card-tex)" opacity="0.4"/>
+          <!-- box edge -->
+          <rect x="0" y="0" width="240" height="140" fill="none" stroke="#ECE4D3" stroke-width="1"/>
+          <!-- Black Bindu front -->
+          <circle cx="120" cy="68" r="14" fill="#14201A"/>
+          <!-- Brand mark beneath -->
+          <text x="120" y="118" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="400" font-size="14" fill="#14201A" letter-spacing="3">EKAM</text>
+          <!-- subtle strike strip on bottom edge -->
+          <rect x="20" y="125" width="200" height="8" fill="#5d4730" opacity="0.85"/>
+          <!-- strike texture -->
+          <line x1="22" y1="129" x2="218" y2="129" stroke="#3a2c1e" stroke-width="0.5" stroke-dasharray="1 2"/>
+        </g>
+
+        <defs>
+          <pattern id="sulfur-tex" patternUnits="userSpaceOnUse" width="4" height="4">
+            <rect width="4" height="4" fill="#E8C744"/>
+            <circle cx="1" cy="1" r="0.4" fill="#a8881f" opacity="0.5"/>
+          </pattern>
+          <pattern id="card-tex" patternUnits="userSpaceOnUse" width="3" height="3">
+            <rect width="3" height="3" fill="#FAF7F0"/>
+            <circle cx="1.5" cy="1.5" r="0.3" fill="#D8D3C4" opacity="0.5"/>
+          </pattern>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="touchpoint__spec">
+      <span class="touchpoint__num">Touchpoint 03</span>
+      <h2>The Match Box</h2>
+      <p class="touchpoint__lede">Cream card outside. Sulfur-yellow inside. Strike strip rough on purpose. Functional first; the brand sits at the corner.</p>
+      <div class="touchpoint__doctrine">
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Front</div><div class="touchpoint__row-body">Cream cardstock 350 gsm. A single black Bindu at optical centre. The wordmark sits below, half-weight Cormorant Garamond.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Interior</div><div class="touchpoint__row-body">Sulfur-yellow paper. The seasonal property name in Inter 500 along one short edge, in muted ink.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Strike</div><div class="touchpoint__row-body">Phosphorus strip on the lower edge of the sleeve. Deliberately rough to the hand. The match strikes audibly.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Where</div><div class="touchpoint__row-body">Beside every candle in the cabin. The guest lights the cabin themselves on arrival.</div></div>
+      </div>
+      <p class="touchpoint__quote">"Candles unlit at arrival. Matches placed beside them. The guest lights the cabin themselves."</p>
+    </div>
+  </div>
+</section>
+
+<!-- 04 · THE MUG -->
+<section class="section--sand anchor-target" id="mug">
+  <div class="touchpoint touchpoint--reverse">
+    <div class="touchpoint__visual">
+      <svg viewBox="0 0 520 600" width="100%" style="max-width:380px;">
+        <!-- ground shadow -->
+        <ellipse cx="260" cy="500" rx="140" ry="14" fill="#14201A" opacity="0.18"/>
+
+        <!-- handle -->
+        <path d="M 360 240 Q 440 240 440 320 Q 440 400 360 400"
+              fill="none" stroke="#5d6b50" stroke-width="22" stroke-linecap="round"/>
+        <path d="M 360 240 Q 440 240 440 320 Q 440 400 360 400"
+              fill="none" stroke="#3d4836" stroke-width="22" stroke-linecap="round" opacity="0.3"/>
+
+        <!-- Mug body -->
+        <g>
+          <!-- Outer shape with slight irregularity (hand-thrown) -->
+          <path d="M 130 220
+                   Q 128 240 132 280
+                   Q 134 360 140 440
+                   Q 144 472 160 484
+                   Q 200 496 260 496
+                   Q 320 496 360 484
+                   Q 376 472 380 440
+                   Q 386 360 388 280
+                   Q 392 240 390 220
+                   L 130 220 Z"
+                fill="#5d6b50"/>
+          <!-- Light side highlight -->
+          <path d="M 132 280 Q 134 360 140 440 Q 144 472 160 484 Q 175 488 188 480 Q 180 360 180 240"
+                fill="#7A8A6B" opacity="0.5"/>
+          <!-- Dark side shadow -->
+          <path d="M 350 240 Q 350 360 340 480 Q 360 488 376 484 Q 384 472 388 440 Q 392 360 388 280"
+                fill="#3d4836" opacity="0.6"/>
+          <!-- Rim -->
+          <ellipse cx="260" cy="218" rx="130" ry="20" fill="#3d4836"/>
+          <ellipse cx="260" cy="218" rx="124" ry="14" fill="#252e1f"/>
+          <ellipse cx="260" cy="216" rx="124" ry="12" fill="#1a201a"/>
+
+          <!-- Throwing rings (subtle horizontal lines) -->
+          <path d="M 138 280 Q 260 286 384 280" fill="none" stroke="#3d4836" stroke-width="0.8" opacity="0.4"/>
+          <path d="M 140 340 Q 260 346 382 340" fill="none" stroke="#3d4836" stroke-width="0.8" opacity="0.4"/>
+          <path d="M 142 400 Q 260 406 380 400" fill="none" stroke="#3d4836" stroke-width="0.8" opacity="0.4"/>
+          <path d="M 148 450 Q 260 456 376 450" fill="none" stroke="#3d4836" stroke-width="0.8" opacity="0.5"/>
+        </g>
+
+        <!-- Bindu Clay dot near base (hidden detail) -->
+        <circle cx="260" cy="478" r="4" fill="#B4613A" opacity="0.85"/>
+
+        <!-- Caption -->
+        <text x="260" y="560" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#7A8A6B" letter-spacing="4">HAND-THROWN · MOSS GLAZE · 320 ML</text>
+      </svg>
+    </div>
+
+    <div class="touchpoint__spec">
+      <span class="touchpoint__num">Touchpoint 04</span>
+      <h2>The Mug</h2>
+      <p class="touchpoint__lede">Hand-thrown ceramic in moss. The kettle pours into this — once on arrival, once at the dawn flask, once at every fire-time.</p>
+      <div class="touchpoint__doctrine">
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Form</div><div class="touchpoint__row-body">Hand-thrown ceramic. Slightly irregular by hand. No two batches identical. Throwing rings preserved on the surface.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Glaze</div><div class="touchpoint__row-body">Moss-tone matte. Or sand-tone matte. Two batches across the network — never glossy, never coloured beyond the palette.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Bindu</div><div class="touchpoint__row-body">A single Bindu Clay dot at the base, near the foot. Visible when the mug is lifted to drink. Never on the body.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Volume</div><div class="touchpoint__row-body">~320 ml. Enough for the seasonal kettle; not enough to encourage refilling without intention.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Source</div><div class="touchpoint__row-body">Local artisan kiln, named on the in-cabin store hangtag. Per the Sustainability Roadmap artisan register.</div></div>
+      </div>
+      <p class="touchpoint__quote">"Two plates, two bowls, two mugs, two glasses. Not four. Not six. Two."</p>
+    </div>
+  </div>
+</section>
+
+<!-- 05 · PROPERTY MAP -->
+<section class="anchor-target" id="map">
+  <div class="touchpoint">
+    <div class="touchpoint__visual">
+      <svg viewBox="0 0 600 800" width="100%" style="max-width:440px;" class="paper-shadow">
+        <!-- Paper -->
+        <g transform="rotate(2 300 400)">
+          <rect x="40" y="40" width="520" height="720" fill="#FAF7F0"/>
+          <!-- fold lines suggestion -->
+          <line x1="300" y1="40" x2="300" y2="760" stroke="#ECE4D3" stroke-width="0.5" opacity="0.6"/>
+          <line x1="40" y1="400" x2="560" y2="400" stroke="#ECE4D3" stroke-width="0.5" opacity="0.6"/>
+          <!-- subtle paper grain -->
+          <rect x="40" y="40" width="520" height="720" fill="url(#paper-grain-3)" opacity="0.5"/>
+
+          <!-- Title at top -->
+          <text x="300" y="100" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="400" font-size="22" fill="#14201A" letter-spacing="6">EKAM KUTIR CHITKUL</text>
+          <line x1="200" y1="118" x2="400" y2="118" stroke="#B4613A" stroke-width="0.8"/>
+          <text x="300" y="140" text-anchor="middle" font-family="Caveat, cursive" font-style="italic" font-size="16" fill="#7A8A6B">a hand-drawn map of the property</text>
+
+          <!-- Compass rose top-right -->
+          <g transform="translate(490 180)">
+            <circle cx="0" cy="0" r="28" fill="none" stroke="#14201A" stroke-width="0.8"/>
+            <line x1="0" y1="-26" x2="0" y2="26" stroke="#14201A" stroke-width="0.6"/>
+            <line x1="-26" y1="0" x2="26" y2="0" stroke="#14201A" stroke-width="0.6"/>
+            <text x="0" y="-32" text-anchor="middle" font-family="Caveat, cursive" font-size="14" fill="#14201A">N</text>
+            <text x="0" y="44" text-anchor="middle" font-family="Caveat, cursive" font-size="14" fill="#14201A">S</text>
+            <text x="-34" y="4" text-anchor="middle" font-family="Caveat, cursive" font-size="14" fill="#14201A">W</text>
+            <text x="34" y="4" text-anchor="middle" font-family="Caveat, cursive" font-size="14" fill="#14201A">E</text>
+            <circle cx="0" cy="0" r="2" fill="#B4613A"/>
+          </g>
+
+          <!-- Mountains in background — sketchy -->
+          <g stroke="#14201A" stroke-width="0.8" fill="none" opacity="0.55">
+            <path d="M 100 280 L 140 240 L 170 270 L 210 220 L 250 260 L 285 230 L 320 265 L 360 215 L 400 255 L 440 235 L 480 270"/>
+            <path d="M 100 290 L 130 270 L 160 285"/>
+            <path d="M 240 250 L 280 260"/>
+            <path d="M 360 245 L 390 250"/>
+          </g>
+
+          <!-- Stream — hand-drawn squiggle -->
+          <path d="M 80 720 Q 130 660 160 620 Q 200 580 230 540 Q 280 500 320 470 Q 380 440 430 410 Q 480 380 520 360"
+                stroke="#14201A" stroke-width="1.4" fill="none" opacity="0.5"/>
+          <path d="M 80 730 Q 130 670 160 630 Q 200 590 230 550 Q 280 510 320 480"
+                stroke="#14201A" stroke-width="1" fill="none" opacity="0.35"/>
+
+          <!-- Property boundary — light dashed -->
+          <path d="M 110 360 Q 100 480 130 600 Q 200 690 320 700 Q 460 690 510 580 Q 530 460 490 360 Q 420 300 320 305 Q 200 310 110 360 Z"
+                stroke="#7A8A6B" stroke-width="0.8" fill="none" stroke-dasharray="3 4"/>
+
+          <!-- Paths within property -->
+          <path d="M 200 600 Q 230 540 260 500 Q 280 470 310 460 Q 350 450 380 430" stroke="#14201A" stroke-width="1.2" fill="none" opacity="0.8" stroke-linecap="round"/>
+          <path d="M 310 460 Q 360 450 410 460" stroke="#14201A" stroke-width="1.2" fill="none" opacity="0.8" stroke-linecap="round"/>
+
+          <!-- Parking marker — stone (sketched) -->
+          <ellipse cx="200" cy="600" rx="8" ry="6" fill="none" stroke="#14201A" stroke-width="1.4"/>
+          <text x="180" y="630" font-family="Caveat, cursive" font-size="14" fill="#14201A">parking</text>
+
+          <!-- Chai pavilion -->
+          <path d="M 248 545 L 260 530 L 272 545 L 272 558 L 248 558 Z" fill="none" stroke="#14201A" stroke-width="1.2"/>
+          <text x="280" y="555" font-family="Caveat, cursive" font-size="14" fill="#14201A">chai</text>
+
+          <!-- The Cabin — Bindu mark -->
+          <circle cx="385" cy="430" r="8" fill="#B4613A"/>
+          <text x="400" y="427" font-family="Caveat, cursive" font-size="15" fill="#14201A" font-weight="500">your cabin</text>
+          <text x="400" y="445" font-family="Caveat, cursive" font-size="14" fill="#7A8A6B" font-style="italic">कुटीर ०३</text>
+
+          <!-- Trail head — sketched arrow-less marker -->
+          <path d="M 415 460 Q 440 450 460 440 Q 478 432 490 425" stroke="#14201A" stroke-width="1.2" fill="none" opacity="0.6" stroke-dasharray="2 3"/>
+          <circle cx="490" cy="425" r="4" fill="none" stroke="#14201A" stroke-width="1"/>
+          <text x="500" y="430" font-family="Caveat, cursive" font-size="13" fill="#14201A">walk</text>
+
+          <!-- Footer -->
+          <line x1="200" y1="720" x2="400" y2="720" stroke="#B4613A" stroke-width="0.8"/>
+          <text x="300" y="740" text-anchor="middle" font-family="Caveat, cursive" font-size="14" fill="#7A8A6B" font-style="italic">the rest is the land. find your own way.</text>
+        </g>
+
+        <defs>
+          <pattern id="paper-grain-3" patternUnits="userSpaceOnUse" width="3" height="3">
+            <rect width="3" height="3" fill="#FAF7F0"/>
+            <circle cx="1" cy="1" r="0.3" fill="#ECE4D3" opacity="0.4"/>
+          </pattern>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="touchpoint__spec">
+      <span class="touchpoint__num">Touchpoint 05</span>
+      <h2>The Property Map</h2>
+      <p class="touchpoint__lede">Hand-drawn on cream paper, in Forest Ink ink, by the host. Offered at reception on request — not pressed into the guest's hand on arrival.</p>
+      <div class="touchpoint__doctrine">
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Substrate</div><div class="touchpoint__row-body">Cream Mohawk Superfine 120 gsm, half-folded. Pocket-sized when folded; opens to one large surface.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Hand</div><div class="touchpoint__row-body">Drawn fresh for each guest by the host. Same paths every time, but the line is the host's. Forest Ink with a fine nib pen.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Markers</div><div class="touchpoint__row-body">The cabin is the Bindu — a single clay dot. The Chai pavilion, the parking terminus, and the trail head are sketched in line. Nothing else.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Footer</div><div class="touchpoint__row-body"><em>The rest is the land. Find your own way.</em> Hand-written in italic, every time.</div></div>
+      </div>
+      <p class="touchpoint__quote">"No maps in the cabin. The guest is walked through the property on arrival by a staff member."</p>
+    </div>
+  </div>
+</section>
+
+<!-- 06 · LETTERPRESS CARD -->
+<section class="section--sand anchor-target" id="letterpress">
+  <div class="touchpoint touchpoint--reverse">
+    <div class="touchpoint__visual">
+      <svg viewBox="0 0 600 800" width="100%" style="max-width:440px;" class="paper-shadow">
+        <!-- Card -->
+        <g transform="rotate(-2 300 400)">
+          <rect x="40" y="40" width="520" height="720" fill="#FAF7F0"/>
+          <rect x="40" y="40" width="520" height="720" fill="url(#paper-grain-4)" opacity="0.6"/>
+
+          <!-- Top eyebrow -->
+          <text x="300" y="120" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#7A8A6B" letter-spacing="4">A WEEK FROM NOW · EKAM KUTIR CHITKUL</text>
+
+          <!-- Small Bindu rule -->
+          <line x1="280" y1="148" x2="320" y2="148" stroke="#B4613A" stroke-width="1"/>
+
+          <!-- Headline -->
+          <text x="300" y="240" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="300" font-size="42" fill="#14201A" letter-spacing="2">Three days</text>
+          <text x="300" y="290" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="300" font-size="42" fill="#14201A" letter-spacing="2">from now,</text>
+          <text x="300" y="350" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="400" font-size="48" fill="#2B4630" letter-spacing="3">the fire.</text>
+
+          <!-- Decorative woodcut-style image -->
+          <g transform="translate(220 410)">
+            <!-- Two mountains -->
+            <path d="M 0 100 L 30 50 L 60 90 L 90 30 L 130 80 L 160 100 Z" fill="#2B4630"/>
+            <!-- Three trees -->
+            <g transform="translate(15 70)">
+              <path d="M 0 30 L 0 20 M -7 20 L 0 0 L 7 20 Z" fill="none" stroke="#14201A" stroke-width="1.2"/>
+            </g>
+            <g transform="translate(50 60)">
+              <path d="M 0 40 L 0 22 M -10 22 L 0 -4 L 10 22 Z" fill="none" stroke="#14201A" stroke-width="1.2"/>
+            </g>
+            <g transform="translate(120 75)">
+              <path d="M 0 25 L 0 16 M -6 16 L 0 -2 L 6 16 Z" fill="none" stroke="#14201A" stroke-width="1.2"/>
+            </g>
+          </g>
+
+          <!-- Weather note -->
+          <text x="300" y="560" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="16" fill="#14201A">Forecast for the week:</text>
+          <text x="300" y="590" text-anchor="middle" font-family="Raleway, sans-serif" font-weight="300" font-size="14" fill="#14201A">Highs 14°C. Lows 4°C. Rain Tuesday afternoon,</text>
+          <text x="300" y="610" text-anchor="middle" font-family="Raleway, sans-serif" font-weight="300" font-size="14" fill="#14201A">clear by Wednesday dawn. Pack a heavy wool.</text>
+
+          <!-- Phone line -->
+          <text x="300" y="680" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#7A8A6B" letter-spacing="3">FOR ANYTHING · +91 98765 43210 · AARAV</text>
+
+          <!-- Bottom Bindu hairline -->
+          <line x1="260" y1="710" x2="340" y2="710" stroke="#B4613A" stroke-width="1"/>
+        </g>
+
+        <defs>
+          <pattern id="paper-grain-4" patternUnits="userSpaceOnUse" width="3" height="3">
+            <rect width="3" height="3" fill="#FAF7F0"/>
+            <circle cx="1" cy="1" r="0.3" fill="#ECE4D3" opacity="0.4"/>
+          </pattern>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="touchpoint__spec">
+      <span class="touchpoint__num">Touchpoint 06</span>
+      <h2>The Pre-Stay Card</h2>
+      <p class="touchpoint__lede">A letterpress card arrives by post a week before the stay. One headline. One small woodcut. A weather note. The host's number, by name.</p>
+      <div class="touchpoint__doctrine">
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Press</div><div class="touchpoint__row-body">Letterpress only. No digital printing on guest-facing collateral. The impression is felt; the ink sits below the surface of the paper.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Paper</div><div class="touchpoint__row-body">Cream Mohawk Superfine Eggshell 300 gsm. 100% post-consumer fibre.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Ink</div><div class="touchpoint__row-body">Two colours only. Forest Ink for type. Bindu Clay for the single hairline. Never both at full strength.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Format</div><div class="touchpoint__row-body">A6, single-fold. One paragraph. One image. One phone number. Sealed in an envelope closed with a Bindu Clay wax dot.</div></div>
+      </div>
+      <p class="touchpoint__quote">"Five guest-facing messages per stay, no more. Confirmation, directions PDF, day-before SMS, post-stay letter, four-week postcard."</p>
+    </div>
+  </div>
+</section>
+
+<!-- 07 · JOURNAL -->
+<section class="anchor-target" id="journal">
+  <div class="touchpoint">
+    <div class="touchpoint__visual">
+      <svg viewBox="0 0 600 700" width="100%" style="max-width:440px;">
+        <!-- Drop shadow -->
+        <ellipse cx="300" cy="640" rx="220" ry="14" fill="#14201A" opacity="0.2"/>
+
+        <!-- Book - slight 3D perspective -->
+        <g transform="translate(0 50)">
+          <!-- back cover (slightly visible behind) -->
+          <path d="M 138 60 L 138 580 L 472 580 L 472 60 Z" fill="#2B4630" opacity="0.4"/>
+          <!-- Spine indication -->
+          <path d="M 134 64 L 134 584 L 142 580 L 142 60 Z" fill="#14201A"/>
+
+          <!-- Front cover -->
+          <path d="M 140 56 L 140 580 L 460 580 L 470 60 L 460 56 Z" fill="#2B4630"/>
+          <!-- subtle cloth texture -->
+          <path d="M 140 56 L 140 580 L 460 580 L 470 60 L 460 56 Z" fill="url(#cloth-tex)" opacity="0.4"/>
+
+          <!-- right edge highlight -->
+          <path d="M 460 56 L 470 60 L 470 580 L 460 580 Z" fill="#1f3525"/>
+
+          <!-- Page edges visible at right -->
+          <path d="M 466 64 L 472 62 L 472 578 L 466 578 Z" fill="#F4EDE1"/>
+          <line x1="468" y1="80" x2="470" y2="80" stroke="#ECE4D3" stroke-width="0.4"/>
+          <line x1="468" y1="120" x2="470" y2="120" stroke="#ECE4D3" stroke-width="0.4"/>
+          <line x1="468" y1="160" x2="470" y2="160" stroke="#ECE4D3" stroke-width="0.4"/>
+
+          <!-- Devanagari एकम् embossed -->
+          <text x="300" y="200" text-anchor="middle" font-family="Tiro Devanagari Hindi, serif" font-size="36" fill="#1c2e22" letter-spacing="2">एकम्</text>
+          <text x="300" y="200" text-anchor="middle" font-family="Tiro Devanagari Hindi, serif" font-size="36" fill="#3a5340" letter-spacing="2" opacity="0.6">एकम्</text>
+
+          <!-- EKAM wordmark debossed in iron-like color -->
+          <text x="220" y="320" font-family="Cormorant Garamond, serif" font-weight="400" font-size="48" fill="#1c2e22" letter-spacing="8">E</text>
+          <circle cx="266" cy="304" r="4" fill="#B4613A"/>
+          <text x="276" y="320" font-family="Cormorant Garamond, serif" font-weight="400" font-size="48" fill="#1c2e22" letter-spacing="8">KAM</text>
+
+          <!-- Highlight on debossed text (subtle inset effect) -->
+          <text x="220" y="320" font-family="Cormorant Garamond, serif" font-weight="400" font-size="48" fill="#3a5340" letter-spacing="8" opacity="0.5">E</text>
+          <text x="276" y="320" font-family="Cormorant Garamond, serif" font-weight="400" font-size="48" fill="#3a5340" letter-spacing="8" opacity="0.5">KAM</text>
+
+          <!-- Hairline -->
+          <line x1="260" y1="360" x2="340" y2="360" stroke="#B4613A" stroke-width="1"/>
+
+          <!-- Italic title -->
+          <text x="300" y="400" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="18" fill="#8a9b7d">a journal of the season</text>
+
+          <!-- Spring 2026 -->
+          <text x="300" y="540" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8a9b7d" letter-spacing="5">VOLUME XI · SPRING 2026</text>
+
+          <!-- Subtle bookmark ribbon hanging out -->
+          <rect x="450" y="56" width="6" height="540" fill="#B4613A"/>
+          <path d="M 450 596 L 456 596 L 453 612 Z" fill="#B4613A"/>
+        </g>
+
+        <defs>
+          <pattern id="cloth-tex" patternUnits="userSpaceOnUse" width="4" height="4">
+            <rect width="4" height="4" fill="#2B4630"/>
+            <line x1="0" y1="2" x2="4" y2="2" stroke="#1f3525" stroke-width="0.3"/>
+            <line x1="2" y1="0" x2="2" y2="4" stroke="#1f3525" stroke-width="0.3"/>
+          </pattern>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="touchpoint__spec">
+      <span class="touchpoint__num">Touchpoint 07</span>
+      <h2>The Journal</h2>
+      <p class="touchpoint__lede">A bound book left on the porch table on the guest's final night. Photographs and writing from the season's stays. The guest reads it. The guest does not take it.</p>
+      <div class="touchpoint__doctrine">
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Binding</div><div class="touchpoint__row-body">Cloth-bound in Deep Forest fabric. Hand-stitched signatures. 32–48 pages per volume.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Cover</div><div class="touchpoint__row-body">एकम् debossed at top. EKAM wordmark debossed centre. Bindu Clay hairline. "A journal of the season" in Fraunces italic.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Contents</div><div class="touchpoint__row-body">Photographs from the season (no guest faces), short writing from the host, an essay from a guest writer when commissioned. Letterpress on Cream Mohawk.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Edition</div><div class="touchpoint__row-body">One volume per season. Numbered. Held in the cabin's porch shelf. Never sold; never given.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Ribbon</div><div class="touchpoint__row-body">Bindu Clay silk ribbon as bookmark. The only printed mark of clay on the artifact.</div></div>
+      </div>
+      <p class="touchpoint__quote">"A single bound book is left on the porch table — a small collection of photographs and writing from the season's stays. The guest reads it; the guest does not take it."</p>
+    </div>
+  </div>
+</section>
+
+<!-- 08 · CABIN NUMBER PLATE -->
+<section class="section--sand anchor-target" id="cabin-number">
+  <div class="touchpoint touchpoint--reverse">
+    <div class="touchpoint__visual">
+      <svg viewBox="0 0 600 700" width="100%" style="max-width:440px;">
+        <!-- Door panel (hardwood) -->
+        <g>
+          <rect x="80" y="40" width="440" height="620" fill="#6b4a2b"/>
+          <!-- wood grain -->
+          <rect x="80" y="40" width="440" height="620" fill="url(#wood-grain)" opacity="0.65"/>
+          <!-- light side gradient -->
+          <rect x="80" y="40" width="440" height="620" fill="url(#wood-light-grad)"/>
+
+          <!-- door panel divider (recessed) -->
+          <rect x="120" y="80" width="360" height="540" fill="none" stroke="#3a2c1e" stroke-width="2"/>
+          <rect x="124" y="84" width="352" height="532" fill="none" stroke="#8a6e4f" stroke-width="0.6" opacity="0.5"/>
+
+          <!-- inner panel with subtle inset -->
+          <rect x="140" y="100" width="320" height="500" fill="url(#wood-inner)" opacity="0.4"/>
+
+          <!-- Iron pins at corners of plate -->
+          <circle cx="200" cy="280" r="5" fill="#1a1815"/>
+          <circle cx="400" cy="280" r="5" fill="#1a1815"/>
+          <circle cx="200" cy="450" r="5" fill="#1a1815"/>
+          <circle cx="400" cy="450" r="5" fill="#1a1815"/>
+
+          <!-- Stone plate -->
+          <g transform="translate(180 270)">
+            <rect x="0" y="0" width="240" height="200" fill="#696662"/>
+            <!-- stone texture (mottled) -->
+            <rect x="0" y="0" width="240" height="200" fill="url(#stone-tex)" opacity="0.7"/>
+            <!-- soft highlight -->
+            <rect x="0" y="0" width="240" height="80" fill="url(#stone-highlight)" opacity="0.4"/>
+            <!-- bottom shadow -->
+            <rect x="0" y="120" width="240" height="80" fill="url(#stone-shadow)" opacity="0.5"/>
+
+            <!-- chipped corners -->
+            <path d="M 0 0 L 8 0 L 0 6 Z" fill="#4d4a47"/>
+            <path d="M 240 200 L 232 200 L 240 194 Z" fill="#4d4a47"/>
+
+            <!-- Devanagari numeral ०३ (hand-cut, recessed) -->
+            <text x="120" y="135" text-anchor="middle" font-family="Tiro Devanagari Hindi, serif" font-size="100" fill="#2f2d2a" letter-spacing="2">०३</text>
+            <!-- highlight to suggest recess -->
+            <text x="120" y="135" text-anchor="middle" font-family="Tiro Devanagari Hindi, serif" font-size="100" fill="#4d4a47" letter-spacing="2" opacity="0.4">०३</text>
+          </g>
+
+          <!-- caption -->
+          <text x="300" y="640" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#5d4730" letter-spacing="4">HAND-CUT INTO LOCAL STONE · BESIDE THE DOOR</text>
+        </g>
+
+        <defs>
+          <pattern id="wood-grain" patternUnits="userSpaceOnUse" width="6" height="60">
+            <rect width="6" height="60" fill="#6b4a2b"/>
+            <path d="M 0 12 Q 3 8 6 14" stroke="#5d4730" stroke-width="0.3" fill="none" opacity="0.7"/>
+            <path d="M 0 30 Q 4 28 6 36" stroke="#5d4730" stroke-width="0.3" fill="none" opacity="0.6"/>
+            <path d="M 0 48 Q 3 44 6 52" stroke="#3a2c1e" stroke-width="0.4" fill="none" opacity="0.5"/>
+          </pattern>
+          <linearGradient id="wood-light-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#8a6e4f" stop-opacity="0.3"/>
+            <stop offset="50%" stop-color="#6b4a2b" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#3a2c1e" stop-opacity="0.3"/>
+          </linearGradient>
+          <radialGradient id="wood-inner" cx="0.5" cy="0.5" r="0.8">
+            <stop offset="0%" stop-color="#8a6e4f"/>
+            <stop offset="100%" stop-color="#5d4730"/>
+          </radialGradient>
+          <pattern id="stone-tex" patternUnits="userSpaceOnUse" width="20" height="20">
+            <rect width="20" height="20" fill="#696662"/>
+            <circle cx="3" cy="3" r="0.6" fill="#4d4a47"/>
+            <circle cx="12" cy="8" r="0.4" fill="#8a8784"/>
+            <circle cx="8" cy="15" r="0.5" fill="#4d4a47"/>
+            <circle cx="17" cy="17" r="0.3" fill="#8a8784"/>
+          </pattern>
+          <linearGradient id="stone-highlight" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#8a8784"/>
+            <stop offset="100%" stop-color="#8a8784" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="stone-shadow" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#3a3835" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#3a3835"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="touchpoint__spec">
+      <span class="touchpoint__num">Touchpoint 08</span>
+      <h2>The Cabin Number Plate</h2>
+      <p class="touchpoint__lede">Devanagari numerals — ०३ — hand-cut into local stone, set into the door substrate. Latin numerals appear in operational documents. Never on the cabin itself.</p>
+      <div class="touchpoint__doctrine">
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Numerals</div><div class="touchpoint__row-body">Devanagari only. Tiro Devanagari Hindi as the reference. Hand-cut by a mason using local stone.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Substrate</div><div class="touchpoint__row-body">Local stone slab. Source per the Sustainability Roadmap site spec.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Dimensions</div><div class="touchpoint__row-body">≤40 mm numeral height. Plate sized to the numeral with 30 mm margin on each side.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Placement</div><div class="touchpoint__row-body">Beside the door at hand height. Set into the door substrate with four iron pins, mortared with lime, never resin.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Night</div><div class="touchpoint__row-body">Unlit. The cabin is found by the path, not by a numeral visible at 3 am.</div></div>
+      </div>
+      <p class="touchpoint__quote">"Cabin numbers are in Devanagari at the door. Cast in oxidised iron or hand-cut into local stone. Latin numerals appear in operational documents and booking confirmations; never on the cabin itself."</p>
+    </div>
+  </div>
+</section>
+
+<!-- 09 · ROOM IDENTITY PLATE -->
+<section class="anchor-target" id="room-plate">
+  <div class="touchpoint">
+    <div class="touchpoint__visual">
+      <svg viewBox="0 0 600 500" width="100%" style="max-width:480px;">
+        <!-- Cream wall background -->
+        <rect x="0" y="0" width="600" height="500" fill="#FAF7F0"/>
+        <rect x="0" y="0" width="600" height="500" fill="url(#wall-tex)" opacity="0.5"/>
+
+        <!-- The plate itself - hardwood with iron inlay -->
+        <g transform="translate(180 180)" filter="url(#plate-shadow)">
+          <!-- hardwood base -->
+          <rect x="0" y="0" width="240" height="120" fill="#6b4a2b"/>
+          <!-- grain -->
+          <rect x="0" y="0" width="240" height="120" fill="url(#wood-grain-2)" opacity="0.7"/>
+          <!-- top lighter edge -->
+          <rect x="0" y="0" width="240" height="6" fill="#8a6e4f" opacity="0.6"/>
+          <!-- bottom darker edge -->
+          <rect x="0" y="114" width="240" height="6" fill="#3a2c1e" opacity="0.6"/>
+
+          <!-- Lockup inlaid in iron - EKAM · KUTIR · CHITKUL -->
+          <!-- E -->
+          <text x="18" y="68" font-family="Cormorant Garamond, serif" font-weight="400" font-size="22" fill="#1a1815" letter-spacing="3">EKAM</text>
+          <!-- Bindu separator -->
+          <circle cx="75" cy="60" r="1.6" fill="#B4613A"/>
+          <!-- KUTIR -->
+          <text x="83" y="68" font-family="Cormorant Garamond, serif" font-weight="400" font-size="22" fill="#1a1815" letter-spacing="3">KUTIR</text>
+          <!-- Bindu separator -->
+          <circle cx="143" cy="60" r="1.6" fill="#B4613A"/>
+          <!-- CHITKUL -->
+          <text x="151" y="68" font-family="Cormorant Garamond, serif" font-weight="400" font-size="22" fill="#1a1815" letter-spacing="3">CHITKUL</text>
+
+          <!-- subtle highlight on inlay (top of inlay catches light) -->
+          <text x="18" y="68" font-family="Cormorant Garamond, serif" font-weight="400" font-size="22" fill="#3a3835" letter-spacing="3" opacity="0.4">EKAM</text>
+          <text x="83" y="68" font-family="Cormorant Garamond, serif" font-weight="400" font-size="22" fill="#3a3835" letter-spacing="3" opacity="0.4">KUTIR</text>
+          <text x="151" y="68" font-family="Cormorant Garamond, serif" font-weight="400" font-size="22" fill="#3a3835" letter-spacing="3" opacity="0.4">CHITKUL</text>
+
+          <!-- small Devanagari beneath -->
+          <text x="120" y="100" text-anchor="middle" font-family="Tiro Devanagari Hindi, serif" font-size="11" fill="#1a1815" letter-spacing="2" opacity="0.85">कुटीर · ०३</text>
+
+          <!-- four iron pin heads -->
+          <circle cx="14" cy="14" r="2.2" fill="#1a1815"/>
+          <circle cx="226" cy="14" r="2.2" fill="#1a1815"/>
+          <circle cx="14" cy="106" r="2.2" fill="#1a1815"/>
+          <circle cx="226" cy="106" r="2.2" fill="#1a1815"/>
+        </g>
+
+        <!-- Caption -->
+        <text x="300" y="430" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#7A8A6B" letter-spacing="4">INTERIOR WALL · BESIDE THE DOOR · 120 × 60 MM</text>
+
+        <defs>
+          <filter id="plate-shadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
+            <feOffset dx="0" dy="6"/>
+            <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <pattern id="wall-tex" patternUnits="userSpaceOnUse" width="3" height="3">
+            <rect width="3" height="3" fill="#FAF7F0"/>
+            <circle cx="1.5" cy="1.5" r="0.3" fill="#ECE4D3" opacity="0.5"/>
+          </pattern>
+          <pattern id="wood-grain-2" patternUnits="userSpaceOnUse" width="4" height="40">
+            <rect width="4" height="40" fill="#6b4a2b"/>
+            <path d="M 0 8 Q 2 5 4 9" stroke="#5d4730" stroke-width="0.3" fill="none" opacity="0.7"/>
+            <path d="M 0 22 Q 2 19 4 24" stroke="#3a2c1e" stroke-width="0.4" fill="none" opacity="0.6"/>
+            <path d="M 0 34 Q 2 30 4 35" stroke="#5d4730" stroke-width="0.3" fill="none" opacity="0.7"/>
+          </pattern>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="touchpoint__spec">
+      <span class="touchpoint__num">Touchpoint 09</span>
+      <h2>The Room Identity Plate</h2>
+      <p class="touchpoint__lede">Inside the cabin, beside the door at hand height. The only place inside the cabin where the brand wordmark appears in physical form.</p>
+      <div class="touchpoint__doctrine">
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Substrate</div><div class="touchpoint__row-body">Indigenous hardwood, hand-finished. Iron inlay for the lettering.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Dimensions</div><div class="touchpoint__row-body">120 mm × 60 mm. Plate thickness 12–15 mm.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Lettering</div><div class="touchpoint__row-body">The full three-word lockup — Ekam · Tier · Location — in Cormorant Garamond, CNC-routed and iron-inlaid. Devanagari beneath, smaller, for the typology and number.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Mounting</div><div class="touchpoint__row-body">Four iron pins, hand-set. No modern screws.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Placement</div><div class="touchpoint__row-body">Interior wall, beside the cabin door, at hand height (1.05–1.15 m from floor). Read on entry, never seen from outside.</div></div>
+      </div>
+      <p class="touchpoint__quote">"The only place inside the cabin where the brand wordmark appears in physical form. The cabin is not a brand-marked space."</p>
+    </div>
+  </div>
+</section>
+
+<!-- 10 · ARRIVAL MONOLITH -->
+<section class="section--ink anchor-target" id="monolith">
+  <div class="touchpoint touchpoint--reverse">
+    <div class="touchpoint__visual">
+      <svg viewBox="0 0 600 800" width="100%" style="max-width:380px;">
+        <!-- Sky / dark background -->
+        <rect x="0" y="0" width="600" height="800" fill="#14201A"/>
+        <!-- subtle gradient sky -->
+        <rect x="0" y="0" width="600" height="500" fill="url(#sky-grad)"/>
+
+        <!-- distant ridge silhouette -->
+        <path d="M 0 460 L 60 420 L 120 440 L 180 400 L 240 430 L 300 380 L 360 410 L 420 390 L 480 420 L 540 400 L 600 430 L 600 800 L 0 800 Z"
+              fill="#0e1714" opacity="0.6"/>
+
+        <!-- ground -->
+        <rect x="0" y="600" width="600" height="200" fill="#1a201a"/>
+        <rect x="0" y="600" width="600" height="200" fill="url(#ground-tex)" opacity="0.6"/>
+
+        <!-- Floor lantern wash light -->
+        <ellipse cx="300" cy="700" rx="180" ry="50" fill="url(#lantern-wash)" opacity="0.85"/>
+
+        <!-- Monolith - tall standing stone, slightly canted -->
+        <g transform="translate(0 0) rotate(-1.5 300 540)">
+          <!-- Stone, irregular shape -->
+          <path d="M 232 240
+                   L 234 220
+                   L 240 200
+                   L 256 188
+                   L 280 184
+                   L 320 184
+                   L 344 188
+                   L 360 200
+                   L 366 220
+                   L 368 240
+                   L 370 540
+                   L 374 660
+                   L 360 690
+                   L 240 690
+                   L 226 660
+                   L 230 540 Z"
+                fill="#5d5b58"/>
+          <!-- Stone texture (mottled) -->
+          <path d="M 232 240
+                   L 234 220
+                   L 240 200
+                   L 256 188
+                   L 280 184
+                   L 320 184
+                   L 344 188
+                   L 360 200
+                   L 366 220
+                   L 368 240
+                   L 370 540
+                   L 374 660
+                   L 360 690
+                   L 240 690
+                   L 226 660
+                   L 230 540 Z"
+                fill="url(#stone-tex-2)" opacity="0.75"/>
+          <!-- Highlight (lantern wash glows the front of the stone) -->
+          <path d="M 240 600 Q 300 590 360 600 L 374 660 L 360 690 L 240 690 L 226 660 Z"
+                fill="url(#stone-glow)" opacity="0.55"/>
+
+          <!-- Lockup CNC-routed (recessed darker) -->
+          <text x="298" y="290" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="300" font-size="22" fill="#2a2826" letter-spacing="5">EKAM</text>
+          <circle cx="333" cy="282" r="2.5" fill="#B4613A"/>
+          <text x="298" y="340" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="300" font-size="22" fill="#2a2826" letter-spacing="5">KUTIR</text>
+          <circle cx="335" cy="332" r="2.5" fill="#B4613A"/>
+          <text x="298" y="390" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="300" font-size="22" fill="#2a2826" letter-spacing="5">CHITKUL</text>
+
+          <!-- subtle highlight to make text feel cut into stone -->
+          <text x="298" y="290" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="300" font-size="22" fill="#7a7977" letter-spacing="5" opacity="0.4">EKAM</text>
+          <text x="298" y="340" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="300" font-size="22" fill="#7a7977" letter-spacing="5" opacity="0.4">KUTIR</text>
+          <text x="298" y="390" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="300" font-size="22" fill="#7a7977" letter-spacing="5" opacity="0.4">CHITKUL</text>
+        </g>
+
+        <!-- Ground-set lantern at foot -->
+        <g transform="translate(290 720)">
+          <circle cx="0" cy="0" r="14" fill="#1a201a"/>
+          <circle cx="0" cy="0" r="9" fill="#E8C744"/>
+          <circle cx="0" cy="0" r="6" fill="#F5E08C"/>
+          <circle cx="0" cy="0" r="3" fill="#FFFFFF" opacity="0.9"/>
+          <!-- glow halo -->
+          <circle cx="0" cy="0" r="22" fill="none" stroke="#E8C744" stroke-width="1" opacity="0.4"/>
+        </g>
+
+        <!-- Caption -->
+        <text x="300" y="770" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8A9476" letter-spacing="4">THE PROPERTY'S BIRTH-MARK · 1400 MM · 1800K WASH</text>
+
+        <defs>
+          <linearGradient id="sky-grad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#0a1410"/>
+            <stop offset="100%" stop-color="#14201A"/>
+          </linearGradient>
+          <pattern id="ground-tex" patternUnits="userSpaceOnUse" width="6" height="6">
+            <rect width="6" height="6" fill="#1a201a"/>
+            <circle cx="2" cy="2" r="0.3" fill="#2B4630" opacity="0.6"/>
+            <circle cx="4" cy="5" r="0.4" fill="#0a1410"/>
+          </pattern>
+          <pattern id="stone-tex-2" patternUnits="userSpaceOnUse" width="14" height="14">
+            <rect width="14" height="14" fill="#5d5b58"/>
+            <circle cx="2" cy="3" r="0.5" fill="#3d3b38"/>
+            <circle cx="8" cy="6" r="0.4" fill="#7a7977"/>
+            <circle cx="11" cy="11" r="0.5" fill="#3d3b38"/>
+            <circle cx="5" cy="10" r="0.3" fill="#7a7977"/>
+          </pattern>
+          <radialGradient id="stone-glow" cx="0.5" cy="1" r="0.8">
+            <stop offset="0%" stop-color="#d68f5e" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#d68f5e" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="lantern-wash" cx="0.5" cy="0.5" r="0.6">
+            <stop offset="0%" stop-color="#E8C744" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#E8C744" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="touchpoint__spec">
+      <span class="touchpoint__num">Touchpoint 10</span>
+      <h2 class="touchpoint__spec h2--onforest" style="color:var(--cream);">The Arrival Monolith</h2>
+      <p class="touchpoint__lede touchpoint__lede--onforest">The first thing the guest meets. A single standing object at the property line. Lit from below at 1800K. Never spot-lit from above.</p>
+      <div class="touchpoint__doctrine touchpoint__doctrine--onforest">
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Substrate</div><div class="touchpoint__row-body">A single piece of local stone, dressed but not polished. Or indigenous hardwood column set into a stone base.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Dimensions</div><div class="touchpoint__row-body">1200–1600 mm tall × 320–400 mm wide × 220–280 mm deep. Taller on exposed approaches.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Lettering</div><div class="touchpoint__row-body">EKAM · TIER · LOCATION — CNC-routed and oxidised-iron-inlaid. Cormorant Garamond Light 300. Cap-height 90 mm.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Lighting</div><div class="touchpoint__row-body">A single floor-set lantern at 1800K, set into the ground to wash the stone from below. Never backlit. Never from above.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Approval</div><div class="touchpoint__row-body">Tier 3 — Founder + Brand Director. Every site is signed off individually.</div></div>
+      </div>
+      <p class="touchpoint__quote" style="color:var(--moss-on-forest);">"The vehicle stops at the stone behind it. The guest steps out and meets the Monolith. From here, the approach is on foot."</p>
+    </div>
+  </div>
+</section>
+
+<!-- 11 · TIFFIN -->
+<section class="anchor-target" id="tiffin">
+  <div class="touchpoint">
+    <div class="touchpoint__visual">
+      <svg viewBox="0 0 520 700" width="100%" style="max-width:380px;">
+        <!-- Ground shadow -->
+        <ellipse cx="260" cy="640" rx="160" ry="14" fill="#14201A" opacity="0.18"/>
+
+        <!-- Tiffin - three tiers stacked -->
+        <g transform="translate(0 0)">
+          <!-- Handle at top - thin -->
+          <path d="M 220 110 Q 220 70 260 70 Q 300 70 300 110"
+                fill="none" stroke="#bfc4c8" stroke-width="3"/>
+          <path d="M 218 110 L 218 130" stroke="#9aa0a4" stroke-width="3"/>
+          <path d="M 302 110 L 302 130" stroke="#9aa0a4" stroke-width="3"/>
+          <!-- handle clasps -->
+          <rect x="214" y="128" width="8" height="14" fill="#bfc4c8"/>
+          <rect x="298" y="128" width="8" height="14" fill="#bfc4c8"/>
+
+          <!-- Top tier -->
+          <rect x="170" y="140" width="180" height="100" fill="#c9cdd1"/>
+          <rect x="170" y="140" width="180" height="100" fill="url(#steel-grad)" opacity="0.6"/>
+          <ellipse cx="260" cy="140" rx="90" ry="6" fill="#9aa0a4"/>
+          <ellipse cx="260" cy="140" rx="86" ry="4" fill="#7a8084"/>
+          <!-- Lid line -->
+          <line x1="170" y1="172" x2="350" y2="172" stroke="#7a8084" stroke-width="1.2"/>
+          <line x1="170" y1="174" x2="350" y2="174" stroke="#9aa0a4" stroke-width="0.6"/>
+
+          <!-- Mid tier -->
+          <rect x="170" y="240" width="180" height="100" fill="#c9cdd1"/>
+          <rect x="170" y="240" width="180" height="100" fill="url(#steel-grad)" opacity="0.6"/>
+          <line x1="170" y1="240" x2="350" y2="240" stroke="#7a8084" stroke-width="1.5"/>
+
+          <!-- Bottom tier (taller) -->
+          <rect x="170" y="340" width="180" height="130" fill="#c9cdd1"/>
+          <rect x="170" y="340" width="180" height="130" fill="url(#steel-grad)" opacity="0.6"/>
+          <line x1="170" y1="340" x2="350" y2="340" stroke="#7a8084" stroke-width="1.5"/>
+          <!-- bottom rim -->
+          <rect x="166" y="466" width="188" height="6" fill="#9aa0a4"/>
+
+          <!-- Cotton napkin wrap on bottom tier -->
+          <g>
+            <rect x="166" y="438" width="188" height="42" fill="#F4EDE1"/>
+            <rect x="166" y="438" width="188" height="42" fill="url(#cotton-tex)" opacity="0.5"/>
+            <!-- subtle stripes -->
+            <line x1="166" y1="445" x2="354" y2="445" stroke="#D8D3C4" stroke-width="0.4"/>
+            <line x1="166" y1="465" x2="354" y2="465" stroke="#D8D3C4" stroke-width="0.4"/>
+          </g>
+
+          <!-- Twine wrapping -->
+          <line x1="166" y1="458" x2="354" y2="458" stroke="#a08762" stroke-width="2"/>
+          <line x1="166" y1="461" x2="354" y2="461" stroke="#7a6644" stroke-width="0.6"/>
+
+          <!-- Tag hanging from twine -->
+          <g transform="translate(305 470)">
+            <line x1="0" y1="-10" x2="0" y2="0" stroke="#7a6644" stroke-width="1"/>
+            <rect x="-30" y="0" width="60" height="60" fill="#FAF7F0"/>
+            <rect x="-30" y="0" width="60" height="60" fill="url(#paper-grain-5)" opacity="0.5"/>
+            <!-- Bindu -->
+            <circle cx="0" cy="15" r="3" fill="#B4613A"/>
+            <!-- Hand-written -->
+            <text x="0" y="32" text-anchor="middle" font-family="Caveat, cursive" font-size="11" fill="#14201A">khichdi</text>
+            <text x="0" y="44" text-anchor="middle" font-family="Caveat, cursive" font-size="9" fill="#7A8A6B">+ ghee, salt</text>
+            <text x="0" y="55" text-anchor="middle" font-family="Inter, sans-serif" font-size="6" fill="#B4613A" letter-spacing="1">CHAI</text>
+          </g>
+
+          <!-- Subtle highlight stripe on left side of each tier -->
+          <rect x="172" y="140" width="6" height="100" fill="#FFFFFF" opacity="0.3"/>
+          <rect x="172" y="240" width="6" height="100" fill="#FFFFFF" opacity="0.3"/>
+          <rect x="172" y="340" width="6" height="100" fill="#FFFFFF" opacity="0.3"/>
+        </g>
+
+        <!-- Caption -->
+        <text x="260" y="680" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#7A8A6B" letter-spacing="4">THREE-TIER STAINLESS · COTTON NAPKIN · RETURNABLE</text>
+
+        <defs>
+          <linearGradient id="steel-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.5"/>
+            <stop offset="20%" stop-color="#c9cdd1" stop-opacity="0"/>
+            <stop offset="80%" stop-color="#c9cdd1" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#7a8084" stop-opacity="0.5"/>
+          </linearGradient>
+          <pattern id="cotton-tex" patternUnits="userSpaceOnUse" width="2" height="2">
+            <rect width="2" height="2" fill="#F4EDE1"/>
+            <circle cx="1" cy="1" r="0.2" fill="#D8D3C4" opacity="0.6"/>
+          </pattern>
+          <pattern id="paper-grain-5" patternUnits="userSpaceOnUse" width="3" height="3">
+            <rect width="3" height="3" fill="#FAF7F0"/>
+            <circle cx="1" cy="1" r="0.3" fill="#ECE4D3" opacity="0.5"/>
+          </pattern>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="touchpoint__spec">
+      <span class="touchpoint__num">Touchpoint 11</span>
+      <h2>The Tiffin</h2>
+      <p class="touchpoint__lede">Every hot meal arrives in a three-tier stainless tiffin, wrapped in a cotton napkin, tied with jute twine. The tiffin returns to the kitchen.</p>
+      <div class="touchpoint__doctrine">
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Vessel</div><div class="touchpoint__row-body">Three-tier stainless steel. Hand-tinned where the regional artisan tradition supports it. Returnable — never travels home with the guest.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Wrap</div><div class="touchpoint__row-body">Natural undyed cotton napkin, hand-stitched. Folded around the bottom tier, knotted at the top. Replaced when worn, not on schedule.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Tag</div><div class="touchpoint__row-body">Hand-written paper tag tied by twine. Cream paper, Bindu mark, hand-written meal name in the host's hand. Chai sub-brand mark in the corner.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Delivery</div><div class="touchpoint__row-body">Dropped at the porch at the guest's requested hour. The steward does not enter the cabin unless invited.</div></div>
+      </div>
+      <p class="touchpoint__quote">"All hot meals delivered in three-tier stainless tiffins, wrapped in cotton napkins. The tiffin returns to the kitchen — it does not travel home with the guest."</p>
+    </div>
+  </div>
+</section>
+
+<!-- 12 · PATH LANTERN -->
+<section class="section--ink anchor-target" id="lantern">
+  <div class="touchpoint touchpoint--reverse">
+    <div class="touchpoint__visual">
+      <svg viewBox="0 0 520 800" width="100%" style="max-width:340px;">
+        <!-- Night sky -->
+        <rect x="0" y="0" width="520" height="800" fill="#0a1410"/>
+
+        <!-- Stars -->
+        <circle cx="80" cy="80" r="0.8" fill="#FAF7F0" opacity="0.6"/>
+        <circle cx="180" cy="40" r="0.5" fill="#FAF7F0" opacity="0.5"/>
+        <circle cx="300" cy="100" r="0.6" fill="#FAF7F0" opacity="0.7"/>
+        <circle cx="420" cy="60" r="0.5" fill="#FAF7F0" opacity="0.6"/>
+        <circle cx="460" cy="140" r="0.4" fill="#FAF7F0" opacity="0.4"/>
+
+        <!-- Ground line -->
+        <rect x="0" y="680" width="520" height="120" fill="#0e1714"/>
+        <!-- subtle ground texture -->
+        <rect x="0" y="680" width="520" height="120" fill="url(#ground-night-tex)" opacity="0.5"/>
+
+        <!-- Lantern light wash on ground -->
+        <ellipse cx="260" cy="700" rx="220" ry="80" fill="url(#lantern-ground-wash)" opacity="0.85"/>
+
+        <!-- Lantern post -->
+        <g>
+          <!-- Hardwood post -->
+          <rect x="248" y="380" width="24" height="320" fill="#6b4a2b"/>
+          <rect x="248" y="380" width="24" height="320" fill="url(#wood-night-grain)" opacity="0.7"/>
+          <!-- highlight side -->
+          <rect x="248" y="380" width="4" height="320" fill="#8a6e4f" opacity="0.5"/>
+          <!-- shadow side -->
+          <rect x="268" y="380" width="4" height="320" fill="#3a2c1e" opacity="0.6"/>
+
+          <!-- Iron base ring -->
+          <rect x="244" y="680" width="32" height="14" fill="#1a1815"/>
+          <rect x="244" y="694" width="32" height="6" fill="#0a0908"/>
+
+          <!-- Iron arm at top -->
+          <rect x="246" y="370" width="28" height="14" fill="#1a1815"/>
+
+          <!-- Lantern fixture - hand-blown glass globe in iron cage -->
+          <g transform="translate(260 320)">
+            <!-- iron cap -->
+            <rect x="-30" y="0" width="60" height="14" fill="#1a1815"/>
+            <path d="M -28 14 L -25 22 L -22 14" fill="#1a1815"/>
+            <path d="M 28 14 L 25 22 L 22 14" fill="#1a1815"/>
+            <!-- vertical iron bars on globe -->
+            <line x1="0" y1="14" x2="0" y2="80" stroke="#1a1815" stroke-width="1.2"/>
+            <line x1="-22" y1="22" x2="-26" y2="60" stroke="#1a1815" stroke-width="1.2"/>
+            <line x1="22" y1="22" x2="26" y2="60" stroke="#1a1815" stroke-width="1.2"/>
+
+            <!-- Glass globe - glowing warm -->
+            <ellipse cx="0" cy="40" rx="36" ry="32" fill="#1a1815" opacity="0.5"/>
+            <ellipse cx="0" cy="40" rx="32" ry="28" fill="url(#globe-glow)"/>
+            <ellipse cx="-6" cy="34" rx="14" ry="10" fill="#FFFCE5" opacity="0.6"/>
+            <ellipse cx="-8" cy="34" rx="6" ry="4" fill="#FFFFFF" opacity="0.85"/>
+
+            <!-- iron bottom cap -->
+            <rect x="-22" y="70" width="44" height="10" fill="#1a1815"/>
+            <rect x="-18" y="78" width="36" height="4" fill="#0a0908"/>
+          </g>
+
+          <!-- Halo / light spill around globe -->
+          <circle cx="260" cy="360" r="80" fill="url(#globe-halo)" opacity="0.4"/>
+        </g>
+
+        <!-- Caption -->
+        <text x="260" y="770" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8A9476" letter-spacing="4">PRIMARY ROUTE ONLY · 1800K · 8 M SPACING</text>
+
+        <defs>
+          <pattern id="ground-night-tex" patternUnits="userSpaceOnUse" width="6" height="6">
+            <rect width="6" height="6" fill="#0e1714"/>
+            <circle cx="2" cy="2" r="0.3" fill="#2B4630" opacity="0.4"/>
+            <circle cx="4" cy="5" r="0.4" fill="#0a1410"/>
+          </pattern>
+          <pattern id="wood-night-grain" patternUnits="userSpaceOnUse" width="6" height="40">
+            <rect width="6" height="40" fill="#6b4a2b"/>
+            <path d="M 0 12 Q 3 8 6 14" stroke="#5d4730" stroke-width="0.3" fill="none" opacity="0.7"/>
+            <path d="M 0 30 Q 3 26 6 32" stroke="#3a2c1e" stroke-width="0.4" fill="none" opacity="0.6"/>
+          </pattern>
+          <radialGradient id="globe-glow" cx="0.4" cy="0.4" r="0.7">
+            <stop offset="0%" stop-color="#FFF5C8"/>
+            <stop offset="50%" stop-color="#E8C744"/>
+            <stop offset="100%" stop-color="#a8881f"/>
+          </radialGradient>
+          <radialGradient id="globe-halo" cx="0.5" cy="0.5" r="0.6">
+            <stop offset="0%" stop-color="#E8C744" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#E8C744" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="lantern-ground-wash" cx="0.5" cy="0.5" r="0.6">
+            <stop offset="0%" stop-color="#E8C744" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#E8C744" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="touchpoint__spec">
+      <span class="touchpoint__num">Touchpoint 12</span>
+      <h2 style="color:var(--cream);">The Path Lantern</h2>
+      <p class="touchpoint__lede touchpoint__lede--onforest">Hand-blown glass globe in an iron cage, on a hardwood post. The lantern marks the primary route. The cabin approach is unlit by design.</p>
+      <div class="touchpoint__doctrine touchpoint__doctrine--onforest">
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Post</div><div class="touchpoint__row-body">Indigenous hardwood, square section. Set in gravel-packed footing — never concrete. 600–900 mm tall.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Cage</div><div class="touchpoint__row-body">Oxidised black iron. Hand-forged. Cap and bottom-cap with three vertical bars holding the globe.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Globe</div><div class="touchpoint__row-body">Hand-blown glass with slight irregularity. Modern flat glass catches headlights; irregular hand-blown glass diffuses.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Lamp</div><div class="touchpoint__row-body">1800K source. Low intensity. CRI 95 minimum. Dusk-to-dawn auto. Maximum 0.4 lux at 5 m.</div></div>
+        <div class="touchpoint__row"><div class="touchpoint__row-label">Placement</div><div class="touchpoint__row-body">Primary route only. 8 m spacing. The cabin approach is unlit by design — the guest carries a hand lantern from reception.</div></div>
+      </div>
+      <p class="touchpoint__quote" style="color:var(--moss-on-forest);">"The walk to the cabin in lantern-light is the start of the arrival."</p>
+    </div>
+  </div>
+</section>
+
+<!-- TERMINUS -->
+<section class="section--forest">
+  <div class="section__inner terminus">
+    <div class="terminus__rule"></div>
+    <div class="eyebrow eyebrow--onforest">The terminus</div>
+    <div class="devanagari" style="font-family:'Tiro Devanagari Hindi', serif; font-size:36px;">एकम्</div>
+    <svg width="200" height="68">
+      <text x="20" y="56" font-family="Cormorant Garamond, serif" font-weight="400" font-size="48" fill="#FAF7F0" letter-spacing="6">E</text>
+      <circle cx="68" cy="36" r="4" fill="#B4613A"/>
+      <text x="80" y="56" font-family="Cormorant Garamond, serif" font-weight="400" font-size="48" fill="#FAF7F0" letter-spacing="6">KAM</text>
+    </svg>
+    <div class="terminus__line">Twelve objects.<br>Each one the guest will remember after the wax seal is opened at home.</div>
+    <div class="terminus__cred">The Touchpoints · Companion to the Brand Operating System · 2026</div>
+  </div>
+</section>
+
+</body>
+</html>

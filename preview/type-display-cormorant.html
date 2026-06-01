@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>EKAM · Display Type</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { height: 100%; }
+  .stage { width: 700px; min-height: 280px; padding: 36px 48px; background: var(--cream); }
+  .specimen { font-family: var(--font-display); font-weight: 300; color: var(--forest); font-size: 72px; letter-spacing: 6px; line-height: 1; margin-bottom: 22px; }
+  .meta { display: flex; gap: 24px; padding-top: 18px; border-top: 1px solid var(--bone); font-family: var(--font-ui); font-size: 10.5px; letter-spacing: 1.5px; color: var(--moss); }
+  .meta b { color: var(--ink); font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase; font-size: 10px; display: block; margin-bottom: 2px; }
+  .meta div { flex: 1; line-height: 1.5; font-weight: 300; }
+  .scales { display: flex; align-items: baseline; gap: 28px; margin-bottom: 18px; }
+  .scales span { font-family: var(--font-display); font-weight: 300; color: var(--forest); letter-spacing: 4px; line-height: 1; }
+  .s-96 { font-size: 60px; }
+  .s-56 { font-size: 36px; }
+  .s-32 { font-size: 22px; }
+  .s-22 { font-size: 16px; color: var(--moss) !important; }
+  .px { font-family: var(--font-ui); font-size: 9px; letter-spacing: 1.5px; color: var(--bindu); display: block; margin-top: 4px; font-weight: 500; }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="specimen">One cabin. One wild.</div>
+    <div class="scales">
+      <div><span class="s-96">Aa</span><span class="px">96 · HERO</span></div>
+      <div><span class="s-56">Aa</span><span class="px">56 · H1</span></div>
+      <div><span class="s-32">Aa</span><span class="px">42 · H2</span></div>
+      <div><span class="s-22">Aa</span><span class="px">28 · H3</span></div>
+    </div>
+    <div class="meta">
+      <div><b>Family</b>Cormorant Garamond · 300 / 400</div>
+      <div><b>Letterspacing</b>4 px min · 8 px on wordmark</div>
+      <div><b>Never</b>Italic · condensed · body sizes</div>
+    </div>
+  </div>
+</body>
+</html>

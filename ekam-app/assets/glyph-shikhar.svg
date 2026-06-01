@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 100" role="img" aria-label="Shikhar glyph">
+  <path d="M 30 80 L 60 28 L 90 80" fill="none" stroke="#2B4630" stroke-width="2"></path>
+  <path d="M 50 80 L 80 38 L 110 80 Z" fill="#2B4630"></path>
+  <line x1="14" y1="80" x2="110" y2="80" stroke="#2B4630" stroke-width="2"></line>
+  <path d="M 53 40 L 60 28 L 67 40" fill="none" stroke="#FAF7F0" stroke-width="1.2"></path>
+</svg>

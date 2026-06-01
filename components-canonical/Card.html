@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EKAM · Canonical Card — Reference</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="stylesheet" href="Card.css" />
+<style>
+  /* ─── Reference page chrome only — NOT part of the primitive ─── */
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-body);
+    margin: 0;
+    padding: 0;
+  }
+  .ref {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 56px 160px;
+  }
+  .ref__eyebrow {
+    font-family: var(--font-ui);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 4px;
+    color: var(--bindu);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 18px;
+  }
+  .ref__title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 56px;
+    color: var(--forest);
+    letter-spacing: 0.4px;
+    line-height: 1.04;
+    margin: 0 0 18px;
+    max-width: 820px;
+  }
+  .ref__lede {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 18px;
+    color: var(--moss);
+    line-height: 1.5;
+    max-width: 700px;
+    margin: 0 0 64px;
+  }
+  .ref__section {
+    margin-top: 96px;
+    padding-top: 32px;
+    border-top: 1px solid var(--bone);
+  }
+  .ref__sec-head {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 48px;
+    align-items: baseline;
+    margin-bottom: 40px;
+  }
+  .ref__sec-no {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 42px;
+    color: var(--bindu);
+    line-height: 1;
+  }
+  .ref__sec-no-dev {
+    display: block;
+    font-family: var(--font-devanagari);
+    font-size: 13px;
+    letter-spacing: 1px;
+    margin-top: 8px;
+  }
+  .ref__sec-title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 34px;
+    color: var(--forest);
+    margin: 0 0 10px;
+    letter-spacing: 0.3px;
+  }
+  .ref__sec-sub {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 15px;
+    color: var(--moss);
+    line-height: 1.55;
+    max-width: 600px;
+    margin: 0;
+  }
+
+  /* Grid for the card variants */
+  .ref__grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+  }
+  .ref__grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    align-items: start;
+  }
+  .ref__grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    align-items: start;
+  }
+
+  /* Caption beneath each card */
+  .ref__cap {
+    margin-top: 16px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .ref__cap-lbl {
+    font-family: var(--font-ui);
+    font-size: 10px; font-weight: 500;
+    letter-spacing: 2.5px;
+    color: var(--bindu);
+    text-transform: uppercase;
+  }
+  .ref__cap-note {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 12.5px;
+    color: var(--moss);
+    line-height: 1.5;
+  }
+
+  /* Anatomy callouts */
+  .anatomy {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .anatomy ol {
+    list-style: none; padding: 0; margin: 0;
+    counter-reset: anatomy;
+    display: flex; flex-direction: column; gap: 18px;
+  }
+  .anatomy li {
+    counter-increment: anatomy;
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 16px;
+    align-items: baseline;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--forest);
+    line-height: 1.55;
+  }
+  .anatomy li::before {
+    content: counter(anatomy, decimal-leading-zero);
+    font-family: var(--font-ui);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: var(--bindu);
+  }
+  .anatomy li b {
+    font-family: var(--font-ui);
+    font-weight: 500;
+    color: var(--ink);
+    display: inline-block;
+    margin-right: 6px;
+  }
+
+  /* Code blocks */
+  .code {
+    background: var(--ink);
+    color: rgba(250,247,240,0.92);
+    font-family: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 12.5px;
+    line-height: 1.6;
+    padding: 28px 32px;
+    overflow-x: auto;
+    margin-top: 24px;
+  }
+  .code .c { color: rgba(250,247,240,0.45); }
+  .code .k { color: #d68763; }
+  .code .s { color: #c9d6bc; }
+
+  /* Migration matrix */
+  .migration {
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr;
+    gap: 16px 24px;
+    align-items: baseline;
+    padding-top: 28px;
+    border-top: 1px solid var(--bone);
+  }
+  .migration h4 {
+    grid-column: 1 / -1;
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 22px;
+    color: var(--forest);
+    margin: 0 0 6px;
+    letter-spacing: 0.2px;
+  }
+  .migration__row { display: contents; }
+  .migration__chapter {
+    font-family: var(--font-ui);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 2px;
+    color: var(--bindu);
+    text-transform: uppercase;
+    padding-top: 12px;
+    border-top: 1px solid var(--bone);
+  }
+  .migration__before, .migration__after {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--forest);
+    line-height: 1.5;
+    padding-top: 12px;
+    border-top: 1px solid var(--bone);
+  }
+  .migration__before code, .migration__after code {
+    font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    color: var(--ink);
+    background: var(--sand);
+    padding: 1px 6px;
+  }
+</style>
+</head>
+<body>
+
+<main class="ref" data-screen-label="canonical-card-reference">
+  <span class="ref__eyebrow">— EKAM · components · canonical card</span>
+  <h1 class="ref__title">The Card.</h1>
+  <p class="ref__lede">The most-used surface in the product. One canonical implementation in <code>components-canonical/Card.css</code> — chapters consume it; they do not redefine it. Documented in <code>EKAM Human Interface System.md §7.4</code>.</p>
+
+  <!-- ─── 01 · ANATOMY ─────────────────────────────── -->
+  <section class="ref__section">
+    <div class="ref__sec-head">
+      <div>
+        <div class="ref__sec-no">01<span class="ref__sec-no-dev">रचना · the anatomy</span></div>
+      </div>
+      <div>
+        <h2 class="ref__sec-title">One photograph. One title. One question answered.</h2>
+        <p class="ref__sec-sub">Every element earns its place. If a chapter needs to add to this anatomy, the answer is usually to remove something else.</p>
+      </div>
+    </div>
+
+    <div class="anatomy">
+      <!-- Single annotated card -->
+      <a class="c-card" href="#" aria-label="Anatomy example">
+        <div class="c-card__photo c-card__photo--4-5 c-card__photo--placeholder">
+          <span class="c-card__photo-tag">photo · 4:5</span>
+        </div>
+        <div class="c-card__body">
+          <div class="c-card__head">
+            <div class="c-card__glyph">
+              <img src="../assets/glyph-kutir.svg" alt="" />
+            </div>
+            <span class="c-card__eyebrow">EKAM · Kutir · Kalpa</span>
+            <button class="c-card__heart" type="button" aria-label="Save" aria-pressed="false">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 21s-7-4.35-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 11c0 5.65-7 10-7 10z" />
+              </svg>
+            </button>
+          </div>
+          <h3 class="c-card__title">A cabin at 2,400m above the apple orchards.</h3>
+          <p class="c-card__copy">Two adults. A wood stove and a porch. The village three hundred metres below.</p>
+          <div class="c-card__meta">
+            <span><b>3 nights</b> from ₹24,200</span>
+            <span>·</span>
+            <span><b>Apr–Jun</b> · Sep–Nov</span>
+          </div>
+          <div class="c-card__cta-row">
+            View the cabin
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </div>
+        </div>
+      </a>
+
+      <ol>
+        <li><b>Photo slot.</b> 4:5 by default; 16:11 for wide trip cards. Replace the striped placeholder with a real <code>&lt;img&gt;</code>. Never overlay the wordmark, a price tag, or a star rating on the photograph.</li>
+        <li><b>Tier glyph.</b> 40×33dp default. Identifies Kutir / Van / Shikhar / Chai at a glance. Required on every cabin card. See HIS §7.9.</li>
+        <li><b>Eyebrow.</b> Inter 500, 10px, 3px tracking, clay, uppercase. The chapter / sub-brand / region trail. <code>EKAM · Kutir · Kalpa</code>.</li>
+        <li><b>Save heart.</b> 32×32dp, cream square with bone hairline. <code>aria-pressed</code> toggles the clay fill. No backdrop-filter, no shadow.</li>
+        <li><b>Title.</b> Cormorant Garamond 400, 28px (md). Editorial. One sentence. <em>"A cabin at 2,400m above the apple orchards."</em> Not a SEO string.</li>
+        <li><b>Body.</b> Raleway 400, 14px, moss. One short line. Optional in <code>--sm</code> variant.</li>
+        <li><b>Metadata.</b> Inter 400, 11px. Bold for the data points; light for connectors. Separator is the brand mid-dot <code>·</code>.</li>
+        <li><b>CTA row.</b> 18px clay rule + uppercase label + chevron. The whole card is tappable; the row is the visible affordance.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ─── 02 · TIER VARIANTS ──────────────────────── -->
+  <section class="ref__section">
+    <div class="ref__sec-head">
+      <div>
+        <div class="ref__sec-no">02<span class="ref__sec-no-dev">चार · the four</span></div>
+      </div>
+      <div>
+        <h2 class="ref__sec-title">Four tier variants. One Card.</h2>
+        <p class="ref__sec-sub">Same component. The tier glyph in the eyebrow row carries the difference. No structural changes per tier.</p>
+      </div>
+    </div>
+
+    <div class="ref__grid-4">
+      <!-- KUTIR -->
+      <a class="c-card" href="#">
+        <div class="c-card__photo c-card__photo--4-5 c-card__photo--placeholder">
+          <span class="c-card__photo-tag">kutir · kalpa</span>
+        </div>
+        <div class="c-card__body">
+          <div class="c-card__head">
+            <div class="c-card__glyph"><img src="../assets/glyph-kutir.svg" alt="" /></div>
+            <span class="c-card__eyebrow">EKAM · Kutir</span>
+          </div>
+          <h3 class="c-card__title">A stone hut by the apple line.</h3>
+          <p class="c-card__copy">Two adults. The orchard wakes you, the river puts you down.</p>
+          <div class="c-card__meta">
+            <span><b>Kalpa</b> · 2,400m</span><span>·</span><span><b>Apr–Nov</b></span>
+          </div>
+          <div class="c-card__cta-row">View<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </div>
+      </a>
+
+      <!-- VAN -->
+      <a class="c-card" href="#">
+        <div class="c-card__photo c-card__photo--4-5 c-card__photo--placeholder">
+          <span class="c-card__photo-tag">van · sangla</span>
+        </div>
+        <div class="c-card__body">
+          <div class="c-card__head">
+            <div class="c-card__glyph"><img src="../assets/glyph-van.svg" alt="" /></div>
+            <span class="c-card__eyebrow">EKAM · Van</span>
+          </div>
+          <h3 class="c-card__title">Inside the canopy of the Baspa.</h3>
+          <p class="c-card__copy">Tents on a platform, fifty metres above the floor. The forest does the talking.</p>
+          <div class="c-card__meta">
+            <span><b>Sangla</b> · 2,200m</span><span>·</span><span><b>May–Oct</b></span>
+          </div>
+          <div class="c-card__cta-row">View<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </div>
+      </a>
+
+      <!-- SHIKHAR -->
+      <a class="c-card" href="#">
+        <div class="c-card__photo c-card__photo--4-5 c-card__photo--placeholder">
+          <span class="c-card__photo-tag">shikhar · nako</span>
+        </div>
+        <div class="c-card__body">
+          <div class="c-card__head">
+            <div class="c-card__glyph"><img src="../assets/glyph-shikhar.svg" alt="" /></div>
+            <span class="c-card__eyebrow">EKAM · Shikhar</span>
+          </div>
+          <h3 class="c-card__title">A ridgeline at three thousand two hundred.</h3>
+          <p class="c-card__copy">One cabin. One view. No second building inside the frame.</p>
+          <div class="c-card__meta">
+            <span><b>Nako</b> · 3,200m</span><span>·</span><span><b>Jun–Sep</b></span>
+          </div>
+          <div class="c-card__cta-row">View<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </div>
+      </a>
+
+      <!-- CHAI -->
+      <a class="c-card" href="#">
+        <div class="c-card__photo c-card__photo--4-5 c-card__photo--placeholder">
+          <span class="c-card__photo-tag">chai · drive</span>
+        </div>
+        <div class="c-card__body">
+          <div class="c-card__head">
+            <div class="c-card__glyph"><img src="../assets/glyph-chai.svg" alt="" /></div>
+            <span class="c-card__eyebrow">EKAM · Chai · Route</span>
+          </div>
+          <h3 class="c-card__title">A cup on the way up to Nako.</h3>
+          <p class="c-card__copy">Two hours from Kalpa. Tea, parathas, a working bathroom. Nothing more.</p>
+          <div class="c-card__meta">
+            <span><b>NH5</b> · km 184</span><span>·</span><span><b>Open all year</b></span>
+          </div>
+          <div class="c-card__cta-row">View<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ─── 03 · SIZE VARIANTS ──────────────────────── -->
+  <section class="ref__section">
+    <div class="ref__sec-head">
+      <div>
+        <div class="ref__sec-no">03<span class="ref__sec-no-dev">मात्रा · the size</span></div>
+      </div>
+      <div>
+        <h2 class="ref__sec-title">Three sizes. Nothing in between.</h2>
+        <p class="ref__sec-sub">Use <code>--sm</code> for dense rows, default <code>md</code> for the feed, <code>--lg</code> for the hero. There is no <em>--xl</em>; the next step up is a full surface.</p>
+      </div>
+    </div>
+
+    <div class="ref__grid-3">
+      <!-- SM -->
+      <div>
+        <a class="c-card c-card--sm" href="#">
+          <div class="c-card__photo c-card__photo--4-5 c-card__photo--placeholder">
+            <span class="c-card__photo-tag">sm</span>
+          </div>
+          <div class="c-card__body">
+            <div class="c-card__head">
+              <div class="c-card__glyph"><img src="../assets/glyph-shikhar.svg" alt="" /></div>
+              <span class="c-card__eyebrow">EKAM · Shikhar</span>
+            </div>
+            <h3 class="c-card__title">Nako · 3,200m</h3>
+            <div class="c-card__cta-row">Open<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          </div>
+        </a>
+        <div class="ref__cap">
+          <span class="ref__cap-lbl">— Small</span>
+          <span class="ref__cap-note">Saved-list rows, Recently viewed. Body copy hidden by default.</span>
+        </div>
+      </div>
+
+      <!-- MD -->
+      <div>
+        <a class="c-card" href="#">
+          <div class="c-card__photo c-card__photo--4-5 c-card__photo--placeholder">
+            <span class="c-card__photo-tag">md · default</span>
+          </div>
+          <div class="c-card__body">
+            <div class="c-card__head">
+              <div class="c-card__glyph"><img src="../assets/glyph-van.svg" alt="" /></div>
+              <span class="c-card__eyebrow">EKAM · Van</span>
+            </div>
+            <h3 class="c-card__title">Inside the canopy of the Baspa.</h3>
+            <p class="c-card__copy">Tents on a platform, fifty metres above the floor.</p>
+            <div class="c-card__cta-row">View<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          </div>
+        </a>
+        <div class="ref__cap">
+          <span class="ref__cap-lbl">— Medium (default)</span>
+          <span class="ref__cap-note">The Home feed. Property cards in lists.</span>
+        </div>
+      </div>
+
+      <!-- LG -->
+      <div>
+        <a class="c-card c-card--lg" href="#">
+          <div class="c-card__photo c-card__photo--16-11 c-card__photo--placeholder">
+            <span class="c-card__photo-tag">lg · hero · 16:11</span>
+          </div>
+          <div class="c-card__body">
+            <div class="c-card__head">
+              <div class="c-card__glyph"><img src="../assets/glyph-kutir.svg" alt="" /></div>
+              <span class="c-card__eyebrow">EKAM · Kutir · Featured</span>
+            </div>
+            <h3 class="c-card__title">A stone hut by the apple line.</h3>
+            <p class="c-card__copy">Two adults. The orchard wakes you, the river puts you down. Cabin and land, in that order.</p>
+            <div class="c-card__cta-row">Open<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          </div>
+        </a>
+        <div class="ref__cap">
+          <span class="ref__cap-lbl">— Large</span>
+          <span class="ref__cap-note">Property landing, tier-overview surfaces. 16:11 photo by default.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 04 · ROW + STATES ───────────────────────── -->
+  <section class="ref__section">
+    <div class="ref__sec-head">
+      <div>
+        <div class="ref__sec-no">04<span class="ref__sec-no-dev">अवस्था · the state</span></div>
+      </div>
+      <div>
+        <h2 class="ref__sec-title">Row layout, saved state, unavailable state.</h2>
+        <p class="ref__sec-sub">Composition variants of the same primitive. Documented as classes; do not author new layouts in chapter CSS.</p>
+      </div>
+    </div>
+
+    <div class="ref__grid-3">
+      <!-- ROW -->
+      <div>
+        <a class="c-card c-card--row" href="#">
+          <div class="c-card__photo c-card__photo--placeholder">
+            <span class="c-card__photo-tag">row</span>
+          </div>
+          <div class="c-card__body">
+            <div class="c-card__head">
+              <div class="c-card__glyph"><img src="../assets/glyph-shikhar.svg" alt="" /></div>
+              <span class="c-card__eyebrow">EKAM · Shikhar</span>
+            </div>
+            <h3 class="c-card__title">Nako · 3,200m</h3>
+            <div class="c-card__meta"><span>Saved <b>Mar 14</b></span></div>
+          </div>
+        </a>
+        <div class="ref__cap">
+          <span class="ref__cap-lbl">— Row · <code>.c-card--row</code></span>
+          <span class="ref__cap-note">Saved-cabin list, Recently viewed strip.</span>
+        </div>
+      </div>
+
+      <!-- SAVED (aria-pressed=true on heart) -->
+      <div>
+        <a class="c-card" href="#">
+          <div class="c-card__photo c-card__photo--4-5 c-card__photo--placeholder">
+            <span class="c-card__photo-tag">saved</span>
+          </div>
+          <div class="c-card__body">
+            <div class="c-card__head">
+              <div class="c-card__glyph"><img src="../assets/glyph-kutir.svg" alt="" /></div>
+              <span class="c-card__eyebrow">EKAM · Kutir</span>
+              <button class="c-card__heart" type="button" aria-label="Saved" aria-pressed="true">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 21s-7-4.35-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 11c0 5.65-7 10-7 10z" />
+                </svg>
+              </button>
+            </div>
+            <h3 class="c-card__title">A stone hut by the apple line.</h3>
+            <p class="c-card__copy">Two adults. The orchard wakes you.</p>
+            <div class="c-card__cta-row">View<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          </div>
+        </a>
+        <div class="ref__cap">
+          <span class="ref__cap-lbl">— Saved · <code>aria-pressed="true"</code></span>
+          <span class="ref__cap-note">Heart fills with clay; border-colour matches. Single state change, no animation.</span>
+        </div>
+      </div>
+
+      <!-- UNAVAILABLE -->
+      <div>
+        <a class="c-card c-card--unavailable" href="#">
+          <div class="c-card__photo c-card__photo--4-5 c-card__photo--placeholder">
+            <span class="c-card__photo-tag">unavailable</span>
+          </div>
+          <div class="c-card__body">
+            <div class="c-card__head">
+              <div class="c-card__glyph"><img src="../assets/glyph-van.svg" alt="" /></div>
+              <span class="c-card__eyebrow">EKAM · Van · Waitlist</span>
+            </div>
+            <h3 class="c-card__title">Inside the canopy of the Baspa.</h3>
+            <p class="c-card__copy">Open again in May. Add your dates to be told first.</p>
+            <div class="c-card__cta-row">Waitlist<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          </div>
+        </a>
+        <div class="ref__cap">
+          <span class="ref__cap-lbl">— Unavailable · <code>.c-card--unavailable</code></span>
+          <span class="ref__cap-note">Photo dimmed, all text greys to moss. Card remains tappable — tap leads to waitlist.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 05 · USAGE / COPY-PASTE ────────────────── -->
+  <section class="ref__section">
+    <div class="ref__sec-head">
+      <div>
+        <div class="ref__sec-no">05<span class="ref__sec-no-dev">प्रयोग · the use</span></div>
+      </div>
+      <div>
+        <h2 class="ref__sec-title">Drop into any chapter.</h2>
+        <p class="ref__sec-sub">Link the canonical CSS, paste the markup, fill in the photo and copy. Do not author the styles inline; do not duplicate the classes under a chapter-specific prefix.</p>
+      </div>
+    </div>
+
+    <div class="code"><span class="c">&lt;!-- 1. In your chapter HTML head --&gt;</span>
+<span class="k">&lt;link</span> <span class="k">rel</span>=<span class="s">"stylesheet"</span> <span class="k">href</span>=<span class="s">"colors_and_type.css"</span> <span class="k">/&gt;</span>
+<span class="k">&lt;link</span> <span class="k">rel</span>=<span class="s">"stylesheet"</span> <span class="k">href</span>=<span class="s">"components-canonical/Card.css"</span> <span class="k">/&gt;</span>
+
+<span class="c">&lt;!-- 2. Drop the card. Whole card is one tappable region. --&gt;</span>
+<span class="k">&lt;a</span> <span class="k">class</span>=<span class="s">"c-card"</span> <span class="k">href</span>=<span class="s">"/property/kalpa-kutir"</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="k">class</span>=<span class="s">"c-card__photo c-card__photo--4-5"</span><span class="k">&gt;</span>
+    <span class="k">&lt;img</span> <span class="k">src</span>=<span class="s">"/photos/kalpa-kutir.jpg"</span> <span class="k">alt</span>=<span class="s">""</span> <span class="k">/&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;div</span> <span class="k">class</span>=<span class="s">"c-card__body"</span><span class="k">&gt;</span>
+    <span class="k">&lt;div</span> <span class="k">class</span>=<span class="s">"c-card__head"</span><span class="k">&gt;</span>
+      <span class="k">&lt;div</span> <span class="k">class</span>=<span class="s">"c-card__glyph"</span><span class="k">&gt;</span>
+        <span class="k">&lt;img</span> <span class="k">src</span>=<span class="s">"/assets/glyph-kutir.svg"</span> <span class="k">alt</span>=<span class="s">""</span> <span class="k">/&gt;</span>
+      <span class="k">&lt;/div&gt;</span>
+      <span class="k">&lt;span</span> <span class="k">class</span>=<span class="s">"c-card__eyebrow"</span><span class="k">&gt;</span>EKAM · Kutir · Kalpa<span class="k">&lt;/span&gt;</span>
+      <span class="k">&lt;button</span> <span class="k">class</span>=<span class="s">"c-card__heart"</span> <span class="k">aria-label</span>=<span class="s">"Save"</span> <span class="k">aria-pressed</span>=<span class="s">"false"</span><span class="k">&gt;</span>
+        <span class="k">&lt;svg</span> <span class="k">viewBox</span>=<span class="s">"0 0 24 24"</span><span class="k">&gt;&lt;path</span> <span class="k">d</span>=<span class="s">"M12 21s-7-4.35-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 11c0 5.65-7 10-7 10z"</span><span class="k">/&gt;&lt;/svg&gt;</span>
+      <span class="k">&lt;/button&gt;</span>
+    <span class="k">&lt;/div&gt;</span>
+    <span class="k">&lt;h3</span> <span class="k">class</span>=<span class="s">"c-card__title"</span><span class="k">&gt;</span>A stone hut by the apple line.<span class="k">&lt;/h3&gt;</span>
+    <span class="k">&lt;p</span> <span class="k">class</span>=<span class="s">"c-card__copy"</span><span class="k">&gt;</span>Two adults. The orchard wakes you.<span class="k">&lt;/p&gt;</span>
+    <span class="k">&lt;div</span> <span class="k">class</span>=<span class="s">"c-card__cta-row"</span><span class="k">&gt;</span>View<span class="k">&lt;svg</span> <span class="k">viewBox</span>=<span class="s">"0 0 24 24"</span><span class="k">&gt;&lt;path</span> <span class="k">d</span>=<span class="s">"M5 12h14M13 6l6 6-6 6"</span><span class="k">/&gt;&lt;/svg&gt;&lt;/div&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+<span class="k">&lt;/a&gt;</span></div>
+  </section>
+
+  <!-- ─── 06 · MIGRATION ──────────────────────────── -->
+  <section class="ref__section">
+    <div class="ref__sec-head">
+      <div>
+        <div class="ref__sec-no">06<span class="ref__sec-no-dev">परिवर्तन · the move</span></div>
+      </div>
+      <div>
+        <h2 class="ref__sec-title">What each chapter replaces.</h2>
+        <p class="ref__sec-sub">A map of the existing chapter card classes to the canonical Card. When Phase 3 of the rebuild touches a chapter, this table is the work list.</p>
+      </div>
+    </div>
+
+    <div class="migration">
+      <h4>Cabin / property cards</h4>
+
+      <div class="migration__row">
+        <div class="migration__chapter">Home</div>
+        <div class="migration__before"><code>.trip-card</code> (wide 16:11)<br/><code>.rail-card</code> (4:5 rail)<br/><code>.saved-row</code> (row, 4:5 photo)</div>
+        <div class="migration__after">→ <code>.c-card.c-card--lg</code> + <code>.c-card__photo--16-11</code><br/>→ <code>.c-card</code><br/>→ <code>.c-card.c-card--row</code></div>
+      </div>
+
+      <div class="migration__row">
+        <div class="migration__chapter">Property</div>
+        <div class="migration__before"><code>.pdp-hero</code> (full-bleed)<br/><em>(carousel; not a card variant)</em></div>
+        <div class="migration__after">Hero stays bespoke. Use canonical Card for related properties strip <code>.c-card.c-card--sm</code>.</div>
+      </div>
+
+      <div class="migration__row">
+        <div class="migration__chapter">Circle (Saved)</div>
+        <div class="migration__before"><code>.saved-card</code><br/><code>.starter</code></div>
+        <div class="migration__after">→ <code>.c-card</code><br/>→ <code>.c-card.c-card--sm.c-card--unavailable</code></div>
+      </div>
+
+      <div class="migration__row">
+        <div class="migration__chapter">Onboarding</div>
+        <div class="migration__before"><code>.intent-card</code><br/><code>.season-card</code><br/><code>.col-strip</code></div>
+        <div class="migration__after">These are selection cards, not cabin cards. Keep them chapter-local for now; revisit in Phase 3.5.</div>
+      </div>
+
+      <div class="migration__row">
+        <div class="migration__chapter">Network</div>
+        <div class="migration__before"><code>.inv-poster</code></div>
+        <div class="migration__after">→ <code>.c-card.c-card--lg</code> with chapter-local override for the dark cream-on-forest variant.</div>
+      </div>
+
+      <div class="migration__row">
+        <div class="migration__chapter">Companion</div>
+        <div class="migration__before"><em>(in-stay; not card-heavy)</em></div>
+        <div class="migration__after">No direct migration. The kitchen tray and service rows are their own primitives — Phase 2.4 / 2.6.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+</body>
+</html>

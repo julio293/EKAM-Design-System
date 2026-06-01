@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EKAM — The Cabin Tablet</title>
+<link rel="stylesheet" href="../../colors_and_type.css" />
+<style>
+  html, body { background: #1a201a; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+
+  /* Tablet bezel */
+  .device {
+    width: 380px; height: 780px;
+    background: #1f1f1f;
+    border-radius: 56px;
+    padding: 14px;
+    position: relative;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.3);
+  }
+  .device::before {
+    content: ""; position: absolute;
+    left: 50%; top: 22px; transform: translateX(-50%);
+    width: 110px; height: 30px;
+    background: #0a0a0a;
+    border-radius: 999px;
+    z-index: 10;
+  }
+  .screen {
+    width: 100%; height: 100%;
+    background: var(--cream);
+    border-radius: 44px;
+    overflow: hidden;
+    position: relative;
+    display: flex; flex-direction: column;
+  }
+  .statusbar {
+    height: 52px; padding: 16px 30px 0;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-ui); font-size: 13px; font-weight: 500; color: var(--ink);
+    flex-shrink: 0;
+  }
+  .statusbar .ind { display: flex; gap: 5px; align-items: center; }
+
+  .content {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 100px;
+  }
+
+  /* Bottom nav */
+  .tabbar {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 84px;
+    background: var(--cream);
+    border-top: 1px solid var(--bone);
+    display: flex;
+    padding: 14px 0 30px;
+  }
+  .tab {
+    flex: 1; background: transparent; border: 0; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    font-family: var(--font-ui); font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--moss); font-weight: 500;
+    transition: color 180ms;
+  }
+  .tab.on { color: var(--bindu); }
+  .tab svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .tab .dev { font-family: var(--font-devanagari); font-size: 14px; color: var(--bindu); }
+  .tab:not(.on) .dev { color: var(--moss); }
+
+  /* ============ SCREENS ============ */
+
+  /* Welcome */
+  .welcome {
+    padding: 24px 24px 16px;
+    background: var(--forest);
+    color: var(--cream);
+    min-height: 220px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .welcome__dev { font-family: var(--font-devanagari); font-size: 22px; color: var(--bindu); letter-spacing: 2px; }
+  .welcome__title { font-family: var(--font-display); font-weight: 300; font-size: 32px; color: var(--cream); letter-spacing: 1px; line-height: 1.1; }
+  .welcome__sub { font-family: var(--font-editorial); font-style: italic; font-size: 15px; color: var(--sand); line-height: 1.5; }
+  .welcome__rule { width: 36px; height: 1px; background: var(--bindu); margin: 8px 0; }
+  .welcome__host {
+    margin-top: auto; padding-top: 16px; border-top: 1px solid rgba(236,228,211,0.18);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-ui); font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--moss-on-forest); font-weight: 500;
+  }
+  .welcome__host b { color: var(--cream); font-weight: 500; }
+
+  /* Section header */
+  .section-head {
+    padding: 22px 24px 8px;
+  }
+  .section-head .eyebrow {
+    font-family: var(--font-ui); font-size: 10px; letter-spacing: 3px; color: var(--bindu);
+    text-transform: uppercase; font-weight: 500; margin-bottom: 8px;
+  }
+  .section-head h2 {
+    font-family: var(--font-display); font-weight: 300; font-size: 24px; color: var(--forest);
+    letter-spacing: 0.5px; line-height: 1.15;
+  }
+
+  /* Today list */
+  .today-list { padding: 0 24px; }
+  .today-row {
+    display: grid; grid-template-columns: 80px 1fr;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--bone);
+    align-items: baseline;
+  }
+  .today-row:last-child { border-bottom: 0; }
+  .today-row .lbl {
+    font-family: var(--font-ui); font-size: 10px; letter-spacing: 2px;
+    color: var(--bindu); text-transform: uppercase; font-weight: 500;
+  }
+  .today-row .val {
+    font-family: var(--font-body); font-weight: 300; font-size: 13.5px; color: var(--ink);
+    line-height: 1.55;
+  }
+  .today-row .val b { color: var(--forest); font-weight: 500; }
+
+  /* Programs */
+  .programs { padding: 0 24px; }
+  .program-card {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--bone);
+  }
+  .program-card:last-child { border-bottom: 0; }
+  .program-card .top {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .program-card .name {
+    font-family: var(--font-display); font-size: 18px; color: var(--forest);
+    font-weight: 400; letter-spacing: 0.5px;
+  }
+  .program-card .price {
+    font-family: var(--font-ui); font-size: 11px; letter-spacing: 1px;
+    color: var(--bindu); font-weight: 500;
+  }
+  .program-card .meta {
+    font-family: var(--font-editorial); font-style: italic; font-size: 12.5px;
+    color: var(--moss); line-height: 1.5; margin-bottom: 12px;
+  }
+  .program-card .row {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .program-card .time {
+    font-family: var(--font-ui); font-size: 11px; color: var(--ink);
+    font-weight: 300; letter-spacing: 0.3px;
+  }
+  .program-card button {
+    padding: 7px 16px; border: 1px solid var(--bindu); border-radius: 999px;
+    background: transparent; font-family: var(--font-ui); font-size: 10px;
+    letter-spacing: 2px; color: var(--forest); text-transform: uppercase; font-weight: 500;
+    cursor: pointer; transition: all 180ms;
+  }
+  .program-card button:hover { color: var(--bindu); }
+  .program-card.booked button { background: var(--forest); color: var(--cream); border-color: var(--forest); }
+
+  /* Order */
+  .order { padding: 0 24px; }
+  .order-group { margin-bottom: 18px; }
+  .order-group .group-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin: 16px 0 8px;
+  }
+  .order-group .group-name {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 14px; color: var(--moss); letter-spacing: 0.5px;
+  }
+  .order-item {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 10px 0; border-bottom: 1px solid var(--bone);
+    cursor: pointer;
+  }
+  .order-item:last-child { border-bottom: 0; }
+  .order-item .item-name {
+    font-family: var(--font-body); font-weight: 300; font-size: 13.5px; color: var(--ink);
+  }
+  .order-item .item-desc {
+    font-family: var(--font-editorial); font-style: italic; font-size: 11.5px; color: var(--moss);
+    margin-top: 2px;
+  }
+  .order-item .item-price {
+    font-family: var(--font-ui); font-size: 11px; letter-spacing: 0.5px;
+    color: var(--ink); font-weight: 500;
+  }
+  .order-item.added .item-price { color: var(--bindu); }
+  .order-item.added .item-price::before { content: "+ "; }
+
+  /* Cart button */
+  .cart {
+    margin: 18px 24px 0;
+    padding: 14px 18px;
+    background: var(--bindu);
+    color: var(--cream);
+    border-radius: 999px;
+    border: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-ui); font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    width: calc(100% - 48px);
+  }
+  .cart:disabled { background: var(--mist); color: var(--moss); cursor: default; }
+
+  /* Toast */
+  .toast {
+    position: absolute; left: 24px; right: 24px; bottom: 100px;
+    padding: 14px 18px;
+    background: var(--ink); color: var(--cream);
+    font-family: var(--font-editorial); font-style: italic; font-size: 13px;
+    line-height: 1.5;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 320ms, transform 320ms;
+    pointer-events: none;
+    z-index: 20;
+  }
+  .toast.on { opacity: 1; transform: translateY(0); }
+
+  /* Settings */
+  .settings { padding: 0 24px; }
+  .setting-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 0; border-bottom: 1px solid var(--bone);
+  }
+  .setting-row:last-child { border-bottom: 0; }
+  .setting-row .lbl {
+    font-family: var(--font-body); font-weight: 300; font-size: 14px; color: var(--ink);
+  }
+  .setting-row .val {
+    font-family: var(--font-ui); font-size: 11px; color: var(--moss);
+    letter-spacing: 0.3px; font-weight: 300;
+  }
+  .toggle {
+    width: 36px; height: 20px; background: var(--mist); border-radius: 999px;
+    position: relative; cursor: pointer; transition: background 180ms;
+  }
+  .toggle::after {
+    content: ""; position: absolute;
+    width: 16px; height: 16px;
+    background: var(--cream); border-radius: 50%;
+    top: 2px; left: 2px;
+    transition: left 180ms;
+  }
+  .toggle.on { background: var(--forest); }
+  .toggle.on::after { left: 18px; }
+</style>
+</head>
+<body>
+
+<div class="device">
+  <div class="screen" id="root"></div>
+</div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="components/Screens.jsx"></script>
+<script type="text/babel" src="components/App.jsx"></script>
+
+</body>
+</html>

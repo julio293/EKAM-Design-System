@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" role="img" aria-label="EKAM">
+  <text x="60" y="160" font-family="Cormorant Garamond, serif" font-weight="400" font-size="150" fill="#2B4630" letter-spacing="10">E</text>
+  <circle cx="200" cy="107" r="10" fill="#B4613A"></circle>
+  <text x="240" y="160" font-family="Cormorant Garamond, serif" font-weight="400" font-size="150" fill="#2B4630" letter-spacing="10">KAM</text>
+</svg>
