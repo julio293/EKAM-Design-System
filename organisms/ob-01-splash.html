@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EKAM · Organism 01 · Splash Screen</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=Raleway:wght@300;400;500&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+
+  /* ─────────────────────────────────────────────────
+     PAGE SHELL
+  ───────────────────────────────────────────────── */
+  html, body { background: var(--cream); min-height: 100vh; }
+  body { padding: 64px 56px 96px; font-family: var(--font-body); font-weight: 300; }
+
+  .page {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex; flex-direction: column;
+    gap: 80px;
+  }
+
+  /* ─── Page header ─── */
+  .page__head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 48px; align-items: flex-end;
+    padding-bottom: 28px;
+    border-bottom: var(--hairline);
+  }
+  .page__brand { display: flex; align-items: center; gap: 14px; }
+  .page__brand-wm {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: 32px; color: var(--forest);
+    letter-spacing: 6px; display: inline-block; line-height: 1;
+  }
+  .page__brand-wm .dot {
+    display: inline-block;
+    width: 0.12em; height: 0.12em;
+    border-radius: 50%; background: var(--bindu);
+    vertical-align: 0.30em;
+  }
+  .page__brand-dev {
+    font-family: var(--font-devanagari);
+    font-size: 18px; color: var(--bindu); letter-spacing: 1.5px;
+  }
+  .page__title {
+    font-family: var(--font-display); font-weight: 300;
+    font-size: 48px; color: var(--forest);
+    letter-spacing: 0.5px; line-height: 1.05;
+    margin-top: 12px; max-width: 760px;
+  }
+  .page__lede {
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 18px; color: var(--moss);
+    line-height: 1.55; margin-top: 14px; max-width: 640px;
+  }
+  .page__meta {
+    display: flex; flex-direction: column; gap: 6px;
+    text-align: right;
+    font-family: var(--font-ui); font-size: 10px;
+    letter-spacing: 2.5px; color: var(--moss);
+    text-transform: uppercase; font-weight: 500;
+  }
+  .page__meta b { color: var(--bindu); font-weight: 500; }
+
+  /* ─────────────────────────────────────────────────
+     STAGE — phone in centre, annotations left & right
+  ───────────────────────────────────────────────── */
+  .stage {
+    display: grid;
+    grid-template-columns: 1fr 380px 1fr;
+    gap: 56px; align-items: start;
+  }
+  .stage__notes-left,
+  .stage__notes-right {
+    padding-top: 80px;
+    display: flex; flex-direction: column; gap: 28px;
+  }
+  .stage__step {
+    font-family: var(--font-ui); font-size: 10px;
+    letter-spacing: 2.5px; color: var(--bindu);
+    text-transform: uppercase; font-weight: 500;
+  }
+  .stage__h {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: 26px; color: var(--forest);
+    letter-spacing: 0.3px; line-height: 1.2;
+    margin-top: 4px;
+  }
+  .stage__sub {
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 14px; color: var(--moss);
+    line-height: 1.55; margin-top: -8px;
+  }
+  .stage__why-head {
+    font-family: var(--font-ui); font-size: 10px;
+    letter-spacing: 2.5px; color: var(--moss);
+    text-transform: uppercase; font-weight: 500;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--bone);
+  }
+  .stage__why-body {
+    font-family: var(--font-body); font-weight: 300;
+    font-size: 13.5px; color: var(--ink);
+    line-height: 1.65;
+  }
+  .stage__why-body em {
+    font-family: var(--font-editorial); font-style: italic;
+    color: var(--bindu); font-weight: 400;
+  }
+  .stage__why-body strong { color: var(--forest); font-weight: 500; }
+
+  /* ─── Annotation table ─── */
+  .annot { display: flex; flex-direction: column; border: 1px solid var(--bone); }
+  .annot__row {
+    display: grid; grid-template-columns: 90px 1fr;
+    border-bottom: 1px solid var(--bone);
+  }
+  .annot__row:last-child { border-bottom: 0; }
+  .annot__lbl {
+    padding: 9px 12px;
+    background: var(--sand);
+    font-family: var(--font-ui); font-size: 9px;
+    letter-spacing: 1.8px; color: var(--bindu);
+    text-transform: uppercase; font-weight: 500;
+    border-right: 1px solid var(--bone);
+    line-height: 1.4;
+  }
+  .annot__val {
+    padding: 9px 12px;
+    font-family: var(--font-body); font-size: 12.5px;
+    color: var(--ink); line-height: 1.5; font-weight: 300;
+  }
+  .annot__val em {
+    font-family: var(--font-editorial); font-style: italic;
+    color: var(--moss);
+  }
+  .annot__val code {
+    font-family: 'Courier New', monospace;
+    font-size: 11px; color: var(--forest);
+    background: var(--sand); padding: 1px 4px;
+  }
+
+  /* ─────────────────────────────────────────────────
+     PHONE FRAME
+  ───────────────────────────────────────────────── */
+  .phone-wrap {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 18px;
+    position: sticky; top: 24px;
+  }
+  .phone {
+    width: 380px; height: 800px;
+    background: #1a1a1a;
+    border-radius: 54px;
+    padding: 12px;
+    position: relative;
+    box-shadow:
+      0 40px 80px rgba(20,32,26,0.28),
+      0 12px 28px rgba(20,32,26,0.16),
+      inset 0 0 0 1.5px rgba(255,255,255,0.04);
+  }
+  .phone::before {
+    content: "";
+    position: absolute;
+    left: 50%; top: 22px;
+    transform: translateX(-50%);
+    width: 116px; height: 32px;
+    background: #0a0a0a;
+    border-radius: 999px;
+    z-index: 50;
+  }
+  .phone__screen {
+    width: 100%; height: 100%;
+    background: var(--cream);
+    border-radius: 42px;
+    overflow: hidden;
+    position: relative;
+    display: flex; flex-direction: column;
+  }
+  .phone__caption {
+    font-family: var(--font-ui); font-size: 9.5px;
+    letter-spacing: 2.5px; color: var(--moss);
+    text-transform: uppercase; font-weight: 500;
+    text-align: center;
+  }
+
+  /* ─────────────────────────────────────────────────
+     STATUS BAR
+  ───────────────────────────────────────────────── */
+  .sb {
+    height: 54px; padding: 18px 32px 0;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-ui); font-size: 13px; font-weight: 600;
+    flex-shrink: 0; z-index: 5;
+  }
+  .sb__ind { display: flex; gap: 6px; align-items: center; }
+  .sb.on-dark { color: var(--cream); }
+
+  /* ─────────────────────────────────────────────────
+     ORGANISM 01 · SPLASH SCREEN
+     ─ Dark surface, full-bleed ambient ridge
+     ─ Brand reveal: Devanagari → Wordmark → Rule → Tagline
+     ─ No buttons. Whole screen is the tap target.
+  ───────────────────────────────────────────────── */
+  .splash {
+    position: absolute; inset: 0;
+    color: var(--cream);
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    padding: 80px 32px 48px;
+    border-radius: 42px;
+    overflow: hidden;
+    /* Dark forest ground */
+    background-color: #14201A;
+    /* Ambient ridge SVG — mountain silhouette bottom-anchored */
+    background-image: url('../assets/ambient-ridge.svg');
+    background-size: cover;
+    background-position: bottom center;
+    background-repeat: no-repeat;
+  }
+  /* Bindu warmth overlay — 5% clay tint keeps it from reading cold */
+  .splash::after {
+    content: ""; position: absolute; inset: 0;
+    pointer-events: none;
+    background: rgba(214, 135, 99, 0.05);
+  }
+  .splash > * { position: relative; z-index: 1; }
+
+  /* Header strip: Sanskrit on left, "The Singular" on right */
+  .splash__hdr {
+    font-family: var(--font-ui); font-size: 9.5px;
+    letter-spacing: 3px; color: var(--moss-on-forest);
+    text-transform: uppercase; font-weight: 500;
+    display: flex; justify-content: space-between;
+  }
+
+  /* Central wordmark block — animates in on mount */
+  .splash__mid {
+    text-align: center;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 20px;
+    animation: splash-arrive 1400ms var(--ease-arrive) both;
+  }
+  @keyframes splash-arrive {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Devanagari — एकम् in bindu clay above the wordmark */
+  .splash__dev {
+    font-family: var(--font-devanagari);
+    font-size: 28px; color: var(--bindu); letter-spacing: 2.5px;
+  }
+
+  /* EKAM wordmark with inline bindu dot between E and KAM */
+  .splash__wm {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: 64px; color: var(--cream);
+    letter-spacing: 10px;
+    display: inline-flex; align-items: center;
+  }
+  .splash__wm .b {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%; background: var(--bindu);
+    margin: 0 6px 12px 6px; /* 12px bottom aligns dot to cap-midline */
+    flex-shrink: 0;
+  }
+
+  /* Bindu hairline rule — 36px, clay, centres under wordmark */
+  .splash__rule { width: 36px; height: 1px; background: var(--bindu); }
+
+  /* Tagline — Cormorant italic, max 240px, sand not cream */
+  .splash__tag {
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 17px; color: var(--sand);
+    line-height: 1.4; max-width: 240px;
+  }
+
+  /* Footer micro-label — the only affordance on screen */
+  .splash__foot {
+    font-family: var(--font-ui); font-size: 9.5px;
+    letter-spacing: 3px; color: var(--moss-on-forest);
+    text-transform: uppercase; font-weight: 500;
+    text-align: center; opacity: 0.7;
+    cursor: pointer;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ─── Page header ─────────────────────────────── -->
+  <header class="page__head">
+    <div>
+      <div class="page__brand">
+        <span class="page__brand-wm">E<span class="dot"></span>KAM</span>
+        <span class="page__brand-dev">एकम्</span>
+      </div>
+      <div class="page__title">Onboarding — Organism 01</div>
+      <div class="page__lede">Splash Screen · The cinematic brand reveal. First frame on cold launch. Dark surface, ambient ridge, wordmark, tagline.</div>
+    </div>
+    <div class="page__meta">
+      <span>Chapter <b>OB-01</b></span>
+      <span>Surface <b>Dark · Forest Deep</b></span>
+      <span>Interaction <b>Tap anywhere</b></span>
+      <span>Screen <b>0 of 7</b></span>
+      <span>Next <b>OB-02 Welcome Letter</b></span>
+    </div>
+  </header>
+
+  <!-- ─── Stage ───────────────────────────────────── -->
+  <div class="stage">
+
+    <!-- Left column: purpose + molecule inventory -->
+    <div class="stage__notes-left">
+
+      <div>
+        <div class="stage__step">Screen 0 of 7</div>
+        <div class="stage__h">Splash Screen</div>
+        <div class="stage__sub">The first thing the user sees. Dark, still, alive.</div>
+      </div>
+
+      <div>
+        <div class="stage__why-head">Purpose</div>
+        <div class="stage__why-body">
+          Not a loading screen. A land acknowledgement. <em>You are entering EKAM territory.</em> The ambient ridge sets the visual world. The wordmark confirms the product. The tagline announces the intent. Nothing is individually clickable — the whole screen is the tap target.
+        </div>
+      </div>
+
+      <div>
+        <div class="stage__why-head">Molecule inventory</div>
+        <div class="annot">
+          <div class="annot__row">
+            <div class="annot__lbl">Atom</div>
+            <div class="annot__val">Status bar — dark variant, <em>cream text</em></div>
+          </div>
+          <div class="annot__row">
+            <div class="annot__lbl">Atom</div>
+            <div class="annot__val">Ambient ridge background <em>(ambient-ridge.svg)</em></div>
+          </div>
+          <div class="annot__row">
+            <div class="annot__lbl">Atom</div>
+            <div class="annot__val">Bindu clay overlay — <em>rgba(214,135,99,0.05)</em></div>
+          </div>
+          <div class="annot__row">
+            <div class="annot__lbl">Molecule</div>
+            <div class="annot__val">Header strip — <em>एकम् · The Singular</em>, moss-on-forest, 9.5px</div>
+          </div>
+          <div class="annot__row">
+            <div class="annot__lbl">Molecule</div>
+            <div class="annot__val">Devanagari mark — <em>एकम्</em>, bindu clay, 28px Tiro</div>
+          </div>
+          <div class="annot__row">
+            <div class="annot__lbl">Molecule</div>
+            <div class="annot__val">EKAM wordmark — Cormorant 400 · 64px · ls 10px · cream · bindu dot at cap-midline</div>
+          </div>
+          <div class="annot__row">
+            <div class="annot__lbl">Atom</div>
+            <div class="annot__val">Hairline rule — 36×1px, var(--bindu)</div>
+          </div>
+          <div class="annot__row">
+            <div class="annot__lbl">Molecule</div>
+            <div class="annot__val">Tagline — Cormorant italic 300 · 17px · var(--sand)</div>
+          </div>
+          <div class="annot__row">
+            <div class="annot__lbl">Atom</div>
+            <div class="annot__val">"Touch to begin" — Inter 500 · 9.5px · ls 3px · opacity 0.7</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Centre: phone frame with rendered organism -->
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone__screen">
+
+          <!--
+            ════════════════════════════════════════
+            ORGANISM 01 — SPLASH SCREEN
+            screens.jsx → <Splash onContinue={...} />
+            State: none (pre-onboarding)
+            ════════════════════════════════════════
+          -->
+          <div class="splash">
+
+            <!-- Header strip -->
+            <div class="splash__hdr">
+              <span>एकम्</span>
+              <span>The Singular</span>
+            </div>
+
+            <!-- Wordmark block (animates in) -->
+            <div class="splash__mid">
+              <div class="splash__dev">एकम्</div>
+              <div class="splash__wm">E<span class="b"></span>KAM</div>
+              <div class="splash__rule"></div>
+              <p class="splash__tag">Hospitality, disguised as solitude.</p>
+            </div>
+
+            <!-- Tap affordance -->
+            <div class="splash__foot">Touch to begin</div>
+
+          </div>
+          <!-- /Organism 01 -->
+
+        </div>
+      </div>
+      <div class="phone__caption">OB-01 · Splash · Dark surface · Screen 0 of 7</div>
+    </div>
+
+    <!-- Right column: tokens + behaviour + motion -->
+    <div class="stage__notes-right">
+
+      <div>
+        <div class="stage__why-head">Token usage</div>
+        <div class="annot">
+          <div class="annot__row">
+            <div class="annot__lbl">Background</div>
+            <div class="annot__val"><code>#14201A</code> — forest-deep</div>
+          </div>
+          <div class="annot__row">
+            <div class="annot__lbl">Wordmark</div>
+            <div class="annot__val"><code>var(--cream)</code> · Cormorant 400 · 64px · ls 10px</div>
+          </div>
+          <div class="annot__row">
+            <div class="annot__lbl">Dot</div>
+            <div class="annot__val"><code>var(--bindu)</code> · 8px circle · bottom +12px</div>
+          </div>
+          <div class="annot__row">
+            <div class="annot__lbl">Devanagari</div>
+            <div class="annot__val"><code>var(--bindu)</code> · Tiro Devanagari · 28px · ls 2.5px</div>
+          </div>
+          <div class="annot__row">
+            <div class="annot__lbl">Tagline</div>
+            <div class="annot__val"><code>var(--sand)</code> · Cormorant italic 300 · 17px <em>(not cream — slightly warmer)</em></div>
+          </div>
+          <div class="annot__row">
+            <div class="annot__lbl">Header/Footer</div>
+            <div class="annot__val"><code>var(--moss-on-forest)</code> · Inter 500 · 9.5px · ls 3px · uppercase</div>
+          </div>
+          <div class="annot__row">
+            <div class="annot__lbl">Rule</div>
+            <div class="annot__val">36px × 1px · <code>var(--bindu)</code></div>
+          </div>
+          <div class="annot__row">
+            <div class="annot__lbl">Overlay</div>
+            <div class="annot__val"><code>rgba(214,135,99,0.05)</code> — bindu warmth glaze</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="stage__why-head">Motion</div>
+        <div class="stage__why-body">
+          <strong>splash-arrive</strong>: 1400ms <em>ease-arrive</em>. The wordmark block fades in from 12px below. Header and footer are static. The ambient ridge SVG is static. <em>No looping or ambient animation on the splash screen.</em> Reduced-motion: duration collapses to 0.001ms, no translateY.
+        </div>
+      </div>
+
+      <div>
+        <div class="stage__why-head">Behaviour &amp; routing</div>
+        <div class="stage__why-body">
+          The entire dark surface is the tap target. No individual buttons are rendered. <em>"Touch to begin"</em> is the only textual affordance — it does not look like a button. Tapping anywhere advances to <strong>OB-02 Welcome Letter</strong>.
+          <br><br>
+          Returning users bypass splash entirely. It only runs on the first onboarding pass. Never shown twice to the same account.
+        </div>
+      </div>
+
+      <div>
+        <div class="stage__why-head">Brand rule check</div>
+        <div class="stage__why-body">
+          ✓ No rounded corners (border-radius 42px belongs to the phone frame, not this organism)<br>
+          ✓ No exclamation marks in copy<br>
+          ✓ Bindu dot at cap-midline, never on baseline<br>
+          ✓ Sanskrit as a mark, not a label<br>
+          ✓ 60/30/8/2 colour ratio respected on dark surface<br>
+          ✓ No gradients on text<br>
+          ✓ Hard-edge doctrine — no internal rounded elements
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <!-- /Stage -->
+
+</div>
+<!-- /Page -->
+
+</body>
+</html>

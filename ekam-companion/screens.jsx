@@ -44,8 +44,12 @@ function CompTabs({ active }) {
   );
 }
 
-// Ambient ridge SVG — the only motion in the app, very slow
+// Ambient ridge SVG — the only motion in the app, very slow.
+// The window glow is the single sanctioned animation (6s, no scale, no transform).
+// Respects prefers-reduced-motion: the glow sits still when reduced motion is requested.
 function AmbientRidge() {
+  const prefersReduced = typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   return (
     <svg className="comp-ridge" viewBox="0 0 380 220" preserveAspectRatio="none">
       <defs>
@@ -60,12 +64,12 @@ function AmbientRidge() {
       <path d="M0 140 Q 60 110, 120 130 T 240 120 T 380 130 L 380 220 L 0 220 Z" fill="#1a2e22" opacity="0.6" />
       <path d="M0 165 Q 80 145, 160 160 T 320 155 L 380 162 L 380 220 L 0 220 Z" fill="#243c2c" opacity="0.8" />
       <path d="M0 188 Q 60 178, 130 188 T 260 186 T 380 192 L 380 220 L 0 220 Z" fill="#2b4630" />
-      {/* Window glow — like the cabin window */}
+      {/* Window glow — cabin window light, still or slow-breathing */}
       <circle cx="290" cy="178" r="2.5" fill="#d68763" opacity="0.85">
-        <animate attributeName="opacity" values="0.6;0.95;0.6" dur="6s" repeatCount="indefinite" />
+        {!prefersReduced && <animate attributeName="opacity" values="0.6;0.95;0.6" dur="6s" repeatCount="indefinite" />}
       </circle>
       <circle cx="290" cy="178" r="12" fill="#d68763" opacity="0.15">
-        <animate attributeName="opacity" values="0.08;0.22;0.08" dur="6s" repeatCount="indefinite" />
+        {!prefersReduced && <animate attributeName="opacity" values="0.08;0.22;0.08" dur="6s" repeatCount="indefinite" />}
       </circle>
     </svg>
   );

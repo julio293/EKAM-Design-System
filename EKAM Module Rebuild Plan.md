@@ -358,7 +358,7 @@ Update this table at the end of every session. The next session reads this table
 | Phase 3.1 — Home | Not started | 0 | — | |
 | Phase 3.2 — Property | Not started | 0 | — | |
 | Phase 3.3 — Circle | Not started | 0 | — | |
-| Phase 3.4 — Companion | Not started | 0 | — | |
+| Phase 3.4 — Companion | **In progress** | 1 | 2026-06-02 | C1.2–C1.5 fixed; C1.1 (phone-bezel extraction) deferred to Phase 0 |
 | Phase 3.5 — Onboarding | Not started | 0 | — | |
 | Phase 3.6 — Profile | Not started | 0 | — | |
 | Phase 3.7 — Network | Not started | 0 | — | |

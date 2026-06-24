@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "skills": {
+    "academic-researcher": {
+      "source": "shubhamsaboo/awesome-llm-apps",
+      "sourceType": "github",
+      "skillPath": "awesome_agent_skills/academic-researcher/SKILL.md",
+      "computedHash": "16dd0121beefcbb1dba0652f0a37fd5511380c8be7ae69270222913483b00bbc"
+    },
+    "deep-research": {
+      "source": "199-biotechnologies/claude-deep-research-skill",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "685efecf2091dccf219506641671acc3c0c31ecb83f54b8473b9d399ba0337b8"
+    },
+    "elevenlabs-music-generation": {
+      "source": "doany-ai/skills",
+      "sourceType": "github",
+      "skillPath": "elevenlabs-music-generation/SKILL.md",
+      "computedHash": "7983dac96c64cedcf6ab4b7dae16a198393991e2f5ce9c0f01b5c3deb785931b"
+    }
+  }
+}
