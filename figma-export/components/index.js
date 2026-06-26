@@ -18,6 +18,7 @@ export { default as Stepper } from './Stepper.jsx';
 export { default as TopNav } from './TopNav.jsx';
 export { default as AppSectionHeader } from './AppSectionHeader.jsx';
 export { default as HeaderCompanion } from './HeaderCompanion.jsx';
+export { default as TabBar, NavIcon, TAB_BAR_ITEMS } from './TabBar.jsx';
 export { default as ScoreCard } from './ScoreCard.jsx';
 export { default as TierCard } from './TierCard.jsx';
 export { default as NamingStat } from './NamingStat.jsx';
