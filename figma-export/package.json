@@ -1,0 +1,26 @@
+{
+  "name": "@ekam/design-system",
+  "version": "0.1.0",
+  "private": true,
+  "description": "EKAM Design System — React components exported from Figma (inline-styled, token-driven).",
+  "type": "module",
+  "module": "dist/index.es.js",
+  "main": "dist/index.es.js",
+  "exports": {
+    ".": "./dist/index.es.js"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.17",
+    "esbuild": "^0.24.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

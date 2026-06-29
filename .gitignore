@@ -3,3 +3,11 @@ Thumbs.db
 *.log
 node_modules/
 .env
+.ds-sync/
+ds-bundle/
+.design-sync/.cache/
+.design-sync/learnings/
+.design-sync/node_modules
+figma-export/node_modules
+figma-export/dist/
+figma-export/package-lock.json

@@ -81,7 +81,10 @@ export default function Slider({
   const [focus, setFocus] = useState(false);
   const [hover, setHover] = useState(false);
   const reactId = useId();
-  const inputId = `ekam-slider-${reactId}`;
+  // useId() contains colons (":r0:") — strip to non-word chars so the scoped
+  // <style> selector below is valid (an unescaped ":" silently kills the rule,
+  // which is why the native blue track/thumb used to leak through).
+  const inputId = `ekam-slider-${reactId.replace(/[^a-zA-Z0-9_-]/g, '')}`;
 
   const pct = ((current - min) / (max - min)) * 100;
   const clampedPct = Math.max(0, Math.min(100, pct));
@@ -95,23 +98,18 @@ export default function Slider({
   const fill = disabled ? palette.mist : palette.bindu;
   const ring = disabled ? palette.mist : hover || focus ? palette.binduDeep : palette.bindu;
 
-  // ::-webkit-slider-thumb can't be set inline — scope it per instance.
+  // The native range is kept ONLY for interaction (drag + keyboard + a11y).
+  // Every native part is made fully transparent so it never paints its own
+  // track/thumb (browsers default these to accent-color, which would leak a
+  // green thumb / dark track). The visible rail, fill and thumb are real divs.
   const thumbCss = `
-    #${inputId}{ -webkit-appearance:none; appearance:none; background:transparent; }
+    #${inputId}{ -webkit-appearance:none; appearance:none; width:100%; height:${THUMB}px; margin:0; background:transparent; cursor:${disabled ? 'not-allowed' : 'pointer'}; }
     #${inputId}:focus{ outline:none; }
-    #${inputId}::-webkit-slider-thumb{
-      -webkit-appearance:none; appearance:none;
-      width:${THUMB}px; height:${THUMB}px; border-radius:50%;
-      background:#fff; border:2px solid ${ring}; box-shadow:${disabled ? 'none' : SHADOW_LG};
-      cursor:${disabled ? 'not-allowed' : 'pointer'};
-    }
-    #${inputId}::-moz-range-thumb{
-      width:${THUMB}px; height:${THUMB}px; border-radius:50%;
-      background:#fff; border:2px solid ${ring}; box-shadow:${disabled ? 'none' : SHADOW_LG};
-      cursor:${disabled ? 'not-allowed' : 'pointer'};
-    }
-    #${inputId}:focus-visible::-webkit-slider-thumb{ box-shadow:0 0 0 3px #599CDB66; }
-    #${inputId}:focus-visible::-moz-range-thumb{ box-shadow:0 0 0 3px #599CDB66; }
+    #${inputId}::-webkit-slider-runnable-track{ -webkit-appearance:none; appearance:none; background:transparent; border:none; height:${THUMB}px; }
+    #${inputId}::-moz-range-track{ background:transparent; border:none; height:${THUMB}px; }
+    #${inputId}::-moz-range-progress{ background:transparent; }
+    #${inputId}::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none; width:${THUMB}px; height:${THUMB}px; border-radius:50%; background:transparent; border:none; box-shadow:none; cursor:${disabled ? 'not-allowed' : 'pointer'}; }
+    #${inputId}::-moz-range-thumb{ width:${THUMB}px; height:${THUMB}px; border-radius:50%; background:transparent; border:none; box-shadow:none; cursor:${disabled ? 'not-allowed' : 'pointer'}; }
   `;
 
   return (
@@ -129,7 +127,26 @@ export default function Slider({
         <div style={{ position: 'absolute', left: 0, right: 0, height: 2, background: palette.bone, overflow: 'hidden' }}>
           <div style={{ width: `${clampedPct}%`, height: '100%', background: fill }} />
         </div>
-        {/* interactive + accessible native range, draws the thumb */}
+        {/* visual thumb — white disc with bindu ring (kept inside the track via translateX) */}
+        <div
+          aria-hidden
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: `${clampedPct}%`,
+            transform: `translate(-${clampedPct}%, -50%)`,
+            width: THUMB,
+            height: THUMB,
+            borderRadius: '50%',
+            background: '#fff',
+            border: `2px solid ${ring}`,
+            boxShadow: focus && !disabled ? '0 0 0 3px #599CDB66' : disabled ? 'none' : SHADOW_LG,
+            boxSizing: 'border-box',
+            pointerEvents: 'none',
+            transition: 'border-color 120ms ease',
+          }}
+        />
+        {/* interactive + accessible native range, made fully transparent (see thumbCss) */}
         <input
           id={inputId}
           type="range"
@@ -141,7 +158,7 @@ export default function Slider({
           onChange={(e) => commit(Number(e.target.value))}
           onFocus={() => setFocus(true)}
           onBlur={() => setFocus(false)}
-          style={{ position: 'relative', width: '100%', margin: 0, height: THUMB, cursor: disabled ? 'not-allowed' : 'pointer' }}
+          style={{ position: 'absolute', left: 0, right: 0, width: '100%', margin: 0, height: THUMB, cursor: disabled ? 'not-allowed' : 'pointer', zIndex: 2 }}
           {...rest}
         />
       </div>
