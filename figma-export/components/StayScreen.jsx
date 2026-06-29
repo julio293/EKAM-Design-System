@@ -1,5 +1,6 @@
 import React from 'react';
 import { palette } from '../tokens/tokens.js';
+import cabinPhoto from '../assets/cabinPhoto.js';
 import TopNav from './TopNav.jsx';
 import AppSectionHeader from './AppSectionHeader.jsx';
 import Card from './Card.jsx';
@@ -35,6 +36,7 @@ export default function StayScreen({ onBack, style }) {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 28, padding: '20px 20px 28px' }}>
         {/* cabin hero */}
         <Card
+          image={cabinPhoto}
           eyebrow="EKAM · CABIN"
           title="Binsar."
           subtitle="Kumaon · 2,400 m"

@@ -1,5 +1,6 @@
 import React from 'react';
 import { palette } from '../tokens/tokens.js';
+import cabinPhoto from '../assets/cabinPhoto.js';
 import HeaderCompanion from './HeaderCompanion.jsx';
 import AppSectionHeader from './AppSectionHeader.jsx';
 import LetterCard from './LetterCard.jsx';
