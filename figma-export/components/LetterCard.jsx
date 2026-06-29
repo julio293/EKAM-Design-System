@@ -1,49 +1,33 @@
 import React from 'react';
 import { palette, typography } from '../tokens/tokens.js';
-import { CARD_BORDER } from './Card.jsx';
 
 /**
- * EKAM Letter Card — exported from Figma "Card" Letter variants (node 142:28).
+ * EKAM Letter Card — a sand note block with a 2px bindu left rule, for letters,
+ * hints, "coming up" notes and smart recommendations. There is NO outer card or
+ * box — it is the note block itself.
  *
- * Sand note block with a 2px bindu left rule, used for letters, hints and smart
- * recommendations. Author/source signed in the eyebrow. Variants:
- *   Letter                    → note block + outbox description below
- *   Letter-without-text       → note block only (omit `note`)
- *   Letter-without-text-small → shorter block (set `blockHeight`, e.g. 96)
+ * Content: an eyebrow (subtitle), an optional upright title, and an italic line
+ * (quote/detail). An optional outbox `note` renders in italic below the block.
  *
- * Tokens: surface/sand #F4EDE1 · accent/bindu (rule + eyebrow) · text/ink (quote)
- *   · text/moss (outbox). editorial/sm — Cormorant Italic 16/24.
+ * Tokens: surface/sand #F4EDE1 (fill) · accent/bindu (rule + eyebrow) · text/ink
+ *   (title / quote) · text/moss (detail + outbox). display Cormorant SemiBold,
+ *   editorial/sm Cormorant Italic, ui/label Inter Medium 11/+2.5.
  */
 
 const EDITORIAL_FONT = "'Cormorant Garamond', 'Georgia', serif";
 
 export default function LetterCard({
   subtitle = '— FROM THE CABIN',
+  title,
   quote,
-  note, // outbox description below the block; omit for "without-text"
-  blockHeight = 140,
+  note, // optional outbox line below the block
+  blockHeight,
   style,
   ...rest
 }) {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        width: 340,
-        maxWidth: '100%',
-        background: '#FFFFFF',
-        border: `1px solid ${CARD_BORDER}`,
-        borderRadius: 8,
-        overflow: 'hidden',
-        padding: 24,
-        boxSizing: 'border-box',
-        ...style,
-      }}
-      {...rest}
-    >
-      {/* Note block: sand fill, clay left rule */}
+    <div style={{ width: '100%', boxSizing: 'border-box', ...style }} {...rest}>
+      {/* sand note block with clay left rule — no surrounding card */}
       <div
         style={{
           display: 'flex',
@@ -51,30 +35,25 @@ export default function LetterCard({
           width: '100%',
           minHeight: blockHeight,
           background: palette.sand,
-          borderRadius: 4,
+          borderRadius: 8,
           overflow: 'hidden',
+          boxSizing: 'border-box',
         }}
       >
-        <div style={{ width: 2, background: palette.bindu, flexShrink: 0 }} />
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: 12, flex: '1 1 0', minWidth: 0 }}>
+        <div style={{ width: 3, background: palette.bindu, flexShrink: 0 }} />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: '20px 24px', flex: '1 1 0', minWidth: 0 }}>
           {subtitle && (
-            <p
-              style={{
-                fontFamily: typography.fontFamily,
-                fontWeight: 500,
-                fontSize: 11,
-                lineHeight: '13.5px',
-                letterSpacing: '2.5px',
-                textTransform: 'uppercase',
-                color: palette.bindu,
-                margin: 0,
-              }}
-            >
+            <p style={{ margin: 0, fontFamily: typography.fontFamily, fontWeight: 500, fontSize: 11, lineHeight: '13.5px', letterSpacing: '2.5px', textTransform: 'uppercase', color: palette.bindu }}>
               {subtitle}
             </p>
           )}
+          {title && (
+            <p style={{ margin: 0, fontFamily: EDITORIAL_FONT, fontWeight: 600, fontSize: 26, lineHeight: '30px', letterSpacing: '0.3px', color: palette.ink }}>
+              {title}
+            </p>
+          )}
           {quote && (
-            <p style={{ fontFamily: EDITORIAL_FONT, fontStyle: 'italic', fontSize: 16, lineHeight: '24px', color: palette.ink, margin: 0 }}>
+            <p style={{ margin: 0, fontFamily: EDITORIAL_FONT, fontStyle: 'italic', fontSize: 16, lineHeight: '24px', color: title ? palette.moss : palette.ink }}>
               {quote}
             </p>
           )}
@@ -82,12 +61,9 @@ export default function LetterCard({
       </div>
 
       {note && (
-        <>
-          <div style={{ height: 16, flexShrink: 0 }} />
-          <p style={{ fontFamily: EDITORIAL_FONT, fontStyle: 'italic', fontSize: 16, lineHeight: '24px', color: palette.moss, margin: 0, width: '100%' }}>
-            {note}
-          </p>
-        </>
+        <p style={{ margin: '16px 0 0', fontFamily: EDITORIAL_FONT, fontStyle: 'italic', fontSize: 16, lineHeight: '24px', color: palette.moss }}>
+          {note}
+        </p>
       )}
     </div>
   );

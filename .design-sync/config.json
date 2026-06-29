@@ -36,7 +36,10 @@
     "Tabs": "components/Tabs.jsx",
     "TaskRow": "components/TaskRow.jsx",
     "TierCard": "components/TierCard.jsx",
-    "TopNav": "components/TopNav.jsx"
+    "TopNav": "components/TopNav.jsx",
+    "SunArc": "components/SunArc.jsx",
+    "TodayScreen": "components/TodayScreen.jsx",
+    "StayScreen": "components/StayScreen.jsx"
   },
   "dtsPropsFor": {
     "Button": "children?: React.ReactNode; content?: React.ReactNode; type?: 'primary' | 'secondary' | 'clear'; size?: 'xs' | 'sm' | 'md' | 'lg'; radius?: 'rounded' | 'square'; bindu?: boolean; iconLeft?: React.ReactNode; iconRight?: React.ReactNode; dropdown?: boolean; fullWidth?: boolean; disabled?: boolean; state?: 'hover' | 'focus' | 'disabled'; htmlType?: 'button' | 'submit' | 'reset'; onClick?: (e: React.MouseEvent) => void; style?: React.CSSProperties;",
@@ -46,7 +49,7 @@
     "ProgressDots": "total?: number; active?: number; style?: React.CSSProperties;",
     "Tabs": "tabs?: Array<string | { label: string; value?: string; icon?: React.ReactNode; disabled?: boolean }>; value?: string; defaultValue?: string; onChange?: (value: string) => void; scrollable?: boolean; ariaLabel?: string; style?: React.CSSProperties;",
     "Card": "eyebrow?: React.ReactNode; title?: React.ReactNode; subtitle?: React.ReactNode; image?: string; scriptLabel?: React.ReactNode; stamp?: { script?: string; label?: string }; photoHeight?: number; children?: React.ReactNode; onClick?: (e: React.MouseEvent) => void; style?: React.CSSProperties;",
-    "LetterCard": "subtitle?: React.ReactNode; quote?: React.ReactNode; note?: React.ReactNode; blockHeight?: number; style?: React.CSSProperties;",
+    "LetterCard": "subtitle?: React.ReactNode; title?: React.ReactNode; quote?: React.ReactNode; note?: React.ReactNode; blockHeight?: number; style?: React.CSSProperties;",
     "KeyCard": "label?: React.ReactNode; code?: React.ReactNode; note?: React.ReactNode; actionLabel?: React.ReactNode; onShare?: () => void; style?: React.CSSProperties;",
     "List": "children?: React.ReactNode; gap?: number; style?: React.CSSProperties;",
     "ListItem": "title?: React.ReactNode; subtitle?: React.ReactNode; subtitleVariant?: 'body' | 'editorial'; leading?: React.ReactNode; trailing?: React.ReactNode; variant?: 'plain' | 'card'; selected?: boolean; disabled?: boolean; filled?: boolean; divider?: boolean; onClick?: () => void; style?: React.CSSProperties;",
@@ -62,7 +65,10 @@
     "NamingStat": "label?: React.ReactNode; value?: React.ReactNode; caption?: React.ReactNode; surface?: string;",
     "PhaseHeader": "children?: React.ReactNode; tone?: 'danger' | 'terracotta' | 'forest' | 'olive' | 'ink';",
     "ScoreCard": "label?: React.ReactNode; value?: React.ReactNode; score?: number; caption?: React.ReactNode; surface?: string;",
-    "TierCard": "accent?: 'terracotta' | 'forest' | 'olive' | 'bindu'; title?: React.ReactNode; value?: React.ReactNode; body?: React.ReactNode; surface?: string;"
+    "TierCard": "accent?: 'terracotta' | 'forest' | 'olive' | 'bindu'; title?: React.ReactNode; value?: React.ReactNode; body?: React.ReactNode; surface?: string;",
+    "SunArc": "sunrise?: string; sunset?: string; sunriseLabel?: string; sunsetLabel?: string; progress?: number; caption?: React.ReactNode; style?: React.CSSProperties;",
+    "TodayScreen": "name?: string; state?: 'morning' | 'evening'; style?: React.CSSProperties;",
+    "StayScreen": "onBack?: () => void; style?: React.CSSProperties;"
   },
   "readmeHeader": ".design-sync/conventions.md"
 }
